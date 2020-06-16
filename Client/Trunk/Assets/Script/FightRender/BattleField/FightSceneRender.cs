@@ -19,7 +19,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
     public override void OnCreate()
     {
         _listReport = new List<FightReport>();
-        dicFightRole = new Dictionary<string, FightRoleRender>();
+        dicFightRole = new Dictionary<int, FightRoleRender>();
 
         if (FightScene.Instance.compBehaviour != null)
         {

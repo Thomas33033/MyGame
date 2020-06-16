@@ -13,6 +13,8 @@ public class FightRoleRender : RoleRender
 
     public Animator animator;
 
+    public Transform transform;
+
     private float _actionTime_attack;
     private float _actionTime_skill;
     private bool isDie;
@@ -66,7 +68,7 @@ public class FightRoleRender : RoleRender
         }
     }
 
-    public void LoadNpc(string npcAsset)
+    public void LoadNpc(string npcAsset,Vector3 position)
     {
         GameObject obj = ResourcesManager.LoadAsset<GameObject>(npcAsset);
         if (obj == null)
@@ -74,17 +76,22 @@ public class FightRoleRender : RoleRender
             npcAsset = "Default";
             obj = ResourcesManager.LoadAsset<GameObject>(npcAsset);
         }
+        animator = obj.GetComponent<Animator>();
 
         //animator.runtimeAnimatorController = LoadTools.LoadRoleAnimator("RoleNpc", npcAsset);
 
-        //MeshRenderer meshRenderer = obj.GetComponent<MeshRenderer>();
-        //SkeletonAnimation skeletonAnimation = obj.GetComponent<SkeletonAnimation>();
+        string path = string.Format("{0}/{1}.prefab", ResPathHelper.UI_WINDOW_PATH, "UIRoot3D");
 
-        //skeletonAnimator.skeletonDataAsset = skeletonAnimation.SkeletonDataAsset;
-        //skeletonAnimator.GetComponent<MeshRenderer>().material = meshRenderer.sharedMaterial;
+        var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(path);
+        CObjectPool<ModelPoolObj> modelPool = pool;
+        ModelPoolObj modelPoolObj = modelPool.GetObject();
+        ui = modelPoolObj.itemObj.GetComponent<FightRoleUI>();
+        ui.transform.position = transform.Find("head").transform.position;
+        ui.transform.localPosition = new Vector3(0, 1, 0);
 
-        //ui = LoadTools.LoadGameObject("Fight3D", "FightSCRoleUIInfo", Fight3D.instance.rootUI.gameObject).GetComponent<FightSCRoleUIInfo>();
-        //ui.transform.position = transform.position;
+        //创建头顶UI
+        
+        ui.transform.position = transform.position;
 
     }
 

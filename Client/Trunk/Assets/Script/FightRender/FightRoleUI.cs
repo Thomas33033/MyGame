@@ -9,8 +9,6 @@ public class FightRoleUI : MonoBehaviour
     public Image imgHp;
     public Image imgMp;
 
-    public Image imgHpBg;
-
     public int hpMax;
     public int mpMax;
 
@@ -25,11 +23,6 @@ public class FightRoleUI : MonoBehaviour
         this.hpMax = hpMax;
         this.mpMax = mpMax;
 
-        imgHp.fillOrigin = isSelf ? (int)Image.OriginHorizontal.Left : (int)Image.OriginHorizontal.Right;
-        imgMp.fillOrigin = isSelf ? (int)Image.OriginHorizontal.Left : (int)Image.OriginHorizontal.Right;
-
-        //var sprite = LoadTools.LoadAtlasSprite("Atlas_Fight", isSelf ? "X_Bg_xt07" : "X_Bg_xt05");
-        //imgHpBg.sprite = sprite;
 
         gameObject.SetActive(false);
     }
