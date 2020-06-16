@@ -71,7 +71,7 @@ public class FightRoleRender : RoleRender
         GameObject obj = ResourcesManager.LoadAsset<GameObject>(npcAsset);
         if (obj == null)
         {
-            npcAsset = "luliya";
+            npcAsset = "Default";
             obj = ResourcesManager.LoadAsset<GameObject>(npcAsset);
         }
 

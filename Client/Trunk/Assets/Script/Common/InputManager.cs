@@ -131,7 +131,7 @@ public class InputManager : MonoBehaviour
 
             //BuildManager.DragNDropBuilt(this.fightBuildData, costNodeIDs);
             //this.dragTower.InitTower(0);
-
+            FightSceneRender f = FightSceneRender.Instance;
         }
         else
         {

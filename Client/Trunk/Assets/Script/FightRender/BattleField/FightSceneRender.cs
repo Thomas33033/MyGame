@@ -12,16 +12,14 @@ public class FightSceneRender : Singleton<FightSceneRender>
     private Dictionary<string, System.Action<FightReport>> dicReportHandler;
     private List<FightReport> _listReport;
 
-    
+    public Dictionary<int, FightRoleRender> dicFightRole;
 
-    public float GetTime()
-    {
-        return Time.realtimeSinceStartup;
-    }
+    private FightSceneRender(){}
 
-    public FightSceneRender()
+    public override void OnCreate()
     {
         _listReport = new List<FightReport>();
+        dicFightRole = new Dictionary<string, FightRoleRender>();
 
         if (FightScene.Instance.compBehaviour != null)
         {
@@ -29,6 +27,11 @@ public class FightSceneRender : Singleton<FightSceneRender>
         }
 
         RegisterFightReport();
+    }
+    
+    public float GetTime()
+    {
+        return Time.realtimeSinceStartup;
     }
 
 
@@ -81,6 +84,36 @@ public class FightSceneRender : Singleton<FightSceneRender>
     {
         FightReportRoleCreate report = v as FightReportRoleCreate;
 
+        FightRoleRender roleRender = new FightRoleRender();
+        roleRender.LoadNpc(report.heroData.Resource);
+        roleRender.SetHpMax(report.heroData.HP);
+        roleRender.SetMpMax(report.heroData.MP);
+
+        FightHeroData roleData = report.heroData;
+
+        dicFightRole[roleData.roleId] = roleRender;
+
+        string asset = "";
+        for (int i = 0; i < roleData.SkillData.Length; i++)
+        {
+            if (StaticData.dicSkillInfo.ContainsKey(roleData.SkillData[i].skillID) == false)
+                continue;
+
+            FightSkillInfo skillInfo = StaticData.dicSkillInfo[roleData.SkillData[i].skillID];
+
+            if (string.IsNullOrEmpty(skillInfo.Resources.Trim()) == false)
+            {
+                asset = skillInfo.Resources;
+                ObjectPoolManager.Instance.CreateAsyncPool<EffectPoolObj>(asset);
+            }
+
+            if (string.IsNullOrEmpty(skillInfo.MagicEffect.Trim()) == false)
+            {
+                asset = skillInfo.MagicEffect;
+
+                ObjectPoolManager.Instance.CreateAsyncPool<EffectPoolObj>(asset);
+            }
+        }
     }
 
 

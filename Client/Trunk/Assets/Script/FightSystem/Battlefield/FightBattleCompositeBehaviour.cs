@@ -59,9 +59,7 @@ namespace Fight
             for (int i = 0; i < fightPlayerData.heroData.Length; i++)
             {
                 int p = fightPlayerData.heroData[i].Position;
-
-                p = 28 + p % 4 - p / 4 * 4;
-
+                
                 composite.AddRoleOnBattleField(fightTeam.id, battleField.id, fightPlayerData.heroData[i], p, false);
             }
         }

@@ -64,6 +64,7 @@ namespace Fight
         public int GunCrit;
         public int GunHit;
         public int HP;
+        public int MP;
         public int CurMp;
         public float CurHp;
         public int Level;

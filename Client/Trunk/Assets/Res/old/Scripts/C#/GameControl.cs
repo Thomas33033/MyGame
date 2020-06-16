@@ -127,7 +127,7 @@ public class GameControl : MonoBehaviour {
 
         fightScene.InitFight(FightType.ConmmFight, fightdata);
 
-        FightSceneRender sceneRender = new FightSceneRender();
+		FightSceneRender sceneRender = FightSceneRender.Instance;
     }
 	
 	void OnDisable()

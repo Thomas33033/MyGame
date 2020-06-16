@@ -166,6 +166,12 @@ namespace Fight
             fightRole.site = site;
             listAllRoles.Add(fightRole);
             battleField.AddRole(fightRole, battleField.listHex[site]);
+
+            fightRole.PrepareFight();
+
+            FightReportRoleCreate report = new FightReportRoleCreate(Time, fightRole.teamId, roleData, battlefieldId);
+            listReport.Add(report);
+
             return true;
         }
 

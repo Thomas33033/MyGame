@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Singleton<T> where T : class,new()
+public class Singleton<T> where T : class
 {
     public static List<T> curInstanceList = new List<T>();
     private static T _instance;
@@ -24,7 +25,7 @@ public class Singleton<T> where T : class,new()
                 {
                     if (_instance == null)
                     {
-                        _instance = new T();
+                        _instance = (T)Activator.CreateInstance(typeof(T), true);
                         curInstanceList.Add(_instance);
                     }
                 }
