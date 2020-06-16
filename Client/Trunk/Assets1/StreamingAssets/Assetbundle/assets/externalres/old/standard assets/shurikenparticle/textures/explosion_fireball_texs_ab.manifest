@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 4116320599
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0c52232e4138c7b42010719cc50f7f07
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f19fbf085e00d23fbc8d6cf7b345590b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/ExternalRes/old/Standard Assets/ShurikenParticle/Textures/Explosion_Fireball_TexS.png
+Dependencies: []

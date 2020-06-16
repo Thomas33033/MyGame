@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 528373796
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6bf34f8b42efb23cb589326c296d0aac
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f19fbf085e00d23fbc8d6cf7b345590b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/ExternalRes/old/Mats&Textures/Fireball.psd
+Dependencies: []

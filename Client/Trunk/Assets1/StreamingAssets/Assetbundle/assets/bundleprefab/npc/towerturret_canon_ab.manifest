@@ -1,0 +1,41 @@
+ManifestFileVersion: 0
+CRC: 722458061
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 301035027363d4fb96727eccbd27eb24
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d9d4d9cbf3e1c7e6be6a0b4502676911
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1fbe6e6b2cb2d4ead911fc6134ee6c34, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundlePrefab/NPC/TowerTurret_Canon.prefab
+Dependencies:
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/bundleres/audio/canontowershoot_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/bundleres/ui/atals/towericons_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/externalres/old/mats&textures/materials/red_ab

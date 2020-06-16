@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 2653407104
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 01c06e3bf330b415f11a58d1c041e8b7
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a15026e7645264409a88f84f584030a1
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/ExternalRes/9AnimatedWarriors/Materials/Warrior_lvl2_01_diffuse.mat
+Dependencies: []

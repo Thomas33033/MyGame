@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 3893631008
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5c2c00975882b74e4cb5b7ee41fc4a3b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2164263bd948184a9373784f776f453a
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/ExternalRes/9AnimatedWarriors/Materials/Warrior_lvl1_03.mat
+Dependencies:
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/externalres/9animatedwarriors/textures/warrior_lvl1_03_diffuse_ab

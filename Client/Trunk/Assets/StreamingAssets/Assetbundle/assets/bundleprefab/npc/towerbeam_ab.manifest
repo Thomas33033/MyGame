@@ -1,0 +1,41 @@
+ManifestFileVersion: 0
+CRC: 3361585331
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c917a605890d06857361cda76c0bd0c4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2a82eeac9c8f905bfe5058d78937b07d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: def1593b2f69eb04bb68524e538cbeec, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1fbe6e6b2cb2d4ead911fc6134ee6c34, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundlePrefab/NPC/TowerBeam.prefab
+Dependencies:
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/bundleres/audio/lasertowershoot_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/bundleres/ui/atals/towericons_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/externalres/old/mats&textures/materials/orange_ab

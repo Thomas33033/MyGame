@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3928282045
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e8b661b4f7de03eb92c5a935b07ef716
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f19fbf085e00d23fbc8d6cf7b345590b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/ExternalRes/old/Mats&Textures/Red.png
+Dependencies: []

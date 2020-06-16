@@ -1,0 +1,49 @@
+ManifestFileVersion: 0
+CRC: 2545289006
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0863cfbddccce8a72da21e6f3bb3a7cc
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ffde8af8dccce794724bb4daef86cbbf
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 45163d8c718ed45ec92e65f6c01c4332, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundlePrefab/NPC/CreepSplitting_small.prefab
+Dependencies:
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/bundleres/audio/unitdestroyed_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/bundleprefab/effect/explosion_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/client/animation/hit2_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/client/animation/spinjump_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/externalres/old/mats&textures/materials/orange_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/client/animation/hit1_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/client/animation/hop_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/client/animation/flipscore_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/bundleprefab/npc/creep_2_ab

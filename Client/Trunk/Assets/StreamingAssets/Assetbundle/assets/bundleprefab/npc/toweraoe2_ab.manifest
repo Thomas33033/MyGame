@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 2439194944
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 45e9ede75463f602efc8b6f21bf52328
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c8dcd5bf644f0736b90a99b6b530dedc
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1fbe6e6b2cb2d4ead911fc6134ee6c34, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundlePrefab/NPC/TowerAOE2.prefab
+Dependencies:
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/bundleres/ui/atals/towericons_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/externalres/old/mats&textures/materials/smoothgreen_ab

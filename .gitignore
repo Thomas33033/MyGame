@@ -1,0 +1,13 @@
+
+Client/Trunk/.vs/
+Client/Trunk/Library/
+Client/Trunk/Logs/
+Client/Trunk/Packages/
+Client/Trunk/PersistentData/
+Client/Trunk/Tools/
+Client/Trunk/obj/
+Client/Trunk/Temp/
+*.csproj
+*.sln
+
+

@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1116907945
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b2fbcfb28563dee020caca11eb244689
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f19fbf085e00d23fbc8d6cf7b345590b
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/ExternalRes/old/Mats&Textures/Trail2.jpg
+Dependencies: []

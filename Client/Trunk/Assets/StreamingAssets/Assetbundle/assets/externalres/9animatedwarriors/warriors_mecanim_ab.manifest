@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 3028159148
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ff3b6178b240c46c1801ba2def19bb29
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4e8e0b579007764692e505d99fdd5012
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+Assets:
+- Assets/ExternalRes/9AnimatedWarriors/Warriors_mecanim.FBX
+Dependencies: []

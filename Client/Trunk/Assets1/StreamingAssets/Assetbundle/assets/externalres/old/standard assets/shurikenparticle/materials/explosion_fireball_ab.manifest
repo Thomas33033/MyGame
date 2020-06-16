@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 2923750242
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 8712955fe593cb9a7b0e5de3c3c88c35
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2164263bd948184a9373784f776f453a
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/ExternalRes/old/Standard Assets/ShurikenParticle/Materials/Explosion_Fireball.mat
+Dependencies:
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/externalres/old/standard
+  assets/shurikenparticle/shaders/particle add_ab
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/externalres/old/standard
+  assets/shurikenparticle/textures/explosion_fireball_texs_ab

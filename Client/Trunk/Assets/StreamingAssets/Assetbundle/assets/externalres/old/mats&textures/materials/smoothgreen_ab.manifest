@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 3655252645
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 12c4c82e84c5bfbf8c8ee5ea2cee4052
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a15026e7645264409a88f84f584030a1
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/ExternalRes/old/Mats&Textures/Materials/SmoothGreen.mat
+Dependencies: []

@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 971805100
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 922d47bb2d86e7b999868649177c59d4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: fdf6c57a251b9f6ec27bdd2fe01b033c
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+Assets:
+- Assets/ExternalRes/9AnimatedWarriors/Warriors_cotrollers.controller
+Dependencies:
+- D:/UnityWorkspace/MyGame/Test/Assets/../Download/Win/Assetbundle/assets/externalres/9animatedwarriors/warriors_mecanim_ab

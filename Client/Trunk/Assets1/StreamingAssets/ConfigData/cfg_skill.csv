@@ -1,0 +1,6 @@
+uId|baseId|level|name|resName|icon|buildType|pdamage_percent|pdamage_value|mdamage_percent|mdamage_value|targetnum|colddown|attackrange|targetType|damagetarget|trap|flag|addbuff|starbuff|pasvbuff|upgradecost|order|soundName|soundStartTime
+Int|Int|Int|String|String|String|Int|String|String|String|String|Int|Int|Int|Int|String|String|Int|String|String|String|String|Int|String|Float
+1001|1|1|普通攻击|ShootObject_Basic|TowerIcon1|1|100,0|0,2|45,0|0,5|1|550|10|2|center:1, radius:5, targetnum:1|null|0|31,131|null|null|1,0,20|1|CanonTowerShoot|0
+2001|2|1|普通攻击|ShootObject_Basic|TowerIcon2|2|100,0|0,2|45,0|0,5|2|550|10|2|center:1, radius:5 targetnum:1|null|0|31,131|null|null|1,0,20|1|LaserTowerShoot|0
+3001|3|1|普通攻击|ShootObject_Basic|TowerIcon3|3|100,0|0,2|45,0|0,5|3|550|10|2|center:1, radius:5 targetnum:1|null|0|31,131|null|null|1,0,20|1|MGTowerShoot|0
+4001|4|1|普通攻击|ShootObject_Basic|TowerIcon4|4|100,0|0,2|45,0|0,5|4|550|10|2|center:1, radius:5 targetnum:1|null|0|31,131|null|null|1,0,20|1|MGTowerShoot2|0

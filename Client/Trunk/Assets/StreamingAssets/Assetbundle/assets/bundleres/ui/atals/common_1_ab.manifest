@@ -1,0 +1,35 @@
+ManifestFileVersion: 0
+CRC: 1859092075
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 69cfc9b4703dc85e513f513b419307a8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cb3f6df5cbc4a2990c44c2787bc9553a
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/BundleRes/UI/Atals/Common_1/MenuPressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/PauseUnpressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/NextlvlUnpressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/SpawnUnpressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/SellUnpressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/BoxSmall.psd
+- Assets/BundleRes/UI/Atals/Common_1/UpgradeUnpressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/MenuUnpressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/FFPressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/SpawnPressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/UpgradePressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/Nextlvlpressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/SellPressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/PausePressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/FFUnpressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/RestartPressed.psd
+- Assets/BundleRes/UI/Atals/Common_1/Box.psd
+- Assets/BundleRes/UI/Atals/Common_1/RestartUnpressed.psd
+Dependencies: []
