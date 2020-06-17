@@ -1,4 +1,0 @@
-uId|resName|level|icon|buildType|decription
-Int|String|Int|String|Int|String
-1001|银子|1|icon_1|1|可以买装备、种子、工具、望远镜
-1002|金子|1|icon_2|2|可以塔、田地等
