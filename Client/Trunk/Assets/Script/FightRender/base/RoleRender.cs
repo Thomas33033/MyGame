@@ -2,6 +2,7 @@
 using UnityEditor;
 using System.Collections.Generic;
 using Fight;
+using FightCommom;
 
 public class RoleRender : MonoBehaviour
 {

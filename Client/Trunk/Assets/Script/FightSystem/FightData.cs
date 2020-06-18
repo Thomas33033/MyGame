@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using FightCommom;
 
 namespace Fight
 {
+
+
 
     public class FightData
     {
@@ -24,6 +27,8 @@ namespace Fight
         public FightPlayerInfo userData;
         public FightHeroData[] heroData;
         public FightSkillData[] teamSkills;
+
+
     }
 
     public class FightPlayerInfo
@@ -50,7 +55,8 @@ namespace Fight
         public string AttackRes;
         public string Tag;
 
-        public int Position;
+        public int NodeId;
+        public string Position;
         public string CostNodes;
         public int PlatformId;
 

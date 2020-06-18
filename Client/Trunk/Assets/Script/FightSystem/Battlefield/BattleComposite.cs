@@ -61,7 +61,9 @@ namespace Fight
 
                 if (fightRole.type == RoleType.Fighter)
                 {
-                    FightReportRoleAdd report = new FightReportRoleAdd(0, fightRole.teamId, fightRole.uid, (int)fightRole.type, fightRole.id, fightRole.GetBattlefield().id, fightRole.hpMax, fightRole.mpMax, fightRole.position.ToArray());
+                    FightReportRoleAdd report = new FightReportRoleAdd(0, fightRole.teamId, fightRole.uid, 
+                        (int)fightRole.type, fightRole.id, fightRole.GetBattlefield().id,
+                        fightRole.hpMax, fightRole.mpMax, fightRole.position.ID, "");
                     report.hp = fightRole.hpMax;
                     report.mp = fightRole.mpMax;
                     listReport.Add(report);
@@ -165,7 +167,7 @@ namespace Fight
             fightRole.isPlayer = isPlayer;
             fightRole.site = site;
             listAllRoles.Add(fightRole);
-            battleField.AddRole(fightRole, battleField.listHex[site]);
+            battleField.AddRole(fightRole,site);
 
             fightRole.PrepareFight();
 
@@ -175,7 +177,7 @@ namespace Fight
             return true;
         }
 
-        public bool SummonFighter(int battlefield, Role attacker, float attrScale, MapGrid position, FightSkillData[] skills, string npcAsset)
+        public bool SummonFighter(int battlefield, Role attacker, float attrScale, int position, FightSkillData[] skills, string npcAsset)
         {
             AttributeData attr = attacker.AttributeData * attrScale;
             attr.moveSpeed = attacker.AttributeData.moveSpeed;
@@ -189,7 +191,8 @@ namespace Fight
             listAllRoles.Add(fightRole);
             battleField.AddRole(fightRole, position);
 
-            FightReportSummon report = new FightReportSummon(Time, fightRole.teamId, (int)fightRole.type, fightRole.id, fightRole.GetBattlefield().id, fightRole.hpMax, fightRole.mpMax, fightRole.position.ToArray(), npcAsset);
+            FightReportSummon report = new FightReportSummon(Time, fightRole.teamId, (int)fightRole.type, fightRole.id, 
+                fightRole.GetBattlefield().id, fightRole.hpMax, fightRole.mpMax, fightRole.position.ID, npcAsset);
 
             fightRole.PrepareFight();
 

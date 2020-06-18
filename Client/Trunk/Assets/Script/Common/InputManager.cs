@@ -1,4 +1,5 @@
 ﻿using Fight;
+using FightCommom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,17 +122,18 @@ public class InputManager : MonoBehaviour
             this.dragTower.transform.GetComponent<Collider>().enabled = true;
 
             this.fightBuildData.CostNodes =  string.Join("-",costNodeIDs);
-            this.fightBuildData.Position = BuildManager.GetBuildPosition();
+            Node node = BuildManager.GetBuildPosition();
+            this.fightBuildData.Position = node.pos.ToString();
+            this.fightBuildData.NodeId = node.ID;
+
 
             //通知场景创建建筑
             //GameObject.Destroy(this.dragTower);
             //BuildManager.ClearBuildPoint();
-
-            FightScene.Instance.CreateRole(this.fightBuildData);
-
             //BuildManager.DragNDropBuilt(this.fightBuildData, costNodeIDs);
             //this.dragTower.InitTower(0);
-            FightSceneRender f = FightSceneRender.Instance;
+
+            FightScene.Instance.CreateRole(this.fightBuildData);
         }
         else
         {

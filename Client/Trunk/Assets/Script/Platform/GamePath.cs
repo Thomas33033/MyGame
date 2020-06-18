@@ -16,7 +16,7 @@ public class GamePath : MonoBehaviour {
 	
 	private Transform thisT;
 	
-	private List<PathSection> path=new List<PathSection>();
+	private List<PathSection> path = new List<PathSection>();
 	
 	void Awake()
     {
@@ -29,12 +29,15 @@ public class GamePath : MonoBehaviour {
         {
 			Transform wp=waypoints[i];
 			
-			if(wp.gameObject.layer == LayerManager.LayerPlatform())
-            {
-				Platform platform = wp.gameObject.GetComponent<Platform>();
+			Platform platform = wp.gameObject.GetComponent<Platform>();
+			if (platform != null)
+			{
 				path.Add(new PathSection(platform));
 			}
-			else path.Add(new PathSection(wp.position));
+			else
+			{
+				path.Add(new PathSection(wp.position));
+			}
 		}
 		
 		for(int i=0; i<path.Count; i++)
@@ -156,11 +159,11 @@ public class GamePath : MonoBehaviour {
         {
             Transform wp = waypoints[i];
 
-            if (wp.gameObject.layer == LayerManager.LayerPlatform())
-            {
-                Platform platform = wp.gameObject.GetComponent<Platform>();
-                return platform;
-            }
+            Platform platform = wp.gameObject.GetComponent<Platform>();
+			if (platform != null)
+			{
+				return platform;
+			}
         }
         return null;
     }

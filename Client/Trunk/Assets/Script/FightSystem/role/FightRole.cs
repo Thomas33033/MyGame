@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FightCommom;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Fight
 {
@@ -26,20 +28,20 @@ namespace Fight
                     if (listEnemy[j].StatusCheck(RoleStatus.Unselected))
                         continue;
 
-                    if (range > 1 || listEnemy[j].position.Subtract(position).Length() <= range)
+                    if (range > 1 || listEnemy[j].position.Distance(position) <= range)
                     {
                         target = listEnemy[j];
                         break;
                     }
 
-                    List<MapGrid> listHex = battleField.GetAround(listEnemy[j].position);
+                    List<Node> listHex = battleField.GetAround(listEnemy[j].position);
                     listHex.Sort(SortHexDistanceHandler);
 
                     bool flag = false;
 
                     for (int i = 0; i < listHex.Count; i++)
                     {
-                        Stack<MapGrid> paths = battleField.GetMoveHex(position, listHex[i], true);
+                        List<Vector3> paths = battleField.GetMoveHex(position, listHex[i], true);
 
                         if (paths.Count > 0)
                         {
@@ -64,16 +66,16 @@ namespace Fight
             if (h1 != h2)
                 return h1.CompareTo(h2);
 
-            int a1 = position.Distance(x.position);
-            int a2 = position.Distance(y.position);
+            float a1 = position.Distance(x.position);
+            float a2 = position.Distance(y.position);
 
             if (a1 != a2)
             {
                 return a1.CompareTo(a2);
             }
 
-            int d1 = Math.Abs(x.position.q - position.q);
-            int d2 = Math.Abs(y.position.q - position.q);
+            float d1 = Math.Abs(x.position.pos.z - position.pos.z);
+            float d2 = Math.Abs(y.position.pos.z - position.pos.z);
 
             return d1.CompareTo(d2);
         }
@@ -156,10 +158,10 @@ namespace Fight
             //}
         }
 
-        protected int SortHexDistanceHandler(MapGrid x, MapGrid y)
+        protected int SortHexDistanceHandler(Node x, Node y)
         {
-            int a1 = position.Distance(x);
-            int a2 = position.Distance(y);
+            float a1 = position.Distance(x);
+            float a2 = position.Distance(y);
             return a1.CompareTo(a2);
         }
 

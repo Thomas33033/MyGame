@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FightCommom;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Fight {
@@ -28,7 +29,7 @@ namespace Fight {
             return listEnemy;
         }
 
-        public MapGrid position;
+        public Node position;
         private int SortFindEnemy(Role x, Role y)
         {
             bool h1 = x.StatusCheck(RoleStatus.Hide);
@@ -36,15 +37,15 @@ namespace Fight {
             if (h1 != h2)
                 return -h1.CompareTo(h2);
 
-            int d1 = x.position.Subtract(position).Length();
-            int d2 = y.position.Subtract(position).Length();
+            float d1 = x.position.Distance(position);
+            float d2 = y.position.Distance(position);
             if (d1 != d2)
             {
                 return d1.CompareTo(d2);
             }
 
-            d1 = Mathf.Abs(x.position.q - position.q);
-            d2 = Mathf.Abs(y.position.q - position.q);
+            d1 = Mathf.Abs(x.position.pos.z - position.pos.z);
+            d2 = Mathf.Abs(y.position.pos.z - position.pos.z);
 
             return d1.CompareTo(d2);
 

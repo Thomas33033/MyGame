@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Fight;
+using FightCommom;
 
 public class BuildManager : MonoBehaviour {
 
@@ -36,7 +37,6 @@ public class BuildManager : MonoBehaviour {
 		
 		gridSize=Mathf.Clamp(gridSize, 0.5f, 3.0f);
 		_gridSize=gridSize;
-        IndicatorController.Instance.OnInit(_gridSize);
         InitPlatform();
 
         UIManager.Instance.ShowUI<UI_Main>("UI_Main");
@@ -373,7 +373,7 @@ public class BuildManager : MonoBehaviour {
 		return false;
 	}
 
-    public static int GetBuildPosition()
+    public static Node GetBuildPosition()
     {
         return currentBuildInfo.platform.GetPostion();
     }

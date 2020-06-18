@@ -13,14 +13,16 @@ public class FightReportRoleAdd : FightReport
 
     public int mp;
 
-    public int[] position;
+    public int posId;
+
+    public string assetName;
 
     public FightReportRoleAdd()
     {
     }
 
     public FightReportRoleAdd(float time, int playerId, int crewUID, int roleType, 
-        int roleId, int battlefield, int hp, int mp, int[] position) : 
+        int roleId, int battlefield, int hp, int mp, int posId, string assetName) : 
         base(playerId, ReportType.RoleAdd.ToString(), time)
     {
         this.battlefield = battlefield;
@@ -31,6 +33,8 @@ public class FightReportRoleAdd : FightReport
         this.hp = hp;
         this.mp = mp;
 
-        this.position = position;
+        this.posId = posId;
+
+        this.assetName = assetName;
     }
 }

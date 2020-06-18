@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FightCommom;
+using System.Collections.Generic;
 
 namespace Fight
 {
@@ -12,13 +13,13 @@ namespace Fight
 
         public int range;
 
-        public MapGrid position;
+        public Node position;
 
         public float delay;
 
         private float _time;
 
-        public FightBombData(Role role, int damageId, int level, int range, MapGrid position, float delay)
+        public FightBombData(Role role, int damageId, int level, int range, Node position, float delay)
         {
             this.role = role;
             this.damageId = damageId;

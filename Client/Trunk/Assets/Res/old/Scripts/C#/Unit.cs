@@ -170,7 +170,7 @@ public class Unit : MonoBehaviour {
 		
 		Vector3 pos=thisT.TransformPoint(0, 0, BuildManager.GetGridSize());
 		
-		PathFinder.GetPath(pos, subPath[subPath.Count-1], currentPS.platform.GetNodeGraph(), this.SetSubPath);
+		//PathFinder.GetPath(pos, subPath[subPath.Count-1], currentPS.platform.GetNodeGraph(), this.SetSubPath);
 		//PathFinder.GetPath(thisT.position, subPath[subPath.Count-1], currentPS.platform.GetNodeGraph(), this.SetSubPath);
 	}
 	

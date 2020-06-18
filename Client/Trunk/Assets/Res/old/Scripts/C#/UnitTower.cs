@@ -1023,9 +1023,9 @@ public class UnitTower : Unit {
 	private OccupiedPlatform occupiedPlatform;
 	
 	//set a parent platform and node to this tower when it's build on a walkable platform
-	public void SetPlatform(Platform platform, Node node){
-		occupiedPlatform=new OccupiedPlatform(platform, node);
-	}
+	//public void SetPlatform(Platform platform, Node node){
+	//	occupiedPlatform=new OccupiedPlatform(platform, node);
+	//}
 	
 	public bool IsBuilt(){
 		return built;

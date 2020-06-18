@@ -1,4 +1,5 @@
 ﻿
+using FightCommom;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Fight
@@ -32,7 +33,7 @@ namespace Fight
 
         public float Time;
 
-        public MapGrid position;
+        public Node position;
 
         private int _hp;
         public virtual int hp { get => _hp; set => _hp = value; }
@@ -274,25 +275,25 @@ namespace Fight
 
         }
 
-        protected bool MoveTo(MapGrid grid, bool isToWeapon = false)
+        protected bool MoveTo(Node grid)
         {
-            if (battleField.CheckMove(grid, !isToWeapon))
+            if (battleField.CheckMove(grid))
             {
                 battleField.RoleMove(this, grid);
                 actionEndTime = Time + moveSpeed / 200f;
-                AddReport(new FightReportRoleMove(Time, teamId, id, battleField.id, actionEndTime, position.ToArray()));
+                AddReport(new FightReportRoleMove(Time, teamId, id, battleField.id, actionEndTime, grid.ID));
                 return true;
             }
             return false;
         }
 
-        public void JumpTo(MapGrid grid)
+        public void JumpTo(Node grid)
         {
             if (battleField.CheckMove(grid) == false)
                 return;
-            battleField.RoleMove(this, grid);
+             battleField.RoleMove(this, grid);
             actionEndTime = Time + 1.5f;
-            AddReport(new FightReportRoleJump(Time, teamId, id, battleField.id, actionEndTime, position.ToArray()));
+            AddReport(new FightReportRoleJump(Time, teamId, id, battleField.id, actionEndTime, grid.ID));
         }
 
         #region Damage
@@ -486,11 +487,11 @@ namespace Fight
         {
             get
             {
-                if (position.s > 0)
-                    return 1;
+                //if (position.s > 0)
+                //    return 1;
 
-                if (position.s == 0 && position.r <= 0)
-                    return 1;
+                //if (position.s == 0 && position.r <= 0)
+                //    return 1;
 
                 return -1;
             }

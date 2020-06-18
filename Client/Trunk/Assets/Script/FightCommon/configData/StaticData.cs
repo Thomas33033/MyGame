@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Fight
 {
@@ -35,7 +36,6 @@ namespace Fight
 
         private static Dictionary<int, T> LoadDictionary<T>(string name) where T : IStaticData
         {
-            //Debug.Log("LoadDictionary:" + name);
             T[] list = SimpleJson.SimpleJson.DeserializeObject<T[]>(LoadJson(name));
 
             Dictionary<int, T> result = new Dictionary<int, T>();
@@ -48,16 +48,23 @@ namespace Fight
             return result;
         }
 
-        private static List<T> LoadList<T>(string name)
+        public static List<T> LoadList<T>(string name)
         {
             return new List<T>(SimpleJson.SimpleJson.DeserializeObject<T[]>(LoadJson(name)));
-            //JsonConvert.DeserializeObject<List<T>>(LoadJson(name));
         }
 
         private static string LoadJson(string name)
         {
-            return ResourcesManager.LoadTextFile(name+"");
-            //return LoadTools.LoadTextAsset("Fight3D", name).text;
+            string filePath = "Assets/BundleRes/Config/" + name;
+            string content = ResourcesManager.LoadTextFile(filePath);
+            
+            return "[]";
+        }
+
+        public static void SaveData(string name, string jsonData)
+        {
+            string filePath = Path.Combine(Application.dataPath, "BundleRes/Config/", name);
+            File.WriteAllText(filePath, jsonData, System.Text.Encoding.UTF8);
         }
 
         public static FightBuffInfo GetBuffInfo(int buffId, int level)

@@ -27,7 +27,7 @@ namespace Fight
             composite = new BattleComposite();
             composite.fightType = fightType;
 
-            BattleField battleField = new BattleField(1, "BattleField");
+            BattleField battleField = new BattleField(1, "BattleField", fightData.battleFieldData);
             composite.AddBattleField(battleField);
 
             InitPlayer(fightType, _fightData.selfBattleData, battleField);
@@ -44,7 +44,7 @@ namespace Fight
 
             for (int i = 0; i < fightPlayerData.heroData.Length; i++)
             {
-                int p = fightPlayerData.heroData[i].Position;
+                int p = fightPlayerData.heroData[i].NodeId;
 
                 composite.AddRoleOnBattleField(fightTeam.id, battleField.id, fightPlayerData.heroData[i], p, true);
             }
@@ -58,7 +58,7 @@ namespace Fight
 
             for (int i = 0; i < fightPlayerData.heroData.Length; i++)
             {
-                int p = fightPlayerData.heroData[i].Position;
+                int p = fightPlayerData.heroData[i].NodeId;
                 
                 composite.AddRoleOnBattleField(fightTeam.id, battleField.id, fightPlayerData.heroData[i], p, false);
             }
@@ -125,7 +125,7 @@ namespace Fight
 
         public void RoleAdd(FightHeroData heroData,int teamId, int battleFieldId)
         {
-            composite.AddRoleOnBattleField(teamId, battleFieldId, heroData, heroData.Position, false);
+            composite.AddRoleOnBattleField(teamId, battleFieldId, heroData, heroData.NodeId, false);
         }
     }
 }

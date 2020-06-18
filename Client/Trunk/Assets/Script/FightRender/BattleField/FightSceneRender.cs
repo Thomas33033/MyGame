@@ -1,4 +1,5 @@
 ﻿using Fight;
+using LuaInterface;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,17 +10,21 @@ using UnityEngine;
 public class FightSceneRender : Singleton<FightSceneRender>
 {
     public GameObject rootUI;
+
     private Dictionary<string, System.Action<FightReport>> dicReportHandler;
+
     private List<FightReport> _listReport;
 
     public Dictionary<int, FightRoleRender> dicFightRole;
 
+    public BattleFieldRender battleFieldRender;
     private FightSceneRender(){}
 
     public override void OnCreate()
     {
         _listReport = new List<FightReport>();
         dicFightRole = new Dictionary<int, FightRoleRender>();
+        battleFieldRender = new BattleFieldRender();
 
         if (FightScene.Instance.compBehaviour != null)
         {
@@ -80,16 +85,17 @@ public class FightSceneRender : Singleton<FightSceneRender>
         dicReportHandler.Add(ReportType.TeamReady.ToString(), DoReport_TeamReady);
     }
 
+   
     private void DoReport_RoleCreate(FightReport v)
     {
         FightReportRoleCreate report = v as FightReportRoleCreate;
+        FightHeroData roleData = report.heroData;
 
         FightRoleRender roleRender = new FightRoleRender();
-        roleRender.LoadNpc(report.heroData.Resource);
-        roleRender.SetHpMax(report.heroData.HP);
-        roleRender.SetMpMax(report.heroData.MP);
-
-        FightHeroData roleData = report.heroData;
+        
+        roleRender.LoadNpc(roleData.Resource, Tools.ToVector3(roleData.Position));
+        roleRender.SetHpMax(roleData.HP);
+        roleRender.SetMpMax(roleData.MP);
 
         dicFightRole[roleData.roleId] = roleRender;
 

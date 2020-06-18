@@ -175,7 +175,7 @@ public class MoveComponent : ComponentBase
 
         Vector3 pos = this.Owner.ClientPos;
 
-        PathFinder.GetPath(pos, subPath[subPath.Count - 1], curPathSection.platform.GetNodeGraph(), this.SetSubPath);
+        this.SetSubPath(PathFinder.GetPath(pos, subPath[subPath.Count - 1], curPathSection.platform.GetNodeGraph()));
 
     }
 

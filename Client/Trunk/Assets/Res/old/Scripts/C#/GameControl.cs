@@ -45,14 +45,10 @@ public class GameControl : MonoBehaviour {
 
     public GamePath defaultPath;
 
-    
-
 	void Awake()
     {
         gameControl = this;
        
-
-
         ConfigManager.Instance.Init();
         NineScreenMgr.Instance.Init();
 		GameMessage.Init();
@@ -85,13 +81,7 @@ public class GameControl : MonoBehaviour {
         defaultPath.InitPath();
 
         totalWaveCount =SpawnManager.Instance.waves.Length;
-		
-        //SpawnManager.WaveStartSpawnE += WaveStartSpawned;
-        //SpawnManager.WaveClearedE += WaveCleared;
-		//CharacterBase.ScoreE += DeductLife;
-	    //Tower.DestroyE += TowerDestroy;
-		
-		//Create OverlayCamera
+
 		Camera mainCam=Camera.main;
 		Transform mainCamT=mainCam.transform;
 		
@@ -119,8 +109,22 @@ public class GameControl : MonoBehaviour {
         FightData fightdata = new FightData();
 
         fightdata.enemyBattleData = new FightPlayerData();
+		var userData = new FightPlayerInfo();
+		userData.userID = 1001;
+		userData.nickName = "»¶Ï²Ô©¼Ò";
+		userData.userIcon = "Icon_1";
+		fightdata.enemyBattleData.userData = userData;
+		fightdata.enemyBattleData.heroData = new FightHeroData[] { };
+		fightdata.enemyBattleData.teamSkills = new FightSkillData[] { };
 
-        fightdata.selfBattleData = new FightPlayerData();
+		fightdata.selfBattleData = new FightPlayerData();
+        userData = new FightPlayerInfo();
+        userData.userID = 1002;
+        userData.nickName = "»¶Ï²Ô©¼Ò_2";
+        userData.userIcon = "Icon_2";
+        fightdata.selfBattleData.userData = userData;
+        fightdata.selfBattleData.heroData = new FightHeroData[] { };
+        fightdata.selfBattleData.teamSkills = new FightSkillData[] { };
 
         fightdata.battleFieldData = new BattleFieldData();
         fightdata.battleFieldData.nodeGraph = defaultPath.GetPlatform().GetNodeGraph();
@@ -130,13 +134,6 @@ public class GameControl : MonoBehaviour {
 		FightSceneRender sceneRender = FightSceneRender.Instance;
     }
 	
-	void OnDisable()
-    {
-		//SpawnManager.WaveStartSpawnE -= WaveStartSpawned;
-		//SpawnManager.WaveClearedE -= WaveCleared;
-        //CharacterBase.ScoreE -= DeductLife;
-		//Tower.DestroyE -= TowerDestroy;
-	}
 
     public void RefreshResource()
     {

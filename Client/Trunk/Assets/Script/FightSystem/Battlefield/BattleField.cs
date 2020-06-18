@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FightCommom;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,13 +15,11 @@ namespace Fight
 
         public string teamId;
 
-        public Dictionary<MapGrid, int> dicMapData;
 
         public List<Role> listRoles;
 
         public List<FightObject> listObject;
 
-        public List<MapGrid> listHex;
 
         public List<FightReport> listReport;
 
@@ -28,44 +27,38 @@ namespace Fight
 
         public List<FightAttackData> listAttacks;
 
+        public Node[] nodeGraph;
+
+        public Dictionary<int, Node> dicNodeGraph;
+
         public bool isEnd;
 
-        public BattleField(int id, string teamId)
+        public BattleField(int id, string teamId, BattleFieldData battleFieldData )
         {
             this.id = id;
             this.teamId = teamId;
-            dicMapData = new Dictionary<MapGrid, int>();
             listRoles = new List<Role>();
-            listHex = new List<MapGrid>();
             listReport = new List<FightReport>();
             listObject = new List<FightObject>();
             listAttacks = new List<FightAttackData>();
+            dicNodeGraph = new Dictionary<int, Node>();
 
-            ////初始化寻路格子
-            //for (int i = 3; i > -5; i--)
-            //{
-            //    for (int j = 1; j > -3; j--)
-            //    {
-            //        DoubledCoord coord = new DoubledCoord(i, j);
-            //        MapGrid grid = coord.RdoubledToCube2();
-            //        dicMapData.Add(hex, "");
-            //        listHex.Add(hex);
-            //    }
-            //}
-        
-            InitA();
+            this.nodeGraph = battleFieldData.nodeGraph;
+            for (int i = 0; i < this.nodeGraph.Length; i++) {
+                dicNodeGraph.Add(nodeGraph[i].ID, nodeGraph[i]);
+            }
         }
 
-        //public void AddFightObject(FightObject fightObject)
-        //{
-        //    fightObject.SetBattleField(this);
-        //    listObject.Add(fightObject);
-        //}
-
-        public MapGrid GetRandomHex()
+        public void AddFightObject(FightObject fightObject)
         {
-            return listHex[UnityEngine.Random.Range(0, listHex.Count)];
+            fightObject.SetBattleField(this);
+            listObject.Add(fightObject);
         }
+
+        //public MapGrid GetRandomHex()
+        //{
+        //    return listHex[UnityEngine.Random.Range(0, listHex.Count)];
+        //}
 
 
         internal void AddAttackData(FightAttackData fightAttackData)
@@ -73,60 +66,39 @@ namespace Fight
             listAttacks.Add(fightAttackData);
         }
 
-        internal List<Role> GetAroundRoles(MapGrid hex, int distance)
-        {
-            List<Role> list = new List<Role>();
-            for (int i = 0; i < listRoles.Count; i++)
-            {
-                if (listRoles[i].position.Subtract(hex).Length() <= distance)
-                {
-                    list.Add(listRoles[i]);
-                }
-            }
-            return list;
-        }
+        //internal List<Role> GetAroundRoles(MapGrid hex, int distance)
+        //{
+        //    List<Role> list = new List<Role>();
+        //    for (int i = 0; i < listRoles.Count; i++)
+        //    {
+        //        if (listRoles[i].position.Subtract(hex).Length() <= distance)
+        //        {
+        //            list.Add(listRoles[i]);
+        //        }
+        //    }
+        //    return list;
+        //}
 
         internal List<Role> GetAllRoles()
         {
             return new List<Role>(listRoles);
         }
 
-        public void AddRole(Role v, int direct)
+       
+        internal void AddRole(Role v, int position)
         {
-            for (int i = 0; i < 100; i++)
+            if (dicNodeGraph[position].walkable == true)
             {
-                MapGrid position = listHex[UnityEngine.Random.Range(0, listHex.Count)];
-                if (direct == 1 && position.r < 2)
-                {
-                    continue;
-                }
-                else if (direct == -1 && position.r > -1)
-                {
-                    continue;
-                }
-
-                if (dicMapData[position] <= 0)
-                {
-                    AddRole(v, position);
-                    break;
-                }
-            }
-        }
-
-        internal void AddRole(Role v, MapGrid position)
-        {
-            if (dicMapData[position] <= 0)
-            {
-                v.position = position;
+                v.position = dicNodeGraph[position];
                 v.SetBattleField(this);
-                dicMapData[position] = v.id;
+                dicNodeGraph[position].walkable = false;
                 listRoles.Add(v);
-
                 v.Init();
             }
             else
             {
-                AddRole(v, 0);
+                Debug.LogError("该节点阻塞，不能创建角色");
+               // AddRole(v, 0);
             }
         }
 
@@ -179,13 +151,13 @@ namespace Fight
         /// <param name="range">远</param>
         /// <param name="width">宽度</param>
         /// <returns></returns>
-        public List<Role> GetEnemy(Role attacker, MapGrid o, int targetType, int rangeType, int range, int width = 0)
+        public List<Role> GetEnemy(Role attacker, Node node, int targetType, int rangeType, int range, int width = 0)
         {
             if (rangeType == 0)
                 return GetEnemy(attacker, targetType, range);
 
             if (rangeType == 3)
-                o = attacker.position;
+                node = attacker.position;
 
             List<Role> list = new List<Role>();
 
@@ -227,7 +199,7 @@ namespace Fight
                     }
                 }
 
-                if (o.Distance(listRoles[i].position) > range)
+                if (node.Distance(listRoles[i].position) > range)
                 {
                     continue;
                 }
@@ -259,50 +231,50 @@ namespace Fight
             }
             else if (list.Count > 0 && rangeType == 4 && range > 0)
             {
-                MapGrid d = o.Subtract(attacker.position);
-                int[] tempArr = new int[] { d.q, d.r, d.s };
-                int[] arr = new int[] { 0, 0, 0 };
-                bool flag = false;
+                //MapGrid d = o.Subtract(attacker.position);
+                //int[] tempArr = new int[] { d.q, d.r, d.s };
+                //int[] arr = new int[] { 0, 0, 0 };
+                //bool flag = false;
 
-                for (int i = 0; i < tempArr.Length; i++)
-                {
-                    if (flag == false && Mathf.Abs(tempArr[i]) == Mathf.Min(Mathf.Abs(tempArr[0]), Mathf.Abs(tempArr[1]), Mathf.Abs(tempArr[2])))
-                    {
-                        arr[i] = 0;
-                        flag = true;
-                    }
-                    else if (tempArr[i] > 0)
-                    {
-                        arr[i] = 1;
-                    }
-                    else
-                    {
-                        arr[i] = -1;
-                    }
-                }
+                //for (int i = 0; i < tempArr.Length; i++)
+                //{
+                //    if (flag == false && Mathf.Abs(tempArr[i]) == Mathf.Min(Mathf.Abs(tempArr[0]), Mathf.Abs(tempArr[1]), Mathf.Abs(tempArr[2])))
+                //    {
+                //        arr[i] = 0;
+                //        flag = true;
+                //    }
+                //    else if (tempArr[i] > 0)
+                //    {
+                //        arr[i] = 1;
+                //    }
+                //    else
+                //    {
+                //        arr[i] = -1;
+                //    }
+                //}
 
-                d = new MapGrid(arr[0], arr[1], arr[2]);
+                //d = new MapGrid(arr[0], arr[1], arr[2]);
 
-                int index = MapGrid.directions.IndexOf(d);
+                //int index = MapGrid.directions.IndexOf(d);
 
-                List<MapGrid> listPosition = new List<MapGrid>();
-                MapGrid temp = attacker.position;
-                for (int i = 0; i < range; i++)
-                {
-                    listPosition.Add(temp.Add(MapGrid.directions[index]));
-                    listPosition.Add(temp.Add(MapGrid.directions[(index + 1) % MapGrid.directions.Count]));
-                    listPosition.Add(temp.Add(MapGrid.directions[(index + MapGrid.directions.Count - 1) % MapGrid.directions.Count]));
-                    temp = temp.Add(MapGrid.directions[index]);
-                }
+                //List<MapGrid> listPosition = new List<MapGrid>();
+                //MapGrid temp = attacker.position;
+                //for (int i = 0; i < range; i++)
+                //{
+                //    listPosition.Add(temp.Add(MapGrid.directions[index]));
+                //    listPosition.Add(temp.Add(MapGrid.directions[(index + 1) % MapGrid.directions.Count]));
+                //    listPosition.Add(temp.Add(MapGrid.directions[(index + MapGrid.directions.Count - 1) % MapGrid.directions.Count]));
+                //    temp = temp.Add(MapGrid.directions[index]);
+                //}
 
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (listPosition.IndexOf(list[i].position) == -1)
-                    {
-                        list.RemoveAt(i);
-                        i--;
-                    }
-                }
+                //for (int i = 0; i < list.Count; i++)
+                //{
+                //    if (listPosition.IndexOf(list[i].position) == -1)
+                //    {
+                //        list.RemoveAt(i);
+                //        i--;
+                //    }
+                //}
             }
 
             //if (list.Count > 0)
@@ -448,39 +420,29 @@ namespace Fight
             }
         }
 
-        public void RoleMove(Role fightRole, MapGrid grid)
+        public List<Vector3> RoleMove(Role fightRole, Node grid)
         {
-            dicMapData[fightRole.position] = -1;
+            fightRole.position.walkable = true;
             fightRole.position = grid;
-            dicMapData[fightRole.position] = fightRole.id;
+            //grid.walkable = false;
+            return PathFinder.GetPath(fightRole.position.pos, grid.pos, this.nodeGraph);
         }
 
-        public bool CheckMove(MapGrid grid, bool checkWeapon = true)
+        public bool CheckMove(Node grid)
         {
-            if (dicMapData.ContainsKey(grid) == false)
-                return false;
-            if (checkWeapon)
-            {
-                //for (int i = 0; i < listCannon.Count; i++)
-                //{
-                //    if (listCannon[i].position.Equals(hex))
-                //        return false;
-                //}
-            }
-
-            return dicMapData[grid] <= 0;
+            return grid.walkable;
         }
 
-        public Stack<MapGrid> GetMoveHex(MapGrid start, MapGrid end, bool checkWeapon)
+        public List<Vector3> GetMoveHex(Node start, Node end, bool checkWeapon)
         {
-            Stack<MapGrid> results = new Stack<MapGrid>();
+            List<Vector3> results = new List<Vector3>();
             GetPath(start, end, checkWeapon, results);
             return results;
         }
 
-        private List<MapGrid> templist = new List<MapGrid>();
+        private List<Node> templist = new List<Node>();
 
-        internal List<MapGrid> GetAround(MapGrid position, int range = 1)
+        internal List<Node> GetAround(Node position, int range = 1)
         {
             templist.Clear();
 
@@ -499,102 +461,21 @@ namespace Fight
             return templist;
         }
 
-        //private static ObjectPool<HexCellPoint> hexcellPool = null;//使用对象池，避免频繁创建对象
 
-        private List<MapGrid> neighborCells = new List<MapGrid>(6);//可行邻居格最多6个
-
-        //private HashSet<MapGrid> closeList;
-        //private Heap<HexCellPoint> openList;
-
-        private void InitA()
+        public void GetPath(Node start, Node end, bool checkWeapon, List<Vector3> results)
         {
-            //openList = new Heap<HexCellPoint>(HexCellPoint.Compare, dicMapData.Count);//比全部网格稍少一点
-            //closeList = new HashSet<Hex>(Vector2IntComparer.GetComperer());
-            //if (hexcellPool == null)
-            //    hexcellPool = new ObjectPool<HexCellPoint>(() => new HexCellPoint(), dicMapData.Count);
-        }
-
-        public bool GetPath(MapGrid start, MapGrid end, bool checkWeapon, Stack<MapGrid> results)
-        {
-        //    closeList.Clear();
-        //    openList.Clear();
-
-        //    HexCellPoint temp = hexcellPool.GetObject();
-        //    temp.Coordinate = start;
-        //    temp.H = end.Subtract(start).Length();
-        //    temp.Parent = null;
-        //    openList.Add(temp);
-        //    Vector2IntComparer comparer = Vector2IntComparer.GetComperer();
-        //    HexCellPoint temp2 = null, temp2OriParent;
-        //    int oidx;
-        //    while (openList.Count > 0)
-        //    {
-        //        temp = openList.RemoveTop();
-        //        GetNeighbortPoint(temp, checkWeapon);
-        //        for (int i = 0; i < neighborCells.Count; i++)
-        //        {
-        //            if (comparer.Equals(end, neighborCells[i])) //找到终点
-        //            {
-        //                temp2 = hexcellPool.GetObject();
-        //                temp2.Parent = temp;
-        //                temp2.Coordinate = end;
-        //                goto ok;
-        //            }
-        //            if (!OpenListContains(neighborCells[i], out oidx))
-        //            {
-        //                temp2 = hexcellPool.GetObject();
-        //                temp2.Parent = temp;
-        //                temp2.Coordinate = neighborCells[i];
-        //                temp2.CaculateG();
-        //                temp2.H = Distance(end, neighborCells[i]);
-        //                openList.Add(temp2);
-        //            }
-        //            else //开启列表包含该点，检测是否需要更换父节点
-        //            {
-        //                temp2 = openList[oidx];
-        //                temp2OriParent = temp2.Parent;
-        //                int orig = temp2.G;
-        //                temp2.Parent = temp;
-        //                temp2.CaculateG();
-        //                if (temp2.G >= orig)  //原本的G值更小，恢复原状
-        //                {
-        //                    temp2.Parent = temp2OriParent;
-        //                    temp2.G = orig;
-        //                }
-        //                else
-        //                    openList.MoveUp(oidx);
-        //            }
-        //        }
-        //        closeList.Add(temp.Coordinate);
-        //        // openList.ReBuildHeap();//重建堆，效率反而更低
-        //    }
-        //    return false;
-        ////return null; //其实也可以不返回null，这样就可以来到离不可达点周围最近的某个点
-        //ok:
-        //    while (temp2.Parent != null)//这样就不会把起点也放进去
-        //    {
-        //        results.Push(temp2.Coordinate);
-        //        hexcellPool.RecircleObject(temp2);
-        //        temp2 = temp2.Parent;
-        //    }
-            return true;
-            //return results;
+            results = PathFinder.GetPath(start.pos, end.pos, this.nodeGraph);
         }
 
         internal void Die(Role fightRole)
         {
-            dicMapData[fightRole.position] = -1;
+            fightRole.position.walkable = false;
             composite.Die(fightRole.teamId, fightRole.id);
         }
 
 
-        private int Distance(MapGrid end, MapGrid start)
-        {
-            return end.Subtract(start).Length();
-        }
-
         //获取当前单元格所有可行邻居格
-        private void GetNeighbortPoint(HexCellPoint point, bool checkWeapon)
+        private void GetNeighbortPoint(Node point, bool checkWeapon)
         {
             //neighborCells.Clear();
 
@@ -606,55 +487,6 @@ namespace Fight
             //        neighborCells.Add(hex);
             //    }
             //}
-        }
-
-        private bool OpenListContains(MapGrid grid, out int idx)
-        {
-            //Vector2IntComparer comparer = Vector2IntComparer.GetComperer();
-            //for (int i = 0; i < openList.Count; i++)
-            //{
-            //    if (comparer.Equals(openList[i].Coordinate, coor))
-            //    {
-            //        idx = i;
-            //        return true;
-            //    }
-            //}
-            idx = -1;
-            return false;
-        }
-    }
-
-    public class HexCellPoint
-    {
-        public MapGrid Coordinate;
-        public HexCellPoint Parent;
-
-        /// <summary>
-        /// 离起点的距离
-        /// </summary>
-        public int G;
-
-        /// <summary>
-        /// 离终点的距离
-        /// </summary>
-        public int H;
-
-        /// <summary>
-        /// 计算当前点到起点的距离
-        /// </summary>
-        public void CaculateG()
-        {
-            G = Parent != null ? Parent.G + 1 : 0; //对于六边形地图来说，只加1就可以了
-        }
-
-        public int F { get { return G + H; } }
-
-        public static bool Compare(HexCellPoint p1, HexCellPoint p2)
-        {
-            int p1f = p1.F, p2f = p2.F;
-            if (p1f == p2f)
-                return p1.H < p2.H;
-            return p1f < p2f;
         }
     }
 }

@@ -1,77 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using FightCommom;
 using Fight;
-/// <summary>
-/// /路径平台
-/// </summary>
-public class PathOnPlatform
-{
-	public GamePath path;
 
-	public PathSection thisWP; 
-                    
-	public PathSection prevNeighbouringWP;
-
-	public PathSection nextNeighbouringWP;
-	
-	public Node startN;
-
-	public Node endN;
-	
-	public List<Vector3> currentPath=new List<Vector3>();
-
-	public int pathID=0;
-	
-	public List<Vector3> altPath=new List<Vector3>();
-	
-	public PathOnPlatform(GamePath p, PathSection pSec, PathSection prev, PathSection next)
-    {
-       
-        path =p;
-		thisWP=pSec;
-		prevNeighbouringWP=prev;
-		nextNeighbouringWP=next;
-	}
-	
-	public void InitNode(Node[] nodeGraph)
-    {
-		Vector3 prevPoint;
-		if(prevNeighbouringWP.platform!=null)
-        {
-			prevPoint=prevNeighbouringWP.platform.thisT.position;
-		}
-		else prevPoint =prevNeighbouringWP.pos;
-
-		startN=PathFinder.GetNearestNode(prevPoint, nodeGraph);
-		
-		Vector3 nextPoint;
-
-		if(nextNeighbouringWP.platform!=null)
-        {
-			nextPoint=nextNeighbouringWP.platform.thisT.position;
-		}
-		else nextPoint=nextNeighbouringWP.pos;
-
-		endN=PathFinder.GetNearestNode(nextPoint, nodeGraph);
-		
-		Debug.DrawLine(endN.pos, endN.pos+new Vector3(0, 2, 0), Color.red, 50);
-		Debug.DrawLine(startN.pos, startN.pos+new Vector3(0, 2, 0), Color.blue, 50);
-		Debug.DrawLine(nextNeighbouringWP.pos, nextNeighbouringWP.pos+new Vector3(0, 2, 0), Color.green, 50);
-	}
-	
-	public void SetPath(List<Vector3> wp, int id)
-    {
-		currentPath=wp;
-		pathID=id;
-		thisWP.SetSectionPath(wp, pathID);
-	}
-	
-	public void SmoothPath()
-    {
-		currentPath=PathFinder.SmoothPath(currentPath);
-	}
-}
 
 public class Platform : MonoBehaviour {
 	
@@ -83,7 +15,7 @@ public class Platform : MonoBehaviour {
 
 	private Node[] nodeGraph;
 
-    private Dictionary<int, Node> nodeGraphMap;
+    private Dictionary<int, NodeRender> nodeGraphMap;
 
 	private bool graphGenerated=false;
 
@@ -94,7 +26,7 @@ public class Platform : MonoBehaviour {
 
 	private List<PathOnPlatform> pathObjects=new List<PathOnPlatform>();
 
-	private Node nextBuildNode;   //距离建筑最近的格子
+	private Node nearestNode;   //距离建筑最近的格子
     
 
     [HideInInspector] public GameObject thisObj;
@@ -109,9 +41,11 @@ public class Platform : MonoBehaviour {
 
     public int ID;
 
+    private List<PathSection> queue = new List<PathSection>();
+
     void Awake()
     {
-        nodeGraphMap = new Dictionary<int, Node>();
+        nodeGraphMap = new Dictionary<int, NodeRender>();
 
         ID = Entity.GetUniqueId();
 
@@ -130,24 +64,17 @@ public class Platform : MonoBehaviour {
 		}
 	}
 	
-	void Start()
-    {
-		
-	}
-	
 	public void GenerateNode(float heightOffset)
     {
 		nodeGraph = NodeGenerator.GenerateNode(this, heightOffset);
         for (int i = 0; i < nodeGraph.Length; i++ )
         {
-            nodeGraphMap.Add(nodeGraph[i].ID, nodeGraph[i]);
+            nodeGraphMap.Add(nodeGraph[i].ID, new NodeRender(nodeGraph[i]));
         }
-        
         graphGenerated =true;
 	}
 	
-	private List<PathSection> queue= new List<PathSection>();
-	
+
 	public void SearchForNewPath(PathSection PS){
 		queue.Add(PS);
 		foreach(PathOnPlatform pathPlatform in pathObjects)
@@ -155,7 +82,7 @@ public class Platform : MonoBehaviour {
 			if(pathPlatform.thisWP==PS)
             {
                 pathPlatform.InitNode(nodeGraph);
-				PathFinder.GetPath(pathPlatform.startN, pathPlatform.endN, nodeGraph, this.SetPath);
+                this.SetPath(PathFinder.GetPath(pathPlatform.startN, pathPlatform.endN, nodeGraph));
 			}
 		}
 	}
@@ -195,10 +122,10 @@ public class Platform : MonoBehaviour {
 		float gridSize=BuildManager.GetGridSize();
 		bool blocked=false;
 		
-		nextBuildNode=PathFinder.GetNearestNode(pos, nodeGraph);
+		nearestNode=PathFinder.GetNearestNode(pos, nodeGraph);
 
         //如果建筑需要的格子包含阻挡，则返回false
-        if (RefreshBulidGrid(nextBuildNode.ID, costGrid))
+        if (RefreshBulidGrid(nearestNode.ID, costGrid))
         {
             return true;
         }
@@ -228,7 +155,7 @@ public class Platform : MonoBehaviour {
                 }
             }
 
-            pathObj.altPath = PathFinder.ForceSearch(pathObj.startN, pathObj.endN, nextBuildNode, nodeGraph);
+            pathObj.altPath = PathFinder.ForceSearch(pathObj.startN, pathObj.endN, nearestNode, nodeGraph);
 
             if (pathObj.altPath.Count == 0)
             {
@@ -243,15 +170,9 @@ public class Platform : MonoBehaviour {
 		
 	}
 
-    public int GetPostion()
+    public Node GetPostion()
     {
-        if (this.nextBuildNode != null)
-        {
-            return this.nextBuildNode.ID;
-        }
-        else {
-            return 0;
-        }
+        return this.nearestNode;
     }
 
 
@@ -260,17 +181,17 @@ public class Platform : MonoBehaviour {
         if (walkable)
         {
 
-            if (nextBuildNode!=null && Vector3.Distance(nextBuildNode.pos, point) < BuildManager.GetGridSize()/2)
+            if (nearestNode!=null && Vector3.Distance(nearestNode.pos, point) < BuildManager.GetGridSize()/2)
             {
-				nextBuildNode.walkable=false;
+				nearestNode.walkable=false;
                 for (int i = 0; i < costNodeIDs.Count; i++)
                 {
-                    nodeGraphMap[costNodeIDs[i]].walkable = false;
+                    nodeGraphMap[costNodeIDs[i]].node.walkable = false;
                     nodeGraphMap[costNodeIDs[i]].DefaultColor();
                 }
 
                 buildData.PlatformId = this.ID;
-                buildData.Position = nextBuildNode.ID;
+                buildData.Position = nearestNode.pos.ToString();
 
                 foreach (PathOnPlatform pathObj in pathObjects)
                 {
@@ -286,11 +207,11 @@ public class Platform : MonoBehaviour {
 				Node node=PathFinder.GetNearestNode(point, nodeGraph);
 				node.walkable=false;
                 buildData.PlatformId = this.ID;
-                buildData.Position = nextBuildNode.ID;
+                buildData.Position = nearestNode.pos.ToString();
 
                 foreach (PathOnPlatform pathObj in pathObjects)
                 {
-					PathFinder.GetPath(pathObj.startN, pathObj.endN, nodeGraph, this.SetPath);
+                    this.SetPath(PathFinder.GetPath(pathObj.startN, pathObj.endN, nodeGraph));
 				}
             }
 			
@@ -304,7 +225,7 @@ public class Platform : MonoBehaviour {
 		foreach(PathOnPlatform pathObj in pathObjects)
         {
 			queue.Add(pathObj.thisWP);
-			PathFinder.GetPath(pathObj.startN, pathObj.endN, nodeGraph, this.SetPath);
+            this.SetPath(PathFinder.GetPath(pathObj.startN, pathObj.endN, nodeGraph));
 		}
 	}
 
@@ -330,9 +251,9 @@ public class Platform : MonoBehaviour {
         {
             foreach (Node node in nodeGraph)
             {
-                if (node.viewObj == null)
+                if(nodeGraphMap[node.ID].viewObj == null)
                 {
-                    node.CreateViewObj();
+                    nodeGraphMap[node.ID].CreateViewObj();
                 }
             }
             InitViewObj = true;
@@ -392,9 +313,9 @@ public class Platform : MonoBehaviour {
 
     public void ResetDefaultRes()
     {
-        for (int i = 0; i < nodeGraph.Length; i++)
+        foreach(var v in nodeGraphMap)
         {
-            nodeGraph[i].DefaultColor();
+            v.Value.DefaultColor();
         }
     }
 
@@ -425,15 +346,13 @@ public class Platform : MonoBehaviour {
         {
             if (list[i] >= 0 && list[i] < nodeGraph.Length)
             {
-                nodeGraph[list[i]].SetViewColor(hasBlock == true ? Color.red : Color.blue);
+                nodeGraphMap[nodeGraph[list[i]].ID].SetViewColorState(
+                    hasBlock == true ? ENodeColor.CantBuild : ENodeColor.CanBuild);
                 costGrid.Add(list[i]);
             }
         }
 
-
         return hasBlock;
     }
-	
-	
 
 }

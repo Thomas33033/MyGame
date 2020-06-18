@@ -11,13 +11,14 @@ public class FightReportSummon : FightReport
 
     public int mp;
 
-    public int[] position;
+    public int posId;
 
     public string npcAsset;
 
     public FightReportSummon() { }
 
-    public FightReportSummon(float time, int playerId, int roleType, int roleId, int battlefield, int hp, int mp, int[] position,string npcAsset) : base(playerId, ReportType.Summon.ToString(), time)
+    public FightReportSummon(float time, int playerId, int roleType, int roleId, int battlefield, int hp, 
+        int mp, int posId, string npcAsset) : base(playerId, ReportType.Summon.ToString(), time)
     {
         this.battlefield = battlefield;
         this.roleType = roleType;
@@ -26,7 +27,7 @@ public class FightReportSummon : FightReport
         this.hp = hp;
         this.mp = mp;
 
-        this.position = position;
+        this.posId = posId;
         this.npcAsset = npcAsset;
     }
 }

@@ -30,11 +30,13 @@ namespace Fight
             return _index++;
         }
     }
-
-
 }
+
+
 public enum ReportType
 {
+
+    BattleFieldInit,
 
     RoleAdd,
     RoleMove,

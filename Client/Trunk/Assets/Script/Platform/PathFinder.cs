@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using FightCommom;
 
 #pragma warning disable 0168 // variable declared but not used.
 #pragma warning disable 0219 // variable assigned but not used.
@@ -8,7 +9,7 @@ using System.Collections.Generic;
 
 public delegate void SetPathCallback(List<Vector3> wp);
 
-public class PathFinder : MonoBehaviour {
+public class PathFinder {
 
 	static private List<SearchQueue> queue=new List<SearchQueue>();
 
@@ -23,37 +24,6 @@ public class PathFinder : MonoBehaviour {
 	static public bool IsPathSmoothingOn()
     {
 		return pathFinder.pathSmoothing;
-	}
-	
-	void Awake()
-    {
-		pathFinder=this;
-	}
-	
-	void Start()
-    {
-
-	}
-	
-	static public void Init()
-    {
-		GameObject obj=new GameObject();
-		pathFinder=obj.AddComponent<PathFinder>();
-		obj.name="PathFinder";
-	}
-	
-	static public void CheckInit(){
-		if(pathFinder==null) Init();
-	}
-	
-	
-	static public void CallMeBack(SetPathCallback callBackFunc){
-
-	}
-	
-	void Update(){
-
-    
 	}
 	
 	static public Node GetNearestNode(Vector3 point, Node[] graph){
@@ -74,48 +44,47 @@ public class PathFinder : MonoBehaviour {
 	
 	
 	
-	static public void GetPath(Vector3 startP, Vector3 endP, Node[] graph, SetPathCallback callBackFunc){
+	static public List<Vector3> GetPath(Vector3 startP, Vector3 endP, Node[] graph)
+	{
 		Node startNode=GetNearestNode(startP, graph);
 		Node endNode=GetNearestNode(endP, graph);
 		
-		GetPath(startNode, endNode, null, graph, callBackFunc, false);
+		return GetPath(startNode, endNode, null, graph, false);
 	}
 	
-	static public void GetPath(Vector3 startP, Vector3 endP, Vector3 blockP, Node[] graph, SetPathCallback callBackFunc){
+	static public List<Vector3> GetPath(Vector3 startP, Vector3 endP, Vector3 blockP, Node[] graph){
 		Node startNode=GetNearestNode(startP, graph);
 		Node endNode=GetNearestNode(endP, graph);
 		Node blockNode=GetNearestNode(blockP, graph);
-		
-		GetPath(startNode, endNode, blockNode, graph, callBackFunc, false);
+
+		return GetPath(startNode, endNode, blockNode, graph, false);
 	}
 	
-	static public void GetPath(Node startN, Node endN, Node[] graph, SetPathCallback callBackFunc){
-		GetPath(startN, endN, null, graph, callBackFunc, false);
+	static public List<Vector3> GetPath(Node startN, Node endN, Node[] graph){
+		return GetPath(startN, endN, null, graph, false);
 	}
 	
-	static public void GetPath(Node startN, Node endN, Node[] graph, SetPathCallback callBackFunc, bool urgent){
-		GetPath(startN, endN, null, graph, callBackFunc, urgent);
+	static public List<Vector3> GetPath(Node startN, Node endN, Node[] graph, bool urgent){
+		return GetPath(startN, endN, null, graph, urgent);
 	}
 	
-	static public void GetPath(Node startN, Node endN, Node blockN, Node[] graph, SetPathCallback callBackFunc, bool urgent){
-		CheckInit();
-		
-		if(!searching){
-			Search(startN, endN, blockN, graph, callBackFunc);
-		}
-		else
-        {
-			SearchQueue q=new SearchQueue(startN, endN, blockN, graph, callBackFunc);
-			if(urgent) queue.Insert(0, q);
-			else queue.Add(q);
-		}
+	static public List<Vector3> GetPath(Node startN, Node endN, Node blockN, Node[] graph, bool urgent){
+		//if(!searching){
+			return Search(startN, endN, blockN, graph);
+		//}
+		//else
+  //      {
+		//	SearchQueue q=new SearchQueue(startN, endN, blockN, graph);
+		//	if(urgent) queue.Insert(0, q);
+		//	else queue.Add(q);
+		//}
 	}
 	
-	static private void Search(Node startN, Node endN, Node blockN, Node[] graph, SetPathCallback callBackFunc){
-		pathFinder.StartCoroutine(pathFinder._Search(startN, endN, blockN, graph, callBackFunc));
+	static private List<Vector3> Search(Node startN, Node endN, Node blockN, Node[] graph){
+		return pathFinder._Search(startN, endN, blockN, graph);
 	}
 	
-	IEnumerator _Search(Node startN, Node endN, Node blockN, Node[] graph, SetPathCallback callBackFunc){
+	List<Vector3> _Search(Node startN, Node endN, Node blockN, Node[] graph){
 		
 		if(blockN!=null)
         {
@@ -199,13 +168,12 @@ public class PathFinder : MonoBehaviour {
 
 			if(loopCounter>ScanNodeLimitPerFrame){
 				loopCounter=0;	
-				yield return null;
 			}
 		}
 
-		List<Vector3> p=new List<Vector3>();
-			
-		if(pathFound)
+		List<Vector3> p = new List<Vector3>();
+
+		if (pathFound)
         {
 			while(currentNode!=null)
             {
@@ -222,12 +190,13 @@ public class PathFinder : MonoBehaviour {
 
 		if(blockN!=null) blockN.walkable=true; 
 		
-		callBackFunc(p);
+		
 
 		searching=false;
 		
 		ResetGraph(graph);
-	
+
+		return p;
 	}
 	
 	
@@ -416,13 +385,13 @@ class SearchQueue{
 	public Node endNode;
 	public Node blockNode;
 	public Node[] graph;
-	public SetPathCallback callBackFunc;
+	//public SetPathCallback callBackFunc;
 	
-	public SearchQueue(Node n1, Node n2, Node n3, Node[] g, SetPathCallback func){
+	public SearchQueue(Node n1, Node n2, Node n3, Node[] g){
 		startNode=n1;
 		endNode=n2;
 		blockNode=n3;
 		graph=g;
-		callBackFunc=func;
+		//callBackFunc=func;
 	}
 }

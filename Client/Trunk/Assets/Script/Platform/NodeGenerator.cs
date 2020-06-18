@@ -1,10 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
-#pragma warning disable 0168 // variable declared but not used.
-#pragma warning disable 0219 // variable assigned but not used.
-#pragma warning disable 0414 // private field assigned but not used.
+using FightCommom;
+using Fight;
+using UnityEngine.SocialPlatforms;
 
 public class NodeGenerator : MonoBehaviour
 {
@@ -86,7 +85,7 @@ public class NodeGenerator : MonoBehaviour
 		
 		Transform platformT=platform.thisT;
 		
-		float gridSize=BuildManager.GetGridSize();
+		float gridSize = BuildManager.GetGridSize();
 		
 		float scaleX=platform.thisT.localScale.x;
 		float scaleZ=platform.thisT.localScale.z;
@@ -105,39 +104,57 @@ public class NodeGenerator : MonoBehaviour
 		thisT.rotation=platformT.rotation;
 		thisT.position=thisT.TransformPoint(new Vector3(gridSize/2, heightOffset, gridSize/2));
 
-        Node[] nodeGraph=new Node[countZ*countX];
-		int counter=0;
-        Vector3 tempPosition;
-		for(int i=0; i<countZ; i++)
-        {
-			for(int j=0; j<countX; j++)
-            {
-                tempPosition = thisT.TransformPoint(new Vector3(gridSize*j, 0, gridSize * i));
-                nodeGraph[counter] = new Node(tempPosition, counter);
-				counter+=1;
-			}
-		}
 
-		thisT.position=Vector3.zero;
-		thisT.rotation=Quaternion.identity;
-		
-		float timeUsed=Time.realtimeSinceStartup-timeStart;
-		
-		counter=0;
-		foreach(Node cNode in nodeGraph)
-        {
-			if(cNode.walkable)
-            {
-				LayerMask mask = 1<<LayerManager.LayerPlatform();
-				Collider[] cols = Physics.OverlapSphere(cNode.pos, gridSize*0.45f, ~mask);
-				if(cols.Length>0)
-                {
-					cNode.walkable=false;
-					counter+=1;
+        thisT.position = Vector3.zero;
+        thisT.rotation = Quaternion.identity;
+
+		int counter = 0;
+		float timeUsed = Time.realtimeSinceStartup - timeStart;
+		Node[] nodeGraph;
+		//读取本地战场信息
+		List<NodeData> nodeList = StaticData.LoadList<NodeData>("GridData.json");
+		if (nodeList == null || nodeList.Count <= 0)
+		{
+			nodeGraph = new Node[countZ * countX];
+			
+			Vector3 tempPosition;
+			for (int i = 0; i < countZ; i++)
+			{
+				for (int j = 0; j < countX; j++)
+				{
+					tempPosition = thisT.TransformPoint(new Vector3(gridSize * j, 0, gridSize * i));
+					nodeGraph[counter] = new Node(tempPosition, counter);
+					counter += 1;
+				}
+			}
+
+			counter = 0;
+			foreach (Node cNode in nodeGraph)
+			{
+				if (cNode.walkable)
+				{
+					LayerMask mask = 1 << LayerManager.LayerPlatform();
+					Collider[] cols = Physics.OverlapSphere(cNode.pos, gridSize * 0.45f, ~mask);
+					if (cols.Length > 0)
+					{
+						cNode.walkable = false;
+						counter += 1;
+					}
 				}
 			}
 		}
-		
+		else
+		{
+			nodeGraph = new Node[nodeList.Count];
+			for (int i = 0; i < nodeList.Count; i++)
+			{
+				nodeGraph[i] = new Node(nodeList[i]);
+			}
+		}
+
+		nodeList.Clear();
+
+
 		float neighbourDistance=0;
 		float neighbourRange;
 		if(nodeGenerator.connectDiagonalNeighbour) neighbourRange=gridSize*1.5f;
@@ -210,6 +227,16 @@ public class NodeGenerator : MonoBehaviour
 			
 			counter+=1;
 		}
+
+		List<NodeData> jsonObjs = new List<NodeData>();
+		for (int i = 0; i < nodeGraph.Length; i++)
+		{
+			var nodeData = new NodeData(nodeGraph[i]);
+			jsonObjs.Add(nodeData);
+		}
+
+		string json = SimpleJson.SimpleJson.SerializeObject(jsonObjs);
+		StaticData.SaveData("GridData.json", json);
 
 		return nodeGraph;
 	}
@@ -458,118 +485,5 @@ public class NodeGenerator : MonoBehaviour
 
 }
 
-public enum _ListState{Unassigned, Open, Close};
 
-public class Node
-{
-	public int ID;
-	public Vector3 pos;
-	public Node[] neighbourNode;
-	public float[] neighbourCost;
-	public Node parent;
-    private bool mWalkable = true;
-	public bool walkable
-    {
-        get { return mWalkable; }
-        set {
-            mWalkable = value;
-            DefaultColor();
-        }
-    }
-	public float scoreG;
-	public float scoreH;
-	public float scoreF;
-	public _ListState listState =_ListState.Unassigned;
-	public float tempScoreG=0;
-    public GameObject viewObj;
-   
-    public Node(){}
-	
-	public Node(Vector3 position, int id)
-    {
-		pos=position;
-		ID=id;
-    }
-	
-	public void SetNeighbour(List<Node> arrNeighbour, List<float> arrCost)
-    {
-		neighbourNode = arrNeighbour.ToArray();
-		neighbourCost = arrCost.ToArray();
-	}
-	
-	public void ProcessNeighbour(Node node)
-    {
-		ProcessNeighbour(node.pos);
-	}
-	
-	public void ProcessNeighbour(Vector3 pos)
-    {
-		for(int i=0; i<neighbourNode.Length; i++)
-        {
-			if(neighbourNode[i].listState==_ListState.Unassigned)
-            {
-				neighbourNode[i].scoreG=scoreG+neighbourCost[i];
-				neighbourNode[i].scoreH=Vector3.Distance(neighbourNode[i].pos, pos);
-				neighbourNode[i].UpdateScoreF();
-				neighbourNode[i].parent=this;
-			}
-			else if(neighbourNode[i].listState==_ListState.Open)
-            {
-				tempScoreG=scoreG+neighbourCost[i];
-				if(neighbourNode[i].scoreG>tempScoreG)
-                {
-					neighbourNode[i].parent=this;
-					neighbourNode[i].scoreG=tempScoreG;
-					neighbourNode[i].UpdateScoreF();
-				}
-			}
-		}
-	}
-	
-	void UpdateScoreF()
-    {
-		scoreF=scoreG+scoreH;
-	}
 
-    public void CreateViewObj()
-    {
-        IndicatorController.Instance.Create((obj)=>{
-            this.viewObj = obj;
-            this.viewObj.gameObject.SetActive(true);
-            this.viewObj.name = ID + "";
-            this.viewObj.transform.position = pos;
-            this.viewObj.transform.localScale = new Vector3(1, 0.1f, 1);
-            this.DefaultColor();
-        }); 
-    }
-
-    public void DefaultColor()
-    {
-       this.SetViewColor(mWalkable ? Color.white*0.2f : Color.red);
-    }
-
-    public void SetViewColor(Color color)
-    {
-        if (this.viewObj == null)
-            return;
-        if (mWalkable == false)
-        {
-            this.viewObj.GetComponent<Renderer>().material.SetColor("_TintColor", Color.red);
-        }
-        else
-        {
-            this.viewObj.GetComponent<Renderer>().material.SetColor("_TintColor", color);
-        }
-       
-    }
-
-}
-
-[System.Serializable]
-public class PlaneConnection : MonoBehaviour{
-	public Transform plane1;
-	public Transform plane2;
-	public bool isConnected=false;
-	public bool isAligned=false;
-	public Vector3[] overlapPoint;
-}
