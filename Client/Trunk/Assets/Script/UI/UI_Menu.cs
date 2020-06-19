@@ -16,9 +16,9 @@ public class UI_Menu : UIPanelBase {
         btnRestart = this.FindObject<Button>(this.gameObject, "UI_Menu_Offset/grid/btn_spawn");
         btnBack = this.FindObject<Button>(this.gameObject, "UI_Menu_Offset/grid/btn_pause");
 
-        GameTools.AddClickEvent(btnNextLevel.gameObject, OnNextLevelEvent);
-        GameTools.AddClickEvent(btnRestart.gameObject, OnRestartEvent);
-        GameTools.AddClickEvent(btnBack.gameObject, OnBackEvent);
+        UITools.AddClickEvent(btnNextLevel.gameObject, OnNextLevelEvent);
+        UITools.AddClickEvent(btnRestart.gameObject, OnRestartEvent);
+        UITools.AddClickEvent(btnBack.gameObject, OnBackEvent);
 	}
 
     void OnNextLevelEvent()

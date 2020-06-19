@@ -13,8 +13,6 @@ public class FightRoleRender : RoleRender
 
     public Animator animator;
 
-    public Transform transform;
-
     private float _actionTime_attack;
     private float _actionTime_skill;
     private bool isDie;
@@ -78,6 +76,9 @@ public class FightRoleRender : RoleRender
         }
         animator = obj.GetComponent<Animator>();
 
+        this.gameObject = obj;
+        this.transform = obj.transform;
+
         //animator.runtimeAnimatorController = LoadTools.LoadRoleAnimator("RoleNpc", npcAsset);
 
         string path = string.Format("{0}/{1}.prefab", ResPathHelper.UI_WINDOW_PATH, "UIRoot3D");
@@ -138,9 +139,8 @@ public class FightRoleRender : RoleRender
         PlayAnimator("die");
         isDie = true;
         SkillCastBreak();
-        CancelInvoke();
-
-        Invoke("DoDestroy", 2f);
+        this.AddSchedule(2f, this.DoDestroy);
+       
         ui.gameObject.SetActive(false);
     }
 
@@ -311,7 +311,7 @@ public class FightRoleRender : RoleRender
 
         if (_objCastEffect != null)
         {
-            Destroy(_objCastEffect);
+           GameObject.Destroy(_objCastEffect);
         }
 
         //if (isHightShowwing)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Fight;
 using FightCommom;
 
-public class RoleRender : MonoBehaviour
+public class RoleRender: Entity
 {
     public string teamId;
 
@@ -24,7 +24,11 @@ public class RoleRender : MonoBehaviour
 
     public FightRoleUI ui;
 
-    public FightBattlefieldRender battlefield;
+    public BattlefieldRender battlefield;
+
+    public GameObject gameObject;
+
+    public Transform transform;
 
     public virtual void Awake()
     {
@@ -33,9 +37,6 @@ public class RoleRender : MonoBehaviour
 
     public virtual void SetHpMax(int v)
     {
-#if UNITY_EDITOR
-        this.name = this.roleId;
-#endif
         hpMax = v;
     }
 

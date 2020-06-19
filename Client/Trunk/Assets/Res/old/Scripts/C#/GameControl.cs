@@ -45,6 +45,8 @@ public class GameControl : MonoBehaviour {
 
     public GamePath defaultPath;
 
+	public Platform platform;
+
 	void Awake()
     {
         gameControl = this;
@@ -104,8 +106,10 @@ public class GameControl : MonoBehaviour {
 		
 		Time.timeScale=1;
 
+		//-------------------------------------------------------------------
+		platform.GenerateNode(1);
 
-        FightScene fightScene = FightScene.Instance;
+		FightScene fightScene = FightScene.Instance;
         FightData fightdata = new FightData();
 
         fightdata.enemyBattleData = new FightPlayerData();
@@ -127,12 +131,14 @@ public class GameControl : MonoBehaviour {
         fightdata.selfBattleData.teamSkills = new FightSkillData[] { };
 
         fightdata.battleFieldData = new BattleFieldData();
-        fightdata.battleFieldData.nodeGraph = defaultPath.GetPlatform().GetNodeGraph();
+        fightdata.battleFieldData.nodeGraph = platform.GetNodeGraph();
+		
+		FightSceneRender sceneRender = FightSceneRender.Instance;
+        sceneRender.InitFight(platform, fightdata);
 
         fightScene.InitFight(FightType.ConmmFight, fightdata);
 
-		FightSceneRender sceneRender = FightSceneRender.Instance;
-    }
+	}
 	
 
     public void RefreshResource()

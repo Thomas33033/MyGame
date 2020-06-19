@@ -29,9 +29,9 @@ namespace SG
             
             mLoopList.RefillCells();
 
-            GameTools.AddClickEvent(Btn_Delete.gameObject, OnDeleteBtnClick);
-            GameTools.AddClickEvent(Btn_Insert.gameObject, OnInsertBtnClick);
-            GameTools.AddClickEvent(Btn_Refresh.gameObject, OnRefreshBtnClick);
+            UITools.AddClickEvent(Btn_Delete.gameObject, OnDeleteBtnClick);
+            UITools.AddClickEvent(Btn_Insert.gameObject, OnInsertBtnClick);
+            UITools.AddClickEvent(Btn_Refresh.gameObject, OnRefreshBtnClick);
         }
 
 

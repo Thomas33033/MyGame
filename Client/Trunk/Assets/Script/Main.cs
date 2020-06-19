@@ -8,7 +8,7 @@ using System.Text;
 public class Main : MonoBehaviour {
 
     bool m_isReady = false;
-
+    ActionSequence actionSequence = new ActionSequence();
     private void Awake()
     {
         GameObject.DontDestroyOnLoad(this.gameObject);
@@ -20,23 +20,39 @@ public class Main : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //初始化组件
-        TimeManager.CreateSingleton();
-
-        //检测版本
-
-        //更新资源
-
-        //初始化公共系统模块
-        AssetBundleManager.CreateSingleton();
-
-        LuaManager.CreateSingleton();
-        //进入登陆模块
-
+        actionSequence.AddAction(new CopyLocalAssetStep(RefreshProgress));
+        actionSequence.AddAction(new CheckVersionStep(OnNewVersion));
+        actionSequence.AddAction(new UpdateResStep(RefreshProgress));
+        actionSequence.finishedOverEvent = OnEnterGame;
+        actionSequence.Start(this.gameObject);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+
+    void OnNewVersion()
+    { 
+        //提示下载最新版本
+    }
+
+    void RefreshProgress(float progress,string tips)
+    {
+        UI_Loading.instance.SetProgress(progress);
+    }
+
+    void OnEnterGame()
+    {
+        actionSequence.ClearAction();
+        actionSequence = null;
+
+        TimeManager.CreateSingleton();
+        AssetBundleManager.CreateSingleton(); 
+        LuaManager.CreateSingleton();
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+        if (actionSequence != null) actionSequence.Update(Time.deltaTime);
+
         if (!m_isReady && AssetBundleManager.Instance.IsReady == true)
         {
             m_isReady = true;
@@ -49,9 +65,4 @@ public class Main : MonoBehaviour {
         }
     }
 
-
-    void CheckVersion()
-    {
-
-    }
 }

@@ -43,7 +43,7 @@ public class UICurrencyCollect : MonoBehaviour
         _startPos = this.transform.position;
         prefab.gameObject.SetActive(false);
 
-        GameTools.AddClickEvent(this.btnPlay.gameObject, this.OnPlatBtnClick);
+        UITools.AddClickEvent(this.btnPlay.gameObject, this.OnPlatBtnClick);
     }
 
 

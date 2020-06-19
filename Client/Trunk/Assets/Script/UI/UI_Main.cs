@@ -30,8 +30,8 @@ public class UI_Main : UIPanelBase
 	// Use this for initialization
 	void Start () {
         towerItem.gameObject.SetActive(false);
-        GameTools.AddClickEvent(btnSpawn, OnSpawnButton);
-        GameTools.AddClickEvent(btnPause, OnPauseButton);
+        UITools.AddClickEvent(btnSpawn, OnSpawnButton);
+        UITools.AddClickEvent(btnPause, OnPauseButton);
         BuildMenuAllTowersFix();
 	}
 
@@ -311,7 +311,7 @@ public class UI_Tower : MonoBehaviour
         Texture t = ResourcesManager.LoadAsset<Texture>(path);
         Texture2D icon = (Texture2D)t;
         image.sprite = Sprite.Create(icon, new Rect(0, 0, icon.width, icon.height), new Vector2(0.5f, 0.5f));
-        GameTools.AddClickEvent(image.gameObject, () =>
+        UITools.AddClickEvent(image.gameObject, () =>
         {
            s_TowerData _data = new s_TowerData();
            _data.InitData(p_configId);

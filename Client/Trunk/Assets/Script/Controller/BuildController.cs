@@ -250,8 +250,6 @@ public class BuildController : MonoBehaviour {
                     }
 
                     buildableInfo.buildableType = buildManager.buildPlatforms[i].buildableType;
-                    buildableInfo.specialBuildableID = buildManager.buildPlatforms[i].specialBuildableID;
-
                     break;
                 }
             }

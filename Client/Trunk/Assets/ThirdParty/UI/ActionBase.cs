@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class ActionBase
 {
@@ -27,6 +28,9 @@ public class ActionSequence : ActionBase
     int mActionIndex;
     ActionBase mCurAction;
 
+    public Action finishedOverEvent;
+
+
     public void ClearAction()
     {
         mCurAction = null;
@@ -49,6 +53,10 @@ public class ActionSequence : ActionBase
             if (mActionIndex == mActionList.Count - 1)
             {
                 mCurAction = null;
+                if (finishedOverEvent != null)
+                {
+                    finishedOverEvent();
+                }
                 return;
             }
             else

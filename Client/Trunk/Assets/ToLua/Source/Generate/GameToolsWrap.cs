@@ -6,12 +6,10 @@ public class GameToolsWrap
 {
 	public static void Register(LuaState L)
 	{
-		L.BeginClass(typeof(GameTools), typeof(UnityEngine.MonoBehaviour));
+		L.BeginClass(typeof(UITools), typeof(UnityEngine.MonoBehaviour));
 		L.RegFunction("AddClickEvent", AddClickEvent);
 		L.RegFunction("__eq", op_Equality);
 		L.RegFunction("__tostring", ToLua.op_ToString);
-		L.RegVar("fileDic", get_fileDic, set_fileDic);
-		L.RegVar("Instance", get_Instance, null);
 		L.EndClass();
 	}
 
@@ -23,7 +21,7 @@ public class GameToolsWrap
 			ToLua.CheckArgsCount(L, 2);
 			UnityEngine.GameObject arg0 = (UnityEngine.GameObject)ToLua.CheckObject(L, 1, typeof(UnityEngine.GameObject));
 			System.Action arg1 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 2);
-			GameTools.AddClickEvent(arg0, arg1);
+			UITools.AddClickEvent(arg0, arg1);
 			return 0;
 		}
 		catch (Exception e)
@@ -43,49 +41,6 @@ public class GameToolsWrap
 			bool o = arg0 == arg1;
 			LuaDLL.lua_pushboolean(L, o);
 			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_fileDic(IntPtr L)
-	{
-		try
-		{
-			ToLua.PushSealed(L, GameTools.fileDic);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_Instance(IntPtr L)
-	{
-		try
-		{
-			ToLua.Push(L, GameTools.Instance);
-			return 1;
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_fileDic(IntPtr L)
-	{
-		try
-		{
-			System.Collections.Generic.Dictionary<string,UnityEngine.Texture2D> arg0 = (System.Collections.Generic.Dictionary<string,UnityEngine.Texture2D>)ToLua.CheckObject(L, 2, typeof(System.Collections.Generic.Dictionary<string,UnityEngine.Texture2D>));
-			GameTools.fileDic = arg0;
-			return 0;
 		}
 		catch (Exception e)
 		{

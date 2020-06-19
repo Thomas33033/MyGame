@@ -5,25 +5,8 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
 using System.IO;
-public class GameTools : MonoBehaviour
+public class UITools 
 {
-    private static GameTools mInstance;
-    public static GameTools Instance
-    {
-        get
-        {
-            if (mInstance == null)
-            {
-                GameObject go = new GameObject();
-               GameTools gt = go.AddComponent<GameTools>();
-               mInstance = gt;
-            }
-            return mInstance;
-        }
-    }
-    public static Dictionary<string, Texture2D> fileDic = new Dictionary<string, Texture2D>();
-
-
     public static void AddClickEvent(GameObject go, Action action)
     {
         Button btn = go.gameObject.GetComponent<Button>();

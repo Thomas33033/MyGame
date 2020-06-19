@@ -18,4 +18,27 @@ public class Tools
         return v.x + "," + v.y + "," + v.z;
     }
 
+
+    public static bool CompareVersion(string newVersion, string oldVersion)
+    {
+        string[] newArr = newVersion.Split(',');
+        string[] oldArr = oldVersion.Split(',');
+
+        for (int i = 0; i < 4; i++)
+        {
+            string newCode = newArr[i];
+            string oldCode = oldArr[i];
+
+            if (newArr[i] == null) newCode = "0";
+            if (oldArr[i] == null) oldCode = "0";
+
+            if (int.Parse(newCode) > int.Parse(oldCode))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

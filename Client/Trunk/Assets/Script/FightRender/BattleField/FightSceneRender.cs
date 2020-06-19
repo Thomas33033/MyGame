@@ -17,14 +17,18 @@ public class FightSceneRender : Singleton<FightSceneRender>
 
     public Dictionary<int, FightRoleRender> dicFightRole;
 
-    public BattleFieldRender battleFieldRender;
+    public BattlefieldRender battleFieldRender;
     private FightSceneRender(){}
+
+    public float GetTime()
+    {
+        return Time.realtimeSinceStartup;
+    }
 
     public override void OnCreate()
     {
         _listReport = new List<FightReport>();
         dicFightRole = new Dictionary<int, FightRoleRender>();
-        battleFieldRender = new BattleFieldRender();
 
         if (FightScene.Instance.compBehaviour != null)
         {
@@ -33,11 +37,14 @@ public class FightSceneRender : Singleton<FightSceneRender>
 
         RegisterFightReport();
     }
-    
-    public float GetTime()
+
+
+    public void InitFight(Platform platform, FightData fightData)
     {
-        return Time.realtimeSinceStartup;
+        battleFieldRender = new BattlefieldRender(this,platform);
     }
+
+   
 
 
     public  void Update()

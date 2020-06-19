@@ -2,48 +2,90 @@
 using System.Collections;
 using UnityEngine.Networking;
 using System;
+using System.IO;
 /// <summary>
 /// 获取最新版本号
 /// 1.对比版本号
 /// 2.如果是大版本，则提示下载最新版本
 /// 3.如果是小版本，则自动下载资源文件
 /// </summary>
-public class CheckVersionStep : MonoBehaviour
+public class CheckVersionStep : ActionBase
 {
 
-    // Use this for initialization
-    private string versionCode = "";
-    void Start()
+    enum EVersionState
     {
-        versionCode = "";
+        None,
+        UpdateRes,
+        DownNewApp,
+    }
+
+
+
+    public Action OnEndEvent;
+    private bool bFinished = false;
+    private string version = "";
+
+    public CheckVersionStep(Action endEvent)
+    {
+        this.OnEndEvent = endEvent;
+
+        //获取本地版本号
+        version = PlayerPrefs.GetString("VersionCode", GameConfig.Version);
+
         TimeManager.Instance.StartCoroutine(CheckVersion());
     }
 
-    // Update is called once per frame
-    void Update()
+    public override bool IsDone()
     {
+        return bFinished;
+    }
 
+    private EVersionState CompareVersion(string newVersion, string localVersion)
+    {
+        string[] newArray = newVersion.Split('.');
+        string[] oldArray = localVersion.Split('.');
+
+        if (newArray.Length == 4 && oldArray.Length == 4)
+        {
+            if (int.Parse(newArray[0]) > int.Parse(oldArray[0])
+                || int.Parse(newArray[1]) > int.Parse(oldArray[1]))
+            {
+                return EVersionState.DownNewApp;
+            }
+            else
+            {
+                return EVersionState.UpdateRes;
+            }
+        }
+
+        return EVersionState.UpdateRes;
     }
 
     IEnumerator CheckVersion()
     {
-        string versionUrl = config.VersionCodeURL + "?v="+ UnityEngine.Random.Range(10000, 99999);
-        //WWW www = new WWW(versionUrl);
-        Uri uri = new Uri(versionUrl);
+        string versionUrl = GameConfig.VersionCodeURL + "?v="+ UnityEngine.Random.Range(10000, 99999);
         UnityWebRequest request = new UnityWebRequest();
+        request.uri = new Uri(versionUrl);
         request.timeout = 5;
         yield return request.SendWebRequest();
-        if (request.isHttpError || request.isNetworkError)             //如果其 请求失败，或是 网络错误
+        if (request.isHttpError || request.isNetworkError)             
         {
-            Debug.LogError(request.error); //打印错误原因
             yield return new WaitForSeconds(1f);
             TimeManager.Instance.StartCoroutine(CheckVersion());
         }
-        else //请求成功
+        else 
         {
-            Debug.Log("请求成功");
             string newVersion =  request.downloadHandler.text;
+            EVersionState state = CompareVersion(newVersion, version);
+            if (state == EVersionState.DownNewApp)
+            {
+                OnEndEvent();
+            }
+            else {
+                bFinished = true;
+            }
         }
 
     }
+
 }

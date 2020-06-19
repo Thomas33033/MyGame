@@ -11,7 +11,7 @@ using System;
 public class ResourcesManager
 {
 
-    public static string persistentDataPath
+    public static string PersistentDataPath
     {
         get
         {
@@ -25,6 +25,26 @@ public class ResourcesManager
         }
     }
 
+
+    public static string AssetBundlePath
+    {
+        get
+        {
+            return Path.Combine(PersistentDataPath, "assets");
+        }
+    }
+
+    public static string StreamingAssetsPath
+    {
+        get
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            return Application.streamingAssetsPath;
+#else
+            return "file://" + Application.streamingAssetsPath;
+#endif
+        }
+    }
 
     /// <summary>
     ///   资源相对目录

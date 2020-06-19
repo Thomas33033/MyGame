@@ -29,9 +29,9 @@ public class UI_Loading : MonoBehaviour
         _bPlay = true;
     }
 
-    public void SetProgress()
+    public void SetProgress(float progress)
     {
-
+        proressBar.fillAmount = progress;
     }
 
     // Update is called once per frame

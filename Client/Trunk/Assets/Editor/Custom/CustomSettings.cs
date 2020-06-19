@@ -164,7 +164,7 @@ public static class CustomSettings
         _GT(typeof(LayerMask)),
         _GT(typeof(Utils)),
         _GT(typeof(UIManager)),
-        _GT(typeof(GameTools)),
+        _GT(typeof(UITools)),
         
         
         //uGUI;

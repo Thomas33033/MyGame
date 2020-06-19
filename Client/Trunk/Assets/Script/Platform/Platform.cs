@@ -8,8 +8,6 @@ using Fight;
 public class Platform : MonoBehaviour {
 	
 	public _TowerType[] buildableType=new _TowerType[1];
-
-	public int[] specialBuildableID;
 	
 	private bool walkable;
 
@@ -53,15 +51,8 @@ public class Platform : MonoBehaviour {
 
 		thisT=transform;
 		
-		thisObj.layer=LayerManager.LayerPlatform();
-		
-		if(specialBuildableID!=null && specialBuildableID.Length>0)
-        {
-			for(int i=0; i<specialBuildableID.Length; i++)
-            {
-				specialBuildableID[i]=Mathf.Max(0, specialBuildableID[i]);
-			}
-		}
+		//thisObj.layer=LayerManager.LayerPlatform();
+    
 	}
 	
 	public void GenerateNode(float heightOffset)
@@ -237,9 +228,15 @@ public class Platform : MonoBehaviour {
 	public bool IsWalkable(){
 		return walkable;
 	}
-	
-	
-	public Node[] GetNodeGraph(){
+
+     
+    public Vector3 GetWorldPosition(int nodeId)
+    {
+        return this.nodeGraphMap[nodeId].node.pos;
+    }
+
+
+    public Node[] GetNodeGraph(){
 		return nodeGraph;
 	}
 
