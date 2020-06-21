@@ -29,18 +29,18 @@ public class FightSceneRender : Singleton<FightSceneRender>
     {
         _listReport = new List<FightReport>();
         dicFightRole = new Dictionary<int, FightRoleRender>();
+    }
 
+
+    public void InitFight(Platform platform, FightData fightData)
+    {
         if (FightScene.Instance.compBehaviour != null)
         {
             FightScene.Instance.compBehaviour.reciveEvent += ReportHandler;
         }
 
         RegisterFightReport();
-    }
 
-
-    public void InitFight(Platform platform, FightData fightData)
-    {
         battleFieldRender = new BattlefieldRender(this,platform);
     }
 
@@ -76,6 +76,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
     //通知UI
     protected void ReportHandler(FightReport report)
     {
+        Debug.Log("收到战报");
         //if (_luaReportFun != null && Array.IndexOf<string>(_arrListeners, report.type) > -1)
         //{
         //    _luaReportFun.call(report);
@@ -100,7 +101,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
 
         FightRoleRender roleRender = new FightRoleRender();
         
-        roleRender.LoadNpc(roleData.Resource, Tools.ToVector3(roleData.Position));
+        roleRender.LoadNpc(roleData.Resource, battleFieldRender.GetWorldPosition(roleData.NodeId));
         roleRender.SetHpMax(roleData.HP);
         roleRender.SetMpMax(roleData.MP);
 

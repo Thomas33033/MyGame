@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using Fight;
 
 /// <summary>
 /// 怪物生成管理器
@@ -194,11 +194,24 @@ public class SpawnManager : Singleton<SpawnManager>
 
         s_MonsterData _data = new s_MonsterData();
         _data.InitData(p_subWave.monsterConfigId);
-        _data.position = pos;
-        _data.rotation = rot;
-        _data.speedFactor = 1;
-        Monster monster = EntitesManager.Instance.CreateMonster(_data);
-        monster.SetMovePath(tempPath, p_waveID);
+
+        FightHeroData heroData = new FightHeroData();
+        heroData.uid = Entity.GetUniqueId();
+        heroData.Resource = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.Resname);
+        heroData.NodeId = 171;
+        FightScene.Instance.CreateRole(heroData);
+
+
+       
+        //
+        //_data.position = pos;
+        //_data.rotation = rot;
+        //_data.speedFactor = 1;
+        //Monster monster = EntitesManager.Instance.CreateMonster(_data);
+        //monster.SetMovePath(tempPath, p_waveID);
+
+
+
     }
    
 

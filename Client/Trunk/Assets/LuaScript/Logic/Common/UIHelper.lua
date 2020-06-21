@@ -90,7 +90,7 @@ end
 
 --默认播放音效
 function UIHelper.AddButtonClick(obj,func,target)
-	GameTools.AddClickEvent(obj.gameObject, function(obj)
+	UITools.AddClickEvent(obj.gameObject, function(obj)
 		--LogicTools.PlayAudio(ESOUND_NAME.CLICK_COMMON)
 		error("==1==")
 		if func then
@@ -101,7 +101,7 @@ end
 
 --没有点击音效
 function UIHelper.AddButtonClickOnSound(obj,func)
-	GameTools.AddClickEvent(obj.gameObject, function(obj)
+	UITools.AddClickEvent(obj.gameObject, function(obj)
 		if func then
 			func(obj)
 		end

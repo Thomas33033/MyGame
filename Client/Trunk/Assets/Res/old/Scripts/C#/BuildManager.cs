@@ -313,22 +313,23 @@ public class BuildManager : MonoBehaviour {
 		}
 		else
         {
-			if(currentBuildInfo.specialBuildableID!=null && currentBuildInfo.specialBuildableID.Length>0)
-            {
-				return false;
-			}
-			
-			foreach(_TowerType buildabletype in currentBuildInfo.buildableType)
-            {
-				if(type==buildabletype)
-                {
-					return true;
-				}
-			}
+            //if(currentBuildInfo.specialBuildableID!=null && currentBuildInfo.specialBuildableID.Length>0)
+            //         {
+            //	return false;
+            //}
+
+            //foreach(_TowerType buildabletype in currentBuildInfo.buildableType)
+            //         {
+            //	if(type==buildabletype)
+            //             {
+            //		return true;
+            //	}
+            //}
+            return true;
 		}
 		
-		currentBuildInfo.buildable=false;
-		return false;
+		//currentBuildInfo.buildable=false;
+		//return false;
 	}
 	
 
@@ -346,9 +347,6 @@ public class BuildManager : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 pos = ray.GetPoint(10000);
 
-            Tower tower1 = EntitesManager.Instance.CreateTower(_data.baseId);
-            tower1.Trans.position = pos;
-
             string path = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.Resname);
 
             var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(path);
@@ -356,7 +354,7 @@ public class BuildManager : MonoBehaviour {
             var modelObj = modelPoolItem.itemObj;
 
             FightHeroData buildData = new FightHeroData();
-            buildData.Resource = _data.config.Resname;
+            buildData.Resource = path;
             buildData.uid = Entity.GetUniqueId();
             buildData.roleId = _data.config.UId;
 
@@ -364,7 +362,7 @@ public class BuildManager : MonoBehaviour {
             buildData.CurHp = _data.config.Hp;
             buildData.CurMp = buildData.HP;
 
-            InputManager.Instance.DragNDropTower(modelObj, tower1.CurData.costRes, buildData);
+            InputManager.Instance.DragNDropTower(modelPoolItem, _data.costRes, buildData);
             return true;
         }
 

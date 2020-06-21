@@ -78,7 +78,6 @@ public class NodeGenerator : MonoBehaviour
     /// <param name="heightOffset"></param>
     /// <returns></returns>
 	static public Node[] GenerateNode(Platform platform, float heightOffset){
-		
 		CheckInit();
 
 		float timeStart=Time.realtimeSinceStartup;
@@ -104,16 +103,14 @@ public class NodeGenerator : MonoBehaviour
 		thisT.rotation=platformT.rotation;
 		thisT.position=thisT.TransformPoint(new Vector3(gridSize/2, heightOffset, gridSize/2));
 
-
-        thisT.position = Vector3.zero;
-        thisT.rotation = Quaternion.identity;
-
 		int counter = 0;
 		float timeUsed = Time.realtimeSinceStartup - timeStart;
 		Node[] nodeGraph;
 		//读取本地战场信息
 		List<NodeData> nodeList = StaticData.LoadList<NodeData>("GridData.json");
-		if (nodeList == null || nodeList.Count <= 0)
+        nodeList.Clear();
+
+        if (nodeList == null || nodeList.Count <= 0)
 		{
 			nodeGraph = new Node[countZ * countX];
 			

@@ -77,11 +77,11 @@ public class UI_Main : UIPanelBase
 
     void OnSpawnButton()
     {
-        //if (GameControl.gameState != EGameState.Ended)
-        //{
-        //    SpawnManager.Instance.Spawn();
-        //}
-        LuaManager.Instance.CallFunction("Main.Start");
+        if (GameControl.gameState != EGameState.Ended)
+        {
+            SpawnManager.Instance.Spawn();
+        }
+        //LuaManager.Instance.CallFunction("Main.Start");
     }
 
     void OnPauseButton()

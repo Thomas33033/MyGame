@@ -37,6 +37,7 @@ namespace FightCommom
         {
             pos = position;
             ID = id;
+            this.walkable = true;
         }
 
         public void SetNeighbour(List<Node> arrNeighbour, List<float> arrCost)

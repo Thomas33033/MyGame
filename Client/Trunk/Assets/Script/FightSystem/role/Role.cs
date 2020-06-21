@@ -35,6 +35,8 @@ namespace Fight
 
         public Node position;
 
+        public int[] costNodes;
+
         private int _hp;
         public virtual int hp { get => _hp; set => _hp = value; }
 

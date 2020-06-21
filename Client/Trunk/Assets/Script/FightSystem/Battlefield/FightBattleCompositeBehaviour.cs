@@ -8,7 +8,6 @@ namespace Fight
     /// </summary>
     public class FightBattleCompositeBehaviour : FightCompositeBehaviour
     {
-        public BattleComposite composite;
 
         public override bool isFight => composite.isFight;
 
@@ -84,8 +83,10 @@ namespace Fight
         private float _lastCompositeTime;
         private float _startCompositeTime;
 
-        private void FixedUpdate()
+        public override  void Update()
         {
+            base.Update();
+
             if (composite == null)
                 return;
 

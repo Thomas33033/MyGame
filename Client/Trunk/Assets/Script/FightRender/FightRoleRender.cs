@@ -17,6 +17,8 @@ public class FightRoleRender : RoleRender
     private float _actionTime_skill;
     private bool isDie;
 
+    private ModelPoolObj npcPoolObj;
+
     private void Start()
     {
         delayCalls = new List<DelayCall>();
@@ -68,32 +70,30 @@ public class FightRoleRender : RoleRender
 
     public void LoadNpc(string npcAsset,Vector3 position)
     {
-        GameObject obj = ResourcesManager.LoadAsset<GameObject>(npcAsset);
-        if (obj == null)
-        {
-            npcAsset = "Default";
-            obj = ResourcesManager.LoadAsset<GameObject>(npcAsset);
-        }
-        animator = obj.GetComponent<Animator>();
+        Debug.LogError("loadNpc"+ npcAsset);
+        var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(npcAsset);
+        npcPoolObj = pool.GetObject();
+        gameObject = npcPoolObj.itemObj;
+        transform = gameObject.transform;
+        this.transform.position = position;
 
-        this.gameObject = obj;
-        this.transform = obj.transform;
-
+        animator = this.gameObject.GetComponent<Animator>();
         //animator.runtimeAnimatorController = LoadTools.LoadRoleAnimator("RoleNpc", npcAsset);
 
-        string path = string.Format("{0}/{1}.prefab", ResPathHelper.UI_WINDOW_PATH, "UIRoot3D");
-
-        var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(path);
+        string uiHeadPath = string.Format("{0}/{1}.prefab", ResPathHelper.UI_WINDOW_PATH, "UI_Head");
+        pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(uiHeadPath);
         CObjectPool<ModelPoolObj> modelPool = pool;
         ModelPoolObj modelPoolObj = modelPool.GetObject();
         ui = modelPoolObj.itemObj.GetComponent<FightRoleUI>();
-        ui.transform.position = transform.Find("head").transform.position;
+        ui.transform.parent = GameObject.Find("UIRootHp").transform;
         ui.transform.localPosition = new Vector3(0, 1, 0);
-
-        //创建头顶UI
+        ui.GetComponent<FollowUI3D>().target = transform.Find("head").transform;
+        //ui.transform.parent = transform.Find("head").transform; 
         
-        ui.transform.position = transform.position;
-
+        if (animator != null)
+        {
+            animator.Play("Idle");
+        }
     }
 
     public void Jump(Vector3 v, float time)

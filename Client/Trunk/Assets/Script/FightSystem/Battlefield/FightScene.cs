@@ -9,13 +9,6 @@ namespace Fight
     {
         public FightCompositeBehaviour compBehaviour;
 
-        public void Update()
-        {
-            if (compBehaviour != null)
-            {
-                compBehaviour.Update();
-            }
-        }
 
         public void InitFight(FightType fightType, FightData fightData)
         {
@@ -28,7 +21,14 @@ namespace Fight
             }
         }
 
-       
+        public void Update()
+        {
+            if (compBehaviour != null)
+            {
+                compBehaviour.Update();
+            }
+        }
+
 
         public void CreateRole(FightHeroData fightBuildData)
         {

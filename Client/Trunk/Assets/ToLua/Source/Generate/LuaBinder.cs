@@ -12,7 +12,7 @@ public static class LuaBinder
 		LuaProfilerWrap.Register(L);
 		UtilsWrap.Register(L);
 		UIManagerWrap.Register(L);
-		GameToolsWrap.Register(L);
+		UIToolsWrap.Register(L);
 		Singleton_UIManagerWrap.Register(L);
 		L.BeginModule("LuaInterface");
 		LuaInterface_LuaInjectionStationWrap.Register(L);

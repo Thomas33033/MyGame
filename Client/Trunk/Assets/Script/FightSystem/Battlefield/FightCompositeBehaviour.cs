@@ -13,6 +13,8 @@ namespace Fight
     /// </summary>
     public class FightCompositeBehaviour
     {
+        public BattleComposite composite;
+
         protected FightData _fightData;
 
         public int owerId { get => _fightData.selfBattleData.userData.userID; }

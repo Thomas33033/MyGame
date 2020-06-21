@@ -57,7 +57,7 @@ namespace Fight
 
         public int NodeId;
         public string Position;
-        public string CostNodes;
+        public int[] CostNodes;
         public int PlatformId;
 
         public int Attack;
@@ -80,7 +80,7 @@ namespace Fight
         public int Range;
         public int ReloadSpeed;
         public int Star;
-        public FightSkillData[] SkillData;
+        public FightSkillData[] SkillData = new FightSkillData[] { };
 
         //死亡掉落
         public string dieDrop;

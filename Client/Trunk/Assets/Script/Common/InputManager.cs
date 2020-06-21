@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
     private GameObject dragTower;
+    private ModelPoolObj poolObj;
     private ResItem _costRes;
     private FightHeroData fightBuildData;
     List<int> costNodeIDs;
@@ -18,10 +19,12 @@ public class InputManager : MonoBehaviour
         Instance = this;
     }
 
-    public void DragNDropTower(GameObject tower, ResItem costRes, FightHeroData fightBuildData)
+    public void DragNDropTower(ModelPoolObj poolObj, ResItem costRes, FightHeroData fightBuildData)
     {
         _costRes = costRes;
-        dragTower = tower;
+        this.poolObj = poolObj;
+        dragTower = poolObj.itemObj;
+
         this.fightBuildData = fightBuildData;
         StartCoroutine(this.DragNDropRoutine());
     }
@@ -45,7 +48,7 @@ public class InputManager : MonoBehaviour
         {
             //检测建筑是否可以创建
             bool flag = BuildManager.CheckBuildPoint(Input.mousePosition, costNodeIDs, _TowerType.AOETower, 0);
-            
+
             BuildableInfo currentBuildInfo = BuildManager.GetBuildInfo();
 
             if (currentBuildInfo != null)
@@ -81,7 +84,6 @@ public class InputManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("currentBuildInfo.position" + currentBuildInfo.position);
                 this.dragTower.transform.position = currentBuildInfo.position;
             }
 
@@ -108,12 +110,10 @@ public class InputManager : MonoBehaviour
 
     void DragNDropBuilt()
     {
-        Debug.Log("DragNDropBuilt");
         //检查资源
         ResItem resItem = _costRes;
         if (GameControl.HaveSufficientResource(resItem))
         {
-            Debug.Log("DragNDropBuilt ok");
             //请求消耗资源
             BagController.Instance.RemoveResource(resItem.itemId, resItem.num);
 
@@ -121,11 +121,11 @@ public class InputManager : MonoBehaviour
 
             this.dragTower.transform.GetComponent<Collider>().enabled = true;
 
-            this.fightBuildData.CostNodes =  string.Join("-",costNodeIDs);
+            this.fightBuildData.CostNodes = costNodeIDs.ToArray();
             Node node = BuildManager.GetBuildPosition();
-            this.fightBuildData.Position = node.pos.ToString();
             this.fightBuildData.NodeId = node.ID;
 
+            this.poolObj.ReturnToPool();
 
             //通知场景创建建筑
             //GameObject.Destroy(this.dragTower);
@@ -144,7 +144,7 @@ public class InputManager : MonoBehaviour
 
     void DragNDropCancel()
     {
+        this.poolObj.ReturnToPool();
         BuildManager.ClearBuildPoint();
-        GameObject.Destroy(this.dragTower);
     }
 }

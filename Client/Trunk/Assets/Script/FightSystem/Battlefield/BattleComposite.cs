@@ -165,9 +165,10 @@ namespace Fight
 
             FightRole fightRole = new FightRole(team, roleData.uid, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
             fightRole.isPlayer = isPlayer;
+            fightRole.costNodes = roleData.CostNodes;
             fightRole.site = site;
             listAllRoles.Add(fightRole);
-            battleField.AddRole(fightRole,site);
+            battleField.AddRole(fightRole, site);
 
             fightRole.PrepareFight();
 

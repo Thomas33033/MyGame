@@ -80,7 +80,7 @@ public class GameControl : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        defaultPath.InitPath();
+       // defaultPath.InitPath();
 
         totalWaveCount =SpawnManager.Instance.waves.Length;
 
@@ -107,9 +107,10 @@ public class GameControl : MonoBehaviour {
 		Time.timeScale=1;
 
 		//-------------------------------------------------------------------
-		platform.GenerateNode(1);
+		platform.GenerateNode(0);
+        platform.SetWalkable(true);
 
-		FightScene fightScene = FightScene.Instance;
+        FightScene fightScene = FightScene.Instance;
         FightData fightdata = new FightData();
 
         fightdata.enemyBattleData = new FightPlayerData();
@@ -121,7 +122,9 @@ public class GameControl : MonoBehaviour {
 		fightdata.enemyBattleData.heroData = new FightHeroData[] { };
 		fightdata.enemyBattleData.teamSkills = new FightSkillData[] { };
 
-		fightdata.selfBattleData = new FightPlayerData();
+
+
+        fightdata.selfBattleData = new FightPlayerData();
         userData = new FightPlayerInfo();
         userData.userID = 1002;
         userData.nickName = "»¶Ï²Ô©¼Ò_2";
@@ -132,13 +135,13 @@ public class GameControl : MonoBehaviour {
 
         fightdata.battleFieldData = new BattleFieldData();
         fightdata.battleFieldData.nodeGraph = platform.GetNodeGraph();
-		
-		FightSceneRender sceneRender = FightSceneRender.Instance;
-        sceneRender.InitFight(platform, fightdata);
 
+        FightSceneRender sceneRender = FightSceneRender.Instance;
+        
         fightScene.InitFight(FightType.ConmmFight, fightdata);
 
-	}
+        sceneRender.InitFight(platform, fightdata);
+    }
 	
 
     public void RefreshResource()
@@ -184,6 +187,7 @@ public class GameControl : MonoBehaviour {
         SpawnManager.Instance.OnUpdate(this.deltalTime);
 
         FightSceneRender.Instance.Update();
+        FightScene.Instance.Update();
     }
 	
 	

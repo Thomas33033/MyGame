@@ -6,35 +6,41 @@ using UnityEngine.UI;
 
 public class FollowUI3D : MonoBehaviour
 {
-    private Transform target;
+
+    public Transform target;
     public Vector3 offsetPos = Vector3.zero;
     private float frontSize;
 
-    private GameObject canvas;
-    // Use this for initialization
+    private Canvas canvas;
+    private RectTransform rectTransform;
+    private Vector2 offset;
     bool isLoad = false;
-	void Start () {
-        if (isLoad)
-        {
-            return;
-        }
-        //isLoad = true;
-        //this.transform.localScale = Vector3.one;
-        //canvas = GameObject.Instantiate(prefab).gameObject;
-        //canvas.gameObject.SetActive(true);
-        //target = canvas.transform;
-        //canvas.transform.parent = this.transform;
-        //canvas.transform.localPosition = Vector3.zero;
-        //canvas.transform.localEulerAngles = Vector3.zero;
-        //canvas.transform.localScale = Vector3.one;
-	}
 
+    private Vector3 mousePos;
+    private Vector2 screenPos;
+
+
+    private Camera uiCamera;
+    void Start () {
+        this.rectTransform = this.GetComponent<RectTransform>();
+        canvas = GameObject.Find("UIRootHp").GetComponent<Canvas>();
+        //canvas = this.GetComponent<Canvas>();
+        //canvas.worldCamera = Camera.main;
+        this.transform.localScale = Vector3.one * 0.01f;
+    }
+    
     void Update()
     {
-        //text.gameObject.layer = DataManager.Instance.UI3D_S;
-        //text.gameObject.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-        //canvas.transform.parent = DataManager.Instance.canvas_S.transform;
-        this.gameObject.transform.LookAt(Camera.main.transform);
+        //screenPos = Camera.main.WorldToScreenPoint(target.transform.position);
+        //if (RectTransformUtility.ScreenPointToWorldPointInRectangle(this.rectTransform, screenPos, canvas.worldCamera, out mousePos))
+        //{
+        //    rectTransform.position = mousePos;
+        //}
+
+        rectTransform.position = target.transform.position;
+        rectTransform.rotation = Camera.main.transform.rotation;
+        //rectTransform.LookAt(Camera.main.transform, new Vector3(1,0,0));
+
     }
 
 

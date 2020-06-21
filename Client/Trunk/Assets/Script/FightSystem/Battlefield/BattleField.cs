@@ -91,7 +91,12 @@ namespace Fight
             {
                 v.position = dicNodeGraph[position];
                 v.SetBattleField(this);
-                dicNodeGraph[position].walkable = false;
+                
+                for (int i = 0; v.costNodes != null && i < v.costNodes.Length; i++)
+                {
+                    dicNodeGraph[i].walkable = false;
+                }
+
                 listRoles.Add(v);
                 v.Init();
             }

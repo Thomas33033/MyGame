@@ -45,7 +45,8 @@ public class NodeRender
 
     public void DefaultColor()
     {
-        colorState = node.walkable ? ENodeColor.Block : ENodeColor.Empty;
+        colorState = node.walkable ? ENodeColor.Empty : ENodeColor.Block;
+        SetViewColorState(colorState);
     }
 
     public void SetViewColorState(ENodeColor state)
@@ -53,6 +54,7 @@ public class NodeRender
         if (this.viewObj == null)
             return;
         colorState = state;
+        RefreshColor();
     }
 
     public void RefreshColor()

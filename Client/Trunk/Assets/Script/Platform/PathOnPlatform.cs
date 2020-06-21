@@ -54,10 +54,13 @@ public class PathOnPlatform
         else nextPoint = nextNeighbouringWP.pos;
 
         endN = PathFinder.GetNearestNode(nextPoint, nodeGraph);
-
-        Debug.DrawLine(endN.pos, endN.pos + new Vector3(0, 2, 0), Color.red, 50);
-        Debug.DrawLine(startN.pos, startN.pos + new Vector3(0, 2, 0), Color.blue, 50);
-        Debug.DrawLine(nextNeighbouringWP.pos, nextNeighbouringWP.pos + new Vector3(0, 2, 0), Color.green, 50);
+        if (endN != null)
+        {
+            Debug.DrawLine(endN.pos, endN.pos + new Vector3(0, 2, 0), Color.red, 50);
+            Debug.DrawLine(startN.pos, startN.pos + new Vector3(0, 2, 0), Color.blue, 50);
+            Debug.DrawLine(nextNeighbouringWP.pos, nextNeighbouringWP.pos + new Vector3(0, 2, 0), Color.green, 50);
+        }
+        
     }
 
     public void SetPath(List<Vector3> wp, int id)

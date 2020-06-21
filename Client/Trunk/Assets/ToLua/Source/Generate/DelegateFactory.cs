@@ -39,6 +39,8 @@ public class DelegateFactory
 		dict.Add(typeof(UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>), factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
 		dict.Add(typeof(UnityEngine.RectTransform.ReapplyDrivenProperties), factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		dict.Add(typeof(UnityEngine.UI.InputField.OnValidateInput), factory.UnityEngine_UI_InputField_OnValidateInput);
+		dict.Add(typeof(System.Action<UnityEngine.EventSystems.PointerEventData>), factory.System_Action_UnityEngine_EventSystems_PointerEventData);
+		dict.Add(typeof(System.Action<UnityEngine.Transform,int>), factory.System_Action_UnityEngine_Transform_int);
 
 		DelegateTraits<System.Action>.Init(factory.System_Action);
 		DelegateTraits<UnityEngine.Events.UnityAction>.Init(factory.UnityEngine_Events_UnityAction);
@@ -62,6 +64,8 @@ public class DelegateFactory
 		DelegateTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Init(factory.UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
 		DelegateTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.UnityEngine_RectTransform_ReapplyDrivenProperties);
 		DelegateTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.UnityEngine_UI_InputField_OnValidateInput);
+		DelegateTraits<System.Action<UnityEngine.EventSystems.PointerEventData>>.Init(factory.System_Action_UnityEngine_EventSystems_PointerEventData);
+		DelegateTraits<System.Action<UnityEngine.Transform,int>>.Init(factory.System_Action_UnityEngine_Transform_int);
 
 		TypeTraits<System.Action>.Init(factory.Check_System_Action);
 		TypeTraits<UnityEngine.Events.UnityAction>.Init(factory.Check_UnityEngine_Events_UnityAction);
@@ -85,6 +89,8 @@ public class DelegateFactory
 		TypeTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Init(factory.Check_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene);
 		TypeTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Init(factory.Check_UnityEngine_RectTransform_ReapplyDrivenProperties);
 		TypeTraits<UnityEngine.UI.InputField.OnValidateInput>.Init(factory.Check_UnityEngine_UI_InputField_OnValidateInput);
+		TypeTraits<System.Action<UnityEngine.EventSystems.PointerEventData>>.Init(factory.Check_System_Action_UnityEngine_EventSystems_PointerEventData);
+		TypeTraits<System.Action<UnityEngine.Transform,int>>.Init(factory.Check_System_Action_UnityEngine_Transform_int);
 
 		StackTraits<System.Action>.Push = factory.Push_System_Action;
 		StackTraits<UnityEngine.Events.UnityAction>.Push = factory.Push_UnityEngine_Events_UnityAction;
@@ -108,6 +114,8 @@ public class DelegateFactory
 		StackTraits<UnityEngine.Events.UnityAction<UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene>>.Push = factory.Push_UnityEngine_Events_UnityAction_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene;
 		StackTraits<UnityEngine.RectTransform.ReapplyDrivenProperties>.Push = factory.Push_UnityEngine_RectTransform_ReapplyDrivenProperties;
 		StackTraits<UnityEngine.UI.InputField.OnValidateInput>.Push = factory.Push_UnityEngine_UI_InputField_OnValidateInput;
+		StackTraits<System.Action<UnityEngine.EventSystems.PointerEventData>>.Push = factory.Push_System_Action_UnityEngine_EventSystems_PointerEventData;
+		StackTraits<System.Action<UnityEngine.Transform,int>>.Push = factory.Push_System_Action_UnityEngine_Transform_int;
 	}
     
     public static Delegate CreateDelegate(Type t, LuaFunction func = null)
@@ -1493,6 +1501,122 @@ public class DelegateFactory
 	}
 
 	void Push_UnityEngine_UI_InputField_OnValidateInput(IntPtr L, UnityEngine.UI.InputField.OnValidateInput o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_UnityEngine_EventSystems_PointerEventData_Event : LuaDelegate
+	{
+		public System_Action_UnityEngine_EventSystems_PointerEventData_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_EventSystems_PointerEventData_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.EventSystems.PointerEventData param0)
+		{
+			func.BeginPCall();
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.EventSystems.PointerEventData param0)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.PushObject(param0);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<UnityEngine.EventSystems.PointerEventData> System_Action_UnityEngine_EventSystems_PointerEventData(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<UnityEngine.EventSystems.PointerEventData> fn = delegate(UnityEngine.EventSystems.PointerEventData param0) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_UnityEngine_EventSystems_PointerEventData_Event target = new System_Action_UnityEngine_EventSystems_PointerEventData_Event(func);
+			System.Action<UnityEngine.EventSystems.PointerEventData> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_UnityEngine_EventSystems_PointerEventData_Event target = new System_Action_UnityEngine_EventSystems_PointerEventData_Event(func, self);
+			System.Action<UnityEngine.EventSystems.PointerEventData> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_UnityEngine_EventSystems_PointerEventData(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.EventSystems.PointerEventData>), L, pos);
+	}
+
+	void Push_System_Action_UnityEngine_EventSystems_PointerEventData(IntPtr L, System.Action<UnityEngine.EventSystems.PointerEventData> o)
+	{
+		ToLua.Push(L, o);
+	}
+
+	class System_Action_UnityEngine_Transform_int_Event : LuaDelegate
+	{
+		public System_Action_UnityEngine_Transform_int_Event(LuaFunction func) : base(func) { }
+		public System_Action_UnityEngine_Transform_int_Event(LuaFunction func, LuaTable self) : base(func, self) { }
+
+		public void Call(UnityEngine.Transform param0, int param1)
+		{
+			func.BeginPCall();
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+
+		public void CallWithSelf(UnityEngine.Transform param0, int param1)
+		{
+			func.BeginPCall();
+			func.Push(self);
+			func.Push(param0);
+			func.Push(param1);
+			func.PCall();
+			func.EndPCall();
+		}
+	}
+
+	public System.Action<UnityEngine.Transform,int> System_Action_UnityEngine_Transform_int(LuaFunction func, LuaTable self, bool flag)
+	{
+		if (func == null)
+		{
+			System.Action<UnityEngine.Transform,int> fn = delegate(UnityEngine.Transform param0, int param1) { };
+			return fn;
+		}
+
+		if(!flag)
+		{
+			System_Action_UnityEngine_Transform_int_Event target = new System_Action_UnityEngine_Transform_int_Event(func);
+			System.Action<UnityEngine.Transform,int> d = target.Call;
+			target.method = d.Method;
+			return d;
+		}
+		else
+		{
+			System_Action_UnityEngine_Transform_int_Event target = new System_Action_UnityEngine_Transform_int_Event(func, self);
+			System.Action<UnityEngine.Transform,int> d = target.CallWithSelf;
+			target.method = d.Method;
+			return d;
+		}
+	}
+
+	bool Check_System_Action_UnityEngine_Transform_int(IntPtr L, int pos)
+	{
+		return TypeChecker.CheckDelegateType(typeof(System.Action<UnityEngine.Transform,int>), L, pos);
+	}
+
+	void Push_System_Action_UnityEngine_Transform_int(IntPtr L, System.Action<UnityEngine.Transform,int> o)
 	{
 		ToLua.Push(L, o);
 	}

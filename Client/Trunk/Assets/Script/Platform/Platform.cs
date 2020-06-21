@@ -114,7 +114,7 @@ public class Platform : MonoBehaviour {
 		bool blocked=false;
 		
 		nearestNode=PathFinder.GetNearestNode(pos, nodeGraph);
-
+        
         //如果建筑需要的格子包含阻挡，则返回false
         if (RefreshBulidGrid(nearestNode.ID, costGrid))
         {
@@ -182,7 +182,6 @@ public class Platform : MonoBehaviour {
                 }
 
                 buildData.PlatformId = this.ID;
-                buildData.Position = nearestNode.pos.ToString();
 
                 foreach (PathOnPlatform pathObj in pathObjects)
                 {
@@ -198,7 +197,6 @@ public class Platform : MonoBehaviour {
 				Node node=PathFinder.GetNearestNode(point, nodeGraph);
 				node.walkable=false;
                 buildData.PlatformId = this.ID;
-                buildData.Position = nearestNode.pos.ToString();
 
                 foreach (PathOnPlatform pathObj in pathObjects)
                 {

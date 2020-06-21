@@ -20,11 +20,13 @@ public class Main : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        actionSequence.AddAction(new CopyLocalAssetStep(RefreshProgress));
-        actionSequence.AddAction(new CheckVersionStep(OnNewVersion));
-        actionSequence.AddAction(new UpdateResStep(RefreshProgress));
-        actionSequence.finishedOverEvent = OnEnterGame;
-        actionSequence.Start(this.gameObject);
+        //actionSequence.AddAction(new CopyLocalAssetStep(RefreshProgress));
+        //actionSequence.AddAction(new CheckVersionStep(OnNewVersion));
+        //actionSequence.AddAction(new UpdateResStep(RefreshProgress));
+        //actionSequence.finishedOverEvent = OnEnterGame;
+        //actionSequence.Start(this.gameObject);
+
+        OnEnterGame();
     }
 
 
