@@ -277,7 +277,7 @@ namespace Fight
 
         }
 
-        protected bool MoveTo(Node grid)
+        public bool MoveTo(Node grid)
         {
             if (battleField.CheckMove(grid))
             {

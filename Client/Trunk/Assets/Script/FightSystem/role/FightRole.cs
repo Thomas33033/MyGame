@@ -15,6 +15,11 @@ namespace Fight
             type = RoleType.Fighter;
         }
 
+        public void TestFindTarget()
+        {
+            this.FindTarget();
+        }
+
         protected override void FindTarget()
         {
             List<Role> listEnemy = battleField.GetEnemy(teamId);
@@ -34,7 +39,7 @@ namespace Fight
                         break;
                     }
 
-                    List<Node> listHex = battleField.GetAround(listEnemy[j].position);
+                    List<Node> listHex = battleField.GetAround(listEnemy[j].position,2);
                     listHex.Sort(SortHexDistanceHandler);
 
                     bool flag = false;

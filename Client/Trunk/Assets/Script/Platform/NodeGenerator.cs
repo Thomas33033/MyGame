@@ -120,8 +120,11 @@ public class NodeGenerator : MonoBehaviour
 				for (int j = 0; j < countX; j++)
 				{
 					tempPosition = thisT.TransformPoint(new Vector3(gridSize * j, 0, gridSize * i));
-					nodeGraph[counter] = new Node(tempPosition, counter);
-					counter += 1;
+					nodeGraph[counter] = new Node(tempPosition, counter,i,j);
+                    nodeGraph[counter].width = countZ;
+                    nodeGraph[counter].height = countX;
+
+                    counter += 1;
 				}
 			}
 
@@ -235,7 +238,7 @@ public class NodeGenerator : MonoBehaviour
 		string json = SimpleJson.SimpleJson.SerializeObject(jsonObjs);
 		StaticData.SaveData("GridData.json", json);
 
-		return nodeGraph;
+        return nodeGraph;
 	}
 
 	void GenerateNode()
@@ -254,18 +257,18 @@ public class NodeGenerator : MonoBehaviour
 
 		int counter=0;
 		float heightOffset=agentHeight/2;
-		for(float j=area.y; j<area.height; j+=gridSize)
+		for(int j=(int)area.y; j<area.height; j+= (int)gridSize)
         {
-			for(float i=area.x; i<area.width; i+=gridSize)
+			for(int i = (int)area.x; i<area.width; i+= (int)gridSize)
             {
 				RaycastHit hit1;
 				if(Physics.Raycast(new Vector3(i, 500, j), Vector3.down, out hit1))
                 {
-					nodeGraph[counter]=new Node(new Vector3(i, hit1.point.y+heightOffset, j), counter);
+					nodeGraph[counter]=new Node(new Vector3(i, hit1.point.y+heightOffset, j), counter,j,i);
 				}
 				else
                 {
-					nodeGraph[counter]=new Node(new Vector3(i, 0, j), counter);
+					nodeGraph[counter]=new Node(new Vector3(i, 0, j), counter,j,i);
 					nodeGraph[counter].walkable=false;
 				}
 				counter+=1;

@@ -36,7 +36,7 @@ public class NodeRender
         {
             this.viewObj = obj;
             this.viewObj.gameObject.SetActive(true);
-            this.viewObj.name = node.ID + "";
+            this.viewObj.name = node.ID + " " +node.x +"-"+node.y ;
             this.viewObj.transform.position = node.pos;
             this.viewObj.transform.localScale = new Vector3(1, 0.1f, 1);
             this.DefaultColor();
@@ -53,7 +53,13 @@ public class NodeRender
     {
         if (this.viewObj == null)
             return;
+
         colorState = state;
+        if (!node.walkable)
+        {
+            colorState = ENodeColor.Block;
+        }
+    
         RefreshColor();
     }
 
@@ -72,10 +78,10 @@ public class NodeRender
                 color = Color.green;
                 break;
             case ENodeColor.CantBuild:
-                color = Color.red;
+                color = Color.yellow;
                 break;
         }
-
+       // Debug.Log(this.node.ID + "  " + colorState);
         this.viewObj.GetComponent<Renderer>().material.SetColor("_TintColor", color);
     }
 }

@@ -124,16 +124,9 @@ public class InputManager : MonoBehaviour
             this.fightBuildData.CostNodes = costNodeIDs.ToArray();
             Node node = BuildManager.GetBuildPosition();
             this.fightBuildData.NodeId = node.ID;
-
             this.poolObj.ReturnToPool();
 
-            //通知场景创建建筑
-            //GameObject.Destroy(this.dragTower);
-            //BuildManager.ClearBuildPoint();
-            //BuildManager.DragNDropBuilt(this.fightBuildData, costNodeIDs);
-            //this.dragTower.InitTower(0);
-
-            FightScene.Instance.CreateRole(this.fightBuildData);
+            FightScene.Instance.CreateRole(this.fightBuildData, 1);
         }
         else
         {

@@ -30,10 +30,9 @@ namespace Fight
         }
 
 
-        public void CreateRole(FightHeroData fightBuildData)
+        public void CreateRole(FightHeroData fightBuildData, int teamId)
         {
             FightBattleCompositeBehaviour compBav = ((FightBattleCompositeBehaviour)compBehaviour);
-            int teamId = 1;
             int BattleFieldId = 1;
             compBav.RoleAdd(fightBuildData, teamId, BattleFieldId);
         }

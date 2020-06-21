@@ -159,11 +159,12 @@ namespace Fight
         }
 
 
-        public bool AddRoleOnBattleField(int team, int battlefieldId, FightHeroData roleData, int site, bool isPlayer)
+        public bool AddRoleOnBattleField(int teamId, int battlefieldId, FightHeroData roleData, int site, bool isPlayer)
         {
+
             BattleField battleField = dicBattleField[battlefieldId];
 
-            FightRole fightRole = new FightRole(team, roleData.uid, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
+            FightRole fightRole = new FightRole(teamId, roleData.uid, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
             fightRole.isPlayer = isPlayer;
             fightRole.costNodes = roleData.CostNodes;
             fightRole.site = site;
@@ -172,8 +173,20 @@ namespace Fight
 
             fightRole.PrepareFight();
 
+           
             FightReportRoleCreate report = new FightReportRoleCreate(Time, fightRole.teamId, roleData, battlefieldId);
             listReport.Add(report);
+
+            if (teamId == 2)
+            {
+                 fightRole.TestFindTarget();
+                if (fightRole.target != null)
+                {
+                    Debug.LogError("MoveTo:" + fightRole.target.position.ID);
+                    fightRole.MoveTo(fightRole.target.position);
+                }
+            }
+
 
             return true;
         }

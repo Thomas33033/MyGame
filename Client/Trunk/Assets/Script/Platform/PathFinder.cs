@@ -81,6 +81,10 @@ public class PathFinder {
 	}
 	
 	static private List<Vector3> Search(Node startN, Node endN, Node blockN, Node[] graph){
+        if (pathFinder == null)
+        {
+            pathFinder = new PathFinder();
+        }
 		return pathFinder._Search(startN, endN, blockN, graph);
 	}
 	

@@ -91,10 +91,13 @@ namespace Fight
             {
                 v.position = dicNodeGraph[position];
                 v.SetBattleField(this);
-                
+
+                int nodeId = 0;
                 for (int i = 0; v.costNodes != null && i < v.costNodes.Length; i++)
                 {
-                    dicNodeGraph[i].walkable = false;
+                    nodeId = v.costNodes[i];
+                    dicNodeGraph[nodeId].walkable = false;
+                    FightSceneRender.Instance.battleFieldRender.platform.RefreshColor(nodeId);
                 }
 
                 listRoles.Add(v);
@@ -447,21 +450,25 @@ namespace Fight
 
         private List<Node> templist = new List<Node>();
 
-        internal List<Node> GetAround(Node position, int range = 1)
+        internal List<Node> GetAround(Node node, int range = 1)
         {
             templist.Clear();
+            int tx = node.x;
+            int ty = node.y;
+            int id = 0;
+            for (int x = -range; x <= range; x++)
+            {
+               for (int y = -range; y <= range; y++)
+                {
+                    id = (tx + x) * node.width + (ty + y);
 
-            //for (int x = -range; x <= range; x++)
-            //{
-            //    for (int y = -range; y <= range; y++)
-            //    {
-            //        for (int z = -range; z <= range; z++)
-            //        {
-            //            if (x + y + z == 0)
-            //                templist.Add(position.Add(new Hex(x, y, z)));
-            //        }
-            //    }
-            //}
+                    if (dicNodeGraph[id].walkable)
+                    {
+                        templist.Add(dicNodeGraph[id]);
+                        FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(id, ENodeColor.CanBuild);
+                    }
+                }
+            }
 
             return templist;
         }

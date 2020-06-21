@@ -199,7 +199,8 @@ public class SpawnManager : Singleton<SpawnManager>
         heroData.uid = Entity.GetUniqueId();
         heroData.Resource = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.Resname);
         heroData.NodeId = 171;
-        FightScene.Instance.CreateRole(heroData);
+        heroData.roleId = 10001;
+        FightScene.Instance.CreateRole(heroData,2);
 
 
        

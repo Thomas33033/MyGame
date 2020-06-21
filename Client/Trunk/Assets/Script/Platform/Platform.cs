@@ -41,6 +41,17 @@ public class Platform : MonoBehaviour {
 
     private List<PathSection> queue = new List<PathSection>();
 
+    public void SetNodeState(int id, ENodeColor color)
+    {
+        this.nodeGraphMap[id].SetViewColorState(color);
+    }
+
+    public void RefreshColor(int id)
+    {
+        this.nodeGraphMap[id].DefaultColor();
+    }
+
+
     void Awake()
     {
         nodeGraphMap = new Dictionary<int, NodeRender>();
@@ -62,6 +73,13 @@ public class Platform : MonoBehaviour {
         {
             nodeGraphMap.Add(nodeGraph[i].ID, new NodeRender(nodeGraph[i]));
         }
+
+        Node[] neighbourNode = nodeGraphMap[55].node.neighbourNode;
+        for (int i = 0; i < neighbourNode.Length; i++)
+        {
+            nodeGraphMap[neighbourNode[i].ID].SetViewColorState(ENodeColor.CantBuild);
+        }
+
         graphGenerated =true;
 	}
 	
@@ -317,7 +335,7 @@ public class Platform : MonoBehaviour {
     public bool RefreshBulidGrid(int index, List<int> costGrid)
     {
         ResetDefaultRes();
-
+        costGrid.Clear();
         List<int> list = new List<int>();
         int c_row = index / this.column;
         int c_column = index % this.column;
