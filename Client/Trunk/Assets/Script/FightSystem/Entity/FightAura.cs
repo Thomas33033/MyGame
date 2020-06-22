@@ -65,7 +65,7 @@ namespace Fight
                 return;
             }
 
-            List<Role> listTemp = attacker.scanTargetComp.FindTarget(targetType, 0, range, lodger);
+            List<Role> listTemp = attacker.scanTargetComp.FindTarget((ESearchTargetType)targetType, 0, range, lodger);
 
             if (zone != 0)
             {

@@ -135,8 +135,9 @@ public class GameControl : MonoBehaviour {
 
         fightdata.battleFieldData = new BattleFieldData();
         fightdata.battleFieldData.nodeGraph = platform.GetNodeGraph();
-
-        FightSceneRender sceneRender = FightSceneRender.Instance;
+		fightdata.battleFieldData.row = platform.row;
+		fightdata.battleFieldData.column = platform.column;
+		FightSceneRender sceneRender = FightSceneRender.Instance;
         
         fightScene.InitFight(FightType.ConmmFight, fightdata);
 

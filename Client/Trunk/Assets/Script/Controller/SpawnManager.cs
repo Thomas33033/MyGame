@@ -200,6 +200,29 @@ public class SpawnManager : Singleton<SpawnManager>
         heroData.Resource = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.Resname);
         heroData.NodeId = 171;
         heroData.roleId = 10001;
+        heroData.Attack = 10;
+        heroData.AttackSpeed = 1;
+        heroData.BodyCrit = 1;
+        heroData.BodyDodge = 1;
+        heroData.BodyHit = 100;
+        heroData.Defense = 5;
+        heroData.HP = 100;
+        heroData.MP = 50;
+        heroData.CurMp = 0;
+        heroData.CurHp = 100;
+        heroData.Level = 1;
+        heroData.MagicDefense = 5;
+        heroData.MaxAnger = 10;
+        heroData.MoveSpeed = 10;
+        heroData.Range = 2;
+
+
+
+        var fightSkillData = new FightSkillData();
+        fightSkillData.skillID = 10001;
+        fightSkillData.level = 1;
+        heroData.SkillData = new FightSkillData[] { fightSkillData };
+
         FightScene.Instance.CreateRole(heroData,2);
 
 

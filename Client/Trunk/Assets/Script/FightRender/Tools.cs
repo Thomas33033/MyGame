@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using FightCommom;
 
 public class Tools 
 {

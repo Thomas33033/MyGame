@@ -93,4 +93,17 @@ namespace Fight
         Hp = 3,
         Mp = 4,
     }
+
+
+    /// <summary>
+    /// 1敌人 2队友 3自己 4己方
+    /// </summary>
+    public enum ESearchTargetType
+    {
+        Enemy = 1,
+        Teammate = 2,
+        Self = 3,
+        OtherTeam = 4,
+    }
+
 }

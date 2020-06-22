@@ -15,76 +15,6 @@ namespace Fight
             type = RoleType.Fighter;
         }
 
-        public void TestFindTarget()
-        {
-            this.FindTarget();
-        }
-
-        protected override void FindTarget()
-        {
-            List<Role> listEnemy = battleField.GetEnemy(teamId);
-
-            if (listEnemy.Count > 0)
-            {
-                listEnemy.Sort(SortDistanceHandler);
-
-                for (int j = 0; j < listEnemy.Count; j++)
-                {
-                    if (listEnemy[j].StatusCheck(RoleStatus.Unselected))
-                        continue;
-
-                    if (range > 1 || listEnemy[j].position.Distance(position) <= range)
-                    {
-                        target = listEnemy[j];
-                        break;
-                    }
-
-                    List<Node> listHex = battleField.GetAround(listEnemy[j].position,2);
-                    listHex.Sort(SortHexDistanceHandler);
-
-                    bool flag = false;
-
-                    for (int i = 0; i < listHex.Count; i++)
-                    {
-                        List<Vector3> paths = battleField.GetMoveHex(position, listHex[i], true);
-
-                        if (paths.Count > 0)
-                        {
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if (flag)
-                    {
-                        target = listEnemy[j];
-                        break;
-                    }
-                }
-            }
-        }
-
-        protected int SortDistanceHandler(Role x, Role y)
-        {
-            bool h1 = x.StatusCheck(RoleStatus.Hide);
-            bool h2 = y.StatusCheck(RoleStatus.Hide);
-
-            if (h1 != h2)
-                return h1.CompareTo(h2);
-
-            float a1 = position.Distance(x.position);
-            float a2 = position.Distance(y.position);
-
-            if (a1 != a2)
-            {
-                return a1.CompareTo(a2);
-            }
-
-            float d1 = Math.Abs(x.position.pos.z - position.pos.z);
-            float d2 = Math.Abs(y.position.pos.z - position.pos.z);
-
-            return d1.CompareTo(d2);
-        }
-
         public override void SkillAdd(int skillId, int level)
         {
             if (StaticData.dicSkillInfo.ContainsKey(skillId) == false)
@@ -143,31 +73,34 @@ namespace Fight
             MoveRandom(nowTime);
         }
 
+        private List<Node> waypoints = new List<Node>();
+
         protected override void MoveTarget(float nowTime)
         {
-            //List<Hex> listHex = battleField.GetAround(target.position, range);
-            //listHex.Sort(SortHexDistanceHandler);
+            if (waypoints != null && waypoints.Count > 0)
+            {
+                return;
+            }
+            List<Node> listHex = battleField.GetAround(target.position, range);
+            listHex.Sort(SortHexDistanceHandler);
+            waypoints = listHex;
+            for (int i = 0; i < listHex.Count; i++)
+            {
+                
+                //List<Node> paths = battleField.GetMoveNode(position, listHex[i], true);
 
-            ////bool flag = false;
-
-            //for (int i = 0; i < listHex.Count; i++)
-            //{
-            //    Stack<Hex> paths = battleField.GetMoveHex(position, listHex[i], true);
-
-            //    if (paths.Count > 0)
-            //    {
-            //        MoveTo(paths.Peek());
-            //        //flag = true;
-            //        break;
-            //    }
-            //}
-        }
-
-        protected int SortHexDistanceHandler(Node x, Node y)
-        {
-            float a1 = position.Distance(x);
-            float a2 = position.Distance(y);
-            return a1.CompareTo(a2);
+                //if (paths.Count > 0)
+                //{
+                //    waypoints = paths;
+                //    for (int k = 0; k < paths.Count; k++)
+                //    {
+                //        FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(paths[k].ID,ENodeColor.CanBuild);
+                //    }
+                    
+                //    //MoveTo(paths.Peek());
+                //    break;
+                //}
+            }
         }
 
         #endregion Move
@@ -186,5 +119,6 @@ namespace Fight
         {
             return skillComp.CastSkill(0);
         }
+
     }
 }

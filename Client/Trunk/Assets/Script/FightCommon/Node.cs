@@ -11,10 +11,6 @@ namespace FightCommom
     {
         public int ID;
         public Vector3 pos;
-        public int x;
-        public int y;
-        public int width;
-        public int height;
         public Node[] neighbourNode;
         public float[] neighbourCost;
         public Node parent;
@@ -37,12 +33,10 @@ namespace FightCommom
             this.walkable = nodeData.walkable;
         }
         
-        public Node(Vector3 position, int id,int x, int y)
+        public Node(Vector3 position, int id)
         {
             pos = position;
             ID = id;
-            this.x = x;
-            this.y = y;
             this.walkable = true;
 
         }

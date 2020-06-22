@@ -100,7 +100,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
         FightHeroData roleData = report.heroData;
 
         FightRoleRender roleRender = new FightRoleRender();
-        
+       
         roleRender.LoadNpc(roleData.Resource, battleFieldRender.GetWorldPosition(roleData.NodeId));
         roleRender.SetHpMax(roleData.HP);
         roleRender.SetMpMax(roleData.MP);

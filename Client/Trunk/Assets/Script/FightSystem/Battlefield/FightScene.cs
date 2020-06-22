@@ -9,15 +9,17 @@ namespace Fight
     {
         public FightCompositeBehaviour compBehaviour;
 
-
         public void InitFight(FightType fightType, FightData fightData)
         {
             if (fightType == FightType.ConmmFight)
             {
+                StaticData.Init();
+
                 compBehaviour = new FightBattleCompositeBehaviour();
 
                 compBehaviour.InitFight(fightType,fightData);
 
+                compBehaviour.StartBattle();
             }
         }
 
@@ -35,6 +37,8 @@ namespace Fight
             FightBattleCompositeBehaviour compBav = ((FightBattleCompositeBehaviour)compBehaviour);
             int BattleFieldId = 1;
             compBav.RoleAdd(fightBuildData, teamId, BattleFieldId);
+
+
         }
 
         public void DeleteRole()

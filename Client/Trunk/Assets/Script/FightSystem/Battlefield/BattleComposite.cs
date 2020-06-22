@@ -8,6 +8,7 @@ namespace Fight
     /// 负责: 
     ///     1.创建战场
     ///     2.初始化战队，创建角色
+    ///     3.管理角色
     ///     
     /// </summary>
     public class BattleComposite
@@ -176,18 +177,7 @@ namespace Fight
            
             FightReportRoleCreate report = new FightReportRoleCreate(Time, fightRole.teamId, roleData, battlefieldId);
             listReport.Add(report);
-
-            if (teamId == 2)
-            {
-                 fightRole.TestFindTarget();
-                if (fightRole.target != null)
-                {
-                    Debug.LogError("MoveTo:" + fightRole.target.position.ID);
-                    fightRole.MoveTo(fightRole.target.position);
-                }
-            }
-
-
+            
             return true;
         }
 
@@ -362,5 +352,6 @@ namespace Fight
                 }
             }
         }
+
     }
 }

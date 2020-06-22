@@ -4,6 +4,7 @@ using UnityEngine;
 using Cherry.AssetBundlePacker;
 using System;
 using System.Text;
+using Fight;
 
 public class Main : MonoBehaviour {
 
@@ -25,7 +26,7 @@ public class Main : MonoBehaviour {
         //actionSequence.AddAction(new UpdateResStep(RefreshProgress));
         //actionSequence.finishedOverEvent = OnEnterGame;
         //actionSequence.Start(this.gameObject);
-
+        
         OnEnterGame();
     }
 
@@ -48,6 +49,7 @@ public class Main : MonoBehaviour {
         TimeManager.CreateSingleton();
         AssetBundleManager.CreateSingleton(); 
         LuaManager.CreateSingleton();
+        m_isReady = true;
     }
 
     // Update is called once per frame
@@ -55,9 +57,9 @@ public class Main : MonoBehaviour {
 
         if (actionSequence != null) actionSequence.Update(Time.deltaTime);
 
-        if (!m_isReady && AssetBundleManager.Instance.IsReady == true)
+        if (m_isReady)
         {
-            m_isReady = true;
+            m_isReady = false;
 
             UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
             UI_Loading.instance.ShowProgress(() =>

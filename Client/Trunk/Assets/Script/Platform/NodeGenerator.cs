@@ -23,7 +23,7 @@ public class NodeGenerator : MonoBehaviour
 
 	static NodeGenerator nodeGenerator;
 
-	static private Transform thisT;
+	static public Transform thisT;
 
 	void Awake()
     {
@@ -72,11 +72,11 @@ public class NodeGenerator : MonoBehaviour
 	}
 
 	/// <summary>
-    /// 初始化Node节点，并生成每个节点的周围8个点的权重关系
-    /// </summary>
-    /// <param name="platform"></param>
-    /// <param name="heightOffset"></param>
-    /// <returns></returns>
+	/// 初始化Node节点，并生成每个节点的周围8个点的权重关系
+	/// </summary>
+	/// <param name="platform"></param>
+	/// <param name="heightOffset"></param>
+	/// <returns></returns>
 	static public Node[] GenerateNode(Platform platform, float heightOffset){
 		CheckInit();
 
@@ -97,7 +97,7 @@ public class NodeGenerator : MonoBehaviour
 
 		float x=-scaleX*10/2/scaleX;
 		float z=-scaleZ*10/2/scaleZ;
-        //将thisT 定位到平台的坐下角 {0,0}点
+        //将thisT 定位到平台的左下角 {0,0}点
         Vector3 point =platformT.TransformPoint(new Vector3(x, 0, z));
 		thisT.position=point;
 		thisT.rotation=platformT.rotation;
@@ -107,24 +107,23 @@ public class NodeGenerator : MonoBehaviour
 		float timeUsed = Time.realtimeSinceStartup - timeStart;
 		Node[] nodeGraph;
 		//读取本地战场信息
-		List<NodeData> nodeList = StaticData.LoadList<NodeData>("GridData.json");
+		List<NodeData> nodeList = new List<NodeData>(); // StaticData.LoadList<NodeData>("GridData");
         nodeList.Clear();
-
-        if (nodeList == null || nodeList.Count <= 0)
+		Vector3 tempPos;
+		
+		if (nodeList == null || nodeList.Count <= 0)
 		{
 			nodeGraph = new Node[countZ * countX];
 			
-			Vector3 tempPosition;
 			for (int i = 0; i < countZ; i++)
 			{
 				for (int j = 0; j < countX; j++)
 				{
-					tempPosition = thisT.TransformPoint(new Vector3(gridSize * j, 0, gridSize * i));
-					nodeGraph[counter] = new Node(tempPosition, counter,i,j);
-                    nodeGraph[counter].width = countZ;
-                    nodeGraph[counter].height = countX;
-
-                    counter += 1;
+					tempPos = thisT.TransformPoint(new Vector3(gridSize * j, 0, gridSize * i));
+					Node node = new Node(new Vector3(j, 0, i), counter);
+					nodeGraph[counter] = node;
+					platform.SetNodeRender(node, tempPos);
+					counter += 1;
 				}
 			}
 
@@ -264,11 +263,11 @@ public class NodeGenerator : MonoBehaviour
 				RaycastHit hit1;
 				if(Physics.Raycast(new Vector3(i, 500, j), Vector3.down, out hit1))
                 {
-					nodeGraph[counter]=new Node(new Vector3(i, hit1.point.y+heightOffset, j), counter,j,i);
+					nodeGraph[counter]=new Node(new Vector3(i, hit1.point.y+heightOffset, j), counter);
 				}
 				else
                 {
-					nodeGraph[counter]=new Node(new Vector3(i, 0, j), counter,j,i);
+					nodeGraph[counter]=new Node(new Vector3(i, 0, j), counter);
 					nodeGraph[counter].walkable=false;
 				}
 				counter+=1;

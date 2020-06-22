@@ -15,6 +15,9 @@ namespace Fight
 
         public string teamId;
 
+        public int row;
+        public int column;
+
 
         public List<Role> listRoles;
 
@@ -44,6 +47,9 @@ namespace Fight
             dicNodeGraph = new Dictionary<int, Node>();
 
             this.nodeGraph = battleFieldData.nodeGraph;
+            this.row = battleFieldData.row;
+            this.column = battleFieldData.column;
+
             for (int i = 0; i < this.nodeGraph.Length; i++) {
                 dicNodeGraph.Add(nodeGraph[i].ID, nodeGraph[i]);
             }
@@ -159,61 +165,15 @@ namespace Fight
         /// <param name="range">远</param>
         /// <param name="width">宽度</param>
         /// <returns></returns>
-        public List<Role> GetEnemy(Role attacker, Node node, int targetType, int rangeType, int range, int width = 0)
+        public List<Role> GetEnemy(Role attacker, Node node, ESearchTargetType targetType, int rangeType, int range, int width = 0)
         {
+            List<Role> list = ScanForTarget(attacker, targetType, range);
             if (rangeType == 0)
-                return GetEnemy(attacker, targetType, range);
+                return list;
 
             if (rangeType == 3)
                 node = attacker.position;
 
-            List<Role> list = new List<Role>();
-
-            for (int i = 0; i < listRoles.Count; i++)
-            {
-                if (listRoles[i].StatusCheck(RoleStatus.Unselected) && targetType == 1)
-                    continue;
-
-                if (targetType == 1)
-                {
-                    if (attacker.teamId == listRoles[i].teamId)
-                    {
-                        continue;
-                    }
-                }
-                else if (targetType == 2)
-                {
-                    if (attacker.teamId != listRoles[i].teamId)
-                    {
-                        continue;
-                    }
-                    else if (attacker == listRoles[i])
-                    {
-                        continue;
-                    }
-                }
-                else if (targetType == 3)
-                {
-                    if (attacker != listRoles[i])
-                    {
-                        continue;
-                    }
-                }
-                else if (targetType == 4)
-                {
-                    if (attacker.teamId != listRoles[i].teamId)
-                    {
-                        continue;
-                    }
-                }
-
-                if (node.Distance(listRoles[i].position) > range)
-                {
-                    continue;
-                }
-
-                list.Add(listRoles[i]);
-            }
 
             if (list.Count > 0 && rangeType == 2 && range > 0)
             {
@@ -294,11 +254,11 @@ namespace Fight
         }
 
         /// <param name="targetType">1敌人 2队友 3自己 4己方</param>
-        public List<Role> GetEnemy(Role attacker, int targetType, int range)
+        public List<Role> ScanForTarget(Role attacker, ESearchTargetType targetType, int range)
         {
             List<Role> list = new List<Role>();
 
-            if (targetType == 3)
+            if (targetType == ESearchTargetType.Self)
             {
                 list.Add(attacker);
                 return list;
@@ -306,16 +266,19 @@ namespace Fight
 
             for (int i = 0; i < listRoles.Count; i++)
             {
-                if (listRoles[i].StatusCheck(RoleStatus.Unselected) && targetType == 1)
-                    continue;
-                if (targetType == 1)
+      
+                if (targetType == ESearchTargetType.Enemy)
                 {
-                    if (attacker.teamId == listRoles[i].teamId)
+                    if (listRoles[i].StatusCheck(RoleStatus.Unselected))
+                    {
+                        continue;
+                    }
+                    else if (attacker.teamId == listRoles[i].teamId)
                     {
                         continue;
                     }
                 }
-                else if (targetType == 2)
+                else if (targetType == ESearchTargetType.Teammate)
                 {
                     if (attacker.teamId != listRoles[i].teamId)
                     {
@@ -326,14 +289,14 @@ namespace Fight
                         continue;
                     }
                 }
-                else if (targetType == 3)
+                else if (targetType == ESearchTargetType.Self)
                 {
                     if (attacker != listRoles[i])
                     {
                         continue;
                     }
                 }
-                else if (targetType == 4)
+                else if (targetType == ESearchTargetType.OtherTeam)
                 {
                     if (attacker.teamId != listRoles[i].teamId)
                     {
@@ -348,11 +311,6 @@ namespace Fight
 
                 list.Add(listRoles[i]);
             }
-
-            //if (list.Count > 0)
-            //{
-            //    list.Sort(ListTargetSortHandler);
-            //}
 
             return list;
         }
@@ -430,10 +388,11 @@ namespace Fight
 
         public List<Vector3> RoleMove(Role fightRole, Node grid)
         {
-            fightRole.position.walkable = true;
-            fightRole.position = grid;
-            //grid.walkable = false;
-            return PathFinder.GetPath(fightRole.position.pos, grid.pos, this.nodeGraph);
+            //fightRole.position.walkable = true;
+            //fightRole.position = grid;
+            ////grid.walkable = false;
+            //return PathFinder.GetPath(fightRole.position.pos, grid.pos, this.nodeGraph);
+            return null;
         }
 
         public bool CheckMove(Node grid)
@@ -441,11 +400,9 @@ namespace Fight
             return grid.walkable;
         }
 
-        public List<Vector3> GetMoveHex(Node start, Node end, bool checkWeapon)
+        public List<Node> GetMoveNode(Node start, Node end, bool checkWeapon)
         {
-            List<Vector3> results = new List<Vector3>();
-            GetPath(start, end, checkWeapon, results);
-            return results;
+            return GetPath(start, end, checkWeapon);
         }
 
         private List<Node> templist = new List<Node>();
@@ -453,19 +410,27 @@ namespace Fight
         internal List<Node> GetAround(Node node, int range = 1)
         {
             templist.Clear();
-            int tx = node.x;
-            int ty = node.y;
+            int tx = (int) node.pos.x;
+            int ty = (int) node.pos.z;
             int id = 0;
+            Debug.LogError("---------------- :"+  tx+ " " + ty);
             for (int x = -range; x <= range; x++)
             {
                for (int y = -range; y <= range; y++)
                 {
-                    id = (tx + x) * node.width + (ty + y);
+                    id = (tx + x) * this.row + (ty + y);
 
-                    if (dicNodeGraph[id].walkable)
+                    if (dicNodeGraph.ContainsKey(id))
                     {
-                        templist.Add(dicNodeGraph[id]);
-                        FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(id, ENodeColor.CanBuild);
+                        if (dicNodeGraph[id].walkable)
+                        {
+                            templist.Add(dicNodeGraph[id]);
+                            Debug.Log(id + "  " + ENodeColor.CanBuild);
+                            FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(id, ENodeColor.CanBuild);
+                        }
+                    }
+                    else {
+                        Debug.LogError("存在在NodeID：" + id);
                     }
                 }
             }
@@ -474,9 +439,9 @@ namespace Fight
         }
 
 
-        public void GetPath(Node start, Node end, bool checkWeapon, List<Vector3> results)
+        public List<Node>  GetPath(Node start, Node end, bool checkWeapon)
         {
-            results = PathFinder.GetPath(start.pos, end.pos, this.nodeGraph);
+            return PathFinder.GetPath(start.pos, end.pos, this.nodeGraph);
         }
 
         internal void Die(Role fightRole)

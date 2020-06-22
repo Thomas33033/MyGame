@@ -1,0 +1,15 @@
+[
+	{
+		"type": 1,
+		"shield": [
+			0
+		],
+		"properties": 1,
+		"duration": 0,
+		"resource": "public_shield",
+		"bouns": [
+			50
+		],
+		"id": 10001
+	}
+]

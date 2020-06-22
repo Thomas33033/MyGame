@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 
 using FightCommom;
 
@@ -14,30 +13,36 @@ public enum ENodeColor
     CantBuild, //不能建造
 }
 
-public class NodeRender
+public class NodeRender : Node
 {
-    public Node node;
-
-    public bool walkable => node.walkable;
-
     private ENodeColor colorState;
+    public int x, y;
     public GameObject viewObj;
 
-    public NodeRender(Node node)
+    public NodeRender() { }
+
+    public NodeRender(Node node, Vector3 position)
     {
-        this.node = node;
+        this.ID = node.ID;
+        this.pos = position;
+        this.walkable = node.walkable;
+        this.x = (int)node.pos.x;
+        this.y = (int)node.pos.z;
+        this.neighbourNode = node.neighbourNode;
+        this.neighbourCost = node.neighbourCost;
+        this.parent = node.parent;
+
         CreateViewObj();
     }
 
     public void CreateViewObj()
     {
-
         IndicatorController.Instance.Create((obj) =>
         {
             this.viewObj = obj;
             this.viewObj.gameObject.SetActive(true);
-            this.viewObj.name = node.ID + " " +node.x +"-"+node.y ;
-            this.viewObj.transform.position = node.pos;
+            this.viewObj.name = ID + " " +x +"-"+y ;
+            this.viewObj.transform.position = this.pos;
             this.viewObj.transform.localScale = new Vector3(1, 0.1f, 1);
             this.DefaultColor();
         });
@@ -45,7 +50,7 @@ public class NodeRender
 
     public void DefaultColor()
     {
-        colorState = node.walkable ? ENodeColor.Empty : ENodeColor.Block;
+        colorState = walkable ? ENodeColor.Empty : ENodeColor.Block;
         SetViewColorState(colorState);
     }
 
@@ -55,7 +60,7 @@ public class NodeRender
             return;
 
         colorState = state;
-        if (!node.walkable)
+        if (!walkable)
         {
             colorState = ENodeColor.Block;
         }
@@ -81,7 +86,7 @@ public class NodeRender
                 color = Color.yellow;
                 break;
         }
-       // Debug.Log(this.node.ID + "  " + colorState);
+       
         this.viewObj.GetComponent<Renderer>().material.SetColor("_TintColor", color);
     }
 }

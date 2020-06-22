@@ -1,0 +1,15 @@
+[
+	{
+		"type": 1,
+		"bouns": [
+			1000,
+			2000
+		],
+		"damageId": 10001,
+		"Resources": "Shell_Shell1",
+		"damage": [
+			0
+		],
+		"damageBase": 0
+	}
+]

@@ -24,7 +24,7 @@ public class PathOnPlatform
 
     public int pathID = 0;
 
-    public List<Vector3> altPath = new List<Vector3>();
+    public List<Node> altPath = new List<Node>();
 
     public PathOnPlatform(GamePath p, PathSection pSec, PathSection prev, PathSection next)
     {
@@ -34,7 +34,7 @@ public class PathOnPlatform
         nextNeighbouringWP = next;
     }
 
-    public void InitNode(Node[] nodeGraph)
+    public void InitNode(NodeRender[] nodeGraph)
     {
         Vector3 prevPoint;
         if (prevNeighbouringWP.platform != null)
@@ -63,15 +63,15 @@ public class PathOnPlatform
         
     }
 
-    public void SetPath(List<Vector3> wp, int id)
+    public void SetPath(List<Node> wp, int id)
     {
-        currentPath = wp;
-        pathID = id;
-        thisWP.SetSectionPath(wp, pathID);
+        //currentPath = wp;
+        //pathID = id;
+        //thisWP.SetSectionPath(wp, pathID);
     }
 
     public void SmoothPath()
     {
-        currentPath = PathFinder.SmoothPath(currentPath);
+       // currentPath = PathFinder.SmoothPath(currentPath);
     }
 }

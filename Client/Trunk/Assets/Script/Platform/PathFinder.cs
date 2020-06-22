@@ -44,7 +44,7 @@ public class PathFinder {
 	
 	
 	
-	static public List<Vector3> GetPath(Vector3 startP, Vector3 endP, Node[] graph)
+	static public List<Node> GetPath(Vector3 startP, Vector3 endP, Node[] graph)
 	{
 		Node startNode=GetNearestNode(startP, graph);
 		Node endNode=GetNearestNode(endP, graph);
@@ -52,7 +52,7 @@ public class PathFinder {
 		return GetPath(startNode, endNode, null, graph, false);
 	}
 	
-	static public List<Vector3> GetPath(Vector3 startP, Vector3 endP, Vector3 blockP, Node[] graph){
+	static public List<Node> GetPath(Vector3 startP, Vector3 endP, Vector3 blockP, Node[] graph){
 		Node startNode=GetNearestNode(startP, graph);
 		Node endNode=GetNearestNode(endP, graph);
 		Node blockNode=GetNearestNode(blockP, graph);
@@ -60,15 +60,12 @@ public class PathFinder {
 		return GetPath(startNode, endNode, blockNode, graph, false);
 	}
 	
-	static public List<Vector3> GetPath(Node startN, Node endN, Node[] graph){
-		return GetPath(startN, endN, null, graph, false);
-	}
-	
-	static public List<Vector3> GetPath(Node startN, Node endN, Node[] graph, bool urgent){
+
+	static public List<Node> GetPath(Node startN, Node endN, Node[] graph, bool urgent = false){
 		return GetPath(startN, endN, null, graph, urgent);
 	}
 	
-	static public List<Vector3> GetPath(Node startN, Node endN, Node blockN, Node[] graph, bool urgent){
+	static public List<Node> GetPath(Node startN, Node endN, Node blockN, Node[] graph, bool urgent){
 		//if(!searching){
 			return Search(startN, endN, blockN, graph);
 		//}
@@ -80,7 +77,7 @@ public class PathFinder {
 		//}
 	}
 	
-	static private List<Vector3> Search(Node startN, Node endN, Node blockN, Node[] graph){
+	static private List<Node> Search(Node startN, Node endN, Node blockN, Node[] graph){
         if (pathFinder == null)
         {
             pathFinder = new PathFinder();
@@ -88,7 +85,7 @@ public class PathFinder {
 		return pathFinder._Search(startN, endN, blockN, graph);
 	}
 	
-	List<Vector3> _Search(Node startN, Node endN, Node blockN, Node[] graph){
+	List<Node> _Search(Node startN, Node endN, Node blockN, Node[] graph){
 		
 		if(blockN!=null)
         {
@@ -175,13 +172,13 @@ public class PathFinder {
 			}
 		}
 
-		List<Vector3> p = new List<Vector3>();
+		List<Node> p = new List<Node>();
 
 		if (pathFound)
         {
 			while(currentNode!=null)
             {
-				p.Add(currentNode.pos);
+				p.Add(currentNode);
 				currentNode=currentNode.parent;
 			}
 			
@@ -204,7 +201,7 @@ public class PathFinder {
 	}
 	
 	
-	static public List<Vector3> ForceSearch(Node startN, Node endN, Node blockN, Node[] graph){
+	static public List<Node> ForceSearch(Node startN, Node endN, Node blockN, Node[] graph){
 		
 		if(blockN!=null){
 			blockN.walkable=false;
@@ -282,13 +279,13 @@ public class PathFinder {
 			
 		}
 
-		List<Vector3> p=new List<Vector3>();
+		List<Node> p=new List<Node>();
 			
 		if(pathFound)
         {
 			while(currentNode!=null)
             {
-				p.Add(currentNode.pos);
+				p.Add(currentNode);
 				currentNode=currentNode.parent;
 			}
 			p=InvertArray(p);
@@ -305,7 +302,7 @@ public class PathFinder {
 
 	}
 	
-	static public List<Vector3> SmoothPath(List<Vector3> p)
+	static public List<Node> SmoothPath(List<Node> p)
     {
 		if(pathFinder.pathSmoothing) {
 			p=pathFinder.LOSPathSmoothingBackward(p);
@@ -315,22 +312,22 @@ public class PathFinder {
 		return p;
 	}
 	
-	static private List<Vector3> InvertArray(List<Vector3> p){
-		List<Vector3> pInverted=new List<Vector3>();
+	static private List<Node> InvertArray(List<Node> p){
+		List<Node> pInverted=new List<Node>();
 		for(int i=0; i<p.Count; i++){
 			pInverted.Add(p[p.Count-(i+1)]);
 		}
 		return pInverted;
 	}
 	
-	private List<Vector3> LOSPathSmoothingForward(List<Vector3> p){
+	private List<Node> LOSPathSmoothingForward(List<Node> p){
 		float gridSize=BuildManager.GetGridSize();
 		int num=0;
 		float allowance=gridSize*0.4f;
 		while (num+2<p.Count){
 			bool increase=false;
-			Vector3 p1=p[num];
-			Vector3 p2=p[num+2];
+			Vector3 p1=p[num].pos;
+			Vector3 p2=p[num+2].pos;
 			RaycastHit hit;
 			Vector3 dir=p2-p1;
 			
@@ -348,14 +345,14 @@ public class PathFinder {
 		return p;
 	}
 
-	private List<Vector3> LOSPathSmoothingBackward(List<Vector3> p){
+	private List<Node> LOSPathSmoothingBackward(List<Node> p){
 		float gridSize=BuildManager.GetGridSize();
 		int num=p.Count-1;
 		float allowance=gridSize*0.4f;
 		while (num>1){
 			bool decrease=false;
-			Vector3 p1=p[num];
-			Vector3 p2=p[num-2];
+			Vector3 p1=p[num].pos;
+			Vector3 p2=p[num-2].pos;
 			RaycastHit hit;
 			Vector3 dir=p2-p1;
 			

@@ -1,4 +1,6 @@
-﻿namespace Fight
+﻿using Boo.Lang;
+
+namespace Fight
 {
 
     public enum FightEffectActionType
@@ -136,7 +138,7 @@
     {
         //public int[] values { get => info.values; }
 
-        public string[] keys { get => info.keys; }
+        public int[] keys;
 
         public FightEffectActionInfo info;
 
@@ -148,6 +150,13 @@
         {
             this.info = info;
             this.effectData = effectData;
+            keys = new int[] { };
+            List<int> list = new List<int>();
+            for (int i = 0; i < info.keys.Length; i++)
+            {
+                list.Add(int.Parse(info.keys[i]));
+            }
+            keys = list.ToArray();
         }
 
         public virtual void Reset()
@@ -184,10 +193,10 @@
 
         public static FightEffectAction GetAction(FightEffectActionInfo actionInfo, FightSkillEffectData effectData)
         {
-            //switch (actionInfo.id)
-            //{
-            //    case (int)FightEffectActionType.Attack:
-            //        return new FightEffectActionAttack(actionInfo, effectData);
+            switch (actionInfo.id)
+            {
+                case (int)FightEffectActionType.Attack:
+                    return new FightEffectActionAttack(actionInfo, effectData);
 
             //    case (int)FightEffectActionType.AttackByBuffCount:
             //        return new FightEffectActionAttackByBuffCount(actionInfo, effectData);
@@ -306,8 +315,8 @@
             //    case (int)FightEffectActionType.BuffClear:
             //        return new FightEffectActionBuffClear(actionInfo, effectData);
 
-            //    case (int)FightEffectActionType.FindTargetCrew:
-            //        return new FightEffectActionFindTargetCrew(actionInfo, effectData);
+                case (int)FightEffectActionType.FindTargetCrew:
+                    return new FightEffectActionFindTarget(actionInfo, effectData);
 
             //    case (int)FightEffectActionType.FindTargetShip:
             //        return new FightEffectActionFindTargetShip(actionInfo, effectData);
@@ -380,7 +389,7 @@
 
             //    case (int)FightEffectActionType.Or:
             //        return new FightEffectActionOr(actionInfo, effectData);
-            //}
+            }
             return null;
         }
     }

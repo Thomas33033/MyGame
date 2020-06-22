@@ -14,6 +14,7 @@ public class SkillEditor : EditorWindow
 
     private static string path = "Assets/BundleRes/Config/Fight/";
     private static string skillEditorConfig = "Assets/Editor/Fight/SkillEditorConfig.asset";
+    private static string SkillEditorSkin = "Assets/Editor/Fight/SkillEditor.guiskin";
 
     private string[] attTriggerNames;
     private int[] attTriggerIndex;
@@ -67,13 +68,12 @@ public class SkillEditor : EditorWindow
                 string strName = v + "." + Enum.GetName(_typeTriggerType, v);
                 dicTrigger.Add(v, strName);
             }
-            //Debug.Log(v + " " + dicTrigger[v]);
         }
-        //attTriggerNames = new List<string>(dicTrigger.Keys).ToArray();
+
         attTriggerNames = new List<string>(dicTrigger.Values).ToArray();
         attTriggerIndex = new List<int>(dicTrigger.Keys).ToArray();
 
-        _styleGB = AssetDatabase.LoadAssetAtPath<GUISkin>("Assets/Editor/SkillEditor.guiskin");
+        _styleGB = AssetDatabase.LoadAssetAtPath<GUISkin>(SkillEditorSkin);
     }
 
     private void GetData()
@@ -209,6 +209,7 @@ public class SkillEditor : EditorWindow
         GUILayout.Space(5f);
 
         EditorGUILayout.LabelField("字段(字符串)", GUILayout.MaxWidth(240));
+
         for (int i = 0; i < info.keyNames.Count; i++)
         {
             EditorGUILayout.BeginHorizontal();
@@ -703,13 +704,13 @@ public class SkillEditor : EditorWindow
     public string AttrDesc = @"
 mp 魔法
 
-attack 攻击
+attack 物理攻击
 
 attackSpeed 攻速
 
 crit    暴击
 
-defense 物防
+defense 物理防御
 
 magicDefense    魔抗
 

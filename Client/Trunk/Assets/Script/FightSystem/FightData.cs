@@ -3,9 +3,6 @@ using FightCommom;
 
 namespace Fight
 {
-
-
-
     public class FightData
     {
 
@@ -20,6 +17,8 @@ namespace Fight
     {
         //战场寻路数据
         public Node[] nodeGraph;
+        public int row;
+        public int column;
     }
 
     public class FightPlayerData
@@ -27,8 +26,6 @@ namespace Fight
         public FightPlayerInfo userData;
         public FightHeroData[] heroData;
         public FightSkillData[] teamSkills;
-
-
     }
 
     public class FightPlayerInfo
@@ -66,9 +63,7 @@ namespace Fight
         public int BodyDodge;
         public int BodyHit;
         public int Defense;
-        public int GunAttack;
-        public int GunCrit;
-        public int GunHit;
+
         public int HP;
         public int MP;
         public int CurMp;
@@ -78,7 +73,7 @@ namespace Fight
         public int MaxAnger;
         public int MoveSpeed;
         public int Range;
-        public int ReloadSpeed;
+        
         public int Star;
         public FightSkillData[] SkillData = new FightSkillData[] { };
 

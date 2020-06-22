@@ -39,7 +39,7 @@ namespace Fight
         {
             if (nowTime > _time + delay)
             {
-                List<Role> listTargets = battleField.GetEnemy(role, 1, range);
+                List<Role> listTargets = battleField.ScanForTarget(role, ESearchTargetType.Enemy, range);
                 for (int i = 0; i < listTargets.Count; i++)
                 {
                     FightAttackData fightAttackData = new FightAttackData(role, listTargets[i], level, Time, damageId, DamageSourceType.Skill, null);

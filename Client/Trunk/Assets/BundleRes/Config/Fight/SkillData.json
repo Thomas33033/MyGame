@@ -1,0 +1,15 @@
+[
+	{
+		"effectIds": [
+			10001
+		],
+		"MagicEffectSound": "",
+		"EndTime": 0,
+		"Type": 1,
+		"id": 10001,
+		"Resources": "",
+		"MagicEffect": "",
+		"ResourcesSound": "",
+		"SkillAct": ""
+	}
+]

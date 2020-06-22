@@ -1,17 +1,32 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using FightCommom;
 using Fight;
-
+using System.Runtime.CompilerServices;
+using System.Linq;
 
 public class Platform : MonoBehaviour {
-	
-	public _TowerType[] buildableType=new _TowerType[1];
-	
-	private bool walkable;
 
-	private Node[] nodeGraph;
+    public _TowerType[] buildableType = new _TowerType[1];
+    //表现
+    public bool GizmoShowNodes = true;
+    public bool GizmoShowPath = true;
+
+    public int gridSize;
+
+    public int row;
+
+    public int column;
+
+    public int ID;
+
+
+
+    private bool walkable;
+
+    private Node[] nodeGraphLogic;
+
+    private NodeRender[] nodeGraph;
 
     private Dictionary<int, NodeRender> nodeGraphMap;
 
@@ -30,14 +45,7 @@ public class Platform : MonoBehaviour {
     [HideInInspector] public GameObject thisObj;
 	[HideInInspector] public Transform thisT;
 
-    public int row;
-    public int column;
-    
-    //表现
-    public bool GizmoShowNodes = true;
-    public bool GizmoShowPath = true;
-
-    public int ID;
+   
 
     private List<PathSection> queue = new List<PathSection>();
 
@@ -68,21 +76,16 @@ public class Platform : MonoBehaviour {
 	
 	public void GenerateNode(float heightOffset)
     {
-		nodeGraph = NodeGenerator.GenerateNode(this, heightOffset);
-        for (int i = 0; i < nodeGraph.Length; i++ )
-        {
-            nodeGraphMap.Add(nodeGraph[i].ID, new NodeRender(nodeGraph[i]));
-        }
-
-        Node[] neighbourNode = nodeGraphMap[55].node.neighbourNode;
-        for (int i = 0; i < neighbourNode.Length; i++)
-        {
-            nodeGraphMap[neighbourNode[i].ID].SetViewColorState(ENodeColor.CantBuild);
-        }
-
+        nodeGraphLogic = NodeGenerator.GenerateNode(this, heightOffset);
+        nodeGraph = nodeGraphMap.Values.ToArray<NodeRender>();
         graphGenerated =true;
 	}
-	
+
+
+    public void SetNodeRender(Node node,Vector3 worldPos)
+    {
+        nodeGraphMap.Add(node.ID, new NodeRender(node, worldPos));
+    }
 
 	public void SearchForNewPath(PathSection PS){
 		queue.Add(PS);
@@ -104,7 +107,7 @@ public class Platform : MonoBehaviour {
 	}
 	
 	
-	public void SetPath(List<Vector3> wp)
+	public void SetPath(List<Node> wp)
     {
 		int pathID=queue[0].GetPathID();
 		int rand=pathID;
@@ -163,7 +166,6 @@ public class Platform : MonoBehaviour {
                     blocked = true;
                 }
             }
-
             pathObj.altPath = PathFinder.ForceSearch(pathObj.startN, pathObj.endN, nearestNode, nodeGraph);
 
             if (pathObj.altPath.Count == 0)
@@ -195,7 +197,7 @@ public class Platform : MonoBehaviour {
 				nearestNode.walkable=false;
                 for (int i = 0; i < costNodeIDs.Count; i++)
                 {
-                    nodeGraphMap[costNodeIDs[i]].node.walkable = false;
+                    nodeGraphMap[costNodeIDs[i]].walkable = false;
                     nodeGraphMap[costNodeIDs[i]].DefaultColor();
                 }
 
@@ -248,12 +250,14 @@ public class Platform : MonoBehaviour {
      
     public Vector3 GetWorldPosition(int nodeId)
     {
-        return this.nodeGraphMap[nodeId].node.pos;
+        Debug.LogError("GetWorldPosition:"+  this.nodeGraphMap[nodeId].ID + " " + this.nodeGraphMap[nodeId].x + " " + this.nodeGraphMap[nodeId].y);
+
+        return this.nodeGraphMap[nodeId].pos;
     }
 
 
     public Node[] GetNodeGraph(){
-		return nodeGraph;
+		return nodeGraphLogic;
 	}
 
     private bool InitViewObj = false;
@@ -291,7 +295,7 @@ public class Platform : MonoBehaviour {
 					for(int i=1; i<pathObj.altPath.Count; i++)
                     {
 						Gizmos.color=Color.red;
-						Gizmos.DrawLine(pathObj.altPath[i], pathObj.altPath[i-1]);
+						Gizmos.DrawLine(pathObj.altPath[i].pos, pathObj.altPath[i-1].pos);
 					}
 				}
 			}
@@ -369,3 +373,4 @@ public class Platform : MonoBehaviour {
     }
 
 }
+

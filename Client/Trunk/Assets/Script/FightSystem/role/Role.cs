@@ -163,7 +163,9 @@ namespace Fight
         //处理任务AI
         public virtual void Update(float nowTime)
         {
-            //
+
+            if (this.teamId != 2) return;
+
             skillComp.OnUpdate(nowTime);
 
             if (StatusCheck(RoleStatus.Dizz)) return;
@@ -186,7 +188,7 @@ namespace Fight
 
             if (target == null)
             {
-                FindTarget();
+                this.scanTargetComp.FindTarget();
             }
 
             if (StatusCheck(RoleStatus.Silent) == false && CheckSkill())
@@ -541,6 +543,13 @@ namespace Fight
         public void GetReport(ref List<FightReport> listReport)
         {
              reportComp.GetReport(ref listReport);
+        }
+
+        public int SortHexDistanceHandler(Node x, Node y)
+        {
+            float a1 = position.Distance(x);
+            float a2 = position.Distance(y);
+            return a1.CompareTo(a2);
         }
     }
 }
