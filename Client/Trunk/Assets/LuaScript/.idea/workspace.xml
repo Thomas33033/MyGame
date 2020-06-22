@@ -1,42 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52295b75-3299-4fb7-87fc-cefc32841763" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerAOE.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerAOE.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BundleRes/Config/GridData.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BundleRes/Config/GridData.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Window/UIRoot3D.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Window/UI_Menu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../BundleRes/UI/Window/UI_Menu.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logic/Common/UIHelper.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Logic/Common/UIHelper.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Res/old/Scripts/C#/BuildManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Scripts/C#/BuildManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Res/old/Scripts/C#/GameControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Scripts/C#/GameControl.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scenes1/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Scenes1/Game.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scenes1/Launch.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Scenes1/Launch.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/Common/GameToos.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/Common/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Common/InputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/Controller/SpawnManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Controller/SpawnManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/FightCommon/Node.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightCommon/Node.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/FightCommon/NodeRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightCommon/NodeRender.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/FightRender/BattleField/FightSceneRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightRender/BattleField/FightSceneRender.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/FightRender/FightRoleRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightRender/FightRoleRender.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/FightBattleCompositeBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/FightBattleCompositeBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/FightCompositeBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/FightCompositeBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/FightScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/FightScene.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/FightData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/FightData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Main.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/Platform/NodeGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Platform/NodeGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/Platform/PathOnPlatform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Platform/PathOnPlatform.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/Platform/Platform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Platform/Platform.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/UI/FollowUI3D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/UI/FollowUI3D.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/UI/UI_Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/UI/UI_Main.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/DelegateFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/DelegateFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/GameToolsWrap.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/LuaBinder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/LuaBinder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/Singleton_UIManagerWrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/Singleton_UIManagerWrap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/ProjectVersion.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/TagManager.asset" afterDir="false" />
-    </list>
+    <list default="true" id="52295b75-3299-4fb7-87fc-cefc32841763" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,6 +100,7 @@
       <workItem from="1592643128187" duration="1418000" />
       <workItem from="1592654962367" duration="331000" />
       <workItem from="1592738863043" duration="3000" />
+      <workItem from="1592754675978" duration="4000" />
     </task>
     <servers />
   </component>

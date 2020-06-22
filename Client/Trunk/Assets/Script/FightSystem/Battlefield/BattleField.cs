@@ -413,7 +413,6 @@ namespace Fight
             int tx = (int) node.pos.x;
             int ty = (int) node.pos.z;
             int id = 0;
-            Debug.LogError("---------------- :"+  tx+ " " + ty);
             for (int x = -range; x <= range; x++)
             {
                for (int y = -range; y <= range; y++)
@@ -425,12 +424,8 @@ namespace Fight
                         if (dicNodeGraph[id].walkable)
                         {
                             templist.Add(dicNodeGraph[id]);
-                            Debug.Log(id + "  " + ENodeColor.CanBuild);
                             FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(id, ENodeColor.CanBuild);
                         }
-                    }
-                    else {
-                        Debug.LogError("存在在NodeID：" + id);
                     }
                 }
             }

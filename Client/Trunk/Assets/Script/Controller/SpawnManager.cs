@@ -199,6 +199,7 @@ public class SpawnManager : Singleton<SpawnManager>
         heroData.uid = Entity.GetUniqueId();
         heroData.Resource = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.Resname);
         heroData.NodeId = 171;
+        heroData.CostNodes = new int[] { 171 };
         heroData.roleId = 10001;
         heroData.Attack = 10;
         heroData.AttackSpeed = 1;

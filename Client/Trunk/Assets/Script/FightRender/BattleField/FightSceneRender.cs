@@ -107,6 +107,12 @@ public class FightSceneRender : Singleton<FightSceneRender>
 
         dicFightRole[roleData.roleId] = roleRender;
 
+        for (int i = 0; i < roleData.CostNodes.Length; i++)
+        {
+            battleFieldRender.platform.SetNodeWalk(roleData.CostNodes[i], false);
+        }
+        
+
         string asset = "";
         for (int i = 0; i < roleData.SkillData.Length; i++)
         {

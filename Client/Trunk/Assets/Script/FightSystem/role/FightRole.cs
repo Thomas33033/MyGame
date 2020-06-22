@@ -86,20 +86,21 @@ namespace Fight
             waypoints = listHex;
             for (int i = 0; i < listHex.Count; i++)
             {
-                
-                //List<Node> paths = battleField.GetMoveNode(position, listHex[i], true);
+                Debug.Log("GetMoveNode: " + position.ID + " " + listHex[i].ID);
 
-                //if (paths.Count > 0)
-                //{
-                //    waypoints = paths;
-                //    for (int k = 0; k < paths.Count; k++)
-                //    {
-                //        FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(paths[k].ID,ENodeColor.CanBuild);
-                //    }
-                    
-                //    //MoveTo(paths.Peek());
-                //    break;
-                //}
+                List<Node> paths = battleField.GetMoveNode(position, listHex[i], true);
+
+                if (paths != null && paths.Count > 0)
+                {
+                    waypoints = paths;
+                    for (int k = 0; k < paths.Count; k++)
+                    {
+                        FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(paths[k].ID, ENodeColor.CanBuild);
+                    }
+
+                    //MoveTo(paths.Peek());
+                    break;
+                }
             }
         }
 
