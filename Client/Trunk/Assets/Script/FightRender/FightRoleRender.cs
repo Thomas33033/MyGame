@@ -180,7 +180,7 @@ public class FightRoleRender : RoleRender
         float scale = 0.5f;
         string content = "-" + hurt;
         Ease ease = Ease.OutBack;
-        Vector3 startOffset = new Vector3(0, 1, 0);
+        Vector3 startOffset = new Vector3(0, 3, 0);
         Vector3 endOffset = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(1.2f, 1.7f), 0);
 
         switch (damageType)

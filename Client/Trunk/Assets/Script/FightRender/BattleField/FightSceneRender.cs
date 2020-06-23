@@ -231,7 +231,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
     private void DoReport_RoleHpMp(FightReport v)
     {
         FightReportRoleHpMp report = v as FightReportRoleHpMp;
-
+        Debug.Log(report.hp + " " + report.mp);
         dicFightRole[report.roleId].SetHp(report.hp);
         dicFightRole[report.roleId].SetMp(report.mp);
     }
