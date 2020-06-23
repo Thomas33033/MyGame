@@ -196,13 +196,12 @@ public class SpawnManager : Singleton<SpawnManager>
         _data.InitData(p_subWave.monsterConfigId);
 
         FightHeroData heroData = new FightHeroData();
-        heroData.uid = Entity.GetUniqueId();
         heroData.Resource = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.Resname);
         heroData.NodeId = 171;
         heroData.CostNodes = new int[] { 171 };
-        heroData.roleId = 10001;
+        heroData.cfgId = 10001;
         heroData.Attack = 10;
-        heroData.AttackSpeed = 1;
+        heroData.AttackSpeed = 50;
         heroData.BodyCrit = 1;
         heroData.BodyDodge = 1;
         heroData.BodyHit = 100;
@@ -215,14 +214,17 @@ public class SpawnManager : Singleton<SpawnManager>
         heroData.MagicDefense = 5;
         heroData.MaxAnger = 10;
         heroData.MoveSpeed = 10;
-        heroData.Range = 2;
-
-
+        heroData.Range = 1;
+        
 
         var fightSkillData = new FightSkillData();
         fightSkillData.skillID = 10001;
         fightSkillData.level = 1;
-        heroData.SkillData = new FightSkillData[] { fightSkillData };
+
+        var fightSkillData1 = new FightSkillData();
+        fightSkillData1.skillID = 10002;
+        fightSkillData1.level = 1;
+        heroData.SkillData = new FightSkillData[] { fightSkillData, fightSkillData1};
 
         FightScene.Instance.CreateRole(heroData,2);
 

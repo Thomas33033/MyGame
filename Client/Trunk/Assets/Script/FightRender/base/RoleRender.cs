@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Fight;
 using FightCommom;
 
-public class RoleRender: Entity
+public class RoleRender :Entity
 {
     public string teamId;
 
@@ -30,9 +30,14 @@ public class RoleRender: Entity
 
     public Transform transform;
 
-    public virtual void Awake()
-    {
+
+    public RoleRender()  {
         dicEffectObjects = new Dictionary<int, EffectPoolObj>();
+    }
+
+
+    public virtual void Update()
+    { 
     }
 
     public virtual void SetHpMax(int v)

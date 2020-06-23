@@ -98,7 +98,7 @@ namespace Fight
                 v.position = dicNodeGraph[position];
                 v.SetBattleField(this);
 
-                int nodeId = 0;
+                int nodeId;
                 for (int i = 0; v.costNodes != null && i < v.costNodes.Length; i++)
                 {
                     nodeId = v.costNodes[i];
@@ -389,7 +389,7 @@ namespace Fight
         public List<Vector3> RoleMove(Role fightRole, Node grid)
         {
             //fightRole.position.walkable = true;
-            //fightRole.position = grid;
+            fightRole.position = grid;
             ////grid.walkable = false;
             //return PathFinder.GetPath(fightRole.position.pos, grid.pos, this.nodeGraph);
             return null;
@@ -409,18 +409,20 @@ namespace Fight
 
         internal List<Node> GetAround(Node node, int range = 1)
         {
+           
             templist.Clear();
             int tx = (int) node.pos.x;
             int ty = (int) node.pos.z;
-            int id = 0;
+            int id;
             for (int x = -range; x <= range; x++)
             {
                for (int y = -range; y <= range; y++)
                 {
-                    id = (tx + x) * this.row + (ty + y);
+                    id = (tx + x) * this.column + (ty + y);
 
                     if (dicNodeGraph.ContainsKey(id))
                     {
+                        Debug.LogError((tx + x) + " - " + (ty + y) + " id:"+id); 
                         if (dicNodeGraph[id].walkable)
                         {
                             templist.Add(dicNodeGraph[id]);

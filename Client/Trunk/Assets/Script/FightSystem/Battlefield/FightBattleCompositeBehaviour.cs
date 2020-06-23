@@ -37,7 +37,7 @@ namespace Fight
 
         private void InitPlayer(FightType fightType, FightPlayerData fightPlayerData, BattleField battleField)
         {
-            FightTeam fightTeam = new FightTeam(fightPlayerData.userData.userID, fightType, fightPlayerData.userData.userID, fightPlayerData.teamSkills);
+            FightTeam fightTeam = new FightTeam(fightPlayerData.userData.userID, fightType, fightPlayerData.teamSkills);
             fightTeam.isPlayer = true;
             composite.AddFightTeam(fightTeam, battleField.id);
 
@@ -51,7 +51,7 @@ namespace Fight
 
         private void InitEnemy(FightType fightType, FightPlayerData fightPlayerData, BattleField battleField)
         {
-            FightTeam fightTeam = new FightTeam(fightPlayerData.userData.userID, fightType, fightPlayerData.userData.userID, fightPlayerData.teamSkills);
+            FightTeam fightTeam = new FightTeam(fightPlayerData.userData.userID, fightType, fightPlayerData.teamSkills);
 
             composite.AddFightTeam(fightTeam, battleField.id);
 

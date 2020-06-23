@@ -41,7 +41,7 @@ public class NodeRender : Node
         {
             this.viewObj = obj;
             this.viewObj.gameObject.SetActive(true);
-            this.viewObj.name = ID + " " +x +"-"+y ;
+            this.viewObj.name = ID + " " +x +"-"+ y ;
             this.viewObj.transform.position = this.pos;
             this.viewObj.transform.localScale = new Vector3(1, 0.1f, 1);
             this.DefaultColor();

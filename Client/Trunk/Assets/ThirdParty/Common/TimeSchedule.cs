@@ -45,7 +45,7 @@ public class TimeSchedule
             }
         }
     }
-    public virtual void OnUpdate(float dt)
+    public virtual void OnUpdate()
     {
         if (list.Count > 0)
         {

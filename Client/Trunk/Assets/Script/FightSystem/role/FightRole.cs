@@ -10,7 +10,7 @@ namespace Fight
 {
     public class FightRole : Role
     {
-        public FightRole(int teamId, int uid, AttributeData attr, float hpInit, int mpInit, FightSkillData[] skills, string tag) : base(teamId, uid, attr, hpInit, mpInit, skills, tag)
+        public FightRole(int teamId, AttributeData attr, float hpInit, int mpInit, FightSkillData[] skills, string tag) : base(teamId, attr, hpInit, mpInit, skills, tag)
         {
             type = RoleType.Fighter;
         }
@@ -73,32 +73,27 @@ namespace Fight
             MoveRandom(nowTime);
         }
 
-        private List<Node> waypoints = new List<Node>();
+       
 
         protected override void MoveTarget(float nowTime)
         {
-            if (waypoints != null && waypoints.Count > 0)
-            {
-                return;
-            }
-            List<Node> listHex = battleField.GetAround(target.position, range);
+            if (this.isMoving) return;
+
+            List<Node> listHex = battleField.GetAround(target.position,  range + target.nodeSize-1);
             listHex.Sort(SortHexDistanceHandler);
-            waypoints = listHex;
+     
             for (int i = 0; i < listHex.Count; i++)
             {
-                Debug.Log("GetMoveNode: " + position.ID + " " + listHex[i].ID);
-
                 List<Node> paths = battleField.GetMoveNode(position, listHex[i], true);
 
                 if (paths != null && paths.Count > 0)
                 {
-                    waypoints = paths;
+                    this.moveComponent.SetWayPoints(paths);
+
                     for (int k = 0; k < paths.Count; k++)
                     {
                         FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(paths[k].ID, ENodeColor.CanBuild);
                     }
-
-                    //MoveTo(paths.Peek());
                     break;
                 }
             }

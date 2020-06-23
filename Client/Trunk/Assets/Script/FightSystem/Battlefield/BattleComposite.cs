@@ -62,7 +62,7 @@ namespace Fight
 
                 if (fightRole.type == RoleType.Fighter)
                 {
-                    FightReportRoleAdd report = new FightReportRoleAdd(0, fightRole.teamId, fightRole.uid, 
+                    FightReportRoleAdd report = new FightReportRoleAdd(0, fightRole.teamId, fightRole.id, 
                         (int)fightRole.type, fightRole.id, fightRole.GetBattlefield().id,
                         fightRole.hpMax, fightRole.mpMax, fightRole.position.ID, "");
                     report.hp = fightRole.hpMax;
@@ -165,7 +165,7 @@ namespace Fight
 
             BattleField battleField = dicBattleField[battlefieldId];
 
-            FightRole fightRole = new FightRole(teamId, roleData.uid, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
+            FightRole fightRole = new FightRole(teamId, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
             fightRole.isPlayer = isPlayer;
             fightRole.costNodes = roleData.CostNodes;
             fightRole.site = site;
@@ -174,8 +174,8 @@ namespace Fight
 
             fightRole.PrepareFight();
 
-           
-            FightReportRoleCreate report = new FightReportRoleCreate(Time, fightRole.teamId, roleData, battlefieldId);
+            
+            FightReportRoleCreate report = new FightReportRoleCreate(Time, teamId, fightRole.id, roleData, battlefieldId);
             listReport.Add(report);
             
             return true;
@@ -189,7 +189,7 @@ namespace Fight
             attr.hit = attacker.AttributeData.hit;
             attr.attackSpeed = attacker.AttributeData.attackSpeed;
 
-            FightRoleSummon fightRole = new FightRoleSummon(attacker.teamId, 0, attr, 1f, 0, skills, "Summon,1");
+            FightRoleSummon fightRole = new FightRoleSummon(attacker.teamId, attr, 1f, 0, skills, "Summon,1");
 
             BattleField battleField = dicBattleField[battlefield];
             listAllRoles.Add(fightRole);
@@ -275,7 +275,7 @@ namespace Fight
                 Role fightRole = listAllRoles[i];
                 if (fightRole.isPlayer && fightRole.type == RoleType.Fighter)
                 {
-                    listHp.Add(fightRole.uid);
+                    listHp.Add(fightRole.id);
                     listHp.Add(Mathf.FloorToInt(100f * fightRole.hp / fightRole.hpMax));
                     listHp.Add(fightRole.mp);
                 }

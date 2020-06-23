@@ -54,7 +54,7 @@ public class Platform : MonoBehaviour {
         this.nodeGraphMap[id].SetViewColorState(color);
     }
 
-    public void SetNodeWalk(int id, bool walkable)
+    public void SetNodeWalkState(int id, bool walkable)
     {
         this.nodeGraphMap[id].walkable = walkable;
         this.nodeGraphMap[id].DefaultColor();

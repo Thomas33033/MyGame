@@ -41,7 +41,7 @@ namespace Fight
 
         public virtual float GetTime()
         {
-            return 0f;
+            return 0;
         }
 
         //public void ReciveEventInvoke(FightReport fightReport)

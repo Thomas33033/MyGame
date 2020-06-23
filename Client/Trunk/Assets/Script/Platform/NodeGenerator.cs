@@ -92,9 +92,9 @@ public class NodeGenerator : MonoBehaviour
 		int countX=(int)(10*scaleX/gridSize);
 		int countZ=(int)(10*scaleZ/gridSize);
 
-        platform.row = countZ;
-        platform.column = countX;
-
+        platform.row = countX;
+        platform.column = countZ;
+		Debug.LogError(countZ+ "------------------"  +  countX);
 		float x=-scaleX*10/2/scaleX;
 		float z=-scaleZ*10/2/scaleZ;
         //将thisT 定位到平台的左下角 {0,0}点
@@ -113,14 +113,14 @@ public class NodeGenerator : MonoBehaviour
 		
 		if (nodeList == null || nodeList.Count <= 0)
 		{
-			nodeGraph = new Node[countZ * countX];
+			nodeGraph = new Node[countX * countZ];
 			
-			for (int i = 0; i < countZ; i++)
+			for (int i = 0; i < countX; i++)
 			{
-				for (int j = 0; j < countX; j++)
+				for (int j = 0; j < countZ; j++)
 				{
-					tempPos = thisT.TransformPoint(new Vector3(gridSize * j, 0, gridSize * i));
-					Node node = new Node(new Vector3(j, 0, i), counter);
+					tempPos = thisT.TransformPoint(new Vector3(gridSize * i, 0, gridSize * j));
+					Node node = new Node(new Vector3(i, 0, j), counter);
 					nodeGraph[counter] = node;
 					platform.SetNodeRender(node, tempPos);
 					counter += 1;

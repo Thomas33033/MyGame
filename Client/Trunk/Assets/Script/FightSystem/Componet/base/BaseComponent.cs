@@ -11,6 +11,7 @@ namespace Fight
         public BaseComponent(Role p_owner)
         {
             this.Owner = p_owner;
+            this.Owner.comps.Add(this);
         }
 
         //public void RequestAction(SysAction action)

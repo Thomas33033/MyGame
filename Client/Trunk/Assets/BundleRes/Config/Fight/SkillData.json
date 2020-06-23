@@ -11,5 +11,18 @@
 		"MagicEffect": "",
 		"ResourcesSound": "",
 		"SkillAct": ""
+	},
+	{
+		"effectIds": [
+			10002
+		],
+		"MagicEffectSound": "",
+		"EndTime": 0,
+		"Type": 2,
+		"id": 10002,
+		"Resources": "",
+		"MagicEffect": "",
+		"ResourcesSound": "",
+		"SkillAct": ""
 	}
 ]

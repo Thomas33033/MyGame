@@ -296,7 +296,7 @@ public class CharacterBase : Entity
     
     public virtual void OnUpdate(float dt)
     {
-        base.OnUpdate(dt);
+        base.OnUpdate();
         if (!this.IsLive())
         {
             return;

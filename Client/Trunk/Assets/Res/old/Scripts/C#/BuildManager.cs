@@ -355,8 +355,7 @@ public class BuildManager : MonoBehaviour {
 
             FightHeroData buildData = new FightHeroData();
             buildData.Resource = path;
-            buildData.uid = Entity.GetUniqueId();
-            buildData.roleId = _data.config.UId;
+            buildData.cfgId = _data.config.UId;
 
             buildData.HP = _data.config.Hp;
             buildData.CurHp = _data.config.Hp;

@@ -207,8 +207,8 @@ namespace Fight
             //    case (int)FightEffectActionType.AttackCrit:
             //        return new FightEffectActionAttackCrit(actionInfo, effectData);
 
-            //    case (int)FightEffectActionType.FindTarget:
-            //        return new FightEffectActionFindTarget(actionInfo, effectData);
+                case (int)FightEffectActionType.FindTarget:
+                    return new FightEffectActionFindTarget(actionInfo, effectData);
 
             //    case (int)FightEffectActionType.FindTargetFromAttackData:
             //        return new FightEffectActionFindTargetFromAttackData(actionInfo, effectData);
@@ -314,9 +314,6 @@ namespace Fight
 
             //    case (int)FightEffectActionType.BuffClear:
             //        return new FightEffectActionBuffClear(actionInfo, effectData);
-
-                case (int)FightEffectActionType.FindTargetCrew:
-                    return new FightEffectActionFindTarget(actionInfo, effectData);
 
             //    case (int)FightEffectActionType.FindTargetShip:
             //        return new FightEffectActionFindTargetShip(actionInfo, effectData);

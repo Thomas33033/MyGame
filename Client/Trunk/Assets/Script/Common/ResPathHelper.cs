@@ -10,5 +10,5 @@ public class ResPathHelper
 
     public static string UI_NPC_PATH = "assets/BundlePrefab/NPC/";
     public static string UI_EFFECT_APTH = "assets/BundlePrefab/Effect/";
-
+    public static string UI_DAMAGE_APTH = "assets/BundlePrefab/DamageLabel/";
 }

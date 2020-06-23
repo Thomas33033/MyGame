@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Fight;
+using System;
 
 public enum EGameState
 {
@@ -142,7 +143,9 @@ public class GameControl : MonoBehaviour {
         fightScene.InitFight(FightType.ConmmFight, fightdata);
 
         sceneRender.InitFight(platform, fightdata);
-    }
+		sceneRender.SetServerTime(fightScene.compBehaviour.GetTime());
+
+	}
 	
 
     public void RefreshResource()
@@ -187,8 +190,16 @@ public class GameControl : MonoBehaviour {
         NineScreenMgr.Instance.OnUpdate(this.deltalTime);
         SpawnManager.Instance.OnUpdate(this.deltalTime);
 
-        FightSceneRender.Instance.Update();
-        FightScene.Instance.Update();
+		try
+		{
+			FightSceneRender.Instance.Update();
+			FightScene.Instance.Update();
+		}
+		catch (Exception e)
+		{
+			Debug.LogError(e.ToString());
+		}
+       
     }
 	
 	

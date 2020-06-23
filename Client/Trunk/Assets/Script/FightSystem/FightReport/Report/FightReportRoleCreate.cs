@@ -13,11 +13,11 @@ public class FightReportRoleCreate : FightReport
 
     }
 
-    public FightReportRoleCreate(float time, int playerId, FightHeroData heroData, int battlefield) : 
+    public FightReportRoleCreate(float time, int playerId, int roleId, FightHeroData heroData, int battlefield) : 
         base(playerId, ReportType.RoleAdd.ToString(), time)
     {
         this.battlefield = battlefield;
-        this.roleId = heroData.roleId;
+        this.roleId = roleId;
         this.heroData = heroData;
     }
 }

@@ -10,7 +10,7 @@ namespace Fight
     {
         public FightType fightType;
 
-        public FightTeam(int teamId, FightType fightType, int uid, FightSkillData[] skills) : base(teamId, uid, new AttributeData(), 0, 0, new FightSkillData[0], "")
+        public FightTeam(int teamId, FightType fightType, FightSkillData[] skills) : base(teamId, new AttributeData(), 0, 0, new FightSkillData[0], "")
         {
             this.id = teamId;
             this.fightType = fightType;

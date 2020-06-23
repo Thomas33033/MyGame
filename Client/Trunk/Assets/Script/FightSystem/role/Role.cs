@@ -11,8 +11,6 @@ namespace Fight
 
         public int id;
 
-        public int uid;
-
         public int teamId;
 
         public string tag;
@@ -27,15 +25,19 @@ namespace Fight
         //攻击目标
         public Role target;
 
+        public bool isMoving;
+
         public float actionEndTime;
 
         private float _skillEndTime;
 
-        public float Time;
+        public float Time => battleField.composite.Time;
 
         public Node position;
 
         public int[] costNodes;
+
+        public int nodeSize = 2;
 
         private int _hp;
         public virtual int hp { get => _hp; set => _hp = value; }
@@ -60,14 +62,17 @@ namespace Fight
 
         public int place;
 
+        public List<BaseComponent> comps = new List<BaseComponent>();
+
         public SkillComponent skillComp;
         public TagComponent tagComp;
         public ReportComponent reportComp;
         public FindPathComponent findPathComp;
         public ScanTargetComponent scanTargetComp;
         public BuffComponent buffComp;
+        public MoveComponent moveComponent;
 
-        public Role(int teamId, int uid, AttributeData attr,
+        public Role(int teamId, AttributeData attr,
                 float hpInit, int mpInit, FightSkillData[] skills, string tag) : base(attr)
         {
             _roleIndex++;
@@ -79,7 +84,6 @@ namespace Fight
 
             this.teamId = teamId;
 
-            this.uid = uid;
 
             this.attributeBase = attr;
 
@@ -92,6 +96,7 @@ namespace Fight
             findPathComp = new FindPathComponent(this);
             scanTargetComp = new ScanTargetComponent(this);
             buffComp = new BuffComponent(this);
+            moveComponent = new MoveComponent(this);
 
             skillComp.SkillCreate(skills);
             tagComp.TagCreate(tag);
@@ -166,7 +171,11 @@ namespace Fight
 
             if (this.teamId != 2) return;
 
-            skillComp.OnUpdate(nowTime);
+            for(int i = 0; i < comps.Count; i++)
+            {
+                comps[i].OnUpdate(nowTime);
+            }
+
 
             if (StatusCheck(RoleStatus.Dizz)) return;
             
@@ -267,7 +276,9 @@ namespace Fight
 
         protected virtual bool CheckAttackDistance()
         {
-            return position.Distance(target.position) <= range;
+            int distance = (int)position.Distance(target.position);
+
+            return distance <= range + target.nodeSize;
         }
 
         protected virtual void FindTarget()
@@ -284,7 +295,7 @@ namespace Fight
             if (battleField.CheckMove(grid))
             {
                 battleField.RoleMove(this, grid);
-                actionEndTime = Time + moveSpeed / 200f;
+                actionEndTime = Time + moveSpeed;
                 AddReport(new FightReportRoleMove(Time, teamId, id, battleField.id, actionEndTime, grid.ID));
                 return true;
             }

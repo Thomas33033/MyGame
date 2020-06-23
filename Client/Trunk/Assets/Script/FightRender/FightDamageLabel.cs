@@ -87,8 +87,6 @@ public class FightDamageLabel : MonoBehaviour
 
     private void DestroySelf()
     {
-        // Destroy(gameObject);
-        //this.transform.rectTransform();
         this._poolObj.ReturnToPool();
     }
 

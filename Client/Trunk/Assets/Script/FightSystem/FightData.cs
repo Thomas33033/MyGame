@@ -46,7 +46,7 @@ namespace Fight
     public class FightHeroData
     {
         public int uid;
-        public int roleId;
+        public int cfgId;
         public int crewID;
         public string Resource;
         public string AttackRes;

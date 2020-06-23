@@ -9,8 +9,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class FightRoleRender : RoleRender
 {
-    public Animator skeletonAnimator;
-
     public Animator animator;
 
     private float _actionTime_attack;
@@ -19,17 +17,17 @@ public class FightRoleRender : RoleRender
 
     private ModelPoolObj npcPoolObj;
 
-    private void Start()
+
+    public FightRoleRender() 
     {
         delayCalls = new List<DelayCall>();
-        ui.SetData(hpMax, mpMax, isPlayer);
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        ui.transform.position = transform.position;
 
+    // Update is called once per frame
+    public override void Update()
+    {
+        base.OnUpdate();
         for (int i = 0; i < delayCalls.Count; i++)
         {
             if (delayCalls[i].time < Time.time)
@@ -88,8 +86,7 @@ public class FightRoleRender : RoleRender
         ui.transform.parent = GameObject.Find("UIRootHp").transform;
         ui.transform.localPosition = new Vector3(0, 1, 0);
         ui.GetComponent<FollowUI3D>().target = transform.Find("head").transform;
-        //ui.transform.parent = transform.Find("head").transform; 
-        
+
         if (animator != null)
         {
             animator.Play("Idle");
@@ -98,7 +95,8 @@ public class FightRoleRender : RoleRender
 
     public void Jump(Vector3 v, float time)
     {
-        skeletonAnimator.transform.localScale = new Vector3(v.x > transform.localPosition.x ? 1 : -1, 1, 1);
+        Quaternion wantedRot = Quaternion.LookRotation(v - this.transform.position);
+        transform.rotation = wantedRot;
 
         transform.DOKill(true);
 
@@ -119,9 +117,16 @@ public class FightRoleRender : RoleRender
         });
     }
 
+
     public void Move(Vector3 v, float time)
     {
-        skeletonAnimator.transform.localScale = new Vector3(v.x > transform.localPosition.x ? 1 : -1, 1, 1);
+        Debug.LogError("Move times" + time);
+        transform.localScale = new Vector3(v.x > transform.localPosition.x ? 1 : -1, 1, 1);
+
+
+        Quaternion wantedRot = Quaternion.LookRotation(v - this.transform.position);
+        transform.rotation = wantedRot;
+        //transform.DOLookAt(v - this.transform.position, 0.1f);
 
         transform.DOKill(!animator.GetBool("move"));
 
@@ -250,7 +255,7 @@ public class FightRoleRender : RoleRender
         delayCall.time = Time.time + delayTime;
         delayCall.action = () =>
         {
-            var poolObj = ObjectPoolManager.Instance.GetPoolObj<DamagePoolObj>(labelPrefab);
+            var poolObj = ObjectPoolManager.Instance.GetPoolObj<DamagePoolObj>(ResPathHelper.UI_DAMAGE_APTH + labelPrefab + ".prefab");
             GameObject obj = poolObj.itemObj;
             obj.transform.SetParent(FightSceneRender.Instance.rootUI.transform);
             FightDamageLabel fd = obj.GetComponent<FightDamageLabel>();
@@ -373,7 +378,11 @@ public class FightRoleRender : RoleRender
         transform.DOKill(true);
 
         if (listTargets.Count > 0 && listTargets[0] != this)
-            skeletonAnimator.transform.localScale = new Vector3(listTargets[0].transform.position.x > transform.position.x ? 1 : -1, 1, 1);
+        {
+            Quaternion wantedRot = Quaternion.LookRotation(listTargets[0].transform.position - this.transform.position);
+            transform.rotation = wantedRot;
+        }
+ 
 
         if (isPlayer)
         {
@@ -389,9 +398,8 @@ public class FightRoleRender : RoleRender
 
     private void ResetHightShowwing()
     {
-        ChangeLayer(transform, LayerMask.NameToLayer("FightObject"));
-        int d = skeletonAnimator.transform.localScale.x > 0 ? 1 : -1;
-        skeletonAnimator.transform.DOScale(new Vector3(d * 1f, 1f, 1f), 0.2f);
+        //ChangeLayer(transform, LayerMask.NameToLayer("FightObject"));
+       
     }
 
     private void ShowSkill2(FightSkillInfo skillInfo, List<RoleRender> listTargets)
@@ -402,7 +410,8 @@ public class FightRoleRender : RoleRender
         RoleRender target = listTargets[0];
         
         transform.DOKill(true);
-        skeletonAnimator.transform.localScale = new Vector3(target.transform.position.x > transform.position.x ? 1 : -1, 1, 1);
+        Quaternion wantedRot = Quaternion.LookRotation(target.transform.position - this.transform.position);
+        transform.rotation = wantedRot;
     
         Vector3 vt3 = target.transform.position - transform.position;
         

@@ -6,13 +6,17 @@
     "space": 0,
     "actionInfos": [
       {
-        "id": 14,
+        "id": 2,
         "step": 0,
         "valuesType": [
+          0,
+          0,
           0,
           0
         ],
         "values": [
+          1,
+          100,
           0,
           0
         ],
@@ -30,7 +34,47 @@
           0
         ],
         "keys": [
-            "10002" 
+          "10001"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10002,
+    "trigger": 0,
+    "cd": 0,
+    "space": 0,
+    "actionInfos": [
+      {
+        "id": 2,
+        "step": 0,
+        "valuesType": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "values": [
+          1,
+          100,
+          0,
+          0
+        ],
+        "keys": []
+      },
+      {
+        "id": 1,
+        "step": 1,
+        "valuesType": [
+          0,
+          0
+        ],
+        "values": [
+          0,
+          0
+        ],
+        "keys": [
+          "10002"
         ]
       }
     ]
