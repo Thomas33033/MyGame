@@ -18,7 +18,7 @@ public class FightRoleUI : MonoBehaviour
         imgMp.fillAmount = 0f;
     }
 
-    public void SetData(int hpMax, int mpMax, bool isSelf)
+    public void SetData(int hpMax, int mpMax)
     {
         this.hpMax = hpMax;
         this.mpMax = mpMax;
@@ -33,7 +33,7 @@ public class FightRoleUI : MonoBehaviour
         {
             gameObject.SetActive(true);
         }
-
+        Debug.LogError("ShowHp:"+  hp + " " + hpMax);
         imgHp.fillAmount = 1f * hp / hpMax;
     }
 

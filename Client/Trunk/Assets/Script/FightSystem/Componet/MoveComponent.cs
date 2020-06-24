@@ -7,8 +7,9 @@ namespace Fight {
     {
         private List<Node> waypoints = new List<Node>();
 
-        public float lastMoveTime; 
+        public float lastMoveTime;
 
+        private Node nextNode;
         public MoveComponent(Role role) : base(role)
         {
            
@@ -18,6 +19,7 @@ namespace Fight {
         {
             this.waypoints = waypoints;
             this.lastMoveTime = 0;
+            this.nextNode = waypoints[0];
             this.Owner.isMoving = true;
         }
 
@@ -30,11 +32,11 @@ namespace Fight {
             {
                 if (nowTime > lastMoveTime)
                 {
+                    this.Owner.RoleMove(this.nextNode);
                     this.Owner.isMoving = true;
-                    this.Owner.MoveTo(this.waypoints[0]);
+                    this.nextNode = this.waypoints[0];
                     this.waypoints.RemoveAt(0);
-                    Debug.Log("移动中：" + this.waypoints.Count);
-                    Debug.LogError("noveTime:" + this.Owner.moveSpeed);
+                    this.Owner.MoveTo(this.nextNode);
                     lastMoveTime = nowTime + this.Owner.moveSpeed;
                    
                 }
@@ -42,6 +44,7 @@ namespace Fight {
             else
             {
                 Debug.Log("移动结束：");
+                this.Owner.RoleMove(this.nextNode);
                 this.Owner.isMoving = false;
             }
         }

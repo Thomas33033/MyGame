@@ -361,6 +361,23 @@ public class BuildManager : MonoBehaviour {
             buildData.CurHp = _data.config.Hp;
             buildData.CurMp = buildData.HP;
 
+			buildData.Attack = 10;
+			buildData.AttackSpeed = 50;
+			buildData.BodyCrit = 1;
+			buildData.BodyDodge = 1;
+			buildData.BodyHit = 100;
+			buildData.Defense = 5;
+			buildData.HP = 100;
+			buildData.MP = 50;
+			buildData.CurMp = 0;
+			buildData.CurHp = 1;
+			buildData.Level = 1;
+			buildData.MagicDefense = 5;
+			buildData.MaxAnger = 10;
+			buildData.MoveSpeed = 10;
+			buildData.Range = 1;
+
+
             InputManager.Instance.DragNDropTower(modelPoolItem, _data.costRes, buildData);
             return true;
         }

@@ -40,7 +40,12 @@ namespace Fight
         public int nodeSize = 2;
 
         private int _hp;
-        public virtual int hp { get => _hp; set => _hp = value; }
+        public virtual int hp { get => _hp; 
+            set {
+                Debug.Log("Set HP :" + value);
+                _hp = value;
+            }
+        }
 
         private int _mp;
         public virtual int mp { get => _mp; set => _mp = value; }
@@ -104,10 +109,12 @@ namespace Fight
 
         public virtual void Init()
         {
+
             TriggerEffect(TriggerType.Init);
             UpdateAttribute();
             this.hp = Mathf.CeilToInt(hpMax * _hpInit);
             this.mp = _mpInit;
+            Debug.LogError("_hpInit:" + _hpInit + " hpMax:" + hpMax);
         }
 
         public void AttackDataDodge(Role attacker)
@@ -227,8 +234,7 @@ namespace Fight
         {
             return (autoUseSkill || isPlayer == false || autoUseSkillOnce) && mp != 0 && mp >= mpMax && _skillEndTime == 0;
         }
-
-
+        
         protected virtual bool CastSkill()
         {
             return false;
@@ -247,7 +253,6 @@ namespace Fight
         {
             return skillComp.DoSkill(skillCasting);
         }
-
 
         public void AuraAdd(FightAura v)
         {
@@ -290,11 +295,15 @@ namespace Fight
 
         }
 
+        public void RoleMove(Node grid)
+        {
+            battleField.RoleMove(this, grid);
+        }
+
         public bool MoveTo(Node grid)
         {
             if (battleField.CheckMove(grid))
             {
-                battleField.RoleMove(this, grid);
                 actionEndTime = Time + moveSpeed;
                 AddReport(new FightReportRoleMove(Time, teamId, id, battleField.id, actionEndTime, grid.ID));
                 return true;
@@ -335,17 +344,17 @@ namespace Fight
 
         public virtual void AttackDataDefense(FightAttackData fightAttackData)
         {
-            if (fightAttackData.damageType == (int)FightDamageType.Hp)
+            if (fightAttackData.damageType == EDamageType.Hp)
             {
                 //TriggerEffect(TriggerType.CureBefore, fightAttackData);
             }
-            else if (fightAttackData.damageType == (int)FightDamageType.Physical)
+            else if (fightAttackData.damageType == EDamageType.Physical)
             {
                 //TriggerEffect(TriggerType.DamageBefore, fightAttackData);
                 fightAttackData.damage = Mathf.Max(fightAttackData.damage * 0.1f, fightAttackData.damage - 
                     (physicsDefense * (1f - fightAttackData.defenseDestroy / 100f) - fightAttackData.defensePenetration));
             }
-            else if (fightAttackData.damageType == (int)FightDamageType.Magic)
+            else if (fightAttackData.damageType == EDamageType.Magic)
             {
                 //TriggerEffect(TriggerType.DamageBefore, fightAttackData);
                 fightAttackData.damage = Mathf.Max(fightAttackData.damage * 0.1f, fightAttackData.damage - 
@@ -355,12 +364,12 @@ namespace Fight
 
         public virtual void AttackDataExecute(FightAttackData fightAttackData)
         {
-            if (fightAttackData.damageType == 3)
+            if (fightAttackData.damageType == EDamageType.Hp)
             {
                 //TriggerEffect(TriggerType.CureBefore, fightAttackData);
                 DoTreat(fightAttackData);
             }
-            else if (fightAttackData.damageType == 4)
+            else if (fightAttackData.damageType == EDamageType.Mp)
             {
                 fightAttackData.hurt = Mathf.FloorToInt(fightAttackData.damage);
                 AddMp(fightAttackData.hurt);
@@ -378,7 +387,7 @@ namespace Fight
 
                     if (suckHp > 0)
                     {
-                        DoCure(suckHp, false, (int)DamageSourceType.Suck, (int)FightDamageType.Hp);
+                        DoCure(suckHp, false, (int)DamageSourceType.Suck, EDamageType.Hp);
                     }
                 }
             }
@@ -410,7 +419,7 @@ namespace Fight
         }
 
         //处理伤害
-        public virtual void DoHurt(int hurt, bool isCrit, int damageSourceType, int damageType)
+        public virtual void DoHurt(int hurt, bool isCrit, int damageSourceType, EDamageType damageType)
         {
             if (hurt <= 0)
                 return;
@@ -442,7 +451,7 @@ namespace Fight
 
             AddMp(Mathf.CeilToInt(150 * hurt / hpMax));
 
-            AddReport(new FightReportRoleHurt(Time, teamId, id, hp, hurt, isCrit, this.mp, damageSourceType, damageType));
+            AddReport(new FightReportRoleHurt(Time, teamId, id, hp, hurt, isCrit, this.mp, damageSourceType, (int)damageType));
 
             if (hp <= 0 && StatusCheck(RoleStatus.Undead) == false)
             {
@@ -457,13 +466,13 @@ namespace Fight
         }
 
         //增加治疗战报
-        public void DoCure(int hurt, bool isCrit, int damageSourceType, int damageType)
+        public void DoCure(int hurt, bool isCrit, int damageSourceType, EDamageType damageType)
         {
             if (hp >= hpMax || hurt < 0)
                 return;
             int hpTemp = hp;
             hp = Mathf.Min(hpMax, hp + hurt);
-            AddReport(new FightReportRoleHurt(Time, teamId, id, hp, hp - hpTemp, isCrit, this.mp, damageSourceType, damageType));
+            AddReport(new FightReportRoleHurt(Time, teamId, id, hp, hp - hpTemp, isCrit, this.mp, damageSourceType, (int)damageType));
         }
 
         #endregion Damage

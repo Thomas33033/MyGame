@@ -214,7 +214,7 @@ public class SpawnManager : Singleton<SpawnManager>
         heroData.MagicDefense = 5;
         heroData.MaxAnger = 10;
         heroData.MoveSpeed = 10;
-        heroData.Range = 1;
+        heroData.Range = 2;
         
 
         var fightSkillData = new FightSkillData();

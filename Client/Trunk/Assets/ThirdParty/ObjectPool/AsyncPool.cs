@@ -63,6 +63,7 @@ public class AsyncPool<T> : IObjectPool where T : ObjectInPoolBase, new()
         }
         t = new T();
         t.prefabName = this.prefabName;
+        Debug.LogError(t.prefabName);
         t.itemObj = GameObject.Instantiate(prefab) as GameObject;
         //t.itemObj.transform.parent = parentRootT;
         t.OnEnable();

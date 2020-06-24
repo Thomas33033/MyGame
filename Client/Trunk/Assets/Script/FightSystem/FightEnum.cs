@@ -86,7 +86,7 @@ namespace Fight
     /// <summary>
     /// 战斗伤害类型
     /// </summary>
-    public enum FightDamageType
+    public enum EDamageType
     {
         Physical = 1,
         Magic = 2,

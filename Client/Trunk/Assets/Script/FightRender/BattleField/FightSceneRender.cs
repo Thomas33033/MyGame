@@ -93,7 +93,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
     //通知UI
     protected void ReportHandler(FightReport report)
     {
-        Debug.Log("收到战报");
+        Debug.Log("收到战报 " + report.type);
         //if (_luaReportFun != null && Array.IndexOf<string>(_arrListeners, report.type) > -1)
         //{
         //    _luaReportFun.call(report);
@@ -111,8 +111,6 @@ public class FightSceneRender : Singleton<FightSceneRender>
 
         dicReportHandler.Add(ReportType.RoleMove.ToString(), DoReport_RoleMove);
 
-        dicReportHandler.Add(ReportType.RoleAttack.ToString(), DoReport_RoleAttack);
-
         dicReportHandler.Add(ReportType.RoleDie.ToString(), DoReport_RoleDie);
 
         dicReportHandler.Add(ReportType.RoleHurt.ToString(), DoReport_RoleHurt);
@@ -122,6 +120,8 @@ public class FightSceneRender : Singleton<FightSceneRender>
         dicReportHandler.Add(ReportType.RoleCastSkill.ToString(), DoReport_RoleCastSkill);
 
         dicReportHandler.Add(ReportType.RoleSkillDone.ToString(), DoReport_RoleSkillDone);
+
+        dicReportHandler.Add(ReportType.RoleAttack.ToString(), DoReport_RoleAttack);
     }
 
    
@@ -131,11 +131,11 @@ public class FightSceneRender : Singleton<FightSceneRender>
         FightHeroData roleData = report.heroData;
 
         FightRoleRender roleRender = new FightRoleRender();
-       
-        roleRender.LoadNpc(roleData.Resource, battleFieldRender.GetWorldPosition(roleData.NodeId));
         roleRender.SetHpMax(roleData.HP);
         roleRender.SetMpMax(roleData.MP);
-
+        roleRender.LoadNpc(roleData.Resource, battleFieldRender.GetWorldPosition(roleData.NodeId));
+        
+        
         dicFightRole[report.roleId] = roleRender;
 
         for (int i = 0; i < roleData.CostNodes.Length; i++)
@@ -151,19 +151,18 @@ public class FightSceneRender : Singleton<FightSceneRender>
                 continue;
 
             FightSkillInfo skillInfo = StaticData.dicSkillInfo[roleData.SkillData[i].skillID];
+            //预加载特效资源
+            //if (string.IsNullOrEmpty(skillInfo.Resources.Trim()) == false)
+            //{
+            //    asset = ResPathHelper.UI_EFFECT_APTH + skillInfo.Resources + ".prefab";
+            //    ObjectPoolManager.Instance.CreateAsyncPool<EffectPoolObj>(asset);
+            //}
 
-            if (string.IsNullOrEmpty(skillInfo.Resources.Trim()) == false)
-            {
-                asset = skillInfo.Resources;
-                ObjectPoolManager.Instance.CreateAsyncPool<EffectPoolObj>(asset);
-            }
-
-            if (string.IsNullOrEmpty(skillInfo.MagicEffect.Trim()) == false)
-            {
-                asset = skillInfo.MagicEffect;
-
-                ObjectPoolManager.Instance.CreateAsyncPool<EffectPoolObj>(asset);
-            }
+            //if (string.IsNullOrEmpty(skillInfo.MagicEffect.Trim()) == false)
+            //{
+            //    asset = ResPathHelper.UI_EFFECT_APTH + skillInfo.MagicEffect + ".prefab";
+            //    ObjectPoolManager.Instance.CreateAsyncPool<EffectPoolObj>(asset);
+            //}
         }
     }
 
@@ -200,7 +199,8 @@ public class FightSceneRender : Singleton<FightSceneRender>
         if (dicFightRole.ContainsKey(report.roleId))
         {
           
-            dicFightRole[report.roleId].AttackShow(fightDamageInfo, report.time, report.timeExecute, report.isHit, dicFightRole[report.targetId]);
+            dicFightRole[report.roleId].AttackShow(fightDamageInfo, report.time, 
+                report.timeExecute, report.isHit, dicFightRole[report.targetId]);
         }
     }
 
@@ -236,6 +236,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
         dicFightRole[report.roleId].SetMp(report.mp);
     }
 
+    //播放施法效果
     private void DoReport_RoleCastSkill(FightReport v)
     {
         FightReportRoleCastSkill report = v as FightReportRoleCastSkill;
@@ -253,7 +254,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
         dicFightRole[report.roleId].SetMp(report.mp);
     }
 
-
+    //播放技能效果
     private void DoReport_RoleSkillDone(FightReport v)
     {
         FightReportRoleSkillDone report = v as FightReportRoleSkillDone;

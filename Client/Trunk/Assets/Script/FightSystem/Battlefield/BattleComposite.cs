@@ -177,7 +177,9 @@ namespace Fight
             
             FightReportRoleCreate report = new FightReportRoleCreate(Time, teamId, fightRole.id, roleData, battlefieldId);
             listReport.Add(report);
-            
+
+            listReport.Add(new FightReportRoleHpMp(Time, fightRole.teamId, fightRole.id, fightRole.hp, fightRole.mp));
+
             return true;
         }
 

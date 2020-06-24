@@ -21,6 +21,9 @@ namespace Fight
 
         AreaAttack = 8,
 
+        /// <summary>
+        /// 引导施法
+        /// </summary>
         Channelling = 9,
 
         AttackRandom = 10,
@@ -258,8 +261,8 @@ namespace Fight
             //    case (int)FightEffectActionType.FilterTargetHpCompare:
             //        return new FightEffectActionFilterTargetHpCompare(actionInfo, effectData);
 
-            //    case (int)FightEffectActionType.Channelling:
-            //        return new FightEffectActionChannelling(actionInfo, effectData);
+                case (int)FightEffectActionType.Channelling:
+                    return new FightEffectActionChannelling(actionInfo, effectData);
 
             //    case (int)FightEffectActionType.AttackRandom:
             //        return new FightEffectActionAttackRandom(actionInfo, effectData);

@@ -7,7 +7,7 @@ namespace Fight
     {
         public int damageId;
 
-        public int damageType { get => info == null ? 1 : info.type; }
+        public EDamageType damageType { get => info == null ? EDamageType.Physical : (EDamageType)info.type; }
 
         public int bouns;
 
@@ -75,14 +75,14 @@ namespace Fight
 
                 CreateDamage();
 
-                if (damageType == 3)
+                if (damageType == EDamageType.Hp)
                 {
                     attacker.TriggerEffect(TriggerType.AttackDataAttackerCureBefore, this);
                     if (fightEffectBox != null)
                         fightEffectBox.Trigger(TriggerType.AttackDataAttackerCureBefore, this, 1);
                     target.TriggerEffect(TriggerType.AttackDataTargetCureBefore, this);
                 }
-                else if (damageType == 1 || damageType == 2)
+                else if (damageType == EDamageType.Physical || damageType == EDamageType.Magic)
                 {
                     attacker.TriggerEffect(TriggerType.AttackDataAttackerDamageBefore, this);
                     if (fightEffectBox != null)
@@ -90,11 +90,11 @@ namespace Fight
                     target.TriggerEffect(TriggerType.AttackDataTargetDamageBefore, this);
                 }
 
-                if (damageType == (int)FightDamageType.Hp)
+                if (damageType == EDamageType.Hp)
                 {
                     damage = (GetSkillDamageBase() + damage * GetSkillDamageBouns() * (1f + bouns / 100f));
                 }
-                else if (damageType == (int)FightDamageType.Mp)
+                else if (damageType == EDamageType.Mp)
                 {
                     damage = GetSkillDamageBase() + damage * GetSkillDamageBouns();
                 }
@@ -112,14 +112,14 @@ namespace Fight
                 hurt = (int)damage;
                 target.AttackDataExecute(this);
 
-                if (damageType == (int)FightDamageType.Hp)
+                if (damageType == EDamageType.Hp)
                 {
                     if (fightEffectBox != null)
                         fightEffectBox.Trigger(TriggerType.AttackDataAttackerCureHit, this, 1);
                     attacker.TriggerEffect(TriggerType.AttackDataAttackerCureHit, this);
                     target.TriggerEffect(TriggerType.AttackDataTargetCureHit, this);
                 }
-                else if (damageType != (int)FightDamageType.Mp)
+                else if (damageType != EDamageType.Mp)
                 {
                     if (fightEffectBox != null)
                         fightEffectBox.Trigger(TriggerType.AttackDataAttackerHit, this, 1);

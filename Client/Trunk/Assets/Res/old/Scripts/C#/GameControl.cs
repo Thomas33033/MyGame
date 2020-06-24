@@ -177,7 +177,6 @@ public class GameControl : MonoBehaviour {
 	
 	//IEnumerator _TowerDestroy(UnitTower tower)
 	
-	
 	public static int GetPlayerLife(){
 		return gameControl.playerLife;
 	}
@@ -190,18 +189,12 @@ public class GameControl : MonoBehaviour {
         NineScreenMgr.Instance.OnUpdate(this.deltalTime);
         SpawnManager.Instance.OnUpdate(this.deltalTime);
 
-		try
-		{
-			FightSceneRender.Instance.Update();
-			FightScene.Instance.Update();
-		}
-		catch (Exception e)
-		{
-			Debug.LogError(e.ToString());
-		}
-       
-    }
-	
+
+        FightSceneRender.Instance.Update();
+        FightScene.Instance.Update();
+		ObjectPoolManager.Instance.OnUpdate();
+
+	}
 	
 	void WaveStartSpawned(int waveID){
 		currentWave+=1;
@@ -223,8 +216,6 @@ public class GameControl : MonoBehaviour {
 			if(GameOverE!=null) GameOverE(true);
 		}
 	}
-	
-	
 	
 	static public Tower selectedTower;
 	

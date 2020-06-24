@@ -79,13 +79,15 @@ public class FightRoleRender : RoleRender
         //animator.runtimeAnimatorController = LoadTools.LoadRoleAnimator("RoleNpc", npcAsset);
 
         string uiHeadPath = string.Format("{0}/{1}.prefab", ResPathHelper.UI_WINDOW_PATH, "UI_Head");
-        pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(uiHeadPath);
-        CObjectPool<ModelPoolObj> modelPool = pool;
-        ModelPoolObj modelPoolObj = modelPool.GetObject();
+        ModelPoolObj modelPoolObj = ObjectPoolManager.Instance.GetPoolObj<ModelPoolObj>(uiHeadPath);
         ui = modelPoolObj.itemObj.GetComponent<FightRoleUI>();
         ui.transform.parent = GameObject.Find("UIRootHp").transform;
         ui.transform.localPosition = new Vector3(0, 1, 0);
         ui.GetComponent<FollowUI3D>().target = transform.Find("head").transform;
+        ui.SetData(this.hpMax,this.mpMax);
+
+
+        this.hitTrans = transform.Find("hit");
 
         if (animator != null)
         {
@@ -185,7 +187,7 @@ public class FightRoleRender : RoleRender
 
         switch (damageType)
         {
-            case (int)FightDamageType.Hp:
+            case (int)EDamageType.Hp:
 
                 labelPrefab = "FightDamageRestoreLabel";
                 content = "+" + hurt;
@@ -199,12 +201,12 @@ public class FightRoleRender : RoleRender
 
                 break;
 
-            case (int)FightDamageType.Mp:
+            case (int)EDamageType.Mp:
                 labelPrefab = "FightDamageLabel";
                 content = "+" + hurt;
                 break;
 
-            case (int)FightDamageType.Physical:
+            case (int)EDamageType.Physical:
 
                 labelPrefab = "FightDamageCritLabel";
                 if (isCrit)
@@ -214,7 +216,7 @@ public class FightRoleRender : RoleRender
 
                 break;
 
-            case (int)FightDamageType.Magic:
+            case (int)EDamageType.Magic:
                 labelPrefab = "FightDamageDebuffLabel";
                 if (isCrit)
                 {
@@ -290,20 +292,20 @@ public class FightRoleRender : RoleRender
         {
             string assetName = skillInfo.Resources;
 
-            ObjectPoolManager.Instance.LoadObjectAsync<EffectPoolObj>(assetName, (EffectPoolObj poolObj) =>
-            {
-                GameObject obj = poolObj.itemObj;
-                LoadTools.SetParent(obj, battlefield.rootRole.gameObject);
+            //ObjectPoolManager.Instance.LoadObjectAsync<EffectPoolObj>(assetName, (EffectPoolObj poolObj) =>
+            //{
+            //    GameObject obj = poolObj.itemObj;
+            //    LoadTools.SetParent(obj, battlefield.rootRole.gameObject);
 
-                if (obj != null)
-                {
-                    FightAttackRender fightSCAttack = obj.GetComponent<FightAttackRender>();
-                    if (fightSCAttack != null)
-                    {
-                        fightSCAttack.SetData(poolObj, this, listTargets);
-                    }
-                }
-            });
+            //    if (obj != null)
+            //    {
+            //        FightAttackRender fightSCAttack = obj.GetComponent<FightAttackRender>();
+            //        if (fightSCAttack != null)
+            //        {
+            //            fightSCAttack.SetData(poolObj, this, listTargets);
+            //        }
+            //    }
+            //});
         }
     }
 
@@ -343,24 +345,23 @@ public class FightRoleRender : RoleRender
         {
             string assetName = skillInfo.MagicEffect;
 
-            assetName = skillInfo.MagicEffect;
+            assetName = ResPathHelper.UI_EFFECT_APTH + skillInfo.MagicEffect + ".prefab";
 
-            ObjectPoolManager.Instance.LoadObjectAsync<EffectPoolObj>(assetName, (EffectPoolObj poolObj) =>
+            EffectPoolObj poolObj = ObjectPoolManager.Instance.GetPoolObj<EffectPoolObj>(assetName);
+
+            GameObject obj = poolObj.itemObj;
+            if (obj != null)
             {
-                GameObject obj = poolObj.itemObj;
+                // LoadTools.SetParent(obj, gameObject);
+                ChangeLayer(obj.transform, gameObject.layer);
 
-                if (obj != null)
+                FightAttackRender fightSCAttack = obj.GetComponent<FightAttackRender>();
+                if (fightSCAttack != null)
                 {
-                    LoadTools.SetParent(obj, gameObject);
-                    ChangeLayer(obj.transform, gameObject.layer);
-
-                    FightAttackRender fightSCAttack = obj.GetComponent<FightAttackRender>();
-                    if (fightSCAttack != null)
-                    {
-                        fightSCAttack.SetData(poolObj, this, listTargets);
-                    }
+                    fightSCAttack.SetData(poolObj, this, listTargets);
                 }
-            });
+            }
+
         }
 
         if (skillInfo.Type == 0)
@@ -463,22 +464,22 @@ public class FightRoleRender : RoleRender
 
     public override void AttackShow(FightDamageInfo damageInfo, float time, float timeExecute, bool isHit, RoleRender target)
     {
-        string assetName = damageInfo.Resources;
+        string assetName = ResPathHelper.UI_EFFECT_APTH + damageInfo.Resources + ".prefab";
 
-        ObjectPoolManager.Instance.LoadObjectAsync<EffectPoolObj>(assetName, (EffectPoolObj poolObj) =>
+        //ObjectPoolManager.Instance.LoadObjectAsync<EffectPoolObj>(assetName, (EffectPoolObj poolObj) =>
+        //{
+        var poolObj = ObjectPoolManager.Instance.GetPoolObj<EffectPoolObj>(assetName);
+        GameObject obj = poolObj.itemObj;
+
+        if (obj != null)
         {
-            GameObject obj = poolObj.itemObj;
-            LoadTools.SetParent(obj, battlefield.rootRole.gameObject);
-
-            if (obj != null)
+            FightAttackRender fightSCAttack = obj.GetComponent<FightAttackRender>();
+            if (fightSCAttack != null)
             {
-                FightAttackRender fightSCAttack = obj.GetComponent<FightAttackRender>();
-                if (fightSCAttack != null)
-                {
-                    fightSCAttack.SetData(poolObj, this, new List<RoleRender>() { target }, timeExecute);
-                }
+                fightSCAttack.SetData(poolObj, this, new List<RoleRender>() { target }, timeExecute);
             }
-        });
+        }
+        //});
     }
 
     public override void BuffAdd(FightBuffInfo info)

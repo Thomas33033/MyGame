@@ -23,8 +23,19 @@
         "keys": []
       },
       {
-        "id": 1,
+        "id": 9,
         "step": 1,
+        "valuesType": [
+          0
+        ],
+        "values": [
+          500
+        ],
+        "keys": []
+      },
+      {
+        "id": 1,
+        "step": 2,
         "valuesType": [
           0,
           0
@@ -63,8 +74,19 @@
         "keys": []
       },
       {
-        "id": 1,
+        "id": 9,
         "step": 1,
+        "valuesType": [
+          0
+        ],
+        "values": [
+          500
+        ],
+        "keys": []
+      },
+      {
+        "id": 1,
+        "step": 2,
         "valuesType": [
           0,
           0

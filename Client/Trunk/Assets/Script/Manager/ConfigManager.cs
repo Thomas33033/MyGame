@@ -49,7 +49,7 @@ public class ConfigManager : Singleton<ConfigManager>
 
     public Dictionary<int, configBase> loader<T>(string tableName) where T : configBase, new()
     {
-        string path = Application.streamingAssetsPath + "/ConfigData/" + tableName + ".csv";
+        string path = Application.dataPath + "/BundleRes/ConfigData/" + tableName + ".csv";
 
         Dictionary<int, configBase> map = new Dictionary<int, configBase>();
         FileInfo fileInfo = new FileInfo(path);

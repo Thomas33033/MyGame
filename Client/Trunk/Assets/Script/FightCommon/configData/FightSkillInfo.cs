@@ -4,6 +4,9 @@
     {
         public int id;
 
+        /// <summary>
+        /// 0 普通攻击 1 物理伤害 2法术伤害 3加血 4加蓝
+        /// </summary>
         public int Type;
 
         public int EndTime;

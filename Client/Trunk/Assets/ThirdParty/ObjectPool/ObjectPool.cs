@@ -47,7 +47,6 @@ public class CObjectPool<T> : IObjectPool where T : ObjectInPoolBase, new()
                 if (t.CheckCanActive())
                 {
                     t.OnEnable();
-                    isSearch = false;
                     return t;
                 }
             }

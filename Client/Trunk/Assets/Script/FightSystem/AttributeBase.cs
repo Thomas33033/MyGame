@@ -24,7 +24,7 @@ namespace Fight
         public virtual int dodge => attribute.dodge;
         public virtual int hit => attribute.hit;
         public virtual int range => attribute.range;
-        public virtual int moveSpeed => attribute.moveSpeed / 50;
+        public virtual int moveSpeed => attribute.moveSpeed / 30;
         public virtual int physicsAttack => attribute.physicsAttack;
         public virtual int magicAttack => attribute.magicAttack;
         public virtual int magicDefense => attribute.magicDefense;
@@ -32,15 +32,29 @@ namespace Fight
         public virtual float damageBouns => attribute.damageBouns / 100f;
         public virtual float damageReduction => attribute.damageReduction / 100f;
 
-        //血量吸收
+        /// <summary>
+        /// 血量吸收
+        /// </summary>
         public int hpSucking;
-        //护甲穿透
+
+        /// <summary>
+        /// 护甲穿透
+        /// </summary>
         public int defensePenetration;
-        //魔抗穿透
+
+        /// <summary>
+        /// 魔抗穿透
+        /// </summary>
         public int magicDefensePenetration;
-        //忽视护甲
+
+        /// <summary>
+        /// 忽视护甲
+        /// </summary>
         public int defenseDestroy;
-        //忽视魔抗
+
+        /// <summary>
+        /// 忽视魔抗
+        /// </summary>
         public int magicDefenseDestroy;
 
         StatusComponent statusComp;

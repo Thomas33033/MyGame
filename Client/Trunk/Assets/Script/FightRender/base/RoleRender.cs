@@ -30,6 +30,7 @@ public class RoleRender :Entity
 
     public Transform transform;
 
+    public Transform hitTrans;
 
     public RoleRender()  {
         dicEffectObjects = new Dictionary<int, EffectPoolObj>();

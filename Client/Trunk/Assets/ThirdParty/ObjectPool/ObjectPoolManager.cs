@@ -31,15 +31,9 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         return modelPoolObj;
     }
 
-    public void LoadObjectAsync<T>(string assetName, AsyncPool<T>.LoadCompleteHandler callback) where T : ObjectInPoolBase, new()
-    {
-        AsyncPool<T> pool = CreateAsyncPool<T>(assetName);
-        pool.AddLoadCallback(callback);
-    }
-
     public CObjectPool<T> CreatePool<T>(string assetName) where T : ObjectInPoolBase, new()
     {
-        string resPath =  assetName;
+        string resPath =  assetName.GetHashCode()+"";
         if (rootT == null)
         {
             rootT = GameObject.Find("Pools").transform;
@@ -55,6 +49,12 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
             poolMap.Add(resPath, pool);
             return (CObjectPool<T>)pool;
         }
+    }
+
+    public void LoadObjectAsync<T>(string assetName, AsyncPool<T>.LoadCompleteHandler callback) where T : ObjectInPoolBase, new()
+    {
+        AsyncPool<T> pool = CreateAsyncPool<T>(assetName);
+        pool.AddLoadCallback(callback);
     }
 
     public AsyncPool<T> CreateAsyncPool<T>(string assetName) where T : ObjectInPoolBase, new()
@@ -87,7 +87,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
     public void PutInPool<T>(T t) where T : ObjectInPoolBase, new()
     {
-        string resPath = t.GetResPath();
+        string resPath = t.GetResPath().GetHashCode()+"";
         if (poolMap.ContainsKey(resPath))
         {
             poolMap[resPath].PutInPool(t);
