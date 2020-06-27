@@ -3,10 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using FightCommom;
 
-#pragma warning disable 0168 // variable declared but not used.
-#pragma warning disable 0219 // variable assigned but not used.
-#pragma warning disable 0414 // private field assigned but not used.
-
 public delegate void SetPathCallback(List<Vector3> wp);
 
 public class PathFinder {
@@ -43,38 +39,13 @@ public class PathFinder {
 	}
 	
 	
-	
-	static public List<Node> GetPath(Vector3 startP, Vector3 endP, Node[] graph)
-	{
-		Node startNode=GetNearestNode(startP, graph);
-		Node endNode=GetNearestNode(endP, graph);
-		
-		return GetPath(startNode, endNode, null, graph, false);
-	}
-	
-	static public List<Node> GetPath(Vector3 startP, Vector3 endP, Vector3 blockP, Node[] graph){
-		Node startNode=GetNearestNode(startP, graph);
-		Node endNode=GetNearestNode(endP, graph);
-		Node blockNode=GetNearestNode(blockP, graph);
-
-		return GetPath(startNode, endNode, blockNode, graph, false);
-	}
-	
 
 	static public List<Node> GetPath(Node startN, Node endN, Node[] graph, bool urgent = false){
 		return GetPath(startN, endN, null, graph, urgent);
 	}
 	
 	static public List<Node> GetPath(Node startN, Node endN, Node blockN, Node[] graph, bool urgent){
-		//if(!searching){
 			return Search(startN, endN, blockN, graph);
-		//}
-		//else
-  //      {
-		//	SearchQueue q=new SearchQueue(startN, endN, blockN, graph);
-		//	if(urgent) queue.Insert(0, q);
-		//	else queue.Add(q);
-		//}
 	}
 	
 	static private List<Node> Search(Node startN, Node endN, Node blockN, Node[] graph){
@@ -386,13 +357,11 @@ class SearchQueue{
 	public Node endNode;
 	public Node blockNode;
 	public Node[] graph;
-	//public SetPathCallback callBackFunc;
 	
 	public SearchQueue(Node n1, Node n2, Node n3, Node[] g){
 		startNode=n1;
 		endNode=n2;
 		blockNode=n3;
 		graph=g;
-		//callBackFunc=func;
 	}
 }

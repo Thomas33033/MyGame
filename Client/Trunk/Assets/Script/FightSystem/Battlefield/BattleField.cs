@@ -95,7 +95,7 @@ namespace Fight
         {
             if (dicNodeGraph[position].walkable == true)
             {
-                v.position = dicNodeGraph[position];
+                v.node = dicNodeGraph[position];
                 v.SetBattleField(this);
 
                 int nodeId;
@@ -172,7 +172,7 @@ namespace Fight
                 return list;
 
             if (rangeType == 3)
-                node = attacker.position;
+                node = attacker.node;
 
 
             if (list.Count > 0 && rangeType == 2 && range > 0)
@@ -304,7 +304,7 @@ namespace Fight
                     }
                 }
 
-                if (range != 0 && listRoles[i].position.Distance(attacker.position) > range)
+                if (range != 0 && listRoles[i].node.Distance(attacker.node) > range)
                 {
                     continue;
                 }
@@ -386,13 +386,15 @@ namespace Fight
             }
         }
 
-        public List<Vector3> RoleMove(Role fightRole, Node grid)
+        public void RoleMove(Role fightRole, Node grid)
         {
-            //fightRole.position.walkable = true;
-            fightRole.position = grid;
-            ////grid.walkable = false;
-            //return PathFinder.GetPath(fightRole.position.pos, grid.pos, this.nodeGraph);
-            return null;
+            fightRole.node.walkable = true;
+
+            FightSceneRender.Instance.battleFieldRender.platform.SetNodeWalkState(fightRole.node.ID, fightRole.node.walkable);
+
+            fightRole.node = grid;
+            fightRole.node.walkable = false;
+            FightSceneRender.Instance.battleFieldRender.platform.SetNodeWalkState(fightRole.node.ID, fightRole.node.walkable);
         }
 
         public bool CheckMove(Node grid)
@@ -402,14 +404,14 @@ namespace Fight
 
         public List<Node> GetMoveNode(Node start, Node end, bool checkWeapon)
         {
-            return GetPath(start, end, checkWeapon);
+            return PathFinder.GetPath(start, end, this.nodeGraph);
         }
 
         private List<Node> templist = new List<Node>();
 
         internal List<Node> GetAround(Node node, int range = 1)
         {
-           
+
             templist.Clear();
             int tx = (int) node.pos.x;
             int ty = (int) node.pos.z;
@@ -418,11 +420,12 @@ namespace Fight
             {
                for (int y = -range; y <= range; y++)
                 {
+                    if (x == 0 && y == 0) continue;
+
                     id = (tx + x) * this.column + (ty + y);
 
                     if (dicNodeGraph.ContainsKey(id))
                     {
-                        Debug.LogError((tx + x) + " - " + (ty + y) + " id:"+id); 
                         if (dicNodeGraph[id].walkable)
                         {
                             templist.Add(dicNodeGraph[id]);
@@ -436,14 +439,9 @@ namespace Fight
         }
 
 
-        public List<Node>  GetPath(Node start, Node end, bool checkWeapon)
-        {
-            return PathFinder.GetPath(start.pos, end.pos, this.nodeGraph);
-        }
-
         internal void Die(Role fightRole)
         {
-            fightRole.position.walkable = false;
+            fightRole.node.walkable = false;
             composite.Die(fightRole.teamId, fightRole.id);
         }
 

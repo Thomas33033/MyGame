@@ -256,8 +256,6 @@ public class Platform : MonoBehaviour {
      
     public Vector3 GetWorldPosition(int nodeId)
     {
-        Debug.LogError("GetWorldPosition:"+  this.nodeGraphMap[nodeId].ID + " " + this.nodeGraphMap[nodeId].x + " " + this.nodeGraphMap[nodeId].y);
-
         return this.nodeGraphMap[nodeId].pos;
     }
 

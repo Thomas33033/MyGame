@@ -97,7 +97,7 @@ namespace Fight
 
             if (composite.isFight)
             {
-                composite.Update(Time.deltaTime);
+                composite.Update(FightScene.Instance.SysTime);
             }
 
             composite.GetReport(ref _listReport);

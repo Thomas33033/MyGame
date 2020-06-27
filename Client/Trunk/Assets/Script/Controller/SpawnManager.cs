@@ -37,10 +37,10 @@ public class SpawnManager : Singleton<SpawnManager>
         wave.subWaves = new SubWave[1];
         SubWave subWave = new SubWave();
 
-        subWave.monsterConfigId =2001;
-        subWave.count = 1;
+        subWave.monsterConfigId = 2001;
+        subWave.count = 10;
         subWave.interval = 1;
-        subWave.delay = 5;
+        subWave.delay = 0;
         subWave.path = null;
         subWave.overrideHP = 0;
         subWave.overrideMoveSpd = 0;
@@ -182,6 +182,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     //check if all the spawning in one individual wave is done
     
+    
 
     public void SpawnFactory(SubWave p_subWave, int p_waveID)
     {
@@ -201,7 +202,7 @@ public class SpawnManager : Singleton<SpawnManager>
         heroData.CostNodes = new int[] { 171 };
         heroData.cfgId = 10001;
         heroData.Attack = 10;
-        heroData.AttackSpeed = 50;
+        heroData.AttackSpeed = 10;
         heroData.BodyCrit = 1;
         heroData.BodyDodge = 1;
         heroData.BodyHit = 100;
@@ -214,7 +215,7 @@ public class SpawnManager : Singleton<SpawnManager>
         heroData.MagicDefense = 5;
         heroData.MaxAnger = 10;
         heroData.MoveSpeed = 10;
-        heroData.Range = 2;
+        heroData.Range = 1;
         
 
         var fightSkillData = new FightSkillData();

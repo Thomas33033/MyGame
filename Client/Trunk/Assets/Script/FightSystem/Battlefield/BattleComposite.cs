@@ -23,13 +23,11 @@ namespace Fight
 
         public List<FightReport> listReport;
 
-        private float _time;
-
         public float Time
         {
             get
             {
-                return _time;
+                return FightScene.Instance.SysTime;
             }
         }
 
@@ -64,7 +62,7 @@ namespace Fight
                 {
                     FightReportRoleAdd report = new FightReportRoleAdd(0, fightRole.teamId, fightRole.id, 
                         (int)fightRole.type, fightRole.id, fightRole.GetBattlefield().id,
-                        fightRole.hpMax, fightRole.mpMax, fightRole.position.ID, "");
+                        fightRole.hpMax, fightRole.mpMax, fightRole.node.ID, "");
                     report.hp = fightRole.hpMax;
                     report.mp = fightRole.mpMax;
                     listReport.Add(report);
@@ -113,18 +111,16 @@ namespace Fight
             return null;
         }
 
-        public void Update(float deltaTime)
+        public void Update(float nowTime)
         {
             if (isFight == false)
                 return;
-
-            _time += deltaTime;
 
             foreach (var item in dicTeams.Values)
             {
                 if (isFight == false)
                     break;
-                item.Update(_time);
+                item.Update(nowTime);
             }
 
             foreach (var item in dicBattleField.Values)
@@ -132,7 +128,7 @@ namespace Fight
                 if (isFight == false)
                     break;
 
-                item.Update(_time);
+                item.Update(nowTime);
             }
 
             foreach (var item in dicTeams.Values)
@@ -146,8 +142,9 @@ namespace Fight
             }
 
             //战斗超时，游戏结束，防守方胜利
-            if (isFight && _time >= TimeMax)
+            if (isFight && nowTime >= TimeMax)
             {
+                Debug.LogError("游戏结束：！！！！！！！！！！！！！！！！！！！！！");
                 foreach (var item in dicTeams.Values)
                 {
                     if (item.isPlayer == false)
@@ -198,7 +195,7 @@ namespace Fight
             battleField.AddRole(fightRole, position);
 
             FightReportSummon report = new FightReportSummon(Time, fightRole.teamId, (int)fightRole.type, fightRole.id, 
-                fightRole.GetBattlefield().id, fightRole.hpMax, fightRole.mpMax, fightRole.position.ID, npcAsset);
+                fightRole.GetBattlefield().id, fightRole.hpMax, fightRole.mpMax, fightRole.node.ID, npcAsset);
 
             fightRole.PrepareFight();
 

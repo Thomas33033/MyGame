@@ -33,13 +33,14 @@ public class FightSceneRender : Singleton<FightSceneRender>
 
     public void SetServerTime(float time)
     {
-        _reciveServerTime = Time.realtimeSinceStartup;
+        Debug.LogError("SetServerTime:"+time);
+        _reciveServerTime = Time.time;
         this.serverTime = time;
     }
 
     public float GetTime()
     {
-        return serverTime + Time.realtimeSinceStartup - _reciveServerTime;
+        return serverTime + Time.time - _reciveServerTime;
     }
 
 
@@ -93,7 +94,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
     //通知UI
     protected void ReportHandler(FightReport report)
     {
-        Debug.Log("收到战报 " + report.type);
+        //Debug.Log("收到战报 " + report.type);
         //if (_luaReportFun != null && Array.IndexOf<string>(_arrListeners, report.type) > -1)
         //{
         //    _luaReportFun.call(report);
@@ -180,7 +181,8 @@ public class FightSceneRender : Singleton<FightSceneRender>
         if (dicFightRole.ContainsKey(report.roleId))
         {
             Vector3 pos = battleFieldRender.GetWorldPosition(report.posId);
-            dicFightRole[report.roleId].Move(pos,    report.endTime - report.time);
+            dicFightRole[report.roleId].Move(pos, report.endTime - report.time);
+            this.battleFieldRender.platform.SetNodeWalkState(report.posId,false);
         }
                 
     }
@@ -188,7 +190,6 @@ public class FightSceneRender : Singleton<FightSceneRender>
 
     private void DoReport_RoleAttack(FightReport v)
     {
-        Debug.Log("DoReport_RoleAttack");
         FightReportRoleAttack report = v as FightReportRoleAttack;
         FightDamageInfo fightDamageInfo = StaticData.GetDamageInfo(report.damageId, 1);
         if (fightDamageInfo == null || string.IsNullOrEmpty(fightDamageInfo.Resources) == true)

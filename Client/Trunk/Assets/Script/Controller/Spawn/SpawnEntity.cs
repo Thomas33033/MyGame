@@ -107,7 +107,7 @@ public class SubWaveEntity
             SpawnManager.Instance.SpawnFactory(this.subWave, this.waveID);
             parentWave.activeUnitCount += 1;
             this.spawnCount += 1;
-            //if (this.spawnCount == subWave.count)
+            if (this.spawnCount == subWave.count)
             {
                 this.playing = false;
             }

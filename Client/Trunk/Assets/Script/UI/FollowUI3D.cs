@@ -26,7 +26,7 @@ public class FollowUI3D : MonoBehaviour
         canvas = GameObject.Find("UIRootHp").GetComponent<Canvas>();
         //canvas = this.GetComponent<Canvas>();
         //canvas.worldCamera = Camera.main;
-        this.transform.localScale = Vector3.one * 0.01f;
+        this.transform.localScale = Vector3.one * 0.015f;
     }
     
     void Update()
@@ -36,11 +36,11 @@ public class FollowUI3D : MonoBehaviour
         //{
         //    rectTransform.position = mousePos;
         //}
-
-        rectTransform.position = target.transform.position;
-        rectTransform.rotation = Camera.main.transform.rotation;
         //rectTransform.LookAt(Camera.main.transform, new Vector3(1,0,0));
 
+        //3D血条
+        rectTransform.position = target.transform.position;
+        rectTransform.rotation = Camera.main.transform.rotation;
     }
 
 

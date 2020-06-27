@@ -9,7 +9,10 @@ namespace Fight {
 
         public float lastMoveTime;
 
+        private int pathIndex;
+
         private Node nextNode;
+
         public MoveComponent(Role role) : base(role)
         {
            
@@ -19,7 +22,15 @@ namespace Fight {
         {
             this.waypoints = waypoints;
             this.lastMoveTime = 0;
-            this.nextNode = waypoints[0];
+            this.pathIndex = 0;
+            this.nextNode = waypoints[pathIndex];
+
+            if (this.Owner.node == nextNode)
+            {
+                this.pathIndex = 1;
+                this.nextNode = waypoints[pathIndex];
+            }
+
             this.Owner.isMoving = true;
         }
 
@@ -28,24 +39,37 @@ namespace Fight {
         {
             if (!this.Owner.isMoving) return;
 
-            if (this.waypoints.Count > 0)
+            if (pathIndex < this.waypoints.Count)
             {
                 if (nowTime > lastMoveTime)
                 {
-                    this.Owner.RoleMove(this.nextNode);
                     this.Owner.isMoving = true;
-                    this.nextNode = this.waypoints[0];
-                    this.waypoints.RemoveAt(0);
-                    this.Owner.MoveTo(this.nextNode);
-                    lastMoveTime = nowTime + this.Owner.moveSpeed;
-                   
+
+                    if (this.Owner.battleField.CheckMove(nextNode))
+                    {
+                        if (this.Owner.MoveTo(nextNode))
+                        {
+                            this.Owner.RoleMove(nextNode);
+                        }
+
+                        pathIndex++;
+                        
+                        this.nextNode = this.waypoints[pathIndex];
+                        Debug.Log("this.Owner.moveSpeed:" + this.Owner.moveSpeed);
+                        lastMoveTime = nowTime + this.Owner.moveSpeed;
+                    }
+                    else
+                    {
+                        this.Owner.isMoving = false;
+                    }
                 }
             }
             else
             {
                 Debug.Log("移动结束：");
-                this.Owner.RoleMove(this.nextNode);
                 this.Owner.isMoving = false;
+                this.waypoints.Clear();
+                this.nextNode = null;
             }
         }
 

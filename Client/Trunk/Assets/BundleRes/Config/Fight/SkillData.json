@@ -4,7 +4,7 @@
 			10001
 		],
 		"MagicEffectSound": "",
-		"EndTime": 0,
+		"EndTime": 1500,
 		"Type": 1,
 		"id": 10001,
 		"Resources": "",
@@ -17,7 +17,7 @@
 			10002
 		],
 		"MagicEffectSound": "",
-		"EndTime": 0,
+		"EndTime": 1500,
 		"Type": 2,
 		"id": 10002,
 		"Resources": "",

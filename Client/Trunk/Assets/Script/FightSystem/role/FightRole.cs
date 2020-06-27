@@ -72,19 +72,18 @@ namespace Fight
         {
             MoveRandom(nowTime);
         }
-
-       
-
-        protected override void MoveTarget(float nowTime)
+        
+        public override void MoveTarget(float nowTime)
         {
             if (this.isMoving) return;
 
-            List<Node> listHex = battleField.GetAround(target.position,  range + target.nodeSize-1);
+            List<Node> listHex = null;
+            listHex = battleField.GetAround(target.node,  range + target.nodeSize-1);
             listHex.Sort(SortHexDistanceHandler);
      
             for (int i = 0; i < listHex.Count; i++)
             {
-                List<Node> paths = battleField.GetMoveNode(position, listHex[i], true);
+                List<Node> paths = battleField.GetMoveNode(node, listHex[i], true);
 
                 if (paths != null && paths.Count > 0)
                 {

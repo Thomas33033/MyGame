@@ -33,7 +33,6 @@ public class FightRoleUI : MonoBehaviour
         {
             gameObject.SetActive(true);
         }
-        Debug.LogError("ShowHp:"+  hp + " " + hpMax);
         imgHp.fillAmount = 1f * hp / hpMax;
     }
 

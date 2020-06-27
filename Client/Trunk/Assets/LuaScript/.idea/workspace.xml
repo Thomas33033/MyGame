@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52295b75-3299-4fb7-87fc-cefc32841763" name="Default Changelist" comment="" />
+    <list default="true" id="52295b75-3299-4fb7-87fc-cefc32841763" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/SO(Projectile_EnergyBolt).prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../BundlePrefab/Effect/SO(Projectile_EnergyBolt).prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/Zidan.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../BundlePrefab/Effect/Zidan.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/Config/Fight/FightEffects.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BundleRes/Config/Fight/FightEffects.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/Config/Fight/SkillData.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BundleRes/Config/Fight/SkillData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Controller/Spawn/SpawnEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Controller/Spawn/SpawnEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Controller/SpawnManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Controller/SpawnManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightRender/BattleField/FightSceneRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightRender/BattleField/FightSceneRender.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightRender/FightRoleUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightRender/FightRoleUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/AttributeBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/AttributeBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/BattleComposite.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/BattleComposite.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/BattleField.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/BattleField.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/FightBattleCompositeBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/FightBattleCompositeBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/FightScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Battlefield/FightScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Componet/MoveComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Componet/MoveComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Componet/ScanTargetComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Componet/ScanTargetComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Componet/base/BaseComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Componet/base/BaseComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/Skill/EffectAction/FightEffectActionAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/Skill/EffectAction/FightEffectActionAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/role/FightRole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/role/FightRole.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightSystem/role/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightSystem/role/Role.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Platform/PathFinder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Platform/PathFinder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Platform/Platform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Platform/Platform.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/UI/FollowUI3D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/UI/FollowUI3D.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/ProjectVersion.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -101,6 +127,9 @@
       <workItem from="1592654962367" duration="331000" />
       <workItem from="1592738863043" duration="3000" />
       <workItem from="1592754675978" duration="4000" />
+      <workItem from="1593166014411" duration="14000" />
+      <workItem from="1593242535588" duration="573000" />
+      <workItem from="1593244200081" duration="7000" />
     </task>
     <servers />
   </component>

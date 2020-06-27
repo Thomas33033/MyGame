@@ -19,7 +19,7 @@ namespace Fight
         //    NineScreenMgr.Instance.RequestAction(action);
         //}
 
-        public virtual void OnUpdate(float dt)
+        public virtual void OnUpdate(float nowTime)
         {
 
         }

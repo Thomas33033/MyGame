@@ -27,13 +27,21 @@ namespace Fight
 
         public bool isMoving;
 
-        public float actionEndTime;
+
+        private float _actionEndTime;
+
+        public float actionEndTime {
+            get { return _actionEndTime; }
+            set {
+                _actionEndTime = value;
+            }
+        }
 
         private float _skillEndTime;
 
         public float Time => battleField.composite.Time;
 
-        public Node position;
+        public Node node;
 
         public int[] costNodes;
 
@@ -42,7 +50,6 @@ namespace Fight
         private int _hp;
         public virtual int hp { get => _hp; 
             set {
-                Debug.Log("Set HP :" + value);
                 _hp = value;
             }
         }
@@ -281,16 +288,16 @@ namespace Fight
 
         protected virtual bool CheckAttackDistance()
         {
-            int distance = (int)position.Distance(target.position);
+            int distance = (int)node.Distance(target.node);
 
-            return distance <= range + target.nodeSize;
+            return distance <= range + target.nodeSize-1;
         }
 
         protected virtual void FindTarget()
         {
         }
 
-        protected virtual void MoveTarget(float nowTime)
+        public virtual void MoveTarget(float nowTime)
         {
 
         }
@@ -300,6 +307,7 @@ namespace Fight
             battleField.RoleMove(this, grid);
         }
 
+        
         public bool MoveTo(Node grid)
         {
             if (battleField.CheckMove(grid))
@@ -567,8 +575,8 @@ namespace Fight
 
         public int SortHexDistanceHandler(Node x, Node y)
         {
-            float a1 = position.Distance(x);
-            float a2 = position.Distance(y);
+            float a1 = node.Distance(x);
+            float a2 = node.Distance(y);
             return a1.CompareTo(a2);
         }
     }

@@ -9,6 +9,14 @@ namespace Fight
     {
         public FightCompositeBehaviour compBehaviour;
 
+        private float _startTime;
+        public float SysTime => Time.time - _startTime;
+
+
+        public override void OnCreate() {
+            _startTime = Time.time;
+        }
+
         public void InitFight(FightType fightType, FightData fightData)
         {
             if (fightType == FightType.ConmmFight)
