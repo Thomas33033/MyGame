@@ -108,7 +108,6 @@ public class UI_DragItem : MonoBehaviour
         Text txt_name = this.gameObject.FindComponent<Text>("txt_name");
         txt_name.text = config.Name;
 
-        Debug.LogError(config.HeadIcon);
         Sprite sprite = ResourcesManager.LoadSprite(ResPathHelper.UI_ITEM_PATH + config.HeadIcon);
         image.sprite = sprite;
         UITools.AddClickEvent(image.gameObject, () =>

@@ -68,8 +68,9 @@ public class FightRoleRender : RoleRender
 
     public void LoadNpc(string npcAsset,Vector3 position)
     {
+
         Debug.LogError("loadNpc"+ npcAsset);
-        var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(npcAsset);
+        var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(ResPathHelper.UI_NPC_PATH + npcAsset + ".prefab");
         npcPoolObj = pool.GetObject();
         gameObject = npcPoolObj.itemObj;
         transform = gameObject.transform;

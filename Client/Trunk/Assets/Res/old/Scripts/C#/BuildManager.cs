@@ -220,14 +220,14 @@ public class BuildManager : MonoBehaviour {
 		}
 		else indicator2.active=false;
 	}
-	
+
 	
 	static public bool CheckBuildPoint(Vector3 pointer, List<int> costGrid)
     {
 		
 		BuildableInfo buildableInfo=new BuildableInfo();
-		
-		LayerMask mask= 1<<LayerManager.LayerPlatform();
+		LayerMask mask = 1 << LayerManager.LayerPlatform();
+
 		Ray ray = Camera.main.ScreenPointToRay(pointer);
 		RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
@@ -276,8 +276,9 @@ public class BuildManager : MonoBehaviour {
                             return false;
                         }
                     }
-
-                    Collider[] cols = Physics.OverlapSphere(pos, _gridSize / 2 * 0.9f, ~mask);
+					var ignorMask = ~(mask | 1 << LayerManager.LayerTerrain() );
+			
+					Collider[] cols = Physics.OverlapSphere(pos, _gridSize / 2 * 0.9f, ignorMask);
                     if (cols.Length > 0)
                     {
                         currentBuildInfo = buildableInfo;

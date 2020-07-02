@@ -119,8 +119,7 @@ public class NpcData : CharacterData
         //this.baseStat.lastReloadTime = 0;
         //this.baseStat.projectingArc = 10;//config.Arc;
 
-        ////outputRes = new ResItem(config.ResOutput);
-        //costRes = new ResItem(this.config.Buildcost);
+        costRes = new ResItem(this.config.BuildCost);
     }
 }
 

@@ -128,7 +128,8 @@ public class InputManager : MonoBehaviour
         }
         else
         {
-            GameMessage.DisplayMessage("Insufficient Resource");
+            var config = ConfigManager.Instance.GetData<CfgItemData>((int)costRes.itemId);
+            GameMessage.DisplayMessage(config.ResName + "不足");
             DragNDropCancel();
         }
     }

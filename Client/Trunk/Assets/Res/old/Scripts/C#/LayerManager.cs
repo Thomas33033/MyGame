@@ -12,17 +12,21 @@ public class LayerManager : MonoBehaviour {
     public int layerPlatform;
     public int layerOverlay;
 
-    public static LayerManager layerManager;
+	public int layerTerrain;
+
+
+	public static LayerManager layerManager;
 
 
     private void OnInit()
     {
-        layerCreep = LayerMask.NameToLayer("layerCreep");
-        layerCreepF = LayerMask.NameToLayer("layerCreepF");
-        layerTower = LayerMask.NameToLayer("layerTower");
+        //layerCreep = LayerMask.NameToLayer("layerCreep");
+        //layerCreepF = LayerMask.NameToLayer("layerCreepF");
+        //layerTower = LayerMask.NameToLayer("layerTower");
         layerPlatform = LayerMask.NameToLayer("layerPlatform");
-        layerOverlay = LayerMask.NameToLayer("layerOverlay");
-    }
+		layerTerrain = LayerMask.NameToLayer("layerTerrain");
+		//layerOverlay = LayerMask.NameToLayer("layerOverlay");
+	}
 
     public LayerMask GetMask(int layer)
     {
@@ -80,5 +84,11 @@ public class LayerManager : MonoBehaviour {
 		return layerManager.layerOverlay;
 		//return layerPlatform;
 	}
-	
+
+	public static int LayerTerrain()
+	{
+		return layerManager.layerTerrain;
+	}
+
+
 }

@@ -5,7 +5,7 @@ import pdb
 import types
 importlib.reload(sys)
 
-inputDir = "F:/BaiduNetdiskDownload/Game/Excel/Excel/"
+inputDir = ""
 
 # 读取文件
 def open_excel(file):
@@ -146,10 +146,10 @@ def converToInt(value):
 
 
 def main(argv):
-    #fileName = argv[1]
-    #outputDir = argv[2]
-    fileName = "F:/BaiduNetdiskDownload/Game/Excel/Excel/contents.xlsx"
-    outputDir = "F:/BaiduNetdiskDownload/Game/Excel/Excel/configs/json/"
+    fileName = argv[1]
+    outputDir = argv[2]
+    #fileName = "F:/BaiduNetdiskDownload/Game/Excel/Excel/contents.xlsx"
+    #outputDir = "F:/BaiduNetdiskDownload/Game/Excel/Excel/configs/json/"
     open_contents(fileName, outputDir)
 
 
