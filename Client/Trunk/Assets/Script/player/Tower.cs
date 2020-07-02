@@ -46,21 +46,21 @@ public class Tower : CharacterBase
 
     private int[] towerValue = new int[1];
 
-    private s_TowerData mCurData {
-        get { return (s_TowerData)this.mData; }
+    private NpcData mCurData {
+        get { return (NpcData)this.mData; }
     }
 
     public bool immuneToSlow = false; //减速免疫
 
     //---------------------------------------------------
     /* 物攻 */
-    public override float PAttack() { return this.attrConfig.Pattack; }
+    public override float PAttack() { return 0; }
     /** 魔攻 */
-    public override float MAttack() { return this.attrConfig.Mattack; }
+    public override float MAttack() { return 0; }
     /** 物防 */
-    public override float PDefence() { return this.attrConfig.Pdefence; }
+    public override float PDefence() { return 0; }
     /** 魔防 */
-    public override float MDefence() { return this.attrConfig.Mdefence; }
+    public override float MDefence() { return 0; }
     /** 暴击 */
     public override float Bang() { return 0; }
     /** 韧性 */
@@ -102,16 +102,12 @@ public class Tower : CharacterBase
         return buildState == BuildState.buildOver;
     }
 
-    public s_TowerData CurData
+    public NpcData CurData
     {
         get { return mCurData; }
     }
 
-    public int GetSkillId()
-    {
-        return this.CurData.config.SkillId * 1000 + this.Level();
-    }
-
+   
 
     public float GetSpeed()
     {
@@ -119,13 +115,7 @@ public class Tower : CharacterBase
     }
     public override void CreateBody()
     {
-        string path = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, this.mCurData.config.Resname);
-
-        var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(path);
-        var modelPoolItem = pool.GetObject();
-        this.SetBody(modelPoolItem.itemObj);
-        this.Trans.gameObject.layer = LayerManager.LayerTower();
-        this.PushObject(modelPoolItem);
+      
     }
 
     public override void OnInit(CharacterData _data)

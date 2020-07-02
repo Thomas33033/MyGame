@@ -12,7 +12,7 @@ public class SkillEditor : EditorWindow
 
     private int _indexList;
 
-    private static string path = "Assets/BundleRes/Config/Fight/";
+    private static string path = "Assets/BundleRes/Config/";
     private static string skillEditorConfig = "Assets/Editor/Fight/SkillEditorConfig.asset";
     private static string SkillEditorSkin = "Assets/Editor/Fight/SkillEditor.guiskin";
 

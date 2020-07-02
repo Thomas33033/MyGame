@@ -58,7 +58,7 @@ public class EntitesManager : Singleton<EntitesManager>
     public Tower CreateTower(uint configId)
     {
         Tower tower = new Tower();
-        s_TowerData _data = new s_TowerData();
+        NpcData _data = new NpcData();
         _data.InitData(configId);
         tower.OnInit(_data);
         this.AddCharactor(tower);
@@ -93,7 +93,7 @@ public class EntitesManager : Singleton<EntitesManager>
     }
 
 
-    public Tower CreateTower(s_TowerData _data)
+    public Tower CreateTower(NpcData _data)
     {
         CharacterBase entity = this.CreateCharactor(EEntityType.Tower, _data);
         if(entity != null)

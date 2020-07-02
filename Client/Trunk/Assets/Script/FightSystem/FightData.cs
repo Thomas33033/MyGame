@@ -46,8 +46,7 @@ namespace Fight
     public class FightHeroData
     {
         public int uid;
-        public int cfgId;
-        public int crewID;
+        public int npcId;
         public string Resource;
         public string AttackRes;
         public string Tag;
@@ -57,19 +56,22 @@ namespace Fight
         public int[] CostNodes;
         public int PlatformId;
 
-        public int Attack;
-        public int AttackSpeed;
-        public int BodyCrit;
-        public int BodyDodge;
-        public int BodyHit;
-        public int Defense;
+        public int PhysicalAttack;
+        public int MagicAttack;
+        public int PhysicalDefense;
+        public int MagicDefense;
 
+        public int AttackSpeed;
+        public int Crit;
+        public int Dodge;
+        public int Hit;
+        
         public int HP;
         public int MP;
         public int CurMp;
         public float CurHp;
         public int Level;
-        public int MagicDefense;
+        
         public int MaxAnger;
         public int MoveSpeed;
         public int Range;

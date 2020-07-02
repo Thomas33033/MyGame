@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance;
     private GameObject dragTower;
     private ModelPoolObj poolObj;
-    private ResItem _costRes;
+    private ResItem costRes;
     private FightHeroData fightBuildData;
     List<int> costNodeIDs;
 
@@ -21,7 +21,7 @@ public class InputManager : MonoBehaviour
 
     public void DragNDropTower(ModelPoolObj poolObj, ResItem costRes, FightHeroData fightBuildData)
     {
-        _costRes = costRes;
+        this.costRes = costRes;
         this.poolObj = poolObj;
         dragTower = poolObj.itemObj;
 
@@ -110,12 +110,10 @@ public class InputManager : MonoBehaviour
 
     void DragNDropBuilt()
     {
-        //检查资源
-        ResItem resItem = _costRes;
-        if (GameControl.HaveSufficientResource(resItem))
+        if (GameControl.HaveSufficientResource(costRes))
         {
             //请求消耗资源
-            BagController.Instance.RemoveResource(resItem.itemId, resItem.num);
+            BagController.Instance.RemoveResource(costRes.itemId, costRes.num);
 
             UnitUtility.SetMat2DiffuseRecursively(this.dragTower.transform);
 

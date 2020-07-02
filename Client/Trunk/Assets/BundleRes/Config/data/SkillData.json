@@ -1,0 +1,4 @@
+{
+	"10001":{"id":10001,"Type":1,"Resources":"","ResourcesSound":"","effectIds":[10001.0],"EndTime":1500,"MagicEffect":"","MagicEffectSound":"","SkillAct":""},
+	"10002":{"id":10002,"Type":1,"Resources":"","ResourcesSound":"","effectIds":[10002.0],"EndTime":1500,"MagicEffect":"","MagicEffectSound":"","SkillAct":""}
+}

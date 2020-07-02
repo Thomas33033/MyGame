@@ -5,7 +5,7 @@ namespace GameFrame
 {
     public class CameraFollowTarget
     {
-        public CameraController m_cameraCtrl;
+        public CameraController_2 m_cameraCtrl;
         public Transform Target;
 
         Vector3 m_targetLookAt = Vector3.zero;
@@ -261,7 +261,7 @@ namespace GameFrame
                 //战斗状态不能缩放摄像机
                 //todo
                 m_targetDistance = value;
-                if (m_cameraCtrl.ScaleDiff < 0 && m_targetDistance < closeUpDistance && CameraController.IsEnterCloseUp)
+                if (m_cameraCtrl.ScaleDiff < 0 && m_targetDistance < closeUpDistance && CameraController_2.IsEnterCloseUp)
                 {
                     if (this.m_cameraCtrl.EnableCloseUp)
                     {

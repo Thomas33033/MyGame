@@ -52,7 +52,7 @@ public class RoutineComponent : ComponentBase
         if (scaner == null && this.skillData != null)
         {
             scaner = tower.GetComponent<ScanTargetComponent>();
-            scaner.SetSearchMaxDistance(this.skillData.Attackrange/2); 
+           // scaner.SetSearchMaxDistance(this.skillData.Attackrange/2); 
         }
             
 
@@ -228,14 +228,14 @@ public class RoutineComponent : ComponentBase
     {
         if (shootObject != null)
         {
-            foreach (Transform sp in shootPoint)
-            {
-                string path = "Prefabs/ShootObjects/" + skillData.ResName;
-                var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(path);
-                ModelPoolObj modelPool = pool.GetObject();
-                modelPool.itemObj.transform.position = sp.position;
-                modelPool.itemObj.transform.localRotation = tower.Trans.rotation;
-            }
+            //foreach (Transform sp in shootPoint)
+            //{
+            //    string path = "Prefabs/ShootObjects/" + skillData.ResName;
+            //    var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(path);
+            //    ModelPoolObj modelPool = pool.GetObject();
+            //    modelPool.itemObj.transform.position = sp.position;
+            //    modelPool.itemObj.transform.localRotation = tower.Trans.rotation;
+            //}
         }
     }
 

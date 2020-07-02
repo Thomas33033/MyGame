@@ -42,13 +42,12 @@ public class s_MonsterData : CharacterData
     {
         this.type = EEntityType.Monster;
         this.config = ConfigManager.Instance.GetData<CfgNpcData>((int)configId);
-        this.attrConfig = ConfigManager.Instance.GetData<CfgNpcAttrData>(this.config.Statstype*1000+this.config.Level);
-        this.baseId = (uint)config.UId;
+        this.attrConfig = ConfigManager.Instance.GetData<CfgNpcAttrData>(this.config.AttrId+this.config.Level);
+        this.baseId = (uint)config.Id;
         this.level = (byte)config.Level;
-        this.hp = config.Hp;
-        this.maxHp = config.Hp;
-        this.flightYOffset = attrConfig.Flyheight;
-        this.baseSpeed = attrConfig.Movespeed;
+        this.hp = config.HP;
+        this.maxHp = config.HP;
+        this.baseSpeed = attrConfig.MoveSpeed;
         this.flying = this.flightYOffset == 0 ? true : false;
         string[] array = this.config.DieDrop.Split('-');
         if (array.Length > 1)
@@ -81,7 +80,7 @@ public class ResItem
     }
 }
 
-public class s_TowerData : CharacterData
+public class NpcData : CharacterData
 {
     public _TowerType TowerType = _TowerType.AOETower;
     public TowerStat baseStat;
@@ -99,29 +98,29 @@ public class s_TowerData : CharacterData
     {
         this.type = EEntityType.Tower;
         this.config = ConfigManager.Instance.GetData<CfgNpcData>((int)configId);
-        this.attrConfig = ConfigManager.Instance.GetData<CfgNpcAttrData>(this.config.Statstype*1000+this.config.Level);
+        this.attrConfig = ConfigManager.Instance.GetData<CfgNpcAttrData>(this.config.AttrId+this.config.Level);
 
        
-        this.baseId = (uint)config.UId;
-        this.level = (byte)config.Level;
-        this.hp = config.Hp;
+        //this.baseId = (uint)config.Id;
+        //this.level = (byte)config.Level;
+        //this.hp = config.HP;
 
-        int curSkillId = this.config.SkillId * 1000 + this.level;
-        this.skillData = ConfigManager.Instance.GetData<CfgSkillData>(curSkillId);
+        //int curSkillId = this.config.SkillId * 1000 + this.level;
+        //this.skillData = ConfigManager.Instance.GetData<CfgSkillData>(curSkillId);
 
-        this.baseStat = new TowerStat();
-        this.baseStat.cooldown = 10;//config.Cooldown;
+        //this.baseStat = new TowerStat();
+        //this.baseStat.cooldown = 10;//config.Cooldown;
 
-        this.baseStat.reloadDuration = 10;//config.BuildTime;
-        this.baseStat.range = 10;//config.Range;
-        this.baseStat.minRange = 5;//config.Range;
-        this.baseStat.mineOneOff = false;
-        this.baseStat.currentClip = 1;
-        this.baseStat.lastReloadTime = 0;
-        this.baseStat.projectingArc = 10;//config.Arc;
+        //this.baseStat.reloadDuration = 10;//config.BuildTime;
+        //this.baseStat.range = 10;//config.Range;
+        //this.baseStat.minRange = 5;//config.Range;
+        //this.baseStat.mineOneOff = false;
+        //this.baseStat.currentClip = 1;
+        //this.baseStat.lastReloadTime = 0;
+        //this.baseStat.projectingArc = 10;//config.Arc;
 
-        //outputRes = new ResItem(config.ResOutput);
-        costRes = new ResItem(this.config.Buildcost);
+        ////outputRes = new ResItem(config.ResOutput);
+        //costRes = new ResItem(this.config.Buildcost);
     }
 }
 

@@ -69,6 +69,14 @@ public class ResourcesManager
         callBack(null);
     }
 
+
+    public static Sprite LoadSprite(string asset)
+    {
+        Sprite sprite = LoadAsset<Sprite>(asset + ".png");
+        return sprite;
+    }
+
+
     /// <summary>
     ///  同步加载一个资源
     /// <param name="asset">资源局部路径（"Assets/..."）</param>

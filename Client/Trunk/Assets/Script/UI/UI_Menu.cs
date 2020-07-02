@@ -11,7 +11,6 @@ public class UI_Menu : UIPanelBase {
 
     void Awake()
     {
-        base.Awake();
         btnNextLevel = this.FindObject<Button>(this.gameObject, "UI_Menu_Offset/grid/btn_pause");
         btnRestart = this.FindObject<Button>(this.gameObject, "UI_Menu_Offset/grid/btn_spawn");
         btnBack = this.FindObject<Button>(this.gameObject, "UI_Menu_Offset/grid/btn_pause");

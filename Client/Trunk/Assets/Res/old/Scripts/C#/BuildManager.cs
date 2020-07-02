@@ -6,16 +6,15 @@ using FightCommom;
 
 public class BuildManager : MonoBehaviour {
 
-	public uint[] towers;
-	
-	static private float _gridSize=0;
+   
+    static private float _gridSize=0;
 	public float gridSize=2;
 	public Transform[] platforms;
 	private Platform[] buildPlatforms;
 	
 	public bool AutoAdjstTextureToGrid=true;
 	
-	static public BuildManager buildManager;
+	static public BuildManager Instance;
 	
 	static private BuildableInfo currentBuildInfo;
 	
@@ -29,9 +28,23 @@ public class BuildManager : MonoBehaviour {
     {
 		return towerCount;
 	}
-	
-	void Awake(){
-		buildManager=this;
+
+    private uint[] towers;
+	private uint[] monster;
+
+	public uint[] GetTower()
+	{
+		return towers;
+	}
+
+    public uint[] GetMonster()
+    {
+		return monster;
+	}
+
+
+    void Awake(){
+		Instance=this;
 
 		towerCount=0;
 		
@@ -40,7 +53,11 @@ public class BuildManager : MonoBehaviour {
         InitPlatform();
 
         UIManager.Instance.ShowUI<UI_Main>("UI_Main");
-    }
+
+		towers = new uint[] { 1001, 1002, 1003, 1004 };
+		monster = new uint[] { 2001, 2002, 2003 };
+
+	}
 	
 
 	// Use this for initialization
@@ -146,9 +163,9 @@ public class BuildManager : MonoBehaviour {
 		RaycastHit hit;
 		if(Physics.Raycast(ray, out hit, Mathf.Infinity, mask)){
 			
-			for(int i=0; i<buildManager.buildPlatforms.Length; i++){
+			for(int i=0; i<Instance.buildPlatforms.Length; i++){
 				
-				Transform basePlane=buildManager.buildPlatforms[i].thisT;
+				Transform basePlane=Instance.buildPlatforms[i].thisT;
 				if(hit.transform==basePlane){
 					
 					//calculating the build center point base on the input position
@@ -216,10 +233,10 @@ public class BuildManager : MonoBehaviour {
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
         {
 
-            for (int i = 0; i < buildManager.buildPlatforms.Length; i++)
+            for (int i = 0; i < Instance.buildPlatforms.Length; i++)
             {
 
-                Transform basePlane = buildManager.buildPlatforms[i].thisT;
+                Transform basePlane = Instance.buildPlatforms[i].thisT;
                 if (hit.transform == basePlane)
                 {
 
@@ -247,12 +264,12 @@ public class BuildManager : MonoBehaviour {
                     Vector3 pos = p + basePlane.position;
 
                     buildableInfo.position = pos;
-                    buildableInfo.platform = buildManager.buildPlatforms[i];
+                    buildableInfo.platform = Instance.buildPlatforms[i];
 
                     //创建建筑需要的格子是否包含阻挡
-                    if (buildManager.buildPlatforms[i].IsWalkable())
+                    if (Instance.buildPlatforms[i].IsWalkable())
                     {
-                        if (buildManager.buildPlatforms[i].CheckForBlock(pos, costGrid))
+                        if (Instance.buildPlatforms[i].CheckForBlock(pos, costGrid))
                         {
                             currentBuildInfo = buildableInfo;
                             Debug.LogError(" has block !!!!!!!! ");
@@ -272,7 +289,7 @@ public class BuildManager : MonoBehaviour {
                         buildableInfo.buildable = true;
                     }
 
-                    buildableInfo.buildableType = buildManager.buildPlatforms[i].buildableType;
+                    buildableInfo.buildableType = Instance.buildPlatforms[i].buildableType;
                     break;
                 }
             }
@@ -333,7 +350,7 @@ public class BuildManager : MonoBehaviour {
 	}
 	
 
-    public static bool BuildTowerDragNDrop(s_TowerData _data)
+    public static bool BuildTowerDragNDrop(NpcData _data)
     {
 
         if (_data.TowerType == _TowerType.ResourceTower && GameControl.gameState == EGameState.Idle)
@@ -347,38 +364,15 @@ public class BuildManager : MonoBehaviour {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 pos = ray.GetPoint(10000);
 
-            string path = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.Resname);
+            string path = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.ResName);
 
             var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(path);
             var modelPoolItem = pool.GetObject();
-            var modelObj = modelPoolItem.itemObj;
 
-            FightHeroData buildData = new FightHeroData();
-            buildData.Resource = path;
-            buildData.cfgId = _data.config.UId;
-
-            buildData.HP = _data.config.Hp;
-            buildData.CurHp = _data.config.Hp;
-            buildData.CurMp = buildData.HP;
-
-			buildData.Attack = 10;
-			buildData.AttackSpeed = 50;
-			buildData.BodyCrit = 1;
-			buildData.BodyDodge = 1;
-			buildData.BodyHit = 100;
-			buildData.Defense = 5;
-			buildData.HP = 100;
-			buildData.MP = 50;
-			buildData.CurMp = 0;
-			buildData.CurHp = 1;
-			buildData.Level = 1;
-			buildData.MagicDefense = 5;
-			buildData.MaxAnger = 10;
-			buildData.MoveSpeed = 10;
-			buildData.Range = 1;
+			FightHeroData buildData = BuildManager.CreateNpc(_data);
 
 
-            InputManager.Instance.DragNDropTower(modelPoolItem, _data.costRes, buildData);
+			InputManager.Instance.DragNDropTower(modelPoolItem, _data.costRes, buildData);
             return true;
         }
 
@@ -406,10 +400,10 @@ public class BuildManager : MonoBehaviour {
 	private int currentSampleID=-1;
 	public static void InitiateSampleTower()
     {
-		buildManager.sampleTower=new Tower[buildManager.towers.Length];
-		for(int i=0; i<buildManager.towers.Length; i++){
-            Tower tower = EntitesManager.Instance.CreateTower(buildManager.towers[i]);
-            buildManager.sampleTower[i] = tower;
+		Instance.sampleTower=new Tower[Instance.towers.Length];
+		for(int i=0; i<Instance.towers.Length; i++){
+            Tower tower = EntitesManager.Instance.CreateTower(Instance.towers[i]);
+            Instance.sampleTower[i] = tower;
             tower.ModelObj.SetActive(false);
             UnitUtility.SetAdditiveMatColorRecursively(tower.ModelObj.transform, Color.green);
 		}
@@ -417,7 +411,7 @@ public class BuildManager : MonoBehaviour {
 	
 	static public void ShowSampleTower(int ID)
     {
-		buildManager._ShowSampleTower(ID);
+		Instance._ShowSampleTower(ID);
 	}
 	public void _ShowSampleTower(int ID)
     {
@@ -434,7 +428,7 @@ public class BuildManager : MonoBehaviour {
 	
 	static public void ClearSampleTower()
     {
-		buildManager._ClearSampleTower();
+		Instance._ClearSampleTower();
 	}
 	public void _ClearSampleTower()
     {
@@ -451,10 +445,6 @@ public class BuildManager : MonoBehaviour {
 		return currentBuildInfo;
 	}
 	
-	static public uint[] GetTowerList()
-    {
-		return buildManager.towers;
-	}
 	
 	static public float GetGridSize()
     {
@@ -469,7 +459,40 @@ public class BuildManager : MonoBehaviour {
 		//if(debugSelectPos) Gizmos.DrawCube(SelectBuildPos(Input.mousePosition), new Vector3(gridSize, 0, gridSize));
 		
 	}
-	
+
+
+	public static FightHeroData CreateNpc(NpcData npcData)
+	{
+        FightHeroData heroData = new FightHeroData();
+		heroData.Resource = npcData.config.ResName;
+
+		heroData.npcId = npcData.config.Id;
+
+		heroData.AttackSpeed = npcData.attrConfig.AttackSpeed;
+		heroData.MoveSpeed = npcData.attrConfig.MoveSpeed;
+
+		heroData.PhysicalAttack = npcData.attrConfig.PAttack;
+		heroData.PhysicalDefense = npcData.attrConfig.PDefence;
+		heroData.MagicAttack = npcData.attrConfig.MAttack;
+		heroData.MagicDefense = npcData.attrConfig.MDefence;
+		
+
+		heroData.Crit = npcData.attrConfig.Crit;
+        heroData.Dodge = npcData.attrConfig.Dodge;
+		heroData.Hit = npcData.attrConfig.Hit;
+		
+		heroData.HP = npcData.config.HP;
+		heroData.MP = npcData.attrConfig.MaxAngler;
+		heroData.CurMp = 0;
+        heroData.CurHp = npcData.config.HP;
+		heroData.Level = npcData.config.Level;
+
+        heroData.MaxAnger = npcData.attrConfig.MaxAngler;
+        heroData.Range = npcData.attrConfig.Range;
+
+		return heroData;
+
+	}
 }
 
 

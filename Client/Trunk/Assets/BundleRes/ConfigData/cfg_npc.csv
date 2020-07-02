@@ -1,9 +1,0 @@
-uId|Name|npcType|level|rare|statstype|resname|hp|buildtime|buildcost|dieDrop|skillId|headicon|desc
-Int|String|String|Int|String|Int|String|Int|Int|String|String|Int|String|String
-1001|极光塔|2|1|1|2|TowerAOE|500|10|1001-2|null|1|TowerIcon1|物理攻击
-1002|法术塔|2|2|1|2|TowerBeam|500|10|1001-2|null|1|TowerIcon2|法术攻击，群攻
-1003|辅助塔|2|2|1|2|TowerFlame|500|10|1001-2|null|1|TowerIcon3|为自己建筑治疗回血
-1004|资源塔|2|2|1|2|TowerResource|500|10|1001-2|null|1|TowerIcon4|生产资源
-2001|步兵|1|1|1|1|Creep|100|0|1001-1|10001:5|1|monster_1|步兵擅长群攻
-2002|骑兵|1|1|1|1|CreepSplitting|100|0|1001-1|null|1|monster_2|骑兵擅长地面突袭
-2003|飞机|1|1|1|1|CreepSplitting|100|0|1001-1|null|1|monster_2|飞机擅长空袭

@@ -1,7 +1,7 @@
 ﻿public class Currency
 {
-   public static int Gold = 1001;
-   public static int Silver = 1002;
+   public static int Gold = 1;
+   public static int Silver = 1;
 }
 
 

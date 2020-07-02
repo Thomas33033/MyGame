@@ -23,18 +23,30 @@ namespace Fight
 
         public static void Init()
         {
-            dicSkillInfo = LoadDictionary<FightSkillInfo>("SkillData");
-            dicBuffInfo = LoadDictionary<FightBuffInfo>("BuffData");
-            dicEffectInfo = LoadDictionary<FightEffectInfo>("FightEffects");
-            dicDamageInfo = LoadDictionary<FightDamageInfo>("DamageData");
 
-            dicSkillEffectData = LoadDictionary<FightSkillEffectData>("EffectData");
+            dicSkillInfo = LoadDictionary<FightSkillInfo>("data/SkillData");
+            dicBuffInfo = LoadDictionary<FightBuffInfo>("data/BuffData");
+            dicDamageInfo = LoadDictionary<FightDamageInfo>("data/DamageData");
+            dicSkillEffectData = LoadDictionary<FightSkillEffectData>("data/EffectData");
+            dicShieldInfo = LoadDictionary<FightShieldInfo>("data/ShieldData");
+            dicAuraInfo = LoadDictionary<FightAuraInfo>("data/AuraData");
 
-            dicShieldInfo = LoadDictionary<FightShieldInfo>("ShieldData");
-            dicAuraInfo = LoadDictionary<FightAuraInfo>("AuraData");
+            dicEffectInfo = LoadListToDictionary<FightEffectInfo>("FightEffects");
         }
 
+
         private static Dictionary<int, T> LoadDictionary<T>(string name) where T : IStaticData
+        {
+            Dictionary<string, T> jsonMap = SimpleJson.SimpleJson.DeserializeObject<Dictionary<string, T>> (LoadJson(name));
+            Dictionary<int, T> result = new Dictionary<int, T>();
+            foreach (var v in jsonMap)
+            {
+                result.Add(int.Parse(v.Key), v.Value);
+            }
+            return result;
+        }
+
+        private static Dictionary<int, T> LoadListToDictionary<T>(string name) where T : IStaticData
         {
             T[] list = SimpleJson.SimpleJson.DeserializeObject<T[]>(LoadJson(name));
 
@@ -55,7 +67,7 @@ namespace Fight
 
         private static string LoadJson(string name)
         {
-            string filePath = "Assets/BundleRes/Config/Fight/" + name + ".json";
+            string filePath = "Assets/BundleRes/Config/" + name + ".json";
             return ResourcesManager.LoadTextFile(filePath);
         }
 

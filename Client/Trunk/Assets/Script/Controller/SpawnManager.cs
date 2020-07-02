@@ -197,16 +197,16 @@ public class SpawnManager : Singleton<SpawnManager>
         _data.InitData(p_subWave.monsterConfigId);
 
         FightHeroData heroData = new FightHeroData();
-        heroData.Resource = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.Resname);
+        heroData.Resource = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.ResName);
         heroData.NodeId = 171;
         heroData.CostNodes = new int[] { 171 };
-        heroData.cfgId = 10001;
-        heroData.Attack = 10;
+        heroData.npcId = 10001;
+        heroData.PhysicalAttack = 10;
         heroData.AttackSpeed = 10;
-        heroData.BodyCrit = 1;
-        heroData.BodyDodge = 1;
-        heroData.BodyHit = 100;
-        heroData.Defense = 5;
+        heroData.Crit = 1;
+        heroData.Dodge = 1;
+        heroData.Hit = 100;
+        heroData.PhysicalDefense = 5;
         heroData.HP = 100;
         heroData.MP = 50;
         heroData.CurMp = 0;

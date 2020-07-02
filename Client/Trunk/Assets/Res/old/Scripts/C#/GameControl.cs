@@ -154,20 +154,7 @@ public class GameControl : MonoBehaviour {
            ResourceE();
     }
 
-    void DeductLife(int waveID)
-    {
-		playerLife-=1;
 
-		if(playerLife<=0) playerLife=0;
-		
-		if(LifeE!=null) LifeE();
-		
-		if(playerLife==0)
-        {
-			gameState=EGameState.Ended;
-			if(GameOverE!=null) GameOverE(false);
-		}
-	}
 	
 	void TowerDestroy(Tower tower){
 		if(selectedTower==tower || selectedTower==null || !selectedTower.ModelObj.activeSelf){
@@ -202,20 +189,7 @@ public class GameControl : MonoBehaviour {
 		//if game is not yet started, start it now
 		if(gameState==EGameState.Idle) gameState=EGameState.Started;
 	}
-
-    void WaveSpawned(int waveID)
-    {
-
-    }
 	
-	void WaveCleared(int waveID){
-		Debug.Log("Wave "+waveID+" has been cleared");
-		if(waveID==totalWaveCount-1){
-			//game over, player won
-			gameState=EGameState.Ended;
-			if(GameOverE!=null) GameOverE(true);
-		}
-	}
 	
 	static public Tower selectedTower;
 	
@@ -257,7 +231,7 @@ public class GameControl : MonoBehaviour {
         if (tower.type == _TowerType.SupportTower)
         {
             //Debug.Log(tower.type);
-            float range = tower.CurData.skillData.Attackrange;
+            float range = tower.CurData.attrConfig.Range;
             if (rangeIndicatorF != null)
             {
                 rangeIndicatorF.position = tower.Trans.position + Vector3.up*0.5f;

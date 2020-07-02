@@ -4,36 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UIPanelBase : MonoBehaviour {
 
-    public void Awake()
-    {
-        
-    }
-
-	// Use this for initialization
-	public void Start () {
-		
-	}
-	
-	// Update is called once per frame
-    public void Update()
-    {
-		
-	}
-
-    public void OnEnable()
-    { 
-    
-    }
-
-    public void OnDisable()
-    { 
-    
-    }
-
-    public void Ondestroy()
-    { 
-    
-    }
 
     public T FindObject<T>(GameObject parent, string childPath) where T : MonoBehaviour
     {

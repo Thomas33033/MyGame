@@ -1,0 +1,4 @@
+{
+	"10001":{"id":10001,"Type":1,"Resources":"Zidan","bouns":[1000,2000],"damage":[10002.0],"damageBase":0},
+	"10002":{"id":10002,"Type":1,"Resources":"Zidan","bouns":[1000,2000],"damage":[10002.0],"damageBase":0}
+}

@@ -28,17 +28,17 @@ public class Monster : CharacterBase
 
     public string GetResName()
     {
-        return ServerData.config.Resname;
+        return ServerData.config.ResName;
     }
     //---------------------------------------------------
     /* 物攻 */
-    public override float PAttack() { return this.attrConfig.Pattack; }
+    public override float PAttack() { return 0; }
     /** 魔攻 */
-    public override float MAttack() { return this.attrConfig.Mattack; }
+    public override float MAttack() { return 0; }
     /** 物防 */
-    public override float PDefence() { return this.attrConfig.Pdefence; }
+    public override float PDefence() { return 0; }
     /** 魔防 */
-    public override float MDefence() { return this.attrConfig.Mdefence; }
+    public override float MDefence() { return 0; }
     /** 暴击 */
     public override float Bang() { return 0; }
     /** 韧性 */

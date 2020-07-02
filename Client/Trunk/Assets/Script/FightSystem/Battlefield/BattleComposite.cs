@@ -211,15 +211,15 @@ namespace Fight
             AttributeData attr = new AttributeData();
 
             attr.anger = info.MaxAnger;
-            attr.physicsAttack = info.Attack;
+            attr.physicsAttack = info.PhysicalAttack;
             attr.attackSpeed = info.AttackSpeed;
 
-            attr.crit = info.BodyCrit;
-            attr.physicsDefense = info.Defense;
+            attr.crit = info.Crit;
+            attr.physicsDefense = info.PhysicalDefense;
             attr.magicDefense = info.MagicDefense;
 
-            attr.dodge = info.BodyDodge;
-            attr.hit = info.BodyHit;
+            attr.dodge = info.Dodge;
+            attr.hit = info.Hit;
             attr.hp = info.HP;
             attr.range = info.Range;
             attr.moveSpeed = info.MoveSpeed;

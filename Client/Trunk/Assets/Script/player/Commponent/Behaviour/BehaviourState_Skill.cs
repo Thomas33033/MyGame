@@ -41,19 +41,19 @@ public class BehaviourState_Skill : BehaviourState
         if(owerTrans == null)
             owerTrans = this.mgr.Owner.Trans;
         UpdateShootPoint();
-        SoundController.Instance.PlaySound(skillData.config.SoundName, this.mgr.Owner.Trans.position);
+        //SoundController.Instance.PlaySound(skillData.config.SoundName, this.mgr.Owner.Trans.position);
 
-        string resPath = "Prefabs/ShootObjects/" + skillData.config.ResName;
+        //string resPath = "Prefabs/ShootObjects/" + skillData.config.ResName;
 
-        var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(resPath);
-        CObjectPool<ModelPoolObj> modelPool = pool;
-        ModelPoolObj modelPoolObj = modelPool.GetObject();
-        modelPoolObj.itemObj.transform.position = owerTrans.position;
-        modelPoolObj.itemObj.transform.rotation = owerTrans.rotation;
-        modelPoolObj.itemObj.SetActive(true);
-        ShootObject shootObj = modelPoolObj.itemObj.GetComponent<ShootObject>();
-        shootObj.poolItem = modelPoolObj;
-        shootObj.Shoot(this.mgr.Owner, skillData.target, skillData, shootPoint[0]);
+        //var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(resPath);
+        //CObjectPool<ModelPoolObj> modelPool = pool;
+        //ModelPoolObj modelPoolObj = modelPool.GetObject();
+        //modelPoolObj.itemObj.transform.position = owerTrans.position;
+        //modelPoolObj.itemObj.transform.rotation = owerTrans.rotation;
+        //modelPoolObj.itemObj.SetActive(true);
+        //ShootObject shootObj = modelPoolObj.itemObj.GetComponent<ShootObject>();
+        //shootObj.poolItem = modelPoolObj;
+        //shootObj.Shoot(this.mgr.Owner, skillData.target, skillData, shootPoint[0]);
     }
 
     public override void OnUpdate()

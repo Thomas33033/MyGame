@@ -1,0 +1,4 @@
+{
+	"1001":{"Id":1001,"BaseId":1,"Level":1,"Name":"小怪普攻","Icon":"TowerIcon1","LevelCost":[1,0,20],"Decription":"技能描述1"},
+	"2001":{"Id":2001,"BaseId":2,"Level":1,"Name":"防御塔普攻","Icon":"TowerIcon2","LevelCost":[1,0,20],"Decription":"技能描述2"}
+}
