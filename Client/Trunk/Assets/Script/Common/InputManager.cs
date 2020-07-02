@@ -31,12 +31,7 @@ public class InputManager : MonoBehaviour
 
     public IEnumerator DragNDropRoutine()
     {
-        //UnitUtility.SetMat2AdditiveRecursively(this.dragTower.Trans);
-        //UnitUtility.SetAdditiveMatColorRecursively(this.dragTower.Trans, Color.grey);
-
         this.dragTower.GetComponent<Collider>().enabled = false;
-
-        //GameControl.DragNDropIndicator(this.dragTower);
 
         bool buildEnable = false;
 

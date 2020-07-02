@@ -951,7 +951,6 @@ namespace Cherry.AssetBundlePacker
             StringBuilder sb = new StringBuilder("[AssetBundleManager] - ");
             sb.Append(ErrorCode.ToString());
             if (!string.IsNullOrEmpty(message)) { sb.Append("\n"); sb.Append(message); }
-            Debug.LogError(sb.ToString());
         }
 
         /// <summary>

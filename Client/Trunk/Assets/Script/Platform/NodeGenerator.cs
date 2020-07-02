@@ -25,6 +25,8 @@ public class NodeGenerator : MonoBehaviour
 
 	static public Transform thisT;
 
+    private static LayerMask ignorMask;
+
 	void Awake()
     {
 		nodeGenerator = this;
@@ -34,9 +36,10 @@ public class NodeGenerator : MonoBehaviour
 	void Start()
     {
 		CycleNode();
-	}
-	
-	static public void Init()
+        ignorMask = ~(1 << LayerManager.LayerPlatform() | 1 << LayerManager.LayerTerrain());
+    }
+
+    static public void Init()
     {
 		GameObject obj=new GameObject();
 		nodeGenerator=obj.AddComponent<NodeGenerator>();
@@ -94,7 +97,7 @@ public class NodeGenerator : MonoBehaviour
 
         platform.row = countX;
         platform.column = countZ;
-		Debug.LogError(countZ+ "------------------"  +  countX);
+
 		float x=-scaleX*10/2/scaleX;
 		float z=-scaleZ*10/2/scaleZ;
         //将thisT 定位到平台的左下角 {0,0}点
@@ -132,8 +135,8 @@ public class NodeGenerator : MonoBehaviour
 			{
 				if (cNode.walkable)
 				{
-					LayerMask mask = 1 << LayerManager.LayerPlatform();
-					Collider[] cols = Physics.OverlapSphere(cNode.pos, gridSize * 0.45f, ~mask);
+
+					Collider[] cols = Physics.OverlapSphere(cNode.pos, gridSize * 0.45f, ignorMask);
 					if (cols.Length > 0)
 					{
 						cNode.walkable = false;

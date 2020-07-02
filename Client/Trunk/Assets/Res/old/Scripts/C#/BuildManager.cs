@@ -276,13 +276,13 @@ public class BuildManager : MonoBehaviour {
                             return false;
                         }
                     }
-					var ignorMask = ~(mask | 1 << LayerManager.LayerTerrain() );
-			
+					var ignorMask = ~(mask | 1 << LayerManager.LayerTerrain());
+
 					Collider[] cols = Physics.OverlapSphere(pos, _gridSize / 2 * 0.9f, ignorMask);
                     if (cols.Length > 0)
                     {
                         currentBuildInfo = buildableInfo;
-                        Debug.LogError("check collider failed £¡£¡£¡ ");
+                        Debug.LogError("check collider failed £¡£¡£¡ "+ cols[0].name);
                         return false;
                     }
                     else

@@ -103,7 +103,7 @@ namespace Fight
                 {
                     nodeId = v.costNodes[i];
                     dicNodeGraph[nodeId].walkable = false;
-                    FightSceneRender.Instance.battleFieldRender.platform.RefreshColor(nodeId);
+                   // FightSceneRender.Instance.battleFieldRender.platform.RefreshColor(nodeId);
                 }
 
                 listRoles.Add(v);

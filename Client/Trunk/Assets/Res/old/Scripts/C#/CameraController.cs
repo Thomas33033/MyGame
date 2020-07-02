@@ -33,7 +33,6 @@ public class CameraController : MonoSingleton<CameraController>
 
         _min = Bounds.bounds.min;//АќЮЇКа
         _max = Bounds.bounds.max;
-        Debug.LogError(_min + " " + _max);
         EasyTouch.AddCamera(mainCamera);
         distance = Vector3.Distance(this.mainCamera.transform.position, this.dragTarget.position);
     }

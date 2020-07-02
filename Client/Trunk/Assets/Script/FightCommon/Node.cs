@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
-using behaviac;
 
 namespace FightCommom
 {
@@ -16,7 +15,6 @@ namespace FightCommom
         public Node parent;
 
         public bool walkable;
-       
         public float tempScoreG = 0;
         public float scoreG;
         public float scoreH;

@@ -24,8 +24,8 @@ public class LayerManager : MonoBehaviour {
         //layerCreepF = LayerMask.NameToLayer("layerCreepF");
         //layerTower = LayerMask.NameToLayer("layerTower");
         layerPlatform = LayerMask.NameToLayer("layerPlatform");
-		layerTerrain = LayerMask.NameToLayer("layerTerrain");
-		//layerOverlay = LayerMask.NameToLayer("layerOverlay");
+		layerTerrain = LayerMask.NameToLayer("Terrain");
+        //layerOverlay = LayerMask.NameToLayer("layerOverlay");
 	}
 
     public LayerMask GetMask(int layer)
