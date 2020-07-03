@@ -42,7 +42,7 @@ public class InputManager : MonoBehaviour
         while (true)
         {
             //检测建筑是否可以创建
-            bool flag = BuildManager.CheckBuildPoint(Input.mousePosition, costNodeIDs, _TowerType.AOETower, 0);
+            bool flag = BuildManager.CheckBuildPoint(Input.mousePosition, costNodeIDs, _TowerType.AOETower, 0, this.fightBuildData.NodeSize);
 
             BuildableInfo currentBuildInfo = BuildManager.GetBuildInfo();
 
@@ -119,7 +119,7 @@ public class InputManager : MonoBehaviour
             this.fightBuildData.NodeId = node.ID;
             this.poolObj.ReturnToPool();
 
-            FightScene.Instance.CreateRole(this.fightBuildData, 1);
+            FightScene.Instance.CreateRole(this.fightBuildData, this.fightBuildData.teamId);
         }
         else
         {

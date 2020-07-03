@@ -48,7 +48,7 @@ namespace Fight {
                         break;
                     }
 
-                    List<Node> listHex = this.Owner.battleField.GetAround(listEnemy[j].node, 2);
+                    List<Node> listHex = this.Owner.battleField.GetAround(listEnemy[j].node, Owner.range, listEnemy[j].nodeSize);
                     listHex.Sort(this.Owner.SortHexDistanceHandler);
 
                     bool flag = false;

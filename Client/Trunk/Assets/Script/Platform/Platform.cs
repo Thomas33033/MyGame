@@ -135,7 +135,7 @@ public class Platform : MonoBehaviour {
 	}
 
 
-    public bool CheckForBlock(Vector3 pos, List<int> costGrid)
+    public bool CheckForBlock(Vector3 pos, List<int> costGrid, int nodeSize)
     {
 		float gridSize=BuildManager.GetGridSize();
 		bool blocked=false;
@@ -143,7 +143,7 @@ public class Platform : MonoBehaviour {
 		nearestNode=PathFinder.GetNearestNode(pos, nodeGraph);
         
         //如果建筑需要的格子包含阻挡，则返回false
-        if (RefreshBulidGrid(nearestNode.ID, costGrid))
+        if (RefreshBulidGrid(nearestNode.ID, costGrid, nodeSize))
         {
             return true;
         }
@@ -340,7 +340,7 @@ public class Platform : MonoBehaviour {
         }
     }
 
-    public bool RefreshBulidGrid(int index, List<int> costGrid)
+    public bool RefreshBulidGrid(int index, List<int> costGrid,int nodeSize)
     {
         ResetDefaultRes();
         costGrid.Clear();
@@ -348,20 +348,17 @@ public class Platform : MonoBehaviour {
         int c_row = index / this.column;
         int c_column = index % this.column;
         bool hasBlock = false;
-        for (int i = 1; i <= 1; i++)
+
+        int range = nodeSize - 1;
+
+        for (int x = -range; x <= range; x++)
         {
-            CheckColumn(ref hasBlock, list, c_row + i, c_column - i);
-            CheckColumn(ref hasBlock, list, c_row + i, c_column);
-            CheckColumn(ref hasBlock, list, c_row + i, c_column + i);
-
-            CheckColumn(ref hasBlock, list, c_row , c_column - i);
-            CheckColumn(ref hasBlock, list, c_row , c_column);
-            CheckColumn(ref hasBlock, list, c_row , c_column + i);
-
-            CheckColumn(ref hasBlock, list, c_row - i, c_column - i);
-            CheckColumn(ref hasBlock, list, c_row - i, c_column);
-            CheckColumn(ref hasBlock, list, c_row - i, c_column + i);
+            for (int y = -range; y <= range; y++)
+            {
+                CheckColumn(ref hasBlock, list, c_row + x, c_column + y);
+            }
         }
+
 
         for (int i = 0; i < list.Count; i++)
         {

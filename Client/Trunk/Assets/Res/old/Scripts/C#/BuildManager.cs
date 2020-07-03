@@ -57,6 +57,7 @@ public class BuildManager : MonoBehaviour {
 		towers = new uint[] { 1001, 1002, 1003, 1004 };
 		monster = new uint[] { 2001, 2002, 2003 };
 
+
 	}
 	
 
@@ -222,7 +223,7 @@ public class BuildManager : MonoBehaviour {
 	}
 
 	
-	static public bool CheckBuildPoint(Vector3 pointer, List<int> costGrid)
+	static public bool CheckBuildPoint(Vector3 pointer, List<int> costGrid, int nodeSize)
     {
 		
 		BuildableInfo buildableInfo=new BuildableInfo();
@@ -269,7 +270,7 @@ public class BuildManager : MonoBehaviour {
                     //创建建筑需要的格子是否包含阻挡
                     if (Instance.buildPlatforms[i].IsWalkable())
                     {
-                        if (Instance.buildPlatforms[i].CheckForBlock(pos, costGrid))
+                        if (Instance.buildPlatforms[i].CheckForBlock(pos, costGrid, nodeSize))
                         {
                             currentBuildInfo = buildableInfo;
                             Debug.LogError(" has block !!!!!!!! ");
@@ -308,9 +309,9 @@ public class BuildManager : MonoBehaviour {
 		return true;
 	}
 	
-	public static bool CheckBuildPoint(Vector3 pointer, List<int> costGrid, _TowerType type, int specialID){
+	public static bool CheckBuildPoint(Vector3 pointer, List<int> costGrid, _TowerType type, int specialID,int nodeSize){
 
-        if (!CheckBuildPoint(pointer, costGrid))
+        if (!CheckBuildPoint(pointer, costGrid, nodeSize))
         {
             return false;
         } 
@@ -468,6 +469,7 @@ public class BuildManager : MonoBehaviour {
 		heroData.Resource = npcData.config.ResName;
 
 		heroData.npcId = npcData.config.Id;
+		heroData.npcType = npcData.config.NpcType;
 
 		heroData.AttackSpeed = npcData.attrConfig.AttackSpeed;
 		heroData.MoveSpeed = npcData.attrConfig.MoveSpeed;
@@ -490,6 +492,24 @@ public class BuildManager : MonoBehaviour {
 
         heroData.MaxAnger = npcData.attrConfig.MaxAngler;
         heroData.Range = npcData.attrConfig.Range;
+
+		heroData.teamId = npcData.config.NpcType;
+
+		List<FightSkillData> list = new List<FightSkillData>();
+		for (int i = 0; i < npcData.config.Skills.Length; i++)
+		{
+			int skillId = npcData.config.Skills[i];
+			FightSkillData fightSkillData = new FightSkillData();
+			fightSkillData.level = 1;
+			fightSkillData.skillID = skillId;
+			list.Add(fightSkillData);
+		}
+
+		heroData.NodeSize = npcData.config.NodeSize;
+
+		heroData.SkillData = list.ToArray();
+
+
 
 		return heroData;
 

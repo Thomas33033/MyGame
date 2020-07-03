@@ -26,7 +26,7 @@ public class Main : MonoBehaviour {
         //actionSequence.AddAction(new UpdateResStep(RefreshProgress));
         //actionSequence.finishedOverEvent = OnEnterGame;
         //actionSequence.Start(this.gameObject);
-        
+
         OnEnterGame();
     }
 

@@ -65,9 +65,13 @@ namespace Fight
     public enum RoleType
     {
         //战士
-        Fighter = 0,
+        Fighter = 1,
+        //建造塔
+        BuildTower = 2,
         //召唤物
         Summon = 10,
+        //队伍
+        Team = 20
     }
 
     //角色状态类型

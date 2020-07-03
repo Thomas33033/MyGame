@@ -47,9 +47,13 @@ namespace Fight
     {
         public int uid;
         public int npcId;
+        public int npcType;
         public string Resource;
         public string AttackRes;
         public string Tag;
+        public int teamId;
+        public int NodeSize;
+
 
         public int NodeId;
         public string Position;

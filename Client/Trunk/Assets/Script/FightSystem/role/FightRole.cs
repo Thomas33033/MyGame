@@ -31,7 +31,11 @@ namespace Fight
             skillComp.listSkills.Add(fightSkill);
         }
 
-        #region Move
+        public override void Update(float nowTime)
+        {
+            base.Update(nowTime);
+        }
+
 
         protected bool MoveRandom(float nowTime)
         {
@@ -78,7 +82,7 @@ namespace Fight
             if (this.isMoving) return;
 
             List<Node> listHex = null;
-            listHex = battleField.GetAround(target.node,  range + target.nodeSize-1);
+            listHex = battleField.GetAround(target.node,  range, target.nodeSize);
             listHex.Sort(SortHexDistanceHandler);
      
             for (int i = 0; i < listHex.Count; i++)
@@ -97,8 +101,6 @@ namespace Fight
                 }
             }
         }
-
-        #endregion Move
 
         public override void Attack()
         {

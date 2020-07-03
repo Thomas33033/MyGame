@@ -14,8 +14,13 @@ namespace Fight
         {
             this.id = teamId;
             this.fightType = fightType;
-
+            this.type = RoleType.Team;
             skillComp.SkillCreate(skills);
+        }
+
+        public override void Update(float nowTime)
+        {
+            //base.Update(nowTime);)
         }
 
         public override void SkillAdd(int skillId, int level)

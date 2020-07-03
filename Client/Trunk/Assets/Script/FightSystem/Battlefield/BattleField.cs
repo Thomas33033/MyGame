@@ -103,7 +103,6 @@ namespace Fight
                 {
                     nodeId = v.costNodes[i];
                     dicNodeGraph[nodeId].walkable = false;
-                   // FightSceneRender.Instance.battleFieldRender.platform.RefreshColor(nodeId);
                 }
 
                 listRoles.Add(v);
@@ -112,7 +111,6 @@ namespace Fight
             else
             {
                 Debug.LogError("该节点阻塞，不能创建角色");
-               // AddRole(v, 0);
             }
         }
 
@@ -409,18 +407,22 @@ namespace Fight
 
         private List<Node> templist = new List<Node>();
 
-        internal List<Node> GetAround(Node node, int range = 1)
+        internal List<Node> GetAround(Node node, int _range, int targetSize)
         {
-
             templist.Clear();
             int tx = (int) node.pos.x;
             int ty = (int) node.pos.z;
             int id;
+            int range = _range + targetSize - 1;
+            Debug.LogError(range + " " + _range + " " + targetSize);
             for (int x = -range; x <= range; x++)
             {
                for (int y = -range; y <= range; y++)
                 {
-                    if (x == 0 && y == 0) continue;
+                    //if (Mathf.Abs(x) < targetSize && Mathf.Abs(y) < targetSize)
+                    //{
+                    //    continue;
+                    //}
 
                     id = (tx + x) * this.column + (ty + y);
 

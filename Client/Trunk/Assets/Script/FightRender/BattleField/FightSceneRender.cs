@@ -61,8 +61,6 @@ public class FightSceneRender : Singleton<FightSceneRender>
 
     public  void Update()
     {
-
-        FightScene.Instance.Update();
         //base.Update();
 
         //if (_timeSkillCameraClose > 0 && Time.time > _timeSkillCameraClose)

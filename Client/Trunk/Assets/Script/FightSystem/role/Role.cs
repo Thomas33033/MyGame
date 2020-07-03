@@ -183,8 +183,6 @@ namespace Fight
         public virtual void Update(float nowTime)
         {
 
-            if (this.teamId != 2) return;
-
             for(int i = 0; i < comps.Count; i++)
             {
                 comps[i].OnUpdate(nowTime);

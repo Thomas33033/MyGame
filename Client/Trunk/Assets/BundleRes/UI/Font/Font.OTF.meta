@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 50535fa021806764c8d60a60d211c2d0
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: WenYue XinQingNianTi (Non-Commercial Use)
+  fontNames:
+  - WenYue XinQingNianTi (Non-Commercial Use)
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: font
+  assetBundleVariant: 

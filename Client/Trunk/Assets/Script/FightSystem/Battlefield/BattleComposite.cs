@@ -161,21 +161,26 @@ namespace Fight
         {
 
             BattleField battleField = dicBattleField[battlefieldId];
+            Role role;
+            if (roleData.npcType == (int)RoleType.BuildTower)
+            {
+                role = new FightRoleTower(teamId, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
+            }
+            else{
+                role = new FightRole(teamId, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
+            }
 
-            FightRole fightRole = new FightRole(teamId, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
-            fightRole.isPlayer = isPlayer;
-            fightRole.costNodes = roleData.CostNodes;
-            fightRole.site = site;
-            listAllRoles.Add(fightRole);
-            battleField.AddRole(fightRole, site);
+            role.isPlayer = isPlayer;
+            role.costNodes = roleData.CostNodes;
+            role.site = site;
+            listAllRoles.Add(role);
+            battleField.AddRole(role, site);
+            role.PrepareFight();
 
-            fightRole.PrepareFight();
-
-            
-            FightReportRoleCreate report = new FightReportRoleCreate(Time, teamId, fightRole.id, roleData, battlefieldId);
+            FightReportRoleCreate report = new FightReportRoleCreate(Time, teamId, role.id, roleData, battlefieldId);
             listReport.Add(report);
 
-            listReport.Add(new FightReportRoleHpMp(Time, fightRole.teamId, fightRole.id, fightRole.hp, fightRole.mp));
+            listReport.Add(new FightReportRoleHpMp(Time, role.teamId, role.id, role.hp, role.mp));
 
             return true;
         }

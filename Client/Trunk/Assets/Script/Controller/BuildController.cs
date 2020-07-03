@@ -177,7 +177,7 @@ public class BuildController : MonoBehaviour {
         //else indicator2.SetActive(false);
     }
 
-    static public bool CheckBuildPoint(Vector3 pointer, List<int> costGrid)
+    static public bool CheckBuildPoint(Vector3 pointer, List<int> costGrid, int nodeSize)
     {
         BuildableInfo buildableInfo = new BuildableInfo();
 
@@ -243,7 +243,7 @@ public class BuildController : MonoBehaviour {
                     if (buildManager.buildPlatforms[i].IsWalkable())
                     {
                         //return true is the platform is not block
-                        if (buildManager.buildPlatforms[i].CheckForBlock(pos, costGrid))
+                        if (buildManager.buildPlatforms[i].CheckForBlock(pos, costGrid, nodeSize))
                         {
                             return false;
                         }
@@ -265,9 +265,9 @@ public class BuildController : MonoBehaviour {
         return true;
     }
 
-    public static bool CheckBuildPoint(Vector3 pointer, List<int> costGrid, _TowerType type, int specialID)
+    public static bool CheckBuildPoint(Vector3 pointer, List<int> costGrid, _TowerType type, int specialID, int NodeSize)
     {
-        if (!CheckBuildPoint(pointer, costGrid)) return false;
+        if (!CheckBuildPoint(pointer, costGrid, NodeSize)) return false;
 
         if (specialID > 0)
         {

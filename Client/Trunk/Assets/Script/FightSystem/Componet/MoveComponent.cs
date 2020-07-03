@@ -53,9 +53,10 @@ namespace Fight {
                         }
 
                         pathIndex++;
-                        
-                        this.nextNode = this.waypoints[pathIndex];
-                        Debug.Log("this.Owner.moveSpeed:" + this.Owner.moveSpeed);
+                        if (pathIndex < this.waypoints.Count)
+                        {
+                            this.nextNode = this.waypoints[pathIndex];
+                        }
                         lastMoveTime = nowTime + this.Owner.moveSpeed;
                     }
                     else

@@ -186,59 +186,38 @@ public class SpawnManager : Singleton<SpawnManager>
 
     public void SpawnFactory(SubWave p_subWave, int p_waveID)
     {
-        GamePath tempPath;
-        if (p_subWave.path == null) tempPath = defaultPath;
-        else tempPath = p_subWave.path;
+        //GamePath tempPath;
+        //if (p_subWave.path == null) tempPath = defaultPath;
+        //else tempPath = p_subWave.path;
 
-        Vector3 pos = tempPath.waypoints[0].position;
-        Quaternion rot = tempPath.waypoints[0].rotation;
+        //Vector3 pos = tempPath.waypoints[0].position;
+        //Quaternion rot = tempPath.waypoints[0].rotation;
 
-        s_MonsterData _data = new s_MonsterData();
-        _data.InitData(p_subWave.monsterConfigId);
+        //s_MonsterData _data = new s_MonsterData();
+        //_data.InitData(p_subWave.monsterConfigId);
 
-        FightHeroData heroData = new FightHeroData();
-        heroData.Resource = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.ResName);
-        heroData.NodeId = 171;
-        heroData.CostNodes = new int[] { 171 };
-        heroData.npcId = 10001;
-        heroData.PhysicalAttack = 10;
-        heroData.AttackSpeed = 10;
-        heroData.Crit = 1;
-        heroData.Dodge = 1;
-        heroData.Hit = 100;
-        heroData.PhysicalDefense = 5;
-        heroData.HP = 100;
-        heroData.MP = 50;
-        heroData.CurMp = 0;
-        heroData.CurHp = 100;
-        heroData.Level = 1;
-        heroData.MagicDefense = 5;
-        heroData.MaxAnger = 10;
-        heroData.MoveSpeed = 10;
-        heroData.Range = 1;
+        //FightHeroData heroData = new FightHeroData();
+        //heroData.Resource = string.Format("{0}/{1}.prefab", ResPathHelper.UI_NPC_PATH, _data.config.ResName);
+        //heroData.NodeId = 171;
+        //heroData.CostNodes = new int[] { 171 };
+        //heroData.npcId = 10001;
+        //heroData.PhysicalAttack = 10;
+        //heroData.AttackSpeed = 10;
+        //heroData.Crit = 1;
+        //heroData.Dodge = 1;
+        //heroData.Hit = 100;
+        //heroData.PhysicalDefense = 5;
+        //heroData.HP = 100;
+        //heroData.MP = 50;
+        //heroData.CurMp = 0;
+        //heroData.CurHp = 100;
+        //heroData.Level = 1;
+        //heroData.MagicDefense = 5;
+        //heroData.MaxAnger = 10;
+        //heroData.MoveSpeed = 10;
+        //heroData.Range = 1;
         
-
-        var fightSkillData = new FightSkillData();
-        fightSkillData.skillID = 10001;
-        fightSkillData.level = 1;
-
-        var fightSkillData1 = new FightSkillData();
-        fightSkillData1.skillID = 10002;
-        fightSkillData1.level = 1;
-        heroData.SkillData = new FightSkillData[] { fightSkillData, fightSkillData1};
-
-        FightScene.Instance.CreateRole(heroData,2);
-
-
-       
-        //
-        //_data.position = pos;
-        //_data.rotation = rot;
-        //_data.speedFactor = 1;
-        //Monster monster = EntitesManager.Instance.CreateMonster(_data);
-        //monster.SetMovePath(tempPath, p_waveID);
-
-
+        //FightScene.Instance.CreateRole(heroData,2);
 
     }
    
