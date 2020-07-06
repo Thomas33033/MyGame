@@ -54,7 +54,7 @@ public class BuildManager : MonoBehaviour {
 
         UIManager.Instance.ShowUI<UI_Main>("UI_Main");
 
-		towers = new uint[] { 1001, 1002, 1003, 1004 };
+		towers = new uint[] { 1001, 1002, 1003, 1005 };
 		monster = new uint[] { 2001, 2002, 2003 };
 
 
