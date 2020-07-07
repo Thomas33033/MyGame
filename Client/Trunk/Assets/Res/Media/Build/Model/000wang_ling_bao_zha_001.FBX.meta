@@ -1,121 +1,327 @@
 fileFormatVersion: 2
 guid: 87eb74c2ed94223479152fa60cf0b7c6
 ModelImporter:
-  serializedVersion: 16
-  fileIDToRecycleName:
-    100000: Bone001
-    100002: Bone002
-    100004: Bone003
-    100006: Bone004
-    100008: Bone005
-    100010: Bone006
-    100012: Bone007
-    100014: Bone008
-    100016: Bone009
-    100018: Bone010
-    100020: Bone011
-    100022: Bone012
-    100024: Bone013
-    100026: wang_lin_zhu_ji_di_001
-    100028: wang_lin_zhu_ji_di_0010
-    100030: wang_lin_zhu_ji_di_0011
-    100032: wang_lin_zhu_ji_di_0012
-    100034: wang_lin_zhu_ji_di_0013
-    100036: wang_lin_zhu_ji_di_0014
-    100038: wang_lin_zhu_ji_di_0015
-    100040: wang_lin_zhu_ji_di_002
-    100042: wang_lin_zhu_ji_di_003
-    100044: wang_lin_zhu_ji_di_004
-    100046: wang_lin_zhu_ji_di_005
-    100048: wang_lin_zhu_ji_di_006
-    100050: wang_lin_zhu_ji_di_007
-    100052: wang_lin_zhu_ji_di_008
-    100054: wang_lin_zhu_ji_di_009
-    100056: //RootNode
-    400000: Bone001
-    400002: Bone002
-    400004: Bone003
-    400006: Bone004
-    400008: Bone005
-    400010: Bone006
-    400012: Bone007
-    400014: Bone008
-    400016: Bone009
-    400018: Bone010
-    400020: Bone011
-    400022: Bone012
-    400024: Bone013
-    400026: wang_lin_zhu_ji_di_001
-    400028: wang_lin_zhu_ji_di_0010
-    400030: wang_lin_zhu_ji_di_0011
-    400032: wang_lin_zhu_ji_di_0012
-    400034: wang_lin_zhu_ji_di_0013
-    400036: wang_lin_zhu_ji_di_0014
-    400038: wang_lin_zhu_ji_di_0015
-    400040: wang_lin_zhu_ji_di_002
-    400042: wang_lin_zhu_ji_di_003
-    400044: wang_lin_zhu_ji_di_004
-    400046: wang_lin_zhu_ji_di_005
-    400048: wang_lin_zhu_ji_di_006
-    400050: wang_lin_zhu_ji_di_007
-    400052: wang_lin_zhu_ji_di_008
-    400054: wang_lin_zhu_ji_di_009
-    400056: //RootNode
-    2300000: wang_lin_zhu_ji_di_0011
-    2300002: wang_lin_zhu_ji_di_0012
-    3300000: wang_lin_zhu_ji_di_0011
-    3300002: wang_lin_zhu_ji_di_0012
-    4300000: wang_lin_zhu_ji_di_0015
-    4300002: wang_lin_zhu_ji_di_0010
-    4300004: wang_lin_zhu_ji_di_0014
-    4300006: wang_lin_zhu_ji_di_005
-    4300008: wang_lin_zhu_ji_di_004
-    4300010: wang_lin_zhu_ji_di_006
-    4300012: wang_lin_zhu_ji_di_007
-    4300014: wang_lin_zhu_ji_di_003
-    4300016: wang_lin_zhu_ji_di_009
-    4300018: wang_lin_zhu_ji_di_002
-    4300020: wang_lin_zhu_ji_di_0011
-    4300022: wang_lin_zhu_ji_di_0012
-    4300024: wang_lin_zhu_ji_di_0013
-    4300026: wang_lin_zhu_ji_di_008
-    4300028: wang_lin_zhu_ji_di_001
-    7400000: free
-    7400002: death
-    9500000: //RootNode
-    11100000: //RootNode
-    13700000: wang_lin_zhu_ji_di_001
-    13700002: wang_lin_zhu_ji_di_0010
-    13700004: wang_lin_zhu_ji_di_0013
-    13700006: wang_lin_zhu_ji_di_0014
-    13700008: wang_lin_zhu_ji_di_0015
-    13700010: wang_lin_zhu_ji_di_002
-    13700012: wang_lin_zhu_ji_di_003
-    13700014: wang_lin_zhu_ji_di_004
-    13700016: wang_lin_zhu_ji_di_005
-    13700018: wang_lin_zhu_ji_di_006
-    13700020: wang_lin_zhu_ji_di_007
-    13700022: wang_lin_zhu_ji_di_008
-    13700024: wang_lin_zhu_ji_di_009
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Bone001
+  - first:
+      1: 100002
+    second: Bone002
+  - first:
+      1: 100004
+    second: Bone003
+  - first:
+      1: 100006
+    second: Bone004
+  - first:
+      1: 100008
+    second: Bone005
+  - first:
+      1: 100010
+    second: Bone006
+  - first:
+      1: 100012
+    second: Bone007
+  - first:
+      1: 100014
+    second: Bone008
+  - first:
+      1: 100016
+    second: Bone009
+  - first:
+      1: 100018
+    second: Bone010
+  - first:
+      1: 100020
+    second: Bone011
+  - first:
+      1: 100022
+    second: Bone012
+  - first:
+      1: 100024
+    second: Bone013
+  - first:
+      1: 100026
+    second: wang_lin_zhu_ji_di_001
+  - first:
+      1: 100028
+    second: wang_lin_zhu_ji_di_0010
+  - first:
+      1: 100030
+    second: wang_lin_zhu_ji_di_0011
+  - first:
+      1: 100032
+    second: wang_lin_zhu_ji_di_0012
+  - first:
+      1: 100034
+    second: wang_lin_zhu_ji_di_0013
+  - first:
+      1: 100036
+    second: wang_lin_zhu_ji_di_0014
+  - first:
+      1: 100038
+    second: wang_lin_zhu_ji_di_0015
+  - first:
+      1: 100040
+    second: wang_lin_zhu_ji_di_002
+  - first:
+      1: 100042
+    second: wang_lin_zhu_ji_di_003
+  - first:
+      1: 100044
+    second: wang_lin_zhu_ji_di_004
+  - first:
+      1: 100046
+    second: wang_lin_zhu_ji_di_005
+  - first:
+      1: 100048
+    second: wang_lin_zhu_ji_di_006
+  - first:
+      1: 100050
+    second: wang_lin_zhu_ji_di_007
+  - first:
+      1: 100052
+    second: wang_lin_zhu_ji_di_008
+  - first:
+      1: 100054
+    second: wang_lin_zhu_ji_di_009
+  - first:
+      1: 100056
+    second: //RootNode
+  - first:
+      4: 400000
+    second: Bone001
+  - first:
+      4: 400002
+    second: Bone002
+  - first:
+      4: 400004
+    second: Bone003
+  - first:
+      4: 400006
+    second: Bone004
+  - first:
+      4: 400008
+    second: Bone005
+  - first:
+      4: 400010
+    second: Bone006
+  - first:
+      4: 400012
+    second: Bone007
+  - first:
+      4: 400014
+    second: Bone008
+  - first:
+      4: 400016
+    second: Bone009
+  - first:
+      4: 400018
+    second: Bone010
+  - first:
+      4: 400020
+    second: Bone011
+  - first:
+      4: 400022
+    second: Bone012
+  - first:
+      4: 400024
+    second: Bone013
+  - first:
+      4: 400026
+    second: wang_lin_zhu_ji_di_001
+  - first:
+      4: 400028
+    second: wang_lin_zhu_ji_di_0010
+  - first:
+      4: 400030
+    second: wang_lin_zhu_ji_di_0011
+  - first:
+      4: 400032
+    second: wang_lin_zhu_ji_di_0012
+  - first:
+      4: 400034
+    second: wang_lin_zhu_ji_di_0013
+  - first:
+      4: 400036
+    second: wang_lin_zhu_ji_di_0014
+  - first:
+      4: 400038
+    second: wang_lin_zhu_ji_di_0015
+  - first:
+      4: 400040
+    second: wang_lin_zhu_ji_di_002
+  - first:
+      4: 400042
+    second: wang_lin_zhu_ji_di_003
+  - first:
+      4: 400044
+    second: wang_lin_zhu_ji_di_004
+  - first:
+      4: 400046
+    second: wang_lin_zhu_ji_di_005
+  - first:
+      4: 400048
+    second: wang_lin_zhu_ji_di_006
+  - first:
+      4: 400050
+    second: wang_lin_zhu_ji_di_007
+  - first:
+      4: 400052
+    second: wang_lin_zhu_ji_di_008
+  - first:
+      4: 400054
+    second: wang_lin_zhu_ji_di_009
+  - first:
+      4: 400056
+    second: //RootNode
+  - first:
+      23: 2300000
+    second: wang_lin_zhu_ji_di_0011
+  - first:
+      23: 2300002
+    second: wang_lin_zhu_ji_di_0012
+  - first:
+      33: 3300000
+    second: wang_lin_zhu_ji_di_0011
+  - first:
+      33: 3300002
+    second: wang_lin_zhu_ji_di_0012
+  - first:
+      43: 4300000
+    second: wang_lin_zhu_ji_di_0015
+  - first:
+      43: 4300002
+    second: wang_lin_zhu_ji_di_0010
+  - first:
+      43: 4300004
+    second: wang_lin_zhu_ji_di_0014
+  - first:
+      43: 4300006
+    second: wang_lin_zhu_ji_di_005
+  - first:
+      43: 4300008
+    second: wang_lin_zhu_ji_di_004
+  - first:
+      43: 4300010
+    second: wang_lin_zhu_ji_di_006
+  - first:
+      43: 4300012
+    second: wang_lin_zhu_ji_di_007
+  - first:
+      43: 4300014
+    second: wang_lin_zhu_ji_di_003
+  - first:
+      43: 4300016
+    second: wang_lin_zhu_ji_di_009
+  - first:
+      43: 4300018
+    second: wang_lin_zhu_ji_di_002
+  - first:
+      43: 4300020
+    second: wang_lin_zhu_ji_di_0011
+  - first:
+      43: 4300022
+    second: wang_lin_zhu_ji_di_0012
+  - first:
+      43: 4300024
+    second: wang_lin_zhu_ji_di_0013
+  - first:
+      43: 4300026
+    second: wang_lin_zhu_ji_di_008
+  - first:
+      43: 4300028
+    second: wang_lin_zhu_ji_di_001
+  - first:
+      74: 7400000
+    second: free
+  - first:
+      74: 7400002
+    second: death
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      111: 11100000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: wang_lin_zhu_ji_di_001
+  - first:
+      137: 13700002
+    second: wang_lin_zhu_ji_di_0010
+  - first:
+      137: 13700004
+    second: wang_lin_zhu_ji_di_0013
+  - first:
+      137: 13700006
+    second: wang_lin_zhu_ji_di_0014
+  - first:
+      137: 13700008
+    second: wang_lin_zhu_ji_di_0015
+  - first:
+      137: 13700010
+    second: wang_lin_zhu_ji_di_002
+  - first:
+      137: 13700012
+    second: wang_lin_zhu_ji_di_003
+  - first:
+      137: 13700014
+    second: wang_lin_zhu_ji_di_004
+  - first:
+      137: 13700016
+    second: wang_lin_zhu_ji_di_005
+  - first:
+      137: 13700018
+    second: wang_lin_zhu_ji_di_006
+  - first:
+      137: 13700020
+    second: wang_lin_zhu_ji_di_007
+  - first:
+      137: 13700022
+    second: wang_lin_zhu_ji_di_008
+  - first:
+      137: 13700024
+    second: wang_lin_zhu_ji_di_009
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ___Default
+    second: {fileID: 2100000, guid: d8c440bd7ac3fc24599ffd3cb43cf257, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 0
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: free
       takeName: Take 001
+      internalID: 0
       firstFrame: 0
       lastFrame: 60
       wrapMode: 2
@@ -123,6 +329,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -197,9 +404,11 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: death
       takeName: Take 001
+      internalID: 0
       firstFrame: 85
       lastFrame: 142
       wrapMode: 0
@@ -207,6 +416,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -281,41 +491,66 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
+    globalScale: 0.01
     meshCompression: 3
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 3
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
+    globalScale: 0.01
     rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 1
+  humanoidOversampling: 1
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

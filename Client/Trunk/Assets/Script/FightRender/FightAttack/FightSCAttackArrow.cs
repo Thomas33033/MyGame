@@ -25,6 +25,11 @@ public class FightSCAttackArrow : FightAttackRender
 
         if (timePass >= timeDelayContent)
         {
+            if (targetTrans == null)
+            {
+                Debug.LogError("---targetTrans = null--");
+                return;
+            }
             transform.position = Vector3.Lerp(_startPosition, targetTrans.position, (timePass - timeDelayContent) / (lifeTime - timeDelayContent));
         }
     }

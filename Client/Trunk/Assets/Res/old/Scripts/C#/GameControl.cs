@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Fight;
 using System;
+using System.Collections.Generic;
 
 public enum EGameState
 {
@@ -48,6 +49,7 @@ public class GameControl : MonoBehaviour {
 
 	public Platform platform;
 
+	public bool gameStart = false;
 	void Awake()
     {
         gameControl = this;
@@ -111,7 +113,7 @@ public class GameControl : MonoBehaviour {
 		platform.GenerateNode(0);
         platform.SetWalkable(true);
 
-        FightScene fightScene = FightScene.Instance;
+        FightScene fightScene = new FightScene();
         FightData fightdata = new FightData();
 
         fightdata.enemyBattleData = new FightPlayerData();
@@ -120,29 +122,45 @@ public class GameControl : MonoBehaviour {
 		userData.nickName = "»¶Ï²Ô©¼Ò";
 		userData.userIcon = "Icon_1";
 		fightdata.enemyBattleData.userData = userData;
-		fightdata.enemyBattleData.heroData = new FightHeroData[] { };
+		fightdata.enemyBattleData.heroData = new FightRoleData[] { };
 		fightdata.enemyBattleData.teamSkills = new FightSkillData[] { };
 
 
+		List<SceneEntity> lstScentEntities = StaticData.LoadList<SceneEntity>("FightScene");
+		List<FightRoleData> fightRole = new List<FightRoleData>();
+		for (int i = 0; i < lstScentEntities.Count; i++)
+		{
+			NpcData npcData = new NpcData();
+			npcData.InitData((uint)lstScentEntities[i].npcId);
+			FightRoleData roleData = BuildManager.CreateNpc(npcData);
+			roleData.CurHp = lstScentEntities[i].curHp;
+			roleData.CurMp = lstScentEntities[i].curMp;
+			roleData.NodeId = lstScentEntities[i].npcPos;
+			roleData.CostNodes = lstScentEntities[i].nodeCost;
+			fightRole.Add(roleData);
+		}
 
-        fightdata.selfBattleData = new FightPlayerData();
+		gameStart = true;
+
+
+		fightdata.selfBattleData = new FightPlayerData();
         userData = new FightPlayerInfo();
         userData.userID = 1002;
         userData.nickName = "»¶Ï²Ô©¼Ò_2";
         userData.userIcon = "Icon_2";
         fightdata.selfBattleData.userData = userData;
-        fightdata.selfBattleData.heroData = new FightHeroData[] { };
+        fightdata.selfBattleData.heroData = fightRole.ToArray();
         fightdata.selfBattleData.teamSkills = new FightSkillData[] { };
 
         fightdata.battleFieldData = new BattleFieldData();
         fightdata.battleFieldData.nodeGraph = platform.GetNodeGraph();
 		fightdata.battleFieldData.row = platform.row;
 		fightdata.battleFieldData.column = platform.column;
-		FightSceneRender sceneRender = FightSceneRender.Instance;
-        
-        fightScene.InitFight(FightType.ConmmFight, fightdata);
 
-        sceneRender.InitFight(platform, fightdata);
+		FightSceneRender sceneRender = new FightSceneRender();
+		fightScene.InitFight(FightType.ConmmFight, fightdata);
+
+		sceneRender.InitFight(platform, fightScene);
 		sceneRender.SetServerTime(fightScene.compBehaviour.GetTime());
 
 	}

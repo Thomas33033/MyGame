@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
     private GameObject dragTower;
     private ModelPoolObj poolObj;
     private ResItem costRes;
-    private FightHeroData fightBuildData;
+    private FightRoleData fightBuildData;
     List<int> costNodeIDs;
 
     void Awake()
@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
         Instance = this;
     }
 
-    public void DragNDropTower(ModelPoolObj poolObj, ResItem costRes, FightHeroData fightBuildData)
+    public void DragNDropTower(ModelPoolObj poolObj, ResItem costRes, FightRoleData fightBuildData)
     {
         this.costRes = costRes;
         this.poolObj = poolObj;

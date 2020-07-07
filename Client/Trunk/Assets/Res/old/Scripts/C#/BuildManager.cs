@@ -371,7 +371,7 @@ public class BuildManager : MonoBehaviour {
             var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(path);
             var modelPoolItem = pool.GetObject();
 
-			FightHeroData buildData = BuildManager.CreateNpc(_data);
+			FightRoleData buildData = BuildManager.CreateNpc(_data);
 
 
 			InputManager.Instance.DragNDropTower(modelPoolItem, _data.costRes, buildData);
@@ -387,7 +387,7 @@ public class BuildManager : MonoBehaviour {
         return currentBuildInfo.platform.GetPostion();
     }
 
-	public static void DragNDropBuilt(FightHeroData buildData, List<int> costNodeIDs)
+	public static void DragNDropBuilt(FightRoleData buildData, List<int> costNodeIDs)
     {
 		if(currentBuildInfo.platform!=null)
         {
@@ -463,12 +463,12 @@ public class BuildManager : MonoBehaviour {
 	}
 
 
-	public static FightHeroData CreateNpc(NpcData npcData)
+	public static FightRoleData CreateNpc(NpcData npcData)
 	{
-        FightHeroData heroData = new FightHeroData();
+        FightRoleData heroData = new FightRoleData();
 		heroData.Resource = npcData.config.ResName;
 
-		heroData.npcId = npcData.config.Id;
+		heroData.npcId = npcData.config.id;
 		heroData.npcType = npcData.config.NpcType;
 
 		heroData.AttackSpeed = npcData.attrConfig.AttackSpeed;
@@ -514,6 +514,16 @@ public class BuildManager : MonoBehaviour {
 		return heroData;
 
 	}
+}
+
+public class SceneEntity
+{
+	public int npcId;
+	public int npcPos;
+	public int[] nodeCost;
+	public int curHp;
+	public int curMp;
+	public int level;
 }
 
 

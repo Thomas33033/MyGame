@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Fight
@@ -46,6 +47,22 @@ namespace Fight
             }
 
             return false;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < listTags.Count; i++)
+            {
+                sb.Append(listTags[i].name);
+                sb.Append(",");
+                sb.Append(listTags[i].type);
+                if (i < listTags.Count - 1)
+                {
+                    sb.Append(";");
+                }
+            }
+            return sb.ToString();
         }
     }
 }

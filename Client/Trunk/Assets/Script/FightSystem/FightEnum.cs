@@ -50,7 +50,10 @@ namespace Fight
         Cannon = 2,
         Skill = 3,
 
-        Shield = 4,
+        /// <summary>
+        /// 护盾减伤
+        /// </summary>
+        Shield = 4, 
         Share = 5,
 
         Buff = 6,
@@ -68,6 +71,8 @@ namespace Fight
         Fighter = 1,
         //建造塔
         BuildTower = 2,
+        //普通建筑
+        Buildings = 3,
         //召唤物
         Summon = 10,
         //队伍

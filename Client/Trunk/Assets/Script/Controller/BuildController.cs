@@ -303,7 +303,7 @@ public class BuildController : MonoBehaviour {
         return false;
     }
 
-    public static void DragNDropBuilt(FightHeroData heroData, List<int> costNodeIDs)
+    public static void DragNDropBuilt(FightRoleData heroData, List<int> costNodeIDs)
     {
         if (currentBuildInfo.platform != null)
         {

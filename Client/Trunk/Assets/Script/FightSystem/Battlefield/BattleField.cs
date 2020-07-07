@@ -63,7 +63,7 @@ namespace Fight
 
         //public MapGrid GetRandomHex()
         //{
-        //    return listHex[UnityEngine.Random.Range(0, listHex.Count)];
+        //    return listHex[RandomTools.Range(0, listHex.Count)];
         //}
 
 
@@ -386,13 +386,9 @@ namespace Fight
 
         public void RoleMove(Role fightRole, Node grid)
         {
-            fightRole.node.walkable = true;
-
-            FightSceneRender.Instance.battleFieldRender.platform.SetNodeWalkState(fightRole.node.ID, fightRole.node.walkable);
-
-            fightRole.node = grid;
             fightRole.node.walkable = false;
-            FightSceneRender.Instance.battleFieldRender.platform.SetNodeWalkState(fightRole.node.ID, fightRole.node.walkable);
+            grid.walkable = true;
+            fightRole.node = grid;
         }
 
         public bool CheckMove(Node grid)
@@ -407,13 +403,19 @@ namespace Fight
 
         private List<Node> templist = new List<Node>();
 
+
+        internal int GetGridRange(int size)
+        {
+            return size / 2 + 1;
+        }
+
         internal List<Node> GetAround(Node node, int _range, int targetSize)
         {
             templist.Clear();
             int tx = (int) node.pos.x;
             int ty = (int) node.pos.z;
             int id;
-            int range = _range + targetSize - 1;
+            int range = GetGridRange(_range) + GetGridRange(targetSize);
             Debug.LogError(range + " " + _range + " " + targetSize);
             for (int x = -range; x <= range; x++)
             {
@@ -443,7 +445,14 @@ namespace Fight
 
         internal void Die(Role fightRole)
         {
-            fightRole.node.walkable = false;
+            fightRole.node.walkable = true;
+            int nodeId;
+            for (int i = 0; i < fightRole.costNodes.Length; i++)
+            {
+                nodeId = fightRole.costNodes[i];
+                dicNodeGraph[nodeId].walkable = true;
+            }
+
             composite.Die(fightRole.teamId, fightRole.id);
         }
 

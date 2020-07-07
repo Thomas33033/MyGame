@@ -13,6 +13,8 @@ namespace Fight
 
         public int teamId;
 
+        public int npcId;
+
         public string tag;
 
         public RoleType type;
@@ -84,6 +86,7 @@ namespace Fight
         public BuffComponent buffComp;
         public MoveComponent moveComponent;
 
+        public FightSkillData[] skills;
         public Role(int teamId, AttributeData attr,
                 float hpInit, int mpInit, FightSkillData[] skills, string tag) : base(attr)
         {
@@ -101,6 +104,7 @@ namespace Fight
 
             this.mp = 0;
 
+            this.skills = skills;
 
             reportComp = new ReportComponent(this);
             skillComp = new SkillComponent(this);
@@ -110,7 +114,7 @@ namespace Fight
             buffComp = new BuffComponent(this);
             moveComponent = new MoveComponent(this);
 
-            skillComp.SkillCreate(skills);
+            skillComp.SkillCreate(this.skills);
             tagComp.TagCreate(tag);
         }
 
@@ -121,7 +125,7 @@ namespace Fight
             UpdateAttribute();
             this.hp = Mathf.CeilToInt(hpMax * _hpInit);
             this.mp = _mpInit;
-            Debug.LogError("_hpInit:" + _hpInit + " hpMax:" + hpMax);
+            Debug.LogError(this.hp);
         }
 
         public void AttackDataDodge(Role attacker)

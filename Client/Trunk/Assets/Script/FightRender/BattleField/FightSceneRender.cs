@@ -7,8 +7,10 @@ using UnityEngine;
 /// 战斗场景渲染
 /// 1.注册战报
 /// </summary>
-public class FightSceneRender : Singleton<FightSceneRender>
+public class FightSceneRender 
 {
+    public static FightSceneRender Instance;
+
     public GameObject rootUI;
 
     private Dictionary<string, System.Action<FightReport>> dicReportHandler;
@@ -22,10 +24,11 @@ public class FightSceneRender : Singleton<FightSceneRender>
     private float serverTime;
     private float _reciveServerTime;
 
-    private FightSceneRender() { }
 
-    public override void OnCreate()
+
+    public FightSceneRender()
     {
+        Instance = this;
         rootUI = GameObject.Find("UIRootDamage");
         _listReport = new List<FightReport>();
         dicFightRole = new Dictionary<int, FightRoleRender>();
@@ -33,7 +36,6 @@ public class FightSceneRender : Singleton<FightSceneRender>
 
     public void SetServerTime(float time)
     {
-        Debug.LogError("SetServerTime:"+time);
         _reciveServerTime = Time.time;
         this.serverTime = time;
     }
@@ -44,12 +46,9 @@ public class FightSceneRender : Singleton<FightSceneRender>
     }
 
 
-    public void InitFight(Platform platform, FightData fightData)
+    public void InitFight(Platform platform, FightScene fightScene)
     {
-        if (FightScene.Instance.compBehaviour != null)
-        {
-            FightScene.Instance.compBehaviour.reciveEvent += ReportHandler;
-        }
+        fightScene.compBehaviour.reciveEvent += ReportHandler;
 
         RegisterFightReport();
 
@@ -126,30 +125,21 @@ public class FightSceneRender : Singleton<FightSceneRender>
    
     private void DoReport_RoleCreate(FightReport v)
     {
-        FightReportRoleCreate report = v as FightReportRoleCreate;
-        FightHeroData roleData = report.heroData;
+        FightReportRoleAdd report = v as FightReportRoleAdd;
 
         FightRoleRender roleRender = new FightRoleRender();
-        roleRender.SetHpMax(roleData.HP);
-        roleRender.SetMpMax(roleData.MP);
-        roleRender.LoadNpc(roleData.Resource, battleFieldRender.GetWorldPosition(roleData.NodeId));
-        
-        
+        roleRender.SetHpMax(report.hp);
+        roleRender.SetMpMax(report.mp);
+        roleRender.LoadNpc(report.assetName, battleFieldRender.GetWorldPosition(report.nodeId));
         dicFightRole[report.roleId] = roleRender;
-
-        for (int i = 0; i < roleData.CostNodes.Length; i++)
-        {
-            battleFieldRender.platform.SetNodeWalkState(roleData.CostNodes[i], false);
-        }
         
-
         string asset = "";
-        for (int i = 0; i < roleData.SkillData.Length; i++)
+        for (int i = 0; i < report.skills.Length; i++)
         {
-            if (StaticData.dicSkillInfo.ContainsKey(roleData.SkillData[i].skillID) == false)
+            if (StaticData.dicSkillInfo.ContainsKey(report.skills[i].skillID) == false)
                 continue;
 
-            FightSkillInfo skillInfo = StaticData.dicSkillInfo[roleData.SkillData[i].skillID];
+            FightSkillInfo skillInfo = StaticData.dicSkillInfo[report.skills[i].skillID];
             //预加载特效资源
             //if (string.IsNullOrEmpty(skillInfo.Resources.Trim()) == false)
             //{
@@ -180,7 +170,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
         {
             Vector3 pos = battleFieldRender.GetWorldPosition(report.posId);
             dicFightRole[report.roleId].Move(pos, report.endTime - report.time);
-            this.battleFieldRender.platform.SetNodeWalkState(report.posId,false);
+            //this.battleFieldRender.platform.SetNodeWalkState(report.posId,false);
         }
                 
     }
@@ -206,6 +196,7 @@ public class FightSceneRender : Singleton<FightSceneRender>
 
     private void DoReport_RoleDie(FightReport v)
     {
+        Debug.LogError("----RoleDie----");
         FightReportRoleDie report = v as FightReportRoleDie;
 
         if (dicFightRole.ContainsKey(report.roleId))
@@ -230,7 +221,6 @@ public class FightSceneRender : Singleton<FightSceneRender>
     private void DoReport_RoleHpMp(FightReport v)
     {
         FightReportRoleHpMp report = v as FightReportRoleHpMp;
-        Debug.Log(report.hp + " " + report.mp);
         dicFightRole[report.roleId].SetHp(report.hp);
         dicFightRole[report.roleId].SetMp(report.mp);
     }

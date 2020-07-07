@@ -91,8 +91,8 @@ namespace Fight
                 return;
 
 #if UNITY_EDITOR
-            composite.isTest = true;
-            composite.win = false;
+            //composite.isTest = true;
+            //composite.win = false;
 #endif
 
             if (composite.isFight)
@@ -124,7 +124,7 @@ namespace Fight
             composite.symbols.Add(v);
         }
 
-        public void RoleAdd(FightHeroData heroData,int teamId, int battleFieldId)
+        public void RoleAdd(FightRoleData heroData,int teamId, int battleFieldId)
         {
             composite.AddRoleOnBattleField(teamId, battleFieldId, heroData, heroData.NodeId, false);
         }

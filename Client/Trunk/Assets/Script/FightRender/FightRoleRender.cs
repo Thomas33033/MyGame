@@ -27,7 +27,7 @@ public class FightRoleRender : RoleRender
     // Update is called once per frame
     public override void Update()
     {
-        base.OnUpdate();
+        base.Update();
         for (int i = 0; i < delayCalls.Count; i++)
         {
             if (delayCalls[i].time < Time.time)
@@ -69,7 +69,6 @@ public class FightRoleRender : RoleRender
     public void LoadNpc(string npcAsset,Vector3 position)
     {
 
-        Debug.LogError("loadNpc"+ npcAsset);
         var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(ResPathHelper.UI_NPC_PATH + npcAsset + ".prefab");
         npcPoolObj = pool.GetObject();
         gameObject = npcPoolObj.itemObj;
@@ -89,6 +88,11 @@ public class FightRoleRender : RoleRender
 
 
         this.hitTrans = transform.Find("hit");
+        if (this.hitTrans == null)
+        {
+            this.hitTrans = this.transform;
+        }
+
 
         if (animator != null)
         {
@@ -123,9 +127,8 @@ public class FightRoleRender : RoleRender
 
     public void Move(Vector3 v, float time)
     {
-        Debug.LogError("Move times" + time);
-        transform.localScale = new Vector3(v.x > transform.localPosition.x ? 1 : -1, 1, 1);
 
+        //transform.localScale = new Vector3(v.x > transform.localPosition.x ? 1 : -1, 1, 1);
 
         Quaternion wantedRot = Quaternion.LookRotation(v - this.transform.position);
         transform.rotation = wantedRot;
@@ -144,7 +147,7 @@ public class FightRoleRender : RoleRender
     {
         base.Die();
         transform.DOKill(true);
-        PlayAnimator("die");
+        PlayAnimator("Death");
         isDie = true;
         SkillCastBreak();
         this.AddSchedule(2f, this.DoDestroy);
@@ -248,11 +251,11 @@ public class FightRoleRender : RoleRender
             scale = 0.8f;
         }
 
-        if (isHit == false)
-        {
-            labelPrefab = "FightDamageNormalLabel";
-            content = "Miss";
-        }
+        //if (isHit == false)
+        //{
+        //    labelPrefab = "FightDamageNormalLabel";
+        //    content = "Miss";
+        //}
 
         DelayCall delayCall = new DelayCall();
         delayCall.time = Time.time + delayTime;
@@ -426,7 +429,7 @@ public class FightRoleRender : RoleRender
         {
             d = -1;
         }
-        
+
         animator.SetInteger("direction", d);
         PlayAnimator("attack");
     }
@@ -435,7 +438,8 @@ public class FightRoleRender : RoleRender
     {
         if (isDie)
             return;
-        animator.Play(v);
+        if(animator != null)
+            animator.Play(v);
     }
 
     private GameObject _objCastEffect;

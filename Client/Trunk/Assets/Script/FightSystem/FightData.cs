@@ -24,7 +24,7 @@ namespace Fight
     public class FightPlayerData
     {
         public FightPlayerInfo userData;
-        public FightHeroData[] heroData;
+        public FightRoleData[] heroData;
         public FightSkillData[] teamSkills;
     }
 
@@ -43,22 +43,20 @@ namespace Fight
     }
 
 
-    public class FightHeroData
+    public class FightRoleData
     {
         public int uid;
         public int npcId;
         public int npcType;
         public string Resource;
-        public string AttackRes;
         public string Tag;
         public int teamId;
+
         public int NodeSize;
-
-
         public int NodeId;
-        public string Position;
         public int[] CostNodes;
         public int PlatformId;
+
 
         public int PhysicalAttack;
         public int MagicAttack;
@@ -85,7 +83,6 @@ namespace Fight
 
         //死亡掉落
         public string dieDrop;
-
-        
     }
+
 }

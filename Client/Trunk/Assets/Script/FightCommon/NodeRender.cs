@@ -19,6 +19,8 @@ public class NodeRender : Node
     public int x, y;
     public GameObject viewObj;
 
+    public bool walkable_new;
+
     public NodeRender() { }
 
     public NodeRender(Node node, Vector3 position)
@@ -26,6 +28,7 @@ public class NodeRender : Node
         this.ID = node.ID;
         this.pos = position;
         this.walkable = node.walkable;
+        this.walkable_new = node.walkable;
         this.x = (int)node.pos.x;
         this.y = (int)node.pos.z;
         this.neighbourNode = node.neighbourNode;
@@ -50,7 +53,7 @@ public class NodeRender : Node
 
     public void DefaultColor()
     {
-        colorState = walkable ? ENodeColor.Empty : ENodeColor.Block;
+        colorState = walkable_new ? ENodeColor.Empty : ENodeColor.Block;
         SetViewColorState(colorState);
     }
 
@@ -60,7 +63,7 @@ public class NodeRender : Node
             return;
 
         colorState = state;
-        if (!walkable)
+        if (!walkable_new)
         {
             colorState = ENodeColor.Block;
         }

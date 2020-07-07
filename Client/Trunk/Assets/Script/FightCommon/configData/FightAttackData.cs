@@ -205,7 +205,7 @@ namespace Fight
             if (damageSourceType != DamageSourceType.Attack)
                 return true;
             int rate = attacker.hit - target.dodge;
-            return UnityEngine.Random.Range(0, 100) < rate;
+            return RandomTools.Range(0, 100) < rate;
         }
 
         private bool CheckCrit()
@@ -214,7 +214,7 @@ namespace Fight
                 return false;
 
             int rate = attacker.crit;
-            return UnityEngine.Random.Range(0, 100) < rate;
+            return RandomTools.Range(0, 100) < rate;
         }
     }
 }

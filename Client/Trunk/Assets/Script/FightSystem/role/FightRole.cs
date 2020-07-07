@@ -39,7 +39,7 @@ namespace Fight
 
         protected bool MoveRandom(float nowTime)
         {
-            //int dir = UnityEngine.Random.Range(0, MapGrid.directions.Count);
+            //int dir = RandomTools.Range(0, MapGrid.directions.Count);
             //List<MapGrid> listHex = new List<MapGrid>();
 
             //if (teamId == battleField.teamId)

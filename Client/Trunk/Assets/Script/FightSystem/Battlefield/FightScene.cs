@@ -1,20 +1,25 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Fight
 {
     /// <summary>
     /// 场景逻辑类
     /// </summary>
-    public class FightScene:Singleton<FightScene>
+    public class FightScene
     {
+        public static FightScene Instance;
+
         public FightCompositeBehaviour compBehaviour;
 
         private float _startTime;
         public float SysTime => Time.time - _startTime;
 
-
-        public override void OnCreate() {
+        public FightScene()
+        {
+            Instance = this;
             _startTime = Time.time;
+            RandomTools.SetRandomSeed(180);
         }
 
         public void InitFight(FightType fightType, FightData fightData)
@@ -31,28 +36,60 @@ namespace Fight
             }
         }
 
+        int index = 0;
         public void Update()
         {
+            if (index++ % 3 != 0)
+            {
+                return;
+            }
+            index = 1;
             if (compBehaviour != null)
             {
                 compBehaviour.Update();
             }
+
         }
 
 
-        public void CreateRole(FightHeroData fightBuildData, int teamId)
+        public void CreateRole(FightRoleData fightBuildData, int teamId)
         {
             FightBattleCompositeBehaviour compBav = ((FightBattleCompositeBehaviour)compBehaviour);
             int BattleFieldId = 1;
             compBav.RoleAdd(fightBuildData, teamId, BattleFieldId);
-
-
+            SaveFightInfo();
         }
 
         public void DeleteRole()
         {
 
         }
+        
+        public void SaveFightInfo()
+        {
+            List<Role> roles = compBehaviour.composite.listAllRoles;
+
+            List<SceneEntity> lstRoleData = new List<SceneEntity>();
+            for (int i = 0; i < roles.Count; i++)
+            {
+                if (roles[i].teamId != 1)
+                {
+                    SceneEntity entity = new SceneEntity();
+                    entity.npcId = roles[i].npcId;
+                    entity.npcPos = roles[i].node.ID;
+                    entity.nodeCost = roles[i].costNodes;
+                    entity.curHp = roles[i].hp / roles[i].hpMax;
+                    entity.curMp = roles[i].mp;
+                    entity.level = 1;
+                    lstRoleData.Add(entity);
+                }
+            }
+
+            string json = SimpleJson.SimpleJson.SerializeObject(lstRoleData);
+            StaticData.SaveData("FightScene.json", json);
+        }
     }
+
+
 }
 

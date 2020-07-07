@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Fight
 {
@@ -54,20 +56,19 @@ namespace Fight
 
         public void Init()
         {
-            for (int i = 0; i < listAllRoles.Count; i++)
-            {
-                Role fightRole = listAllRoles[i];
+            //for (int i = 0; i < listAllRoles.Count; i++)
+            //{
+            //    Role fightRole = listAllRoles[i];
 
-                if (fightRole.type == RoleType.Fighter)
-                {
-                    FightReportRoleAdd report = new FightReportRoleAdd(0, fightRole.teamId, fightRole.id, 
-                        (int)fightRole.type, fightRole.id, fightRole.GetBattlefield().id,
-                        fightRole.hpMax, fightRole.mpMax, fightRole.node.ID, "");
-                    report.hp = fightRole.hpMax;
-                    report.mp = fightRole.mpMax;
-                    listReport.Add(report);
-                }
-            }
+            //    FightReportRoleAdd report = new FightReportRoleAdd(0, fightRole.teamId, fightRole.id,
+            //        (int)fightRole.type, fightRole.id, fightRole.GetBattlefield().id,
+            //        fightRole.hpMax, fightRole.mpMax, fightRole.node.ID, "");
+
+            //    report.hp = fightRole.hpMax;
+            //    report.mp = fightRole.mpMax;
+            //    listReport.Add(report);
+
+            //}
 
             foreach (var item in dicTeams)
             {
@@ -157,30 +158,50 @@ namespace Fight
         }
 
 
-        public bool AddRoleOnBattleField(int teamId, int battlefieldId, FightHeroData roleData, int site, bool isPlayer)
+        public bool AddRoleOnBattleField(int teamId, int battlefieldId, FightRoleData roleData, int site, bool isPlayer)
         {
 
             BattleField battleField = dicBattleField[battlefieldId];
-            Role role;
+            Role role = null;
             if (roleData.npcType == (int)RoleType.BuildTower)
             {
                 role = new FightRoleTower(teamId, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
             }
-            else{
+            else if (roleData.npcType == (int)RoleType.Buildings)
+            {
+                role = new FightRoleBuildings(teamId, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
+            }
+            else if (roleData.npcType == (int)RoleType.Fighter)
+            {
                 role = new FightRole(teamId, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
+            }
+            else
+            {
+                Debug.LogError("类型错误");
+                return false;
             }
 
             role.isPlayer = isPlayer;
             role.costNodes = roleData.CostNodes;
             role.site = site;
+            role.npcId = roleData.npcId;
+
             listAllRoles.Add(role);
             battleField.AddRole(role, site);
             role.PrepareFight();
+            
 
-            FightReportRoleCreate report = new FightReportRoleCreate(Time, teamId, role.id, roleData, battlefieldId);
+            FightReportRoleAdd report = new FightReportRoleAdd(0, role.teamId, role.id,
+                   (int)role.type, role.id, role.GetBattlefield().id,
+                   role.hpMax, role.mpMax, role.node.ID, roleData.Resource);
+            report.hp = role.hpMax;
+            report.mp = role.mpMax;
+            report.nodeId = role.node.ID;
+            report.CostNodes = role.costNodes;
+            report.skills = role.skills;
+
             listReport.Add(report);
 
-            listReport.Add(new FightReportRoleHpMp(Time, role.teamId, role.id, role.hp, role.mp));
 
             return true;
         }
@@ -211,7 +232,7 @@ namespace Fight
             return true;
         }
 
-        private AttributeData GetRoleAttr(FightHeroData info)
+        private AttributeData GetRoleAttr(FightRoleData info)
         {
             AttributeData attr = new AttributeData();
 
@@ -231,7 +252,6 @@ namespace Fight
 
             return attr;
         }
-
 
         public void GetReport(ref List<FightReport> list)
         {
@@ -266,6 +286,7 @@ namespace Fight
 
                 if (fightRole.hp < fightRole.hpMax)
                 {
+                    Debug.LogError(fightRole.hp+" " + fightRole.mp);
                     listReport.Add(new FightReportRoleHpMp(0, fightRole.teamId, fightRole.id, fightRole.hp, fightRole.mp));
                 }
             }
@@ -356,6 +377,5 @@ namespace Fight
                 }
             }
         }
-
     }
 }

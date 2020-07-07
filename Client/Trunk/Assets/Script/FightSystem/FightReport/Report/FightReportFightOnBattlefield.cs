@@ -17,6 +17,12 @@ public class FightReportRoleAdd : FightReport
 
     public string assetName;
 
+    public int nodeId;
+
+    public int[] CostNodes;
+
+    public FightSkillData[] skills;
+
     public FightReportRoleAdd()
     {
     }

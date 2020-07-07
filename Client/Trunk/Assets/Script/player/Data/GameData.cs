@@ -43,7 +43,7 @@ public class s_MonsterData : CharacterData
         this.type = EEntityType.Monster;
         this.config = ConfigManager.Instance.GetData<CfgNpcData>((int)configId);
         this.attrConfig = ConfigManager.Instance.GetData<CfgNpcAttrData>(this.config.AttrId+this.config.Level);
-        this.baseId = (uint)config.Id;
+        this.baseId = (uint)config.id;
         this.level = (byte)config.Level;
         this.hp = config.HP;
         this.maxHp = config.HP;

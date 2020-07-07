@@ -38,6 +38,7 @@ public class FightRoleUI : MonoBehaviour
 
     public void ShowMp(int mp)
     {
+        Debug.LogError("ShowMp:" + mp);
         imgMp.fillAmount = 1f * mp / mpMax;
     }
 }

@@ -38,7 +38,8 @@ public class RoleRender :Entity
 
 
     public virtual void Update()
-    { 
+    {
+        base.OnUpdate();
     }
 
     public virtual void SetHpMax(int v)

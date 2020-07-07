@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class CfgNpcData : configBase
 {
-    public int Id;
+    public int id;
     public string Name;
     public int NpcType;
     public int Level;

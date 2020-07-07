@@ -56,7 +56,7 @@ public class Platform : MonoBehaviour {
 
     public void SetNodeWalkState(int id, bool walkable)
     {
-        this.nodeGraphMap[id].walkable = walkable;
+        this.nodeGraphMap[id].walkable_new = walkable;
         this.nodeGraphMap[id].DefaultColor();
     }
 
@@ -193,7 +193,7 @@ public class Platform : MonoBehaviour {
     }
 
 
-	public void Build(Vector3 point, FightHeroData buildData, List<int> costNodeIDs)
+	public void Build(Vector3 point, FightRoleData buildData, List<int> costNodeIDs)
     {
         if (walkable)
         {
