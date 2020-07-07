@@ -386,9 +386,11 @@ namespace Fight
 
         public void RoleMove(Role fightRole, Node grid)
         {
-            fightRole.node.walkable = false;
-            grid.walkable = true;
+            fightRole.node.walkable = true;
+            
             fightRole.node = grid;
+
+            fightRole.node.walkable = false;
         }
 
         public bool CheckMove(Node grid)
