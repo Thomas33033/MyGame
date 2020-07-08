@@ -29,17 +29,17 @@ public class BuildManager : MonoBehaviour {
 		return towerCount;
 	}
 
-    private uint[] towers;
-	private uint[] monster;
+    private uint[] friendNpc;
+	private uint[] enemyNpc;
 
-	public uint[] GetTower()
+	public uint[] GetFriendNpc()
 	{
-		return towers;
+		return friendNpc;
 	}
 
-    public uint[] GetMonster()
+    public uint[] GetEnemyNpc()
     {
-		return monster;
+		return enemyNpc;
 	}
 
 
@@ -54,8 +54,8 @@ public class BuildManager : MonoBehaviour {
 
         UIManager.Instance.ShowUI<UI_Main>("UI_Main");
 
-		towers = new uint[] { 1001, 1002, 1003, 1005 };
-		monster = new uint[] { 2001, 2002, 2003 };
+		friendNpc = new uint[] { 1001, 1002, 2001, 2002 };
+		enemyNpc = new uint[] { 1003, 1004, 2003, 2001 };
 
 
 	}
@@ -309,7 +309,7 @@ public class BuildManager : MonoBehaviour {
 		return true;
 	}
 	
-	public static bool CheckBuildPoint(Vector3 pointer, List<int> costGrid, _TowerType type, int specialID,int nodeSize){
+	public static bool CheckBuildPoint(Vector3 pointer, List<int> costGrid, int specialID,int nodeSize){
 
         if (!CheckBuildPoint(pointer, costGrid, nodeSize))
         {
@@ -355,11 +355,11 @@ public class BuildManager : MonoBehaviour {
     public static bool BuildTowerDragNDrop(NpcData _data)
     {
 
-        if (_data.TowerType == _TowerType.ResourceTower && GameControl.gameState == EGameState.Idle)
-        {
-			GameMessage.DisplayMessage("Cant Build Tower before spawn start");
-			return false; 
-		}
+  //      if (_data.TowerType == _TowerType.ResourceTower && GameControl.gameState == EGameState.Idle)
+  //      {
+		//	GameMessage.DisplayMessage("Cant Build Tower before spawn start");
+		//	return false; 
+		//}
 
         if (GameControl.HaveSufficientResource(_data.costRes))
         {
@@ -398,48 +398,38 @@ public class BuildManager : MonoBehaviour {
 		ClearBuildPoint();
 	}
 
-	private Tower[] sampleTower;
+
 	private int currentSampleID=-1;
-	public static void InitiateSampleTower()
-    {
-		Instance.sampleTower=new Tower[Instance.towers.Length];
-		for(int i=0; i<Instance.towers.Length; i++){
-            Tower tower = EntitesManager.Instance.CreateTower(Instance.towers[i]);
-            Instance.sampleTower[i] = tower;
-            tower.ModelObj.SetActive(false);
-            UnitUtility.SetAdditiveMatColorRecursively(tower.ModelObj.transform, Color.green);
-		}
-	}
-	
-	static public void ShowSampleTower(int ID)
-    {
-		Instance._ShowSampleTower(ID);
-	}
-	public void _ShowSampleTower(int ID)
-    {
-		if(currentSampleID==ID || currentBuildInfo==null) return;
 		
-		if(currentSampleID>0){
-			ClearSampleTower();
-		}
-		currentSampleID=ID;
-		sampleTower[ID].Trans.position=currentBuildInfo.position;
-		sampleTower[ID].ModelObj.SetActive(true);
-		GameControl.ShowIndicator(sampleTower[ID]);
-	}
-	
-	static public void ClearSampleTower()
+    static public void ShowSampleTower(int ID)
     {
-		Instance._ClearSampleTower();
+		//Instance._ShowSampleTower(ID);
 	}
-	public void _ClearSampleTower()
-    {
-		if(currentSampleID<0) return;
+	//public void _ShowSampleTower(int ID)
+ //   {
+	//	if(currentSampleID==ID || currentBuildInfo==null) return;
 		
-		sampleTower[currentSampleID].ModelObj.SetActive(false);
-		GameControl.ClearIndicator();
-		currentSampleID=-1;
-	}
+	//	if(currentSampleID>0){
+	//		ClearSampleTower();
+	//	}
+	//	currentSampleID=ID;
+	//	sampleTower[ID].Trans.position=currentBuildInfo.position;
+	//	sampleTower[ID].ModelObj.SetActive(true);
+	//	GameControl.ShowIndicator(sampleTower[ID]);
+	//}
+	
+	//static public void ClearSampleTower()
+ //   {
+	//	Instance._ClearSampleTower();
+	//}
+	//public void _ClearSampleTower()
+ //   {
+	//	if(currentSampleID<0) return;
+		
+	//	sampleTower[currentSampleID].ModelObj.SetActive(false);
+	//	GameControl.ClearIndicator();
+	//	currentSampleID=-1;
+	//}
 	
 	
 	static public BuildableInfo GetBuildInfo()
@@ -468,8 +458,10 @@ public class BuildManager : MonoBehaviour {
         FightRoleData heroData = new FightRoleData();
 		heroData.Resource = npcData.config.ResName;
 
+		heroData.teamId = (int)npcData.teamId;
 		heroData.npcId = npcData.config.id;
 		heroData.npcType = npcData.config.NpcType;
+		heroData.NodeSize = npcData.config.NodeSize;
 
 		heroData.AttackSpeed = npcData.attrConfig.AttackSpeed;
 		heroData.MoveSpeed = npcData.attrConfig.MoveSpeed;
@@ -493,8 +485,6 @@ public class BuildManager : MonoBehaviour {
         heroData.MaxAnger = npcData.attrConfig.MaxAngler;
         heroData.Range = npcData.attrConfig.Range;
 
-		heroData.teamId = npcData.config.NpcType;
-
 		List<FightSkillData> list = new List<FightSkillData>();
 		for (int i = 0; i < npcData.config.Skills.Length; i++)
 		{
@@ -509,7 +499,7 @@ public class BuildManager : MonoBehaviour {
 
 		heroData.SkillData = list.ToArray();
 
-
+		
 
 		return heroData;
 
@@ -524,6 +514,7 @@ public class SceneEntity
 	public int curHp;
 	public int curMp;
 	public int level;
+	public int teamId;
 }
 
 

@@ -55,7 +55,6 @@ public class GameControl : MonoBehaviour {
         gameControl = this;
        
         ConfigManager.Instance.Init();
-        NineScreenMgr.Instance.Init();
 		GameMessage.Init();
         BagController.Instance.OnInit();
 
@@ -131,7 +130,7 @@ public class GameControl : MonoBehaviour {
 		for (int i = 0; i < lstScentEntities.Count; i++)
 		{
 			NpcData npcData = new NpcData();
-			npcData.InitData((uint)lstScentEntities[i].npcId);
+			npcData.InitData((uint)lstScentEntities[i].npcId, (ETeamType)lstScentEntities[i].teamId);
 			FightRoleData roleData = BuildManager.CreateNpc(npcData);
 			roleData.CurHp = lstScentEntities[i].curHp;
 			roleData.CurMp = lstScentEntities[i].curMp;
@@ -174,11 +173,11 @@ public class GameControl : MonoBehaviour {
 
 
 	
-	void TowerDestroy(Tower tower){
-		if(selectedTower==tower || selectedTower==null || !selectedTower.ModelObj.activeSelf){
-			ClearSelection();
-		}
-	}
+	//void TowerDestroy(Tower tower){
+	//	if(selectedTower==tower || selectedTower==null || !selectedTower.ModelObj.activeSelf){
+	//		ClearSelection();
+	//	}
+	//}
 	
 	//IEnumerator _TowerDestroy(UnitTower tower)
 	
@@ -190,8 +189,7 @@ public class GameControl : MonoBehaviour {
     float deltalTime = 0;
 	void Update () {
         this.deltalTime = Time.deltaTime;
-        EntitesManager.Instance.OnUpdate(this.deltalTime);
-        NineScreenMgr.Instance.OnUpdate(this.deltalTime);
+
         SpawnManager.Instance.OnUpdate(this.deltalTime);
 
 
@@ -209,104 +207,104 @@ public class GameControl : MonoBehaviour {
 	}
 	
 	
-	static public Tower selectedTower;
+	static public NpcData selectedTower;
 	
-	static public Tower Select(Vector3 pointer){
+	static public NpcData Select(Vector3 pointer){
 		//change this
 		int layer=LayerManager.LayerTower();
 		
-		LayerMask mask=1<<layer;
-		Ray ray = Camera.main.ScreenPointToRay(pointer);
-		RaycastHit hit;
-		if(!Physics.Raycast(ray, out hit, Mathf.Infinity, mask)){
-			return null;
-		}
-        CharacterBase entity = EntitesManager.Instance.GetTower(hit.transform.gameObject);
+		//LayerMask mask=1<<layer;
+		//Ray ray = Camera.main.ScreenPointToRay(pointer);
+		//RaycastHit hit;
+		//if(!Physics.Raycast(ray, out hit, Mathf.Infinity, mask)){
+		//	return null;
+		//}
+  //      CharacterBase entity = EntitesManager.Instance.GetTower(hit.transform.gameObject);
 
-        if (entity != null && entity.GetEntityType() == EEntityType.Tower)
-        {
-            selectedTower = entity as Tower;
-            selectedTower.Select();
-            gameControl._ShowIndicator(selectedTower);
-            return selectedTower;
-        }
+  //      if (entity != null && entity.GetEntityType() == EEntityType.Tower)
+  //      {
+  //          selectedTower = entity as Tower;
+  //          selectedTower.Select();
+  //          gameControl._ShowIndicator(selectedTower);
+  //          return selectedTower;
+  //      }
 		return null;
 	}
 	
-	public static void ShowIndicator(Tower tower){
-		gameControl._ShowIndicator(tower);
-	}
+	//public static void ShowIndicator(Tower tower){
+	//	gameControl._ShowIndicator(tower);
+	//}
 	
-	public void _ShowIndicator(Tower tower){
-        if (tower == null || tower.CurData == null || tower.CurData.skillData == null)
-        { 
-            DebugMgr.LogError("数据异常");
-            return;
-        }
+	//public void _ShowIndicator(Tower tower){
+ //       if (tower == null || tower.CurData == null || tower.CurData.skillData == null)
+ //       { 
+ //           DebugMgr.LogError("数据异常");
+ //           return;
+ //       }
 
-        //show range indicator on the tower
-        //for support tower, show friendly range indicator
-        if (tower.type == _TowerType.SupportTower)
-        {
-            //Debug.Log(tower.type);
-            float range = tower.CurData.attrConfig.Range;
-            if (rangeIndicatorF != null)
-            {
-                rangeIndicatorF.position = tower.Trans.position + Vector3.up*0.5f;
-                rangeIndicatorF.localScale = new Vector3(range / 10, 1, range / 10);
-                rangeIndicatorF.GetComponent<Renderer>().enabled = true;
-            }
-            if (rangeIndicatorH != null) rangeIndicatorH.GetComponent<Renderer>().enabled = false;
-        }
-        //for support tower, show hostile range indicator
-        else if (tower.type != _TowerType.ResourceTower)
-        {
-            float range = tower.CurData.baseStat.range;
-            if (rangeIndicatorH != null)
-            {
-                rangeIndicatorH.position = tower.Trans.position + Vector3.up;
-                rangeIndicatorH.localScale = new Vector3(range / 10, 1, range / 10);
-                rangeIndicatorH.GetComponent<Renderer>().enabled = true;
-            }
-            if (rangeIndicatorF != null) rangeIndicatorF.GetComponent<Renderer>().enabled = false;
-        }
-        else if (tower.type != _TowerType.AOETower)
-        {
-            float range = tower.CurData.baseStat.range;
-            if(rangeIndicatorH != null)
-            {
-                rangeIndicatorH.position = tower.Trans.position + Vector3.up;
-                rangeIndicatorH.localScale = new Vector3( range / 10, 1, range / 10);
-                rangeIndicatorH.GetComponent<Renderer>().enabled = true;
-            }
-            if (rangeIndicatorF != null) rangeIndicatorF.GetComponent<Renderer>().enabled = false;
-        }
-	}
+ //       //show range indicator on the tower
+ //       //for support tower, show friendly range indicator
+ //       if (tower.type == _TowerType.SupportTower)
+ //       {
+ //           //Debug.Log(tower.type);
+ //           float range = tower.CurData.attrConfig.Range;
+ //           if (rangeIndicatorF != null)
+ //           {
+ //               rangeIndicatorF.position = tower.Trans.position + Vector3.up*0.5f;
+ //               rangeIndicatorF.localScale = new Vector3(range / 10, 1, range / 10);
+ //               rangeIndicatorF.GetComponent<Renderer>().enabled = true;
+ //           }
+ //           if (rangeIndicatorH != null) rangeIndicatorH.GetComponent<Renderer>().enabled = false;
+ //       }
+ //       //for support tower, show hostile range indicator
+ //       else if (tower.type != _TowerType.ResourceTower)
+ //       {
+ //           float range = tower.CurData.baseStat.range;
+ //           if (rangeIndicatorH != null)
+ //           {
+ //               rangeIndicatorH.position = tower.Trans.position + Vector3.up;
+ //               rangeIndicatorH.localScale = new Vector3(range / 10, 1, range / 10);
+ //               rangeIndicatorH.GetComponent<Renderer>().enabled = true;
+ //           }
+ //           if (rangeIndicatorF != null) rangeIndicatorF.GetComponent<Renderer>().enabled = false;
+ //       }
+ //       else if (tower.type != _TowerType.AOETower)
+ //       {
+ //           float range = tower.CurData.baseStat.range;
+ //           if(rangeIndicatorH != null)
+ //           {
+ //               rangeIndicatorH.position = tower.Trans.position + Vector3.up;
+ //               rangeIndicatorH.localScale = new Vector3( range / 10, 1, range / 10);
+ //               rangeIndicatorH.GetComponent<Renderer>().enabled = true;
+ //           }
+ //           if (rangeIndicatorF != null) rangeIndicatorF.GetComponent<Renderer>().enabled = false;
+ //       }
+	//}
 	
-	public static void DragNDropIndicator(Tower tower)
-    {
-		if(tower.type!=_TowerType.ResourceTower)
-        {
-            if (gameControl == null) Debug.LogError("gameControl == null");
-            if (tower == null) Debug.LogError("tower == null");
-            gameControl._ShowIndicator(tower);
-			gameControl.StartCoroutine(gameControl._DragNDropIndicator(tower));
-		}
-	}
-	IEnumerator _DragNDropIndicator(Tower tower){
-        while (tower.ModelObj != null && tower.TowerID == 0)
-        {
-			if(tower.type==_TowerType.SupportTower){
-                if (rangeIndicatorF != null) rangeIndicatorF.position = tower.Trans.position + Vector3.up;
-			}
-			else{
-                if (rangeIndicatorH != null) rangeIndicatorH.position = tower.Trans.position + Vector3.up;
-			}
+	//public static void DragNDropIndicator(Tower tower)
+ //   {
+	//	if(tower.type!=_TowerType.ResourceTower)
+ //       {
+ //           if (gameControl == null) Debug.LogError("gameControl == null");
+ //           if (tower == null) Debug.LogError("tower == null");
+ //           gameControl._ShowIndicator(tower);
+	//		gameControl.StartCoroutine(gameControl._DragNDropIndicator(tower));
+	//	}
+	//}
+	//IEnumerator _DragNDropIndicator(Tower tower){
+ //       while (tower.ModelObj != null && tower.TowerID == 0)
+ //       {
+	//		if(tower.type==_TowerType.SupportTower){
+ //               if (rangeIndicatorF != null) rangeIndicatorF.position = tower.Trans.position + Vector3.up;
+	//		}
+	//		else{
+ //               if (rangeIndicatorH != null) rangeIndicatorH.position = tower.Trans.position + Vector3.up;
+	//		}
 				
-			yield return null;
-		}
-		ClearIndicator();
-	}
+	//		yield return null;
+	//	}
+	//	ClearIndicator();
+	//}
 	
 	public static void ClearIndicator(){
 		gameControl._ClearIndicator();
@@ -320,13 +318,6 @@ public class GameControl : MonoBehaviour {
 	static public void ClearSelection(){
 		selectedTower=null;
 		gameControl._ClearIndicator();
-	}
-	
-	//call when a tower complete upgrade, if tower is currently selected, update the range indicator
-	static public void TowerUpgradeComplete(Tower tower){
-		if(tower==selectedTower){
-			gameControl._ShowIndicator(tower);
-		}
 	}
 	
 

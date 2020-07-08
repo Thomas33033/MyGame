@@ -51,7 +51,7 @@ namespace Fight
             this.column = battleFieldData.column;
 
             for (int i = 0; i < this.nodeGraph.Length; i++) {
-                dicNodeGraph.Add(nodeGraph[i].ID, nodeGraph[i]);
+                dicNodeGraph.Add(nodeGraph[i].Id, nodeGraph[i]);
             }
         }
 
@@ -408,27 +408,34 @@ namespace Fight
 
         internal int GetGridRange(int size)
         {
-            return size / 2 + 1;
+            return size / 2 ;
         }
 
         internal List<Node> GetAround(Node node, int _range, int targetSize)
         {
+            
+           
             templist.Clear();
             int tx = (int) node.pos.x;
             int ty = (int) node.pos.z;
             int id;
-            int range = GetGridRange(_range) + GetGridRange(targetSize);
-            Debug.LogError(range + " " + _range + " " + targetSize);
+            int range = _range + GetGridRange(targetSize);
+            
+            int gx, gy;
             for (int x = -range; x <= range; x++)
             {
                for (int y = -range; y <= range; y++)
                 {
-                    //if (Mathf.Abs(x) < targetSize && Mathf.Abs(y) < targetSize)
-                    //{
-                    //    continue;
-                    //}
 
-                    id = (tx + x) * this.column + (ty + y);
+                    gx = (tx + x);
+                    gy = (ty + y);
+
+                    if (gx < 0 || gy < 0 || gx > this.column || gy > row)
+                    {
+                        continue;
+                    }
+
+                    id = gx * this.column + gy;
 
                     if (dicNodeGraph.ContainsKey(id))
                     {

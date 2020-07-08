@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Game.Fight;
+
 
 public class Entity: TimeSchedule
 {
@@ -13,12 +13,8 @@ public class Entity: TimeSchedule
         this.uid = ++Entity.uidCount;
     }
 
-    /// <summary>
-    /// 请重写该方法
-    /// </summary>
-    /// <returns></returns>
-    public virtual EEntityType GetEntityType() {
-        return EEntityType.None;
+    public void OnReset()
+    { 
     }
 }
 

@@ -25,7 +25,7 @@ public class NodeRender : Node
 
     public NodeRender(Node node, Vector3 position)
     {
-        this.ID = node.ID;
+        this.Id = node.Id;
         this.pos = position;
         this.walkable = node.walkable;
         this.walkable_new = node.walkable;
@@ -44,7 +44,7 @@ public class NodeRender : Node
         {
             this.viewObj = obj;
             this.viewObj.gameObject.SetActive(true);
-            this.viewObj.name = ID + " " +x +"-"+ y ;
+            this.viewObj.name = Id + " " +x +"-"+ y ;
             this.viewObj.transform.position = this.pos;
             this.viewObj.transform.localScale = new Vector3(1, 0.1f, 1);
             this.DefaultColor();

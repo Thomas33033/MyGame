@@ -74,5 +74,11 @@ namespace Fight {
             }
         }
 
+        public void StopMove()
+        {
+            this.Owner.isMoving = false;
+            this.waypoints.Clear();
+            this.nextNode = null;
+        }
     }
 }

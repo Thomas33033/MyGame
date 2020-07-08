@@ -30,8 +30,8 @@ public class BagController : Singleton<BagController>
 
     public void OnInit()
     {
-        AddResource(Currency.Gold, 500);
-        AddResource(Currency.Silver, 500);
+        AddResource((int)EItemType.Gold, 500);
+        AddResource((int)EItemType.Silver, 500);
     }
 
 

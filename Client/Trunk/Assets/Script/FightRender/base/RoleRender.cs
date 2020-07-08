@@ -205,11 +205,11 @@ public class RoleRender :Entity
         //}
     }
 
-    OccupiedPlatform occupiedPlatform;
-    public void SetPlatform(Platform p, Node n)
-    {
-        occupiedPlatform = new OccupiedPlatform(p, n);
-    }
+    //OccupiedPlatform occupiedPlatform;
+    //public void SetPlatform(Platform p, Node n)
+    //{
+    //    occupiedPlatform = new OccupiedPlatform(p, n);
+    //}
 }
 
 

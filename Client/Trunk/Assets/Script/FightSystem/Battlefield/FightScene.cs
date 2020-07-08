@@ -52,11 +52,11 @@ namespace Fight
         }
 
 
-        public void CreateRole(FightRoleData fightBuildData, int teamId)
+        public void CreateRole(FightRoleData fightBuildData)
         {
             FightBattleCompositeBehaviour compBav = ((FightBattleCompositeBehaviour)compBehaviour);
             int BattleFieldId = 1;
-            compBav.RoleAdd(fightBuildData, teamId, BattleFieldId);
+            compBav.RoleAdd(fightBuildData, fightBuildData.teamId, BattleFieldId);
             SaveFightInfo();
         }
 
@@ -76,11 +76,12 @@ namespace Fight
                 {
                     SceneEntity entity = new SceneEntity();
                     entity.npcId = roles[i].npcId;
-                    entity.npcPos = roles[i].node.ID;
+                    entity.npcPos = roles[i].node.Id;
                     entity.nodeCost = roles[i].costNodes;
                     entity.curHp = roles[i].hp / roles[i].hpMax;
                     entity.curMp = roles[i].mp;
                     entity.level = 1;
+                    entity.teamId = roles[i].teamId;
                     lstRoleData.Add(entity);
                 }
             }

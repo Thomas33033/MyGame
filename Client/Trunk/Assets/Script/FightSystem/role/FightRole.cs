@@ -10,6 +10,10 @@ namespace Fight
 {
     public class FightRole : Role
     {
+
+        private bool bIdle = false;
+        private float idleThinkEndTimes;
+
         public FightRole(int teamId, AttributeData attr, float hpInit, int mpInit, FightSkillData[] skills, string tag) : base(teamId, attr, hpInit, mpInit, skills, tag)
         {
             type = RoleType.Fighter;
@@ -36,55 +40,40 @@ namespace Fight
             base.Update(nowTime);
         }
 
-
-        protected bool MoveRandom(float nowTime)
+        protected override void FindTarget()
         {
-            //int dir = RandomTools.Range(0, MapGrid.directions.Count);
-            //List<MapGrid> listHex = new List<MapGrid>();
-
-            //if (teamId == battleField.teamId)
-            //{
-            //    if (position.q != 0)
-            //    {
-            //        dir = position.q > 0 ? 3 : 0;
-            //    }
-            //}
-            //else
-            //{
-            //    if (position.q >= 0)
-            //    {
-            //        dir = 3;
-            //    }
-            //}
-
-            //for (int i = 0; i < Hex.directions.Count; i++)
-            //{
-            //    listHex.Add(position.Add(Hex.directions[(i + dir) % Hex.directions.Count]));
-            //}
-
-            //for (int i = 0; i < listHex.Count; i++)
-            //{
-            //    if (MoveTo(listHex[i]))
-            //    {
-            //        return true;
-            //    }
-            //}
-            return false;
+            this.scanTargetComp.FindTarget();
         }
 
         protected override void Idle(float nowTime)
         {
-            MoveRandom(nowTime);
+            if (this.isMoving)
+                return;
+
+            if (bIdle == false)
+            {
+                bIdle = true;
+                idleThinkEndTimes = nowTime + RandomTools.Range(2, 6);
+                return;
+            }
+
+            if (nowTime > idleThinkEndTimes)
+            {
+                bIdle = false;
+                MoveRandom(nowTime);
+            }
         }
         
         public override void MoveTarget(float nowTime)
         {
-            if (this.isMoving) return;
+            bIdle = false;
 
+            if (this.isMoving) return;
+  
             List<Node> listHex = null;
-            listHex = battleField.GetAround(target.node,  range, target.nodeSize);
+            listHex = battleField.GetAround(target.node, range, target.nodeSize);
             listHex.Sort(SortHexDistanceHandler);
-     
+
             for (int i = 0; i < listHex.Count; i++)
             {
                 List<Node> paths = battleField.GetMoveNode(node, listHex[i], true);
@@ -95,7 +84,7 @@ namespace Fight
 
                     for (int k = 0; k < paths.Count; k++)
                     {
-                        FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(paths[k].ID, ENodeColor.CanBuild);
+                         FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(paths[k].Id, ENodeColor.CanBuild);
                     }
                     break;
                 }
@@ -115,6 +104,27 @@ namespace Fight
         protected override bool CastSkill()
         {
             return skillComp.CastSkill(0);
+        }
+
+        protected void MoveRandom(float nowTime)
+        {
+            Node brithNode = this.battleField.dicNodeGraph[this.birthNodeId];
+            List<Node> nodeList = this.battleField.GetAround(brithNode, this.nodeSize, 5);
+
+            List<Node> paths = null;
+            Node tNode;
+            int index = 0;
+            while (paths == null && index++ < 50)
+            {
+                tNode = nodeList[RandomTools.Range(0, nodeList.Count)];
+                paths = battleField.GetMoveNode(this.node, tNode, true);
+
+                if (paths != null && paths.Count > 2)
+                {
+                    this.moveComponent.SetWayPoints(paths);
+                }
+            }
+
         }
 
     }

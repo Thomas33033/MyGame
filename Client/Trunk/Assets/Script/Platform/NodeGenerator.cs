@@ -173,7 +173,7 @@ public class NodeGenerator : MonoBehaviour
 				List<float> neighbourCostList=new List<float>();
 				
 				Node[] neighbour=new Node[8];
-				int id=currentNode.ID;
+				int id=currentNode.Id;
 				
 				if(id>countX-1 && id<countX*countZ-countX)
                 {
@@ -313,7 +313,7 @@ public class NodeGenerator : MonoBehaviour
 				List<float> neighbourCostList=new List<float>();
 				
 				Node[] neighbour=new Node[8];
-				int id=currentNode.ID;
+				int id=currentNode.Id;
 				
 				if(id>rowLength-1 && id<rowLength*columnLength-rowLength)
                 {

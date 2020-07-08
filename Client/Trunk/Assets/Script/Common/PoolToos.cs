@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class PoolToos
 {
-    private static Dictionary<Type, Queue<BehaviourState>> mMap = new Dictionary<Type, Queue<BehaviourState>>();
-    public static T GetClass<T>() where T : BehaviourState,new()
+    private static Dictionary<Type, Queue<Entity>> mMap = new Dictionary<Type, Queue<Entity>>();
+    public static T GetClass<T>() where T : Entity, new()
     {
         T t = null;
         Type type = typeof(T);
         if (mMap.ContainsKey(type))
         {
-            Queue<BehaviourState> queue = mMap[type];
+            Queue<Entity> queue = mMap[type];
             if (queue.Count > 0)
             {
                 t = (T)queue.Dequeue();
@@ -24,12 +24,12 @@ public class PoolToos
         return t;
     }
 
-    public static void FreeClass<T>(T t) where T : BehaviourState,new()
+    public static void FreeClass<T>(T t) where T : Entity, new()
     {
         Type type = typeof(T);
         if (mMap.ContainsKey(type))
         {
-            Queue<BehaviourState> queue = mMap[type];
+            Queue<Entity> queue = mMap[type];
             queue.Enqueue(t);
         }
     }

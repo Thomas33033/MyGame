@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public class AnimClipData {
+    public float soundStartTime;
+    public string soundName;
+    public string clipName;
+}
+
 public class SoundController : Singleton<SoundController>
 {
     public Dictionary<string, AudioClip> audioClipMap = new Dictionary<string, AudioClip>();

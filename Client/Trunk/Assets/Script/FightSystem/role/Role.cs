@@ -45,9 +45,13 @@ namespace Fight
 
         public Node node;
 
+        public int site;
+
+        public int birthNodeId;
+
         public int[] costNodes;
 
-        public int nodeSize = 2;
+        public int nodeSize;
 
         private int _hp;
         public virtual int hp { get => _hp; 
@@ -67,8 +71,6 @@ namespace Fight
         public bool autoUseSkillOnce;
 
         public bool isPlayer;
-
-        public int site;
 
         private float _hpInit;
 
@@ -99,7 +101,6 @@ namespace Fight
 
             this.teamId = teamId;
 
-
             this.attributeBase = attr;
 
             this.mp = 0;
@@ -117,6 +118,15 @@ namespace Fight
             skillComp.SkillCreate(this.skills);
             tagComp.TagCreate(tag);
         }
+
+        public void OnInitPosition(int nodeId, int[] costNodes, int nodeSize)
+        {
+            this.site = nodeId;
+            this.costNodes = costNodes;
+            this.nodeSize = nodeSize;
+            this.birthNodeId = nodeId;
+        }
+
 
         public virtual void Init()
         {
@@ -173,15 +183,13 @@ namespace Fight
             }
         }
 
-        public virtual void Attack()
-        {
-        }
+        public virtual void Attack() { }
 
-        protected virtual void Idle(float nowTime)
-        {
+        protected virtual void Idle(float nowTime) { }
 
-        }
+        protected virtual void FindTarget() { }
 
+        public virtual void MoveTarget(float nowTime) { }
 
         //处理任务AI
         public virtual void Update(float nowTime)
@@ -213,7 +221,11 @@ namespace Fight
 
             if (target == null)
             {
-                this.scanTargetComp.FindTarget();
+                FindTarget();
+                if (target != null)
+                {
+                    this.moveComponent.StopMove();
+                }
             }
 
             if (StatusCheck(RoleStatus.Silent) == false && CheckSkill())
@@ -295,15 +307,6 @@ namespace Fight
             return distance <= range + target.nodeSize-1;
         }
 
-        protected virtual void FindTarget()
-        {
-        }
-
-        public virtual void MoveTarget(float nowTime)
-        {
-
-        }
-
         public void RoleMove(Node grid)
         {
             battleField.RoleMove(this, grid);
@@ -315,7 +318,7 @@ namespace Fight
             if (battleField.CheckMove(grid))
             {
                 actionEndTime = Time + moveSpeed;
-                AddReport(new FightReportRoleMove(Time, teamId, id, battleField.id, actionEndTime, grid.ID));
+                AddReport(new FightReportRoleMove(Time, teamId, id, battleField.id, actionEndTime, grid.Id));
                 return true;
             }
             return false;
@@ -327,7 +330,7 @@ namespace Fight
                 return;
              battleField.RoleMove(this, grid);
             actionEndTime = Time + 1.5f;
-            AddReport(new FightReportRoleJump(Time, teamId, id, battleField.id, actionEndTime, grid.ID));
+            AddReport(new FightReportRoleJump(Time, teamId, id, battleField.id, actionEndTime, grid.Id));
         }
 
         #region Damage

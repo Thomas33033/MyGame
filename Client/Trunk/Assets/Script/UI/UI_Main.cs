@@ -12,13 +12,10 @@ public class UI_Main : UIPanelBase
     public GameObject monsterItemObj;
     
 
-    private List<UI_DragItem> mlstUITower = new List<UI_DragItem>();
+    private List<UI_DragItem> mlstUIMineNpc = new List<UI_DragItem>();
 
-    private List<UI_DragItem> mlstUIMonster = new List<UI_DragItem>();
+    private List<UI_DragItem> mlstUIEnemyNpc = new List<UI_DragItem>();
 
-    private bool enableSpawnButton = true;
-    private bool winLostFlag = false;
-    private Tower currentSelectedTower;
 
     void Awake()
     {
@@ -30,8 +27,8 @@ public class UI_Main : UIPanelBase
         monsterItemObj.gameObject.SetActive(false);
         UITools.AddClickEvent(btnSpawn, OnSpawnButton);
         UITools.AddClickEvent(btnPause, OnPauseButton);
-        OnInitTower();
-        OnInitMonster();
+        OnInitMyNpc();
+        OnInitEnemy();
     }
 
     void OnEnable()
@@ -44,29 +41,29 @@ public class UI_Main : UIPanelBase
       
     }
 
-    void OnInitTower()
+    void OnInitMyNpc()
     {
-        uint[] towerList = BuildManager.Instance.GetTower();
+        uint[] towerList = BuildManager.Instance.GetFriendNpc();
         for (int i = 0; i < towerList.Length; i++)
         {
             GameObject towerObj = GameObject.Instantiate(towerItemObj, towerItemObj.transform.parent);
             towerObj.gameObject.SetActive(true);
             UI_DragItem uiTower = towerObj.gameObject.GetOrAddComponent<UI_DragItem>();
-            uiTower.InitData(towerList[i]);
-            mlstUITower.Add(uiTower);
+            uiTower.InitData(towerList[i], ETeamType.Friend);
+            mlstUIMineNpc.Add(uiTower);
         }
     }
 
-    void OnInitMonster()
+    void OnInitEnemy()
     {
-        uint[] monsterList = BuildManager.Instance.GetMonster();
+        uint[] monsterList = BuildManager.Instance.GetEnemyNpc();
         for (int i = 0; i < monsterList.Length; i++)
         {
             GameObject towerObj = GameObject.Instantiate(monsterItemObj, monsterItemObj.transform.parent);
             towerObj.gameObject.SetActive(true);
             UI_DragItem uiTower = towerObj.gameObject.GetOrAddComponent<UI_DragItem>();
-            uiTower.InitData(monsterList[i]);
-            mlstUITower.Add(uiTower);
+            uiTower.InitData(monsterList[i], ETeamType.Enmery);
+            mlstUIEnemyNpc.Add(uiTower);
         }
     }
 
@@ -101,7 +98,7 @@ public class UI_Main : UIPanelBase
 
 public class UI_DragItem : MonoBehaviour
 {
-    public void InitData(uint npcCfgId)
+    public void InitData(uint npcCfgId, ETeamType teamId)
     {
         CfgNpcData config = ConfigManager.Instance.GetData<CfgNpcData>((int)npcCfgId);
         Image image = this.gameObject.FindComponent<Image>("img_icon");
@@ -113,10 +110,9 @@ public class UI_DragItem : MonoBehaviour
         UITools.AddClickEvent(image.gameObject, () =>
         {
            NpcData _data = new NpcData();
-           _data.InitData(npcCfgId);
+           _data.InitData(npcCfgId, teamId);
            BuildManager.BuildTowerDragNDrop(_data);
         });
     }
-
-   
 }
+

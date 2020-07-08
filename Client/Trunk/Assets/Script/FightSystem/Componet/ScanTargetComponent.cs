@@ -42,7 +42,7 @@ namespace Fight {
                     if (listEnemy[j].StatusCheck(RoleStatus.Unselected))
                         continue;
 
-                    if (Owner.range > 1 || listEnemy[j].node.Distance(Owner.node) <= Owner.range)
+                    if (Owner.range > 2 || listEnemy[j].node.Distance(Owner.node) <= Owner.range)
                     {
                         target = listEnemy[j];
                         break;

@@ -6,7 +6,8 @@ public static class GameHelper
 {
 
 	// Use this for initialization
-	public static T GetOrAddComponent<T>(this GameObject go) where T : MonoBehaviour{
+	public static T GetOrAddComponent<T>(this GameObject go) where T : Component
+    {
         T t = go.gameObject.GetComponent<T>();
         if (t == null)
             t = go.AddComponent<T>();
@@ -20,7 +21,7 @@ public static class GameHelper
         t.localScale = Vector3.one;
     }
 
-    public static T FindComponent<T>(this GameObject gameObject, string path) where T : MonoBehaviour
+    public static T FindComponent<T>(this GameObject gameObject, string path) where T : Component
     {
         Transform trans = gameObject.transform.Find(path);
         T t = null;

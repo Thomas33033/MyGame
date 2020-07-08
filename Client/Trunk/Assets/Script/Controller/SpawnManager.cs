@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Fight;
 
+
+public enum _SpawnMode {
+    Continous = 1,
+}
+
+
+
 /// <summary>
 /// 怪物生成管理器
 /// </summary>
@@ -283,7 +290,7 @@ public class Wave
 {
     public SubWave[] subWaves = new SubWave[1];
     public float waveInterval;
-    public ResItem resourceGain = new ResItem(Currency.Gold, 100);
+    public ResItem resourceGain = new ResItem((int)EItemType.Gold, 100);
 
     //	[HideInInspector] public List<UnitCreep> activeUnitList=new List<UnitCreep>();
 

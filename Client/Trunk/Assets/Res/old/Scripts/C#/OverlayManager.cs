@@ -78,23 +78,23 @@ public class OverlayManager : MonoBehaviour {
 		}
 	}
 	
-	static public void Building(UnitTower unit){
-		if(overlayManager==null) Init();
+	//static public void Building(UnitTower unit){
+	//	if(overlayManager==null) Init();
 		
-		int num=GetUnuseFlag();
-		inUseFlags[num]=true;
+	//	int num=GetUnuseFlag();
+	//	inUseFlags[num]=true;
 		
-		overlayManager.StartCoroutine(overlayManager.Building(num, unit));
-	}
+	//	overlayManager.StartCoroutine(overlayManager.Building(num, unit));
+	//}
 	
-	static public void Unbuilding(UnitTower unit){
-		if(overlayManager==null) Init();
+	//static public void Unbuilding(UnitTower unit){
+	//	if(overlayManager==null) Init();
 		
-		int num=GetUnuseFlag();
-		inUseFlags[num]=true;
+	//	int num=GetUnuseFlag();
+	//	inUseFlags[num]=true;
 		
-		overlayManager.StartCoroutine(overlayManager.Unbuilding(num, unit));
-	}
+	//	overlayManager.StartCoroutine(overlayManager.Unbuilding(num, unit));
+	//}
 	
 	static private int GetUnuseFlag(){
 		for(int i=0; i<inUseFlags.Length; i++){
@@ -104,63 +104,63 @@ public class OverlayManager : MonoBehaviour {
 		return 0;
 	}
 	
-	IEnumerator Building(int i, UnitTower unit){
+	//IEnumerator Building(int i, UnitTower unit){
 		
-		float gridSize=BuildManager.GetGridSize();
-		float totalDuration=unit.GetCurrentBuildDuration();
+	//	float gridSize=BuildManager.GetGridSize();
+	//	float totalDuration=unit.GetCurrentBuildDuration();
 		
-		while(true){
-			Vector3 screenPos=Camera.main.WorldToScreenPoint(unit.thisT.position+offset);
-			screenPos=new Vector3((screenPos.x), screenPos.y, 0); 
+	//	while(true){
+	//		Vector3 screenPos=Camera.main.WorldToScreenPoint(unit.thisT.position+offset);
+	//		screenPos=new Vector3((screenPos.x), screenPos.y, 0); 
 			
-			float remainDuration=unit.GetRemainingBuildDuration();
-			if(remainDuration<=0) break;
+	//		float remainDuration=unit.GetRemainingBuildDuration();
+	//		if(remainDuration<=0) break;
 			
-			float dist=Vector3.Distance(camT.position, unit.thisT.position);
+	//		float dist=Vector3.Distance(camT.position, unit.thisT.position);
 			
-			float ratio=remainDuration/totalDuration;
-			float width=widthModifier*20*gridSize*20/dist;
-			float height=heightModifier*30/dist;
+	//		float ratio=remainDuration/totalDuration;
+	//		float width=widthModifier*20*gridSize*20/dist;
+	//		float height=heightModifier*30/dist;
 			
-			overlaysB[i].pixelInset=new Rect(screenPos.x-width/2, screenPos.y, width, height);
-			overlays[i].pixelInset=new Rect(screenPos.x-width/2, screenPos.y, width*(1-ratio), height);
+	//		overlaysB[i].pixelInset=new Rect(screenPos.x-width/2, screenPos.y, width, height);
+	//		overlays[i].pixelInset=new Rect(screenPos.x-width/2, screenPos.y, width*(1-ratio), height);
 			
-			yield return null;
-		}
+	//		yield return null;
+	//	}
 		
-		overlaysB[i].pixelInset=new Rect(0, 0, 0, 0);
-		overlays[i].pixelInset=new Rect(0, 0, 0, 0);
-		inUseFlags[i]=false;
-	}
+	//	overlaysB[i].pixelInset=new Rect(0, 0, 0, 0);
+	//	overlays[i].pixelInset=new Rect(0, 0, 0, 0);
+	//	inUseFlags[i]=false;
+	//}
 	
-	IEnumerator Unbuilding(int i, UnitTower unit){
+	//IEnumerator Unbuilding(int i, UnitTower unit){
 		
-		float gridSize=BuildManager.GetGridSize();
-		float totalDuration=unit.GetCurrentBuildDuration();
+	//	float gridSize=BuildManager.GetGridSize();
+	//	float totalDuration=unit.GetCurrentBuildDuration();
 		
-		while(true){
-			Vector3 screenPos=Camera.main.WorldToScreenPoint(unit.thisT.position+offset);
-			screenPos=new Vector3((screenPos.x), screenPos.y, 0); 
+	//	while(true){
+	//		Vector3 screenPos=Camera.main.WorldToScreenPoint(unit.thisT.position+offset);
+	//		screenPos=new Vector3((screenPos.x), screenPos.y, 0); 
 			
-			float remainDuration=unit.GetRemainingBuildDuration();
-			if(remainDuration>=totalDuration) break;
+	//		float remainDuration=unit.GetRemainingBuildDuration();
+	//		if(remainDuration>=totalDuration) break;
 			
-			float dist=Vector3.Distance(camT.position, unit.thisT.position);
+	//		float dist=Vector3.Distance(camT.position, unit.thisT.position);
 			
-			float ratio=remainDuration/totalDuration;
-			float width=widthModifier*20*gridSize*20/dist;
-			float height=heightModifier*30/dist;
+	//		float ratio=remainDuration/totalDuration;
+	//		float width=widthModifier*20*gridSize*20/dist;
+	//		float height=heightModifier*30/dist;
 			
-			overlaysB[i].pixelInset=new Rect(screenPos.x-width/2, screenPos.y, width, height);
-			overlays[i].pixelInset=new Rect(screenPos.x-width/2, screenPos.y, width*(1-ratio), height);
+	//		overlaysB[i].pixelInset=new Rect(screenPos.x-width/2, screenPos.y, width, height);
+	//		overlays[i].pixelInset=new Rect(screenPos.x-width/2, screenPos.y, width*(1-ratio), height);
 			
-			yield return null;
-		}
+	//		yield return null;
+	//	}
 		
-		overlaysB[i].pixelInset=new Rect(0, 0, 0, 0);
-		overlays[i].pixelInset=new Rect(0, 0, 0, 0);
-		inUseFlags[i]=false;
-	}
+	//	overlaysB[i].pixelInset=new Rect(0, 0, 0, 0);
+	//	overlays[i].pixelInset=new Rect(0, 0, 0, 0);
+	//	inUseFlags[i]=false;
+	//}
 	
 	
 }

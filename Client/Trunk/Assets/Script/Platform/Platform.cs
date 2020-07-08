@@ -90,7 +90,7 @@ public class Platform : MonoBehaviour {
 
     public void SetNodeRender(Node node,Vector3 worldPos)
     {
-        nodeGraphMap.Add(node.ID, new NodeRender(node, worldPos));
+        nodeGraphMap.Add(node.Id, new NodeRender(node, worldPos));
     }
 
 	public void SearchForNewPath(PathSection PS){
@@ -143,7 +143,7 @@ public class Platform : MonoBehaviour {
 		nearestNode=PathFinder.GetNearestNode(pos, nodeGraph);
         
         //如果建筑需要的格子包含阻挡，则返回false
-        if (RefreshBulidGrid(nearestNode.ID, costGrid, nodeSize))
+        if (RefreshBulidGrid(nearestNode.Id, costGrid, nodeSize))
         {
             return true;
         }
@@ -272,9 +272,9 @@ public class Platform : MonoBehaviour {
         {
             foreach (Node node in nodeGraph)
             {
-                if(nodeGraphMap[node.ID].viewObj == null)
+                if(nodeGraphMap[node.Id].viewObj == null)
                 {
-                    nodeGraphMap[node.ID].CreateViewObj();
+                    nodeGraphMap[node.Id].CreateViewObj();
                 }
             }
             InitViewObj = true;
@@ -349,7 +349,7 @@ public class Platform : MonoBehaviour {
         int c_column = index % this.column;
         bool hasBlock = false;
 
-        int range = nodeSize - 1;
+        int range = nodeSize / 2;
 
         for (int x = -range; x <= range; x++)
         {
@@ -364,7 +364,7 @@ public class Platform : MonoBehaviour {
         {
             if (list[i] >= 0 && list[i] < nodeGraph.Length)
             {
-                nodeGraphMap[nodeGraph[list[i]].ID].SetViewColorState(
+                nodeGraphMap[nodeGraph[list[i]].Id].SetViewColorState(
                     hasBlock == true ? ENodeColor.CantBuild : ENodeColor.CanBuild);
                 costGrid.Add(list[i]);
             }

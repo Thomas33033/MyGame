@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class BuildController : MonoBehaviour {
 
-    public Tower[] towers;
     static private float _gridSize = 0;
     public float gridSize = 2;
     public Transform[] platforms;
@@ -345,20 +344,20 @@ public class BuildController : MonoBehaviour {
     //}
 
 
-    private Tower[] sampleTower;
+    //private Tower[] sampleTower;
     private int currentSampleID = -1;
     public static void InitiateSampleTower()
     {
-        buildManager.sampleTower = new Tower[buildManager.towers.Length];
-        for (int i = 0; i < buildManager.towers.Length; i++)
-        {
-            Tower tower = buildManager.towers[i];
-            GameObject towerObj = (GameObject)Instantiate(tower.ModelObj);
-            buildManager.sampleTower[i] = new Tower();
-            //buildManager.sampleTower[i].OnInit(tower.charactorData);
-            towerObj.SetActive(false);
-            UnitUtility.SetAdditiveMatColorRecursively(towerObj.transform, Color.green);
-        }
+        //buildManager.sampleTower = new Tower[buildManager.towers.Length];
+        //for (int i = 0; i < buildManager.towers.Length; i++)
+        //{
+        //    Tower tower = buildManager.towers[i];
+        //    GameObject towerObj = (GameObject)Instantiate(tower.ModelObj);
+        //    buildManager.sampleTower[i] = new Tower();
+        //    //buildManager.sampleTower[i].OnInit(tower.charactorData);
+        //    towerObj.SetActive(false);
+        //    UnitUtility.SetAdditiveMatColorRecursively(towerObj.transform, Color.green);
+        //}
     }
 
     static public void ShowSampleTower(int ID)
@@ -367,16 +366,16 @@ public class BuildController : MonoBehaviour {
     }
     public void _ShowSampleTower(int ID)
     {
-        if (currentSampleID == ID || currentBuildInfo == null) return;
+        //if (currentSampleID == ID || currentBuildInfo == null) return;
 
-        if (currentSampleID > 0)
-        {
-            ClearSampleTower();
-        }
-        currentSampleID = ID;
-        sampleTower[ID].Trans.position = currentBuildInfo.position;
-        sampleTower[ID].ModelObj.SetActive(true);
-        GameControl.ShowIndicator(sampleTower[ID]);
+        //if (currentSampleID > 0)
+        //{
+        //    ClearSampleTower();
+        //}
+        //currentSampleID = ID;
+        //sampleTower[ID].Trans.position = currentBuildInfo.position;
+        //sampleTower[ID].ModelObj.SetActive(true);
+        //GameControl.ShowIndicator(sampleTower[ID]);
     }
 
     static public void ClearSampleTower()
@@ -385,11 +384,11 @@ public class BuildController : MonoBehaviour {
     }
     public void _ClearSampleTower()
     {
-        if (currentSampleID < 0) return;
+        //if (currentSampleID < 0) return;
 
-        sampleTower[currentSampleID].ModelObj.SetActive(false);
-        GameControl.ClearIndicator();
-        currentSampleID = -1;
+        //sampleTower[currentSampleID].ModelObj.SetActive(false);
+        //GameControl.ClearIndicator();
+        //currentSampleID = -1;
     }
 
 
@@ -398,10 +397,6 @@ public class BuildController : MonoBehaviour {
         return currentBuildInfo;
     }
 
-    static public Tower[] GetTowerList()
-    {
-        return buildManager.towers;
-    }
 
     static public float GetGridSize()
     {

@@ -158,7 +158,7 @@ namespace Fight
         }
 
 
-        public bool AddRoleOnBattleField(int teamId, int battlefieldId, FightRoleData roleData, int site, bool isPlayer)
+        public bool AddRoleOnBattleField(int teamId, int battlefieldId, FightRoleData roleData, int nodeId, bool isPlayer)
         {
 
             BattleField battleField = dicBattleField[battlefieldId];
@@ -182,21 +182,22 @@ namespace Fight
             }
 
             role.isPlayer = isPlayer;
-            role.costNodes = roleData.CostNodes;
-            role.site = site;
             role.npcId = roleData.npcId;
+            role.OnInitPosition(nodeId,roleData.CostNodes, roleData.NodeSize);
+ 
+            
 
             listAllRoles.Add(role);
-            battleField.AddRole(role, site);
+            battleField.AddRole(role, nodeId);
             role.PrepareFight();
             
 
             FightReportRoleAdd report = new FightReportRoleAdd(0, role.teamId, role.id,
                    (int)role.type, role.id, role.GetBattlefield().id,
-                   role.hpMax, role.mpMax, role.node.ID, roleData.Resource);
+                   role.hpMax, role.mpMax, role.node.Id, roleData.Resource);
             report.hp = role.hpMax;
             report.mp = role.mpMax;
-            report.nodeId = role.node.ID;
+            report.nodeId = role.node.Id;
             report.CostNodes = role.costNodes;
             report.skills = role.skills;
 
@@ -221,7 +222,7 @@ namespace Fight
             battleField.AddRole(fightRole, position);
 
             FightReportSummon report = new FightReportSummon(Time, fightRole.teamId, (int)fightRole.type, fightRole.id, 
-                fightRole.GetBattlefield().id, fightRole.hpMax, fightRole.mpMax, fightRole.node.ID, npcAsset);
+                fightRole.GetBattlefield().id, fightRole.hpMax, fightRole.mpMax, fightRole.node.Id, npcAsset);
 
             fightRole.PrepareFight();
 

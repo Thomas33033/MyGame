@@ -31,7 +31,13 @@ public class InputManager : MonoBehaviour
 
     public IEnumerator DragNDropRoutine()
     {
-        this.dragTower.GetComponent<Collider>().enabled = false;
+        Collider collider = this.dragTower.GetOrAddComponent<Collider>();
+
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
+       
 
         bool buildEnable = false;
 
@@ -42,7 +48,7 @@ public class InputManager : MonoBehaviour
         while (true)
         {
             //检测建筑是否可以创建
-            bool flag = BuildManager.CheckBuildPoint(Input.mousePosition, costNodeIDs, _TowerType.AOETower, 0, this.fightBuildData.NodeSize);
+            bool flag = BuildManager.CheckBuildPoint(Input.mousePosition, costNodeIDs, 0, this.fightBuildData.NodeSize);
 
             BuildableInfo currentBuildInfo = BuildManager.GetBuildInfo();
 
@@ -112,14 +118,14 @@ public class InputManager : MonoBehaviour
 
             UnitUtility.SetMat2DiffuseRecursively(this.dragTower.transform);
 
-            this.dragTower.transform.GetComponent<Collider>().enabled = true;
+            this.dragTower.GetOrAddComponent<BoxCollider>().enabled = true;
 
             this.fightBuildData.CostNodes = costNodeIDs.ToArray();
             Node node = BuildManager.GetBuildPosition();
-            this.fightBuildData.NodeId = node.ID;
+            this.fightBuildData.NodeId = node.Id;
             this.poolObj.ReturnToPool();
 
-            FightScene.Instance.CreateRole(this.fightBuildData, this.fightBuildData.teamId);
+            FightScene.Instance.CreateRole(this.fightBuildData);
         }
         else
         {

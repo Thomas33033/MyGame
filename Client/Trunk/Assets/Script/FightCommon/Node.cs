@@ -8,7 +8,7 @@ namespace FightCommom
 
     public class Node 
     {
-        public int ID;
+        public int Id;
         public Vector3 pos;
         public Node[] neighbourNode;
         public float[] neighbourCost;
@@ -21,7 +21,7 @@ namespace FightCommom
             set {
                 _walkable = value;
                 if(FightSceneRender.Instance != null && FightSceneRender.Instance.battleFieldRender != null)
-                    FightSceneRender.Instance.battleFieldRender.platform.SetNodeWalkState(ID, _walkable);
+                    FightSceneRender.Instance.battleFieldRender.platform.SetNodeWalkState(Id, _walkable);
             }
         }
         public float tempScoreG = 0;
@@ -35,7 +35,7 @@ namespace FightCommom
 
         public Node(NodeData nodeData)
         {
-            this.ID = nodeData.ID;
+            this.Id = nodeData.ID;
             this.pos = Tools.ToVector3(nodeData.pos);
             this._walkable = nodeData.walkable;
         }
@@ -43,7 +43,7 @@ namespace FightCommom
         public Node(Vector3 position, int id)
         {
             pos = position;
-            ID = id;
+            Id = id;
             this._walkable = true;
 
         }
@@ -91,7 +91,8 @@ namespace FightCommom
 
         public float Distance(Node node)
         {
-            return Vector3.Distance(this.pos, node.pos);
+            float distance = Vector3.Distance(this.pos, node.pos);
+            return distance;
         }
     }
 
@@ -101,7 +102,7 @@ namespace FightCommom
         public bool walkable;
         public NodeData(Node node)
         {
-            this.ID = node.ID;
+            this.ID = node.Id;
             this.pos = Tools.Vector3ToString(node.pos);
             this.walkable = node.walkable;
         }
