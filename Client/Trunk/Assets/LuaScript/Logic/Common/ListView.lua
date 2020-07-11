@@ -1,5 +1,5 @@
 -- 列表控件
-ListView = class("ListView")
+ListView = {}
 
 function ListView:ctor(args)
     --数据类
@@ -70,7 +70,7 @@ function ListView:Dispose()
 end
 
 -- endregion
-ListViewItem = class("ListViewItem")
+ListViewItem = {}
 
 function ListViewItem:ctor()
     self.index = nil

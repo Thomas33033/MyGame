@@ -1,4 +1,5 @@
-UI_MailItem = class("UI_MailItem",ListViewItem)
+UI_MailItem = {}
+setmetatable(UI_MailItem, {__index=ListViewItem})
 
 function UI_MailItem:ctor()
     self:OnMemberVariables()

@@ -1,84 +1,78 @@
 --界面基类
-UIBase = class("UIBase")
+--界面卸载只能 通过lua调用DoClose方法销毁lua内存，单独删除界面不会通知lua
+UIBase = {}
 
-
---------------需要子类实现的方法---------------------
---子类实现 初始化界面成员变量
-function UIBase:Init() end
---子类实现 初始化界面逻辑
-function UIBase:Ready() end
---子类实现 
-function UIBase:Update(dt) end
---子类实现 
-function UIBase:OnMemberVariables() end
---子类实现 监听事件处理函数(lua内部的);
-function UIBase:HandleNotification(notification) end
-
-function UIBase:Awake(p_gameObject)
-    self.gameObject = p_gameObject;
-    self.transform = p_gameObject.transform;
-	self.mSysTimer = SysTimer.New()
-	self.mTableNotification = self.mTableNotification or {}
-	self:OnMemberVariables()
-    self:Init();
-    self:RegisterNotify();
-	self:Ready();
-	--if self.Update then
-	--	self.mUpdateFunc = function() self:Update(Time.deltaTime) end
-	--	TimeManager:AddToUpdate( self.mUpdateFunc );
-	--end
-
-	--if self.uiName ~= nil then
-	--	local soundId = LogicTools.GetUIPageSoundId(self.uiName.."Wnd")
-	--	if soundId ~= 0 then
-	--		LogicTools.PlayAudio(soundId)
-	--	end
-	--end
+function UIBase:Create(path,name,layer)
+	self.path = path
+	self.name = name
+	self.layer = layer
 end
 
---显示UI函数(表示此UI已经打开且是隐藏的状态),(切勿删除和修改);
---注意：在lua中不要主动调用,用UIManager.OpenWndByLua;
-function UIBase:Show()
-	self:RegisterNotify();
-	self:OnShow();
+function UIBase:Awake()
+
 end
 
---隐藏UI函数,(切勿删除和修改);
---注意：在lua中不要主动调用,用UIManager.HideWndByLua;
-function UIBase:Hide()
-	self:UnRegisterNotify();
-	self:OnHide();
+function UIBase:Update()
+	
 end
 
+function UIBase:OnEnable()
 
-
---界面销毁
-function UIBase:OnDestroy()
-
-	--if self.Update then
-	--	TimeManager:RemoveFromUpdate( self.mUpdateFunc );
-	--	self.mUpdateFunc = nil;
-	--end
-    self:UnRegisterNotify();
-	self:Clear();
-	self:OnMemberVariables ()
-	self.mSysTimer:OnDestroy()
-	self.gameObject = nil;
-	self.transform = nil;
-	self.mTableNotification = nil
 end
 
----------------------日常逻辑 ----------------------------
---监听事件注册函数;
-function UIBase:RegisterNotify()
-	for i,k in pairs(self.mTableNotification) do
-		GyNotify:RegisterNotify(k, self.HandleNotification, self);
+function UIBase:SetUIComponent(child)
+
+end
+
+function UIBase:ButtonClickHandler(btn)
+
+end
+
+function UIBase:DoClose()
+	Event.Call("UIClosed",self.name)
+	if AutoUnloadUIMap[self.path] == 1 then
+		LoadTools.UnLoadAssetsBundle(self.path)
 	end
+
+	self:OnClose()
+	UnityEngine.GameObject.Destroy(self.gameObject)
+	self:Clear()
 end
 
---解除监听事件函数;
-function UIBase:UnRegisterNotify()
-	for _,v in pairs(self.mTableNotification) do
-		GyNotify:UnRegisterNotify(v, self);
+function UIBase:Clear()
+	if self.dicEvent ~= nil then
+		for k,v in pairs(self.dicEvent) do
+			Event.Remove(k,self._eventCallback)
+		end
 	end
+	UI.ClearUITable(self)
+end
+
+--加载图片资源，增加计数器便于资源释放
+function UIBase:LoadSprite(name)
+	tempIndex = tempIndex + 1
+	self["tAeBmCp"..tempIndex] = LoadTools.LoadSpriteFromBundle(self.path,name)
+	return self["tAeBmCp"..tempIndex]
+end
+
+--加载对象，增加计数器便于资源释放
+function UIBase:LoadGameObject(name,node)
+	return LoadTools.LoadGameObject(self.path,name,node)
+end
+
+--添加时间监听
+function UIBase:AddListener(type,callback)
+	if self.dicEvent == nil then
+		self.dicEvent = {}
+	end
+	self.dicEvent[type] = callback
+	if self._eventCallback == nil then
+		self._eventCallback = function (type,...)
+			if self.dicEvent[type] ~= nil then
+				self.dicEvent[type](self,type,...)
+			end
+		end
+	end
+
+	Event.Add(type,self._eventCallback)
 end

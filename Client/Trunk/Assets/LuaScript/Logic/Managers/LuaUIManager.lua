@@ -1,14 +1,4 @@
-EUIPageLayerType = {
-	-- 主界面层级
-	Base = 1,
-	-- 二级界面层级
-	Common = 2,
-	-- 浮动窗口层
-	FloatPage = 3,
-	-- 进度界面层
-	Loading = 4
 
-}
 
 LuaUIManager = {
 	uiMap = {},

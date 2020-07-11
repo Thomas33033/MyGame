@@ -40,8 +40,6 @@ function Main.Awake()
 	--LuaNetManager.RegisterListener()
 	--注册逻辑控制器
 	DataManager.RegisterListener();
-
-
 end
 
 function Main.Start()
