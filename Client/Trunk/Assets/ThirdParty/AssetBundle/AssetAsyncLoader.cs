@@ -96,7 +96,7 @@ namespace Cherry.AssetBundlePacker
                 maxCount = deps.Length;
                 for (int i = 0; i < deps.Length; i++)
                 {
-                    mgr.LoadAssetBundle(deps[i], this.LoadDependencies);
+                    mgr.AddAssetBundle(deps[i], this.LoadDependencies);
                 }
             }
         }
@@ -107,7 +107,7 @@ namespace Cherry.AssetBundlePacker
             
             if (Progress >= 1)
             {
-                 mgr.LoadAssetBundle(AssetBundleName, LoadFinished);
+                 mgr.AddAssetBundle(AssetBundleName, LoadFinished);
             }
         }
 

@@ -107,7 +107,7 @@ namespace Cherry.AssetBundlePacker
         private bool _isAssetBundleLoading;
         private Dictionary<string, AssetBundleCreateRequest> _dicAssetBundleRequest;
 
-        public void LoadAssetBundle(string name, System.Action action)
+        public void AddAssetBundle(string name, System.Action action)
         {
             DelayCall delayCall = new DelayCall();
             delayCall.action = action;
@@ -226,6 +226,7 @@ namespace Cherry.AssetBundlePacker
                         }
                     }
                 }
+
                 if (assetbundlename == null)
                 {
                     Debug.LogWarning("AssetBundle can't find. Asset name is (" + asset + ")!");
@@ -384,12 +385,11 @@ namespace Cherry.AssetBundlePacker
         {
             try
             {
-
                 string assetbundlename = FindAssetBundleNameByScene(scene_name);
                 if (!string.IsNullOrEmpty(assetbundlename))
                 {
                     SceneAsyncLoader loader = new SceneAsyncLoader(assetbundlename, scene_name, mode, true);
-                    StartCoroutine(StartLoadSceneAsync(loader));
+                    loader.StartLoadSceneAsync(this, call);
                 }
             }
             catch (System.Exception ex)
@@ -849,13 +849,6 @@ namespace Cherry.AssetBundlePacker
             return true;
         }
         
-        /// <summary>
-        ///   异步加载一个场景
-        /// </summary>
-        IEnumerator StartLoadSceneAsync(SceneAsyncLoader loader)
-        {
-            yield return loader.StartLoadSceneAsync(this);
-        }
 
         /// <summary>
         /// 获得AssetBundle的路径

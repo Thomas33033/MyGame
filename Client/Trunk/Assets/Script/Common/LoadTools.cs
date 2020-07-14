@@ -1,13 +1,19 @@
-﻿using JetBrains.Annotations;
+﻿using Cherry.AssetBundlePacker;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.U2D;
 
 public class LoadTools
 {
+    public static bool useAssetBundle = true;
+
+
     public static string UIPath = "Assets/BundleRes/UI/";
     public static void SetParent(GameObject obj, GameObject parent)
     {
@@ -48,8 +54,40 @@ public class LoadTools
     public static void LoadSprite(string path, string name)
     {
         string assetPath = UIPath + path + "/" + name + ".png";
-        //增加资源引用计数器
-        AssetsManager.LoadAsset<Sprite>(assetPath);
+
+    }
+
+    /// <summary>
+    /// 加载私有图集
+    /// </summary>
+    /// <param name="packageName"></param>
+    /// <returns></returns>
+    static public SpriteAtlas LoadPrivateAtlas(string packageName)
+    {
+#if UNITY_EDITOR
+        if (useAssetBundle == false)
+        {
+            return AssetDatabase.LoadAssetAtPath<SpriteAtlas>("Assets/BundleResources/" + packageName + "/" + packageName + "_Atlas.spriteatlas");
+        }
+#endif
+        return LoadAssetBundle(packageName).LoadAsset<SpriteAtlas>(packageName + "_Atlas");
+    }
+
+
+    /// <summary>
+    /// 加载公共图集
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    static public SpriteAtlas LoadSpriteAtlas(string name)
+    {
+#if UNITY_EDITOR
+        if (useAssetBundle == false)
+        {
+            return AssetDatabase.LoadAssetAtPath<SpriteAtlas>(UIPath + name + ".spriteatlas");
+        }
+#endif
+        return AssetBundleManager.Instance.LoadAsset<SpriteAtlas>(name);
     }
 
     //加载场景资源
