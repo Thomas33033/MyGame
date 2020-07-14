@@ -52,7 +52,7 @@ public class BuildManager : MonoBehaviour {
 		_gridSize=gridSize;
         InitPlatform();
 
-        UIManager.Instance.ShowUI<UI_Main>("UI_Main");
+        UIManager.Instance.ShowUI<UI_Main>("Main/UIMain");
 
 		friendNpc = new uint[] { 1001, 1002, 2001, 2002 };
 		enemyNpc = new uint[] { 1003, 1004, 2003, 2001 };

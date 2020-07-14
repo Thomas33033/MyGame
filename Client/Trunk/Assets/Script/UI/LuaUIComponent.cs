@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
-using SLua;
 using System.Collections.Generic;
 using System;
+using LuaInterface;
 
-[CustomLuaClass]
 public class LuaUIComponent : MonoBehaviour
 {
     private LuaTable _luaTable;
     private bool _enableUpdate;
     private List<DelayCall> listDelayCall;
+
+
 
     private void Awake()
     {
@@ -27,14 +28,14 @@ public class LuaUIComponent : MonoBehaviour
 
     void Start()
     {
-        AppBoot.instance.slua.UIStart(_luaTable);
+        _luaTable.Call("StartUI", this._luaTable);
     }
 
     private void Update()
     {
         if(_enableUpdate && Time.frameCount % 10 == 0)
         {
-            _luaTable.invoke("Update", _luaTable);
+            _luaTable.Call("Update",this._luaTable);
         }
         for (int i = listDelayCall.Count - 1; i > -1; i--)
         {
@@ -49,7 +50,7 @@ public class LuaUIComponent : MonoBehaviour
     public void DelayCall(float time,LuaFunction luaFunction)
     {
         listDelayCall.Add(new DelayCall(){time= Time.time + time,action= () => {
-            luaFunction.call();
+            luaFunction.Call();
         } });
     }
 
@@ -62,14 +63,6 @@ public class LuaUIComponent : MonoBehaviour
     public void SetData(LuaTable v)
     {
         _luaTable = v;
-        _enableUpdate = _luaTable["Update"] != null;
-    }
-
-    internal object CallLua(string func, params object[] args)
-    {
-        object[] newArgs = new object[args.Length+1];
-        newArgs[0] = _luaTable;
-        Array.Copy(args, 0, newArgs, 1, args.Length);
-        return _luaTable.invoke(func, newArgs);
+        _enableUpdate = _luaTable.GetLuaFunction("Update") != null;
     }
 }

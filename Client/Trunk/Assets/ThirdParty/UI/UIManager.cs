@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cherry.AssetBundlePacker;
+using System.Security.Cryptography;
 
 public class UIManager: Singleton<UIManager>  {
 
@@ -19,7 +20,8 @@ public class UIManager: Singleton<UIManager>  {
     public T ShowUI<T>(string name) where T : MonoBehaviour
     {
         string path = ResPathHelper.UI_WINDOW_PATH + name + ".prefab";
-        GameObject obj = ResourcesManager.LoadAsset<GameObject>(path);
+        Debug.LogError(path);
+        GameObject obj = AssetsManager.LoadAsset<GameObject>(path);
         GameObject uiObj = GameObject.Instantiate(obj);
         uiObj.name = name;
 
@@ -35,7 +37,7 @@ public class UIManager: Singleton<UIManager>  {
     public GameObject CreateUI(string name)
     {
         string path = ResPathHelper.UI_WINDOW_PATH + name + ".prefab";
-        GameObject obj = ResourcesManager.LoadAsset<GameObject>(path);
+        GameObject obj = AssetsManager.LoadAsset<GameObject>(path);
         GameObject uiObj = GameObject.Instantiate(obj);
         uiObj.name = name;
 

@@ -2,15 +2,16 @@
 
 
 ------------------------本地配置数据表------------------------;
-require "Logic/Configs/cfg_attribute";
 ------------------------本地配置数据表------------------------;
 
 
 ------------------------所有的通信协议文件列表------------------------;
-require "Logic/UI/Mail/MailCtrl";
+require "UI/Mail/Controller/MailCtrl";
+require "UI/Main/Controller/MainCtrl";
 ------------------------所有的通信协议文件列表------------------------;
 
 
 -----------------------管理模块控制器--------------------------------
 ModelCtrlArray = {}
-ModelCtrlArray[0] = MailCtrl
+ModelCtrlArray[0] = MailCtrl.OnCreate()
+ModelCtrlArray[1] = MailCtrl.OnCreate()

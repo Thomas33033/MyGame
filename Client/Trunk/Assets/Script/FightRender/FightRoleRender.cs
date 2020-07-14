@@ -78,7 +78,7 @@ public class FightRoleRender : RoleRender
         animator = this.gameObject.GetComponent<Animator>();
         //animator.runtimeAnimatorController = LoadTools.LoadRoleAnimator("RoleNpc", npcAsset);
 
-        string uiHeadPath = string.Format("{0}/{1}.prefab", ResPathHelper.UI_WINDOW_PATH, "UI_Head");
+        string uiHeadPath = string.Format("{0}/{1}.prefab", ResPathHelper.UI_WINDOW_PATH, "HUD/UI_Head");
         ModelPoolObj modelPoolObj = ObjectPoolManager.Instance.GetPoolObj<ModelPoolObj>(uiHeadPath);
         ui = modelPoolObj.itemObj.GetComponent<FightRoleUI>();
         ui.transform.parent = GameObject.Find("UIRootHp").transform;

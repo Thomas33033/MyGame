@@ -32,7 +32,7 @@ public class ConfigManager : Singleton<ConfigManager>
     private static string LoadJson(string name)
     {
         string filePath = "Assets/BundleRes/Config/data/" + name + ".json";
-        return ResourcesManager.LoadTextFile(filePath);
+        return AssetsManager.LoadTextFile(filePath);
     }
 
     private static Dictionary<int, configBase> LoadDictionary<T>(string name) where T : configBase

@@ -61,26 +61,7 @@ public static class CustomSettings
                         
         _GT(typeof(LuaInjectionStation)),
         _GT(typeof(InjectType)),
-#if USING_DOTWEENING
-        _GT(typeof(DG.Tweening.DOTween)),
-        _GT(typeof(DG.Tweening.Tween)).SetBaseType(typeof(System.Object)).AddExtendType(typeof(DG.Tweening.TweenExtensions)),
-        _GT(typeof(DG.Tweening.Sequence)).AddExtendType(typeof(DG.Tweening.TweenSettingsExtensions)),
-        _GT(typeof(DG.Tweening.Tweener)).AddExtendType(typeof(DG.Tweening.TweenSettingsExtensions)),
-        _GT(typeof(DG.Tweening.LoopType)),
-        _GT(typeof(DG.Tweening.PathMode)),
-        _GT(typeof(DG.Tweening.PathType)),
-        _GT(typeof(DG.Tweening.RotateMode)),
-        _GT(typeof(Component)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        _GT(typeof(Transform)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        _GT(typeof(Light)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        _GT(typeof(Material)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        _GT(typeof(Rigidbody)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        _GT(typeof(Camera)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        _GT(typeof(AudioSource)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        //_GT(typeof(LineRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),
-        //_GT(typeof(TrailRenderer)).AddExtendType(typeof(DG.Tweening.ShortcutExtensions)),    
-#else
-                                         
+                         
         _GT(typeof(Component)),
         _GT(typeof(Transform)),
         _GT(typeof(Quaternion)),
@@ -91,8 +72,7 @@ public static class CustomSettings
         _GT(typeof(AudioSource)),
         //_GT(typeof(LineRenderer))
         //_GT(typeof(TrailRenderer))
-#endif
-      
+
         _GT(typeof(Behaviour)),
         _GT(typeof(MonoBehaviour)),
         _GT(typeof(GameObject)),
@@ -115,22 +95,14 @@ public static class CustomSettings
         _GT(typeof(LightType)),
         _GT(typeof(SleepTimeout)),
         _GT(typeof(Rect)),
-#if UNITY_5_3_OR_NEWER && !UNITY_5_6_OR_NEWER
-        _GT(typeof(UnityEngine.Experimental.Director.DirectorPlayer)),
-#endif
+
         _GT(typeof(Animator)),
         _GT(typeof(Input)),
         _GT(typeof(KeyCode)),
         _GT(typeof(SkinnedMeshRenderer)),
         _GT(typeof(Space)),
-
-
         _GT(typeof(MeshRenderer)),
-#if !UNITY_5_4_OR_NEWER
-        _GT(typeof(ParticleEmitter)),
-        _GT(typeof(ParticleRenderer)),
-        _GT(typeof(ParticleAnimator)), 
-#endif
+
         
         _GT(typeof(Animation)),
         _GT(typeof(AnimationClip)).SetBaseType(typeof(UnityEngine.Object)),
@@ -140,8 +112,7 @@ public static class CustomSettings
         _GT(typeof(QueueMode)),
         _GT(typeof(PlayMode)),
         _GT(typeof(WrapMode)),
-
-        //_GT(typeof(QualitySettings)),
+        
         _GT(typeof(RenderSettings)),
         _GT(typeof(SkinWeights)),
         _GT(typeof(RenderTexture)),
@@ -165,8 +136,10 @@ public static class CustomSettings
         _GT(typeof(Utils)),
         _GT(typeof(UIManager)),
         _GT(typeof(UITools)),
-        
-        
+        _GT(typeof(LoadTools)),
+        _GT(typeof(LuaUIComponent)),
+
+
         //uGUI;
         _GT(typeof(RectTransform)),
         _GT(typeof(UnityEngine.UI.Button)),

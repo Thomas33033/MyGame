@@ -48,7 +48,6 @@ public class Main : MonoBehaviour {
 
         TimeManager.CreateSingleton();
         AssetBundleManager.CreateSingleton(); 
-        LuaManager.CreateSingleton();
         m_isReady = true;
     }
 
@@ -61,11 +60,12 @@ public class Main : MonoBehaviour {
         {
             m_isReady = false;
 
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
-            UI_Loading.instance.ShowProgress(() =>
-            {
-                GameObject.Destroy(UI_Loading.instance.gameObject);
-            });
+            LuaManager.CreateSingleton();
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+            //UI_Loading.instance.ShowProgress(() =>
+            //{
+            //    GameObject.Destroy(UI_Loading.instance.gameObject);
+            //});
         }
     }
 

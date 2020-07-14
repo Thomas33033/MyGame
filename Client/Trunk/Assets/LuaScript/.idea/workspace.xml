@@ -1,7 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52295b75-3299-4fb7-87fc-cefc32841763" name="Default Changelist" comment="" />
+    <list default="true" id="52295b75-3299-4fb7-87fc-cefc32841763" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Managers/UI/UI.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Space/SpaceBase.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/DamageLabel/FightDamageCritLabel.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/DamageLabel/FightDamageDebuffLabel.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/DamageLabel/FightDamageLabel.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/DamageLabel/FightDamageNormalLabel.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/DamageLabel/FightDamageRestoreLabel.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/DamageLabel/FightDamageShieldLabel.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/DamageLabel/FightDamageSkillLabel.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/Explosion.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/LaserShootEffect.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/RangeIndicatorF.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/RangeIndicatorH.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/SO(Effect_AOEWave).prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/SO(Effect_Flame).prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/SO(Effect_ResourceEffect).prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/SO(Effect_SupportEffect).prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/SO(Instant_Beam).prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/SO(Instant_MG).prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/SO(Projectile_EnergyBolt).prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/Zidan.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/indicator1.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Effect/indicator2.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/Mine.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerAOE.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerAOE2.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerBeam.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerFlame.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerMG.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerResource.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerSupport.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerTurret_Canon.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/TowerTurret_Missile.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/Wall_1.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/npc_2.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/npc_2001.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/npc_2002.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/npc_2003.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/npc_3.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/npc_4.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/npc_6.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/npc_7.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/NPC/npc_9.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Scene/BuildPlane.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/Scene/ParticlePathIndicator.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundlePrefab/ShootObjects/ShootObject_Basic.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/CardCost.fontsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Chuanzhang.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/FightAttack.fontsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/FightCrit.fontsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/FightDebuff.fontsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/FightPvp1.fontsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/FightPvp2.fontsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/FightRestore.fontsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/FightSkill.fontsettings" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Font.OTF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_PVP01.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_PVP01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_PVP02.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_PVP02.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_attack.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_attack.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_crit.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_crit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_debuff.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_debuff.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_number.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_number.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_restore.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_restore.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_skills.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Font/Img/New_Number_skills.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Private/UI_Loading/bar_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/Mine.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/TowerIcon1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/TowerIcon2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/TowerIcon3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/TowerIcon4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/TowerIcon5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/monster_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/monster_11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/monster_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/monster_21.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/monster_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/monster_31.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Single/Items/wall_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Window/UI_Head.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Window/UI_Mail.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Window/UI_Main.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Window/UI_Menu.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Window/m_mailitem.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Editor/AutoCreateUIScriptEditor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Editor/Custom/CustomSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Editor/Custom/CustomSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3rd/Common/UI.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Common/CtrlBase.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Common/ListView.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Common/LogicTools.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Common/LuaTools.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Common/ProxyBase.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Common/SysTimer.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Common/UIBase.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Common/UIHelper.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Common/Utility.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Config.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Logic/Config.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Configs/cfg_attribute.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/EntityData/MainUserData.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Logic_Config.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Managers/DataManager.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Managers/LocalStorage.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Managers/LuaAdvertiseManager.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Managers/LuaCsharpRouter.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Managers/LuaNetManager.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Managers/LuaPlayerDataManager.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Managers/LuaUIManager.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/UI/Mail/MailCtrl.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/UI/Mail/UI_Mail.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/UI/Mail/UI_MailItemRender.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/UI/Mail/UI_MailView.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Main.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Res/old/Scripts/C#/BuildManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Scripts/C#/BuildManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scenes1/Game.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scenes1/Launch.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Scenes1/Launch.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Common/LoadTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Common/LoadTools.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Common/ResPathHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Common/ResPathHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/FightRender/FightRoleRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/FightRender/FightRoleRender.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Manager/LuaManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Manager/LuaManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/UI/LuaUIComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/UI/LuaUIComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ThirdParty/UI/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/UI/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/LuaBinder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/LuaBinder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,7 +169,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Space" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -46,17 +179,18 @@
     <property name="settings.editor.selected.configurable" value="project.propDebugger" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\Managers" />
+      <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\Common" />
+      <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\Managers\UI" />
+      <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\Logic" />
+      <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\Logic\UI\Bag" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\Space" />
       <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\Logic\Common" />
       <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\Logic" />
       <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\Logic\Managers" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\Logic\UI\Bag" />
-      <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\3rd\DebugPrint" />
-      <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\3rd\Class" />
-      <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\3rd\Event" />
-      <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\3rd\NetWork" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -105,6 +239,7 @@
       <workItem from="1593242535588" duration="573000" />
       <workItem from="1593244200081" duration="7000" />
       <workItem from="1594457418471" duration="4414000" />
+      <workItem from="1594606001998" duration="29611000" />
     </task>
     <servers />
   </component>
@@ -112,17 +247,27 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="218" key="FileChooserDialogImpl" timestamp="1589003222012">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="690" y="218" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589003222012" />
-    <state x="574" y="193" width="771" height="654" key="find.popup" timestamp="1592643198003">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="574" y="193" width="771" height="654" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592643198003" />
-    <state x="2459" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1594459206792">
+    <state x="2275" y="42" key="CommitChangelistDialog2" timestamp="1594641155869">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2459" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594459206792" />
+    <state x="2275" y="42" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594641155869" />
+    <state x="2610" y="218" key="FileChooserDialogImpl" timestamp="1594621013237">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2610" y="218" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594621013237" />
+    <state x="690" y="218" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589003222012" />
+    <state x="2472" y="301" key="com.intellij.ide.util.TipDialog" timestamp="1594606011685">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2472" y="301" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594606011685" />
+    <state x="2494" y="193" width="831" height="682" key="find.popup" timestamp="1594691845993">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2494" y="193" width="831" height="682" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594691845993" />
+    <state x="574" y="193" width="771" height="654" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592643198003" />
+    <state x="2459" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1594691615457">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2459" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594691615457" />
   </component>
 </project>

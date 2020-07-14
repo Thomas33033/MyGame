@@ -68,7 +68,7 @@ namespace Fight
         private static string LoadJson(string name)
         {
             string filePath = "Assets/BundleRes/Config/" + name + ".json";
-            return ResourcesManager.LoadTextFile(filePath);
+            return AssetsManager.LoadTextFile(filePath);
         }
 
         public static void SaveData(string name, string jsonData)

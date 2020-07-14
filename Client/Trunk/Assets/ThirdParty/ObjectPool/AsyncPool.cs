@@ -23,7 +23,7 @@ public class AsyncPool<T> : IObjectPool where T : ObjectInPoolBase, new()
 
         _listCallbacks = new List<LoadCompleteHandler>();
 
-        ResourcesManager.LoadAssetAsync(p_assetPath, LoadPrefabComplete);
+        AssetsManager.LoadAssetAsync(p_assetPath, LoadPrefabComplete);
     }
 
     private void LoadPrefabComplete(UnityEngine.Object obj)

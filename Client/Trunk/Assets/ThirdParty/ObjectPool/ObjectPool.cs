@@ -25,7 +25,7 @@ public class CObjectPool<T> : IObjectPool where T : ObjectInPoolBase, new()
     public CObjectPool(string p_prefabName, Transform rootT) 
     {
         prefabName = p_prefabName;
-        prefab = ResourcesManager.LoadAsset<GameObject>(prefabName);
+        prefab = AssetsManager.LoadAsset<GameObject>(prefabName);
 
         if (prefab == null)
         {

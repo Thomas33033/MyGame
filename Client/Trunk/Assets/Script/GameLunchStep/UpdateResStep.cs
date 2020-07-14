@@ -78,7 +78,7 @@ public class UpdateResStep : ActionBase
 
             dicServer = CreateAssetDictionary(arr);
 
-            if (File.Exists(ResourcesManager.AssetBundlePath + "/assetslist.txt") == true)
+            if (File.Exists(AssetsManager.AssetBundlePath + "/assetslist.txt") == true)
             {
                 oldVersionCode = arr[0];
                 dicLocal = CreateAssetDictionary(arr);
@@ -226,7 +226,7 @@ public class UpdateResStep : ActionBase
             txt += "\n" + item.type + "," + item.name + "," + item.md5 + "," + item.size + "," + item.level;
         }
 
-        File.WriteAllText(ResourcesManager.AssetBundlePath + "/assetslist.txt", txt);
+        File.WriteAllText(AssetsManager.AssetBundlePath + "/assetslist.txt", txt);
     }
 }
 

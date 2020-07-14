@@ -13,55 +13,21 @@ namespace Cherry.AssetBundlePacker
     /// </summary>
     public class AssetBundleManager : MonoSingleton<AssetBundleManager>
     {
-#if UNITY_EDITOR
+
         /// <summary>
         /// 当前平台是否支持AssetBundle
         /// </summary>
         public static readonly bool IsPlatformSupport = true;
-#elif UNITY_STANDALONE_WIN
-        /// <summary>
-        /// 当前平台是否支持AssetBundle
-        /// </summary>
-        public static readonly bool IsPlatformSupport = true; 
-#elif UNITY_IPHONE
-        /// <summary>
-        /// 当前平台是否支持AssetBundle
-        /// </summary>
-        public static readonly bool IsPlatformSupport = true; 
-#elif UNITY_ANDROID
-        /// <summary>
-        /// 当前平台是否支持AssetBundle
-        /// </summary>
-        public static readonly bool IsPlatformSupport = true; 
-#endif
 
-        /// <summary>
-        ///   最新的资源版本(已弃用)
-        /// </summary>
-        [System.Obsolete("Use AssetBundleManager.strVersion")]
-        public int Version;
-
-        /// <summary>
-        ///   最新的资源版本
-        /// </summary>
         public string strVersion;
 
-        /// <summary>
-        ///   是否准备完成
-        /// </summary>
         public bool IsReady { get; private set; }
 
-        /// <summary>
-        ///   是否出错
-        /// </summary>
         public bool IsFailed
         {
             get { return ErrorCode != emErrorCode.None; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public emErrorCode ErrorCode { get; private set; }
 
         /// <summary>
@@ -102,10 +68,14 @@ namespace Cherry.AssetBundlePacker
         private HashSet<string> assetbundle_async_loading_;
 
         /// <summary>
+        /// 同时加载资源的最大数量
+        /// </summary>
+        private int bundleLoaderLineNum = 5;
+
+        /// <summary>
         /// 
         /// </summary>
-        protected AssetBundleManager()
-        { }
+        protected AssetBundleManager() { }
 
         /// <summary>
         /// 重启
@@ -131,6 +101,96 @@ namespace Cherry.AssetBundlePacker
                 return true;
 
             return false;
+        }
+
+        public List<DelayCall> listLoadBundleName = new List<DelayCall>();
+        private bool _isAssetBundleLoading;
+        private Dictionary<string, AssetBundleCreateRequest> _dicAssetBundleRequest;
+
+        public void LoadAssetBundle(string name, System.Action action)
+        {
+            DelayCall delayCall = new DelayCall();
+            delayCall.action = action;
+            delayCall.data = name;
+
+            listLoadBundleName.Add(delayCall);
+
+            if (_isAssetBundleLoading == false)
+            {
+                StartCoroutine(DoLoadAssetBundle());
+            }
+        }
+
+        private IEnumerator DoLoadAssetBundle()
+        {
+            if (_isAssetBundleLoading == true)
+                yield break;
+            _isAssetBundleLoading = true;
+
+            List<string> listDependencies = new List<string>();
+            List<string> listTemp = new List<string>();
+            while (listLoadBundleName.Count > 0)
+            {
+                listDependencies.Clear();
+                if (AssetBundleAndDependenciesIsExite(listLoadBundleName[0].data) == false)
+                {
+                    listDependencies.Add(listLoadBundleName[0].data.ToLower());
+                }
+
+                string[] arr = GetAllDependencies(listLoadBundleName[0].data);
+
+                listDependencies.AddRange(arr);
+
+                while (listDependencies.Count > 0 || _dicAssetBundleRequest.Count > 0)
+                {
+                    if (listDependencies.Count > 0)
+                    {
+                        if (FindLoadedAssetBundle(listDependencies[0]) != null)
+                        {
+                            listDependencies.RemoveAt(0);
+                            continue;
+                        }
+
+                        if (_dicAssetBundleRequest.Count < bundleLoaderLineNum)
+                        {
+                            if (_dicAssetBundleRequest.ContainsKey(listDependencies[0]) == false)
+                            {
+                                AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(AssetsManager.AssetBundlePath
+                                    + "/" + listDependencies[0]);
+                                _dicAssetBundleRequest.Add(listDependencies[0], request);
+                            }
+                            listDependencies.RemoveAt(0);
+                        }
+                    }
+
+                    foreach (var item in _dicAssetBundleRequest)
+                    {
+                        if (item.Value.isDone)
+                        {
+                            SaveAssetDependency(item.Key,item.Value.assetBundle.name);
+                            listTemp.Add(item.Key);
+                        }
+                    }
+
+                    if (listTemp.Count > 0)
+                    {
+                        for (int i = 0; i < listTemp.Count; i++)
+                        {
+                            _dicAssetBundleRequest.Remove(listTemp[i]);
+                        }
+                        listTemp.Clear();
+                    }
+
+                    yield return new WaitForEndOfFrame();
+                }
+
+                if (listLoadBundleName[0].action != null)
+                {
+                    listLoadBundleName[0].action();
+                }
+                listLoadBundleName.RemoveAt(0);
+            }
+            _isAssetBundleLoading = false;
         }
 
         /// <summary>
@@ -159,7 +219,7 @@ namespace Cherry.AssetBundlePacker
                 {
                     for (int i = 0; i < all_assetbundle.Length; ++i)
                     {
-                        if (CanLoadAssetBundleAndDependencies(all_assetbundle[i]))
+                        if (AssetBundleAndDependenciesIsExite(all_assetbundle[i]))
                         {
                             assetbundlename = all_assetbundle[i];
                             break;
@@ -203,19 +263,10 @@ namespace Cherry.AssetBundlePacker
         /// <summary>
         ///   异步加载一个资源
         /// </summary>
-        public AssetLoadRequest LoadAssetAsync(string asset, bool unload_assetbundle = true)
+        public void LoadAssetAsync(string asset, System.Action call, bool unload_assetbundle = true)
         {
             try
             {
-                if (!IsPlatformSupport)
-                {
-                    return null;
-                }
-                if (!IsReady || IsFailed)
-                {
-                    return null;
-                }
-
                 /// 转小写
                 string assetName = asset.ToLower();
 
@@ -226,7 +277,7 @@ namespace Cherry.AssetBundlePacker
                 {
                     for (int i = 0; i < all_asssetbundle.Length; ++i)
                     {
-                        if (CanLoadAssetBundleAndDependencies(all_asssetbundle[i]))
+                        if (AssetBundleAndDependenciesIsExite(all_asssetbundle[i]))
                         {
                             assetbundlename = all_asssetbundle[i];
                             break;
@@ -235,20 +286,18 @@ namespace Cherry.AssetBundlePacker
                 }
                 if (string.IsNullOrEmpty(assetbundlename))
                 {
-                    return null;
+                    return ;
                 }
 
                 AssetAsyncLoader loader = new AssetAsyncLoader(assetbundlename, assetName, asset, unload_assetbundle);
-                AssetLoadRequest req = new AssetLoadRequest(loader);
-                StartCoroutine(StartLoadAssetAsync(loader));
-                return req;
+                loader.StartLoadAssetAsync(this, call);
             }
             catch (System.Exception ex)
             {
                 Debug.LogError("AssetBundleManager.LoadAsset is falid!\n" + ex.Message);
             }
 
-            return null;
+            return ;
         }
 
         /// <summary>
@@ -327,49 +376,26 @@ namespace Cherry.AssetBundlePacker
             }
         }
 
+        
         /// <summary>
-        ///   加载场景
+        ///  异步加载场景
         /// </summary>
-        [System.Obsolete("Use AssetBundleManager.LoadSceneAsync, Because this function has bug!(UnityEngine.SceneManagement.SceneManager.LoadScene is not synchronization completed! )")]
-        public bool LoadScene(string scene_name
-                                , LoadSceneMode mode = LoadSceneMode.Single
-                                , bool unload_assetbundle = true
-                                , bool unload_all_loaded_objects = false)
-        {
-            return false;
-        }
-
-        /// <summary>
-        ///   异步加载场景
-        /// </summary>
-        public SceneLoadRequest LoadSceneAsync(string scene_name
-                                                , LoadSceneMode mode = LoadSceneMode.Single
-                                                , bool unload_assetbundle = true)
+        public void LoadSceneAsync(string scene_name, LoadSceneMode mode, System.Action call)
         {
             try
             {
-                if (!IsPlatformSupport)
-                {
-                    return null;
-                }
-                if (!IsReady || IsFailed)
-                    return null;
 
                 string assetbundlename = FindAssetBundleNameByScene(scene_name);
                 if (!string.IsNullOrEmpty(assetbundlename))
                 {
-                    SceneAsyncLoader loader = new SceneAsyncLoader(assetbundlename, scene_name, mode, unload_assetbundle);
-                    SceneLoadRequest req = new SceneLoadRequest(loader);
+                    SceneAsyncLoader loader = new SceneAsyncLoader(assetbundlename, scene_name, mode, true);
                     StartCoroutine(StartLoadSceneAsync(loader));
-                    return req;
                 }
             }
             catch (System.Exception ex)
             {
                 Debug.LogError("AssetBundleManager.LoadAsset is falid!\n" + ex.Message);
             }
-
-            return null;
         }
 
         /// <summary>
@@ -391,54 +417,12 @@ namespace Cherry.AssetBundlePacker
                     cache.RefCount -= 1;
                     asset_dependency_cache_[scene_name] = cache;
                 }
-
-
+                
                 DisposeAssetBundleCache(cache.RefAssetBundleName, true);
                 string[] deps = MainManifest.GetAllDependencies(cache.RefAssetBundleName);
                 DisposeAssetBundleCache(deps, true);
             }
         }
-
-        /*
-        /// <summary>
-        ///   异步加载场景
-        /// </summary>
-        public SceneLoadRequest LoadSceneAsync(string scene_name
-                                                , LoadSceneMode mode = LoadSceneMode.Single
-                                                , bool unload_assetbundle = true
-                                                , bool unload_all_loaded_objects = false)
-        {
-            try
-            {
-                if (!IsReady)
-                {
-                    return null;
-                }
-
-                string assetbundlename = FindAssetBundleNameByScene(scene_name);
-                if (string.IsNullOrEmpty(assetbundlename))
-                {
-                    return null;
-                }
-                if (!CanLoadAssetBundleAndDependencies(assetbundlename))
-                {
-                    return null;
-                }
-
-                SceneAsyncLoader loader = new SceneAsyncLoader(assetbundlename
-                    , scene_name, mode, unload_assetbundle);
-                SceneLoadRequest req = new SceneLoadRequest(loader);
-                StartCoroutine("StartLoadAssetAsync", loader);
-                return req;
-            }
-            catch (System.Exception ex)
-            {
-                Debug.LogError("AssetBundleManager.LoadAsset is falid!\n" + ex.Message);
-            }
-
-            return null;
-        }
-        */
 
         /// <summary>
         ///   判断一个AssetBundle是否存在缓存
@@ -638,7 +622,7 @@ namespace Cherry.AssetBundlePacker
         /// <summary>
         ///   异步加载一个AssetBundle
         /// </summary>
-        IEnumerator LoadAssetBundleAsync(string assetbundlename)
+        public IEnumerator LoadAssetBundleAsync(string assetbundlename)
         {
             if (assetbundlename == null)
                 yield break;
@@ -716,7 +700,7 @@ namespace Cherry.AssetBundlePacker
         /// <summary>
         /// 保存资源依赖，用于后续卸载资源
         /// </summary>
-        void SaveAssetDependency(string asset, string assetbundle)
+        public void SaveAssetDependency(string asset, string assetbundle)
         {
             int refCount = 0;
             if (asset_dependency_cache_.ContainsKey(asset))
@@ -755,7 +739,7 @@ namespace Cherry.AssetBundlePacker
         /// <summary>
         /// 处理缓存的多个AssetBundle, 如果没有引用则卸载
         /// </summary>
-        void DisposeAssetBundleCache(string[] assetbundlesName, bool unload_all_loaded_objects)
+        public void DisposeAssetBundleCache(string[] assetbundlesName, bool unload_all_loaded_objects)
         {
             if (assetbundlesName != null && assetbundlesName.Length > 0)
             {
@@ -769,7 +753,7 @@ namespace Cherry.AssetBundlePacker
         /// <summary>
         /// 处理缓存的AssetBundle, 如果没有引用则卸载
         /// </summary>
-        void DisposeAssetBundleCache(string assetbundleName, bool unload_all_loaded_objects)
+        public void DisposeAssetBundleCache(string assetbundleName, bool unload_all_loaded_objects)
         {
             Cache cache;
             if (assetbundle_cache_.TryGetValue(assetbundleName, out cache))
@@ -790,7 +774,7 @@ namespace Cherry.AssetBundlePacker
         /// <summary>
         ///   查找是否有已载加的AssetBundle
         /// </summary>
-        AssetBundle FindLoadedAssetBundle(string assetbundlename)
+        public AssetBundle FindLoadedAssetBundle(string assetbundlename)
         {
             if (assetbundlename == null)
                 return null;
@@ -835,7 +819,7 @@ namespace Cherry.AssetBundlePacker
         /// <summary>
         ///   判断本地是否包含所有依赖
         /// </summary>
-        bool CanLoadAssetBundleAndDependencies(string assetbundlename)
+        bool AssetBundleAndDependenciesIsExite(string assetbundlename)
         {
             if (assetbundlename == null)
                 return false;
@@ -864,15 +848,7 @@ namespace Cherry.AssetBundlePacker
 
             return true;
         }
-
-        /// <summary>
-        ///   异步加载一个资源
-        /// </summary>
-        IEnumerator StartLoadAssetAsync(AssetAsyncLoader loader)
-        {
-            yield return loader.StartLoadAssetAsync(this);
-        }
-
+        
         /// <summary>
         ///   异步加载一个场景
         /// </summary>
@@ -1002,249 +978,6 @@ namespace Cherry.AssetBundlePacker
             UnloadAllAssetBundle(true);
         }
 
-        #region Loader
-        /// <summary>
-        /// 资源异步加载器
-        /// </summary>
-        internal class AssetAsyncLoader
-        {
-            /// <summary>
-            /// AssetBundle名称
-            /// </summary>
-            public string AssetBundleName { get; private set; }
-
-            /// <summary>
-            /// 资源名称(全部小写)
-            /// </summary>
-            public string AssetName { get; private set; }
-
-            /// <summary>
-            /// 资源名称（原始名称）
-            /// </summary>
-            public string OrignalAssetName { get; private set; }
-
-            /// <summary>
-            /// 加载完成卸载AssetBundle
-            /// </summary>
-            public bool UnloadAssetBundle { get; private set; }
-
-            /// <summary>
-            /// 是否加载完成?
-            /// </summary>
-            public bool IsDone { get; private set; }
-
-            /// <summary>
-            /// 加载进度.
-            /// </summary>
-            public float Progress { get; private set; }
-
-            /// <summary>
-            /// 已加载的资源
-            /// </summary>
-            public Object Asset { get; private set; }
-
-            /// <summary>
-            /// 已加载的子资源
-            /// </summary>
-            public Object[] AllAssets { get; private set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public AssetAsyncLoader(string assetbundlename, string asset_name, string orignal_asset_name, bool unload_assetbundle)
-            {
-                AssetBundleName = assetbundlename;
-                AssetName = asset_name;
-                OrignalAssetName = orignal_asset_name;
-                UnloadAssetBundle = unload_assetbundle;
-                IsDone = false;
-                Progress = 0f;
-                Asset = null;
-                AllAssets = null;
-            }
-
-            /// <summary>
-            ///   加载一个资源
-            /// </summary>
-            public IEnumerator StartLoadAssetAsync(AssetBundleManager mgr)
-            {
-                if (string.IsNullOrEmpty(AssetBundleName))
-                {
-                    IsDone = true;
-                    yield break;
-                }
-
-                ///标记未完成
-                IsDone = false;
-                Progress = 0f;
-
-                /// 加载依赖的assetbundle
-                float current = 0;
-                float count = 2;
-                string[] deps = mgr.GetAllDependencies(AssetBundleName);
-                if (deps != null)
-                {
-                    count += deps.Length;
-
-                    for (int index = 0; index < deps.Length; index++)
-                    {
-                        yield return mgr.LoadAssetBundleAsync(deps[index]);
-                        Progress = ++current / count;
-                    }
-                }
-                /// 加载assetbundle
-                {
-                    yield return mgr.LoadAssetBundleAsync(AssetBundleName);
-                    Progress = ++current / count;
-                }
-                /// 加载资源
-                {
-                    var ab = mgr.FindLoadedAssetBundle(AssetBundleName);
-                    if (ab == null)
-                    {
-                        IsDone = true;
-
-                        yield break;
-                    }
-                    var req = ab.LoadAssetAsync(AssetName);
-                    while (!req.isDone)
-                    {
-                        yield return req;
-                    }
-                    Asset = req.asset;
-                    AllAssets = req.allAssets;
-                    Progress = ++current / count;
-                }
-                if (UnloadAssetBundle)
-                {
-                    mgr.DisposeAssetBundleCache(deps, false);
-                    mgr.DisposeAssetBundleCache(AssetBundleName, false);
-                }
-                else
-                {
-                    mgr.SaveAssetDependency(AssetName, AssetBundleName);
-                }
-
-                IsDone = true;
-                Progress = 1;
-                yield break;
-            }
-        }
-
-        /// <summary>
-        /// 场景异步加载器
-        /// </summary>
-        internal class SceneAsyncLoader
-        {
-            /// <summary>
-            /// AssetBundle名称
-            /// </summary>
-            public string AssetBundleName { get; private set; }
-
-            /// <summary>
-            /// 场景名称
-            /// </summary>
-            public string SceneName { get; private set; }
-
-            /// <summary>
-            /// 加载场景模式
-            /// </summary>
-            public LoadSceneMode LoadMode { get; private set; }
-
-            /// <summary>
-            /// 加载完成卸载AssetBundle
-            /// </summary>
-            public bool UnloadAssetBundle { get; private set; }
-
-            /// <summary>
-            /// 是否加载完成?
-            /// </summary>
-            public bool IsDone { get; private set; }
-
-            /// <summary>
-            /// 加载进度.
-            /// </summary>
-            public float Progress { get; private set; }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public SceneAsyncLoader(string assetbundlename, string scene_name
-                , LoadSceneMode mode
-                , bool unload_assetbundle)
-            {
-                AssetBundleName = assetbundlename;
-                SceneName = scene_name;
-                LoadMode = mode;
-                UnloadAssetBundle = unload_assetbundle;
-                IsDone = false;
-                Progress = 0f;
-            }
-
-            /// <summary>
-            /// 加载一个场景
-            /// </summary>
-            public IEnumerator StartLoadSceneAsync(AssetBundleManager mgr)
-            {
-                if (string.IsNullOrEmpty(AssetBundleName))
-                {
-                    IsDone = true;
-                    yield break;
-                }
-
-                ///标记未完成
-                IsDone = false;
-                Progress = 0f;
-
-                ///进度计算
-                float current = 0;
-                float count = 2;
-                string[] deps = mgr.GetAllDependencies(AssetBundleName);
-                if (deps != null)
-                {
-                    count += deps.Length;
-
-                    /// 加载依赖的assetbundle
-                    for (int index = 0; index < deps.Length; index++)
-                    {
-                        yield return mgr.LoadAssetBundleAsync(deps[index]);
-                        Progress = ++current / count;
-                    }
-                }
-
-                /// 加载assetbundle
-                {
-                    yield return mgr.LoadAssetBundleAsync(AssetBundleName);
-                    Progress = ++current / count;
-                }
-
-                // 加载场景
-                {
-                    AsyncOperation async = SceneManager.LoadSceneAsync(SceneName, LoadMode);
-                    while (!async.isDone)
-                    {
-                        yield return async;
-                    }
-                    Progress = ++current / count;
-                }
-
-                if (UnloadAssetBundle)
-                {
-                    mgr.DisposeAssetBundleCache(deps, false);
-                    mgr.DisposeAssetBundleCache(AssetBundleName, false);
-                }
-                else
-                {
-                    mgr.SaveAssetDependency(SceneName, AssetBundleName);
-                }
-
-                IsDone = true;
-                Progress = 1;
-
-                yield break;
-            }
-        }
-        #endregion
 
         #region Cache
         /// <summary>
@@ -1770,5 +1503,22 @@ namespace Cherry.AssetBundlePacker
             ShutDown();
         }
         #endregion
+
+
+        //编辑器模式下使用
+        public void LoadScene(string name, LoadSceneMode parameters, System.Action cb) {
+            StartCoroutine(DoLoadScene(name, parameters, cb));
+        }
+
+        public IEnumerator DoLoadScene(string name, LoadSceneMode parameters, System.Action cb)
+        {
+            AsyncOperation async = SceneManager.LoadSceneAsync(name, parameters);
+            while (async.isDone == false)
+                yield return new WaitForEndOfFrame();
+            if (cb != null)
+                cb();
+        }
+
+
     }
 }

@@ -23,7 +23,7 @@ public class CopyLocalAssetStep : ActionBase
 
     public void StartUpdate()
     {
-        if (File.Exists(Path.Combine(ResourcesManager.AssetBundlePath, "assetslist.txt")) == false)
+        if (File.Exists(Path.Combine(AssetsManager.AssetBundlePath, "assetslist.txt")) == false)
         {
            TimeManager.Instance.StartCoroutine(CopyStreaming());
         }
@@ -38,7 +38,7 @@ public class CopyLocalAssetStep : ActionBase
     {
         string assetListName = "assetslist.txt";
         yield return new WaitForEndOfFrame();
-        string wwwStreamingAssetBundlePath = Path.Combine(ResourcesManager.StreamingAssetsPath, "AssetBundle");
+        string wwwStreamingAssetBundlePath = Path.Combine(AssetsManager.StreamingAssetsPath, "AssetBundle");
 #if UNITY_ANDROID
         UnityWebRequest webRequest = UnityWebRequest.Get(Path.Combine(StreamingAssetsPath, assetListName));
 
@@ -52,11 +52,11 @@ public class CopyLocalAssetStep : ActionBase
 
         string txtAssetslist = webRequest.downloadHandler.text;
 #else
-        string txtAssetslist = File.ReadAllText(Path.Combine(ResourcesManager.StreamingAssetsPath, "AssetBundle", assetListName));
+        string txtAssetslist = File.ReadAllText(Path.Combine(AssetsManager.StreamingAssetsPath, "AssetBundle", assetListName));
 #endif
 
         string txtCurAssetslist = "0";
-        string assetListPath = Path.Combine(ResourcesManager.AssetBundlePath, "assetslist.txt");
+        string assetListPath = Path.Combine(AssetsManager.AssetBundlePath, "assetslist.txt");
         if (File.Exists(assetListPath) == true)
         {
             txtCurAssetslist = File.ReadAllText(assetListPath);
@@ -106,13 +106,13 @@ public class CopyLocalAssetStep : ActionBase
                 File.WriteAllBytes(Path.Combine(ResourcesManager.assetBundlePath, fileName), webRequest.downloadHandler.data);
 #else
                 File.Copy(Path.Combine(wwwStreamingAssetBundlePath, fileName), 
-                    Path.Combine(ResourcesManager.AssetBundlePath, fileName), true);
+                    Path.Combine(AssetsManager.AssetBundlePath, fileName), true);
 #endif
 
                 yield return new WaitForFixedUpdate();
             }
 
-            File.WriteAllText(Path.Combine(ResourcesManager.AssetBundlePath, "assetslist.txt"), txtAssetslist);
+            File.WriteAllText(Path.Combine(AssetsManager.AssetBundlePath, "assetslist.txt"), txtAssetslist);
         }
         bFinished = true;
     }
