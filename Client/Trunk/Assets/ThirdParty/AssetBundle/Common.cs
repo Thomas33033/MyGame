@@ -1,10 +1,4 @@
-﻿/***************************************************************
- * Copyright 2016 By Zhang Minglin
- * Author: Zhang Minglin
- * Create: 2016/01/18 15:21:08
- * Note  : AssetBundle相关公共定义
-***************************************************************/
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;

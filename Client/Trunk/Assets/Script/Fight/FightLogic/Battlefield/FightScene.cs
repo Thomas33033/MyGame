@@ -12,13 +12,14 @@ namespace Fight
 
         public FightCompositeBehaviour compBehaviour;
 
-        private float _startTime;
-        public float SysTime => Time.time - _startTime;
+        public float SysTime => fightCenter.GetGameTime();
 
-        public FightScene()
+        private FightCenter fightCenter;
+
+        public FightScene(FightCenter fightCenter)
         {
             Instance = this;
-            _startTime = Time.time;
+            this.fightCenter = fightCenter;
             RandomTools.SetRandomSeed(180);
         }
 
@@ -36,21 +37,14 @@ namespace Fight
             }
         }
 
-        int index = 0;
         public void Update()
         {
-            if (index++ % 3 != 0)
-            {
-                return;
-            }
-            index = 1;
             if (compBehaviour != null)
             {
                 compBehaviour.Update();
             }
 
         }
-
 
         public void CreateRole(FightRoleData fightBuildData)
         {

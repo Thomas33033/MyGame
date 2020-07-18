@@ -46,10 +46,8 @@ public class FightSceneRender
     }
 
 
-    public void InitFight(Platform platform, FightScene fightScene)
+    public void InitFight(Platform platform)
     {
-        fightScene.compBehaviour.reciveEvent += ReportHandler;
-
         RegisterFightReport();
 
         battleFieldRender = new BattlefieldRender(this,platform);
@@ -58,7 +56,7 @@ public class FightSceneRender
    
 
 
-    public  void Update()
+    public  void Update(float interpolation)
     {
         //base.Update();
 
@@ -89,7 +87,7 @@ public class FightSceneRender
     }
 
     //通知UI
-    protected void ReportHandler(FightReport report)
+    public void ReportHandler(FightReport report)
     {
         //Debug.Log("收到战报 " + report.type);
         //if (_luaReportFun != null && Array.IndexOf<string>(_arrListeners, report.type) > -1)

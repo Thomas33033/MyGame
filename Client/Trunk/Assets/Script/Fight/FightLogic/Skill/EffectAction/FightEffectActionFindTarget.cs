@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using behaviac;
+using System.Collections.Generic;
 
 namespace Fight
 {
@@ -27,7 +28,7 @@ namespace Fight
             int range = GetValue(1, fightEffect.level);
 
             int targetNum = GetValue(2, fightEffect.level);
-
+            Debug.Log(range + " " + fightEffect.role.range);
             List<Role> listEnemy = fightEffect.role.scanTargetComp.FindTarget(
                 (ESearchTargetType)targetType, 
                 rangeType,
@@ -42,7 +43,7 @@ namespace Fight
 
             fightEffect.ClearTargets();
 
-            fightEffect.AddTargets(listEnemy);
+             fightEffect.AddTargets(listEnemy);
 
             if (fightEffect.listTargets.Count == 0)
                 return false;

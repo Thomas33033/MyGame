@@ -5,7 +5,7 @@
 Space3D = {}
 
 local arrTempSprite = {}
-LoadTools.SetAssetBundleKeepTime(0,1)
+--LoadTools.SetAssetBundleKeepTime(0,1)
 
 local arrObj = {}
 
@@ -249,8 +249,3 @@ function DoRelogin(cb)
 		LoadTools.LoadScene("SC_LoadResources",0,cb)
 	end,0)
 end
-
-
-SDKFly.SdkTool.SetLogoutCallBack(function ( ... )
-		DoRelogin(nil)
-	end)

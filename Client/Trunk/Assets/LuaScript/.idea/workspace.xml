@@ -3,8 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="52295b75-3299-4fb7-87fc-cefc32841763" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Main.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Managers/UI/UI.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Managers/UI/UI.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Managers/space3d.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Managers/space3d.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scenes1/Home.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Scenes1/Home.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Script/Common/LoadTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Common/LoadTools.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ThirdParty/AssetBundle/AssetAsyncLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/AssetBundle/AssetAsyncLoader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ThirdParty/AssetBundle/AssetBundleManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/AssetBundle/AssetBundleManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ThirdParty/AssetBundle/Common.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/AssetBundle/Common.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ThirdParty/AssetBundle/SceneAsyncLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/AssetBundle/SceneAsyncLoader.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +48,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Space" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -111,7 +118,8 @@
       <workItem from="1593242535588" duration="573000" />
       <workItem from="1593244200081" duration="7000" />
       <workItem from="1594457418471" duration="4414000" />
-      <workItem from="1594606001998" duration="30209000" />
+      <workItem from="1594606001998" duration="34610000" />
+      <workItem from="1595056414344" duration="3154000" />
     </task>
     <servers />
   </component>
@@ -123,23 +131,25 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2275" y="42" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594641155869" />
-    <state x="2610" y="218" key="FileChooserDialogImpl" timestamp="1594621013237">
+    <state x="2610" y="218" key="FileChooserDialogImpl" timestamp="1594866635048">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2610" y="218" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594621013237" />
+    <state x="2610" y="218" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594866635048" />
     <state x="690" y="218" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589003222012" />
     <state x="2472" y="301" key="com.intellij.ide.util.TipDialog" timestamp="1594606011685">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2472" y="301" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594606011685" />
-    <state x="2494" y="193" width="831" height="682" key="find.popup" timestamp="1594691845993">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="574" y="193" width="831" height="682" key="find.popup" timestamp="1595057763249">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="574" y="193" width="831" height="682" key="find.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1595057763249" />
     <state x="2494" y="193" width="831" height="682" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594691845993" />
     <state x="574" y="193" width="771" height="654" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592643198003" />
-    <state x="2459" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1594691615457">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1595057765487">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1595057765487" />
     <state x="2459" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594691615457" />
   </component>
 </project>

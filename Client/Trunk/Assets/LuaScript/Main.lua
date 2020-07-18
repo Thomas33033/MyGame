@@ -22,13 +22,14 @@ function Main.Awake()
 	Network.RegisterPbs();
 	--LuaNetManager.RegisterListener()
 	--注册逻辑控制器
-	DataManager.RegisterListener();
+	CtrlManager.RegisterListener();
 	Main.Start()
 end
 
 function Main.Start()
+	--UIMain.Create()
 	--切换场景
-	Home.Create()
+	--Home.Create()
 end
 
 --timeDetail:以秒为单位

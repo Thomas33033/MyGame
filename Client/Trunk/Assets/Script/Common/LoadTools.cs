@@ -51,10 +51,10 @@ public class LoadTools
         return uiObj;
     }
 
-    public static void LoadSprite(string path, string name)
+    public static Sprite LoadSprite(string path, string name)
     {
-        string assetPath = UIPath + path + "/" + name + ".png";
-
+        string assetPath = ResPathHelper.UI_WINDOW_PATH + path + "/" + name;
+        return AssetsManager.LoadSprite(assetPath);
     }
 
     /// <summary>
@@ -70,7 +70,7 @@ public class LoadTools
             return AssetDatabase.LoadAssetAtPath<SpriteAtlas>("Assets/BundleResources/" + packageName + "/" + packageName + "_Atlas.spriteatlas");
         }
 #endif
-        return LoadAssetBundle(packageName).LoadAsset<SpriteAtlas>(packageName + "_Atlas");
+        return AssetBundleManager.Instance.LoadAsset<SpriteAtlas>(packageName + "_Atlas");
     }
 
 

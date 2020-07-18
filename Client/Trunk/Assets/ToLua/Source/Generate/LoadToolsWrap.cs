@@ -10,8 +10,13 @@ public class LoadToolsWrap
 		L.RegFunction("SetParent", SetParent);
 		L.RegFunction("LoadUI", LoadUI);
 		L.RegFunction("LoadSprite", LoadSprite);
+		L.RegFunction("LoadPrivateAtlas", LoadPrivateAtlas);
+		L.RegFunction("LoadSpriteAtlas", LoadSpriteAtlas);
+		L.RegFunction("LoadAssetBundleScene", LoadAssetBundleScene);
+		L.RegFunction("UnloadSceneAsync", UnloadSceneAsync);
 		L.RegFunction("New", _CreateLoadTools);
 		L.RegFunction("__tostring", ToLua.op_ToString);
+		L.RegVar("useAssetBundle", get_useAssetBundle, set_useAssetBundle);
 		L.RegVar("UIPath", get_UIPath, set_UIPath);
 		L.EndClass();
 	}
@@ -84,8 +89,92 @@ public class LoadToolsWrap
 			ToLua.CheckArgsCount(L, 2);
 			string arg0 = ToLua.CheckString(L, 1);
 			string arg1 = ToLua.CheckString(L, 2);
-			LoadTools.LoadSprite(arg0, arg1);
+			UnityEngine.Sprite o = LoadTools.LoadSprite(arg0, arg1);
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int LoadPrivateAtlas(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			UnityEngine.U2D.SpriteAtlas o = LoadTools.LoadPrivateAtlas(arg0);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int LoadSpriteAtlas(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			UnityEngine.U2D.SpriteAtlas o = LoadTools.LoadSpriteAtlas(arg0);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int LoadAssetBundleScene(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 4);
+			string arg0 = ToLua.CheckString(L, 1);
+			int arg1 = (int)LuaDLL.luaL_checknumber(L, 2);
+			System.Action arg2 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 3);
+			System.Action arg3 = (System.Action)ToLua.CheckDelegate<System.Action>(L, 4);
+			LoadTools.LoadAssetBundleScene(arg0, arg1, arg2, arg3);
 			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UnloadSceneAsync(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			LoadTools.UnloadSceneAsync(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_useAssetBundle(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushboolean(L, LoadTools.useAssetBundle);
+			return 1;
 		}
 		catch (Exception e)
 		{
@@ -100,6 +189,21 @@ public class LoadToolsWrap
 		{
 			LuaDLL.lua_pushstring(L, LoadTools.UIPath);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_useAssetBundle(IntPtr L)
+	{
+		try
+		{
+			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
+			LoadTools.useAssetBundle = arg0;
+			return 0;
 		}
 		catch (Exception e)
 		{

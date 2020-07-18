@@ -105,7 +105,7 @@ public class UI_DragItem : MonoBehaviour
         Text txt_name = this.gameObject.FindComponent<Text>("txt_name");
         txt_name.text = config.Name;
 
-        Sprite sprite = AssetsManager.LoadSprite(ResPathHelper.UI_ITEM_PATH + config.HeadIcon);
+        Sprite sprite = LoadTools.LoadSprite("Atlas/Items", config.HeadIcon);
         image.sprite = sprite;
         UITools.AddClickEvent(image.gameObject, () =>
         {

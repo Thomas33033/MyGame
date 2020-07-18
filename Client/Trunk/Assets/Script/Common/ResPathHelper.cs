@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ResPathHelper 
 {
-    public static string UI_TOWER_ICONS_PATH = "assets/bundleres/ui/atals/towericons/";
-    public static string UI_ITEM_PATH = "assets/bundleres/ui/single/items/";
-    public static string UI_WINDOW_PATH = "assets/bundleres/ui/";
+    public static string UI_TOWER_ICONS_PATH = "Assets/BundleRes/UI/Atlas/TowerIcons/";
+    public static string UI_ITEM_PATH = "Assets/BundleRes/UI/Atlas/Items/";
+    public static string UI_WINDOW_PATH = "Assets/BundleRes/UI/";
 
-    public static string UI_NPC_PATH = "assets/bundleres/NPC/";
-    public static string UI_EFFECT_APTH = "assets/bundleres/Effect/";
-    public static string UI_DAMAGE_APTH = "assets/bundleres/DamageLabel/";
+    public static string UI_NPC_PATH = "Assets/BundleRes/NPC/";
+    public static string UI_EFFECT_APTH = "Assets/BundleRes/Effect/";
+    public static string UI_DAMAGE_APTH = "Assets/BundleRes/DamageLabel/";
 }

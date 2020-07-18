@@ -53,9 +53,9 @@ function UI.LoadUI(uiTable)
     uiTable.gameObject = obj
     uiTable.transform = obj.transform
     UI.FindUIComponent(uiTable,uiTable.transform)
-    uiTable.luaUI =  obj:GetComponent(LuaUIComponent)
+    uiTable.luaUI = obj:GetComponent("LuaUIComponent")
     if uiTable.luaUI == nil then
-        uiTable.luaUI = obj:AddComponent(LuaUIComponent)
+        uiTable.luaUI = obj:AddComponent(typeof(LuaUIComponent))
     end
     uiTable.luaUI:SetData(uiTable)
     uiTable.uiId = GetIndex()

@@ -125,7 +125,8 @@ public class InputManager : MonoBehaviour
             this.fightBuildData.NodeId = node.Id;
             this.poolObj.ReturnToPool();
 
-            FightScene.Instance.CreateRole(this.fightBuildData);
+            GameControl.fightCenter.CreateRole(this.fightBuildData);
+            
         }
         else
         {

@@ -28,6 +28,9 @@ public class Main : MonoBehaviour {
         //actionSequence.Start(this.gameObject);
 
         OnEnterGame();
+
+
+        Debug.LogError( Fix64.FromRaw(300));
     }
 
 
@@ -54,18 +57,20 @@ public class Main : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if (actionSequence != null) actionSequence.Update(Time.deltaTime);
+       // if (actionSequence != null) actionSequence.Update(Time.deltaTime);
 
         if (m_isReady)
         {
             m_isReady = false;
 
-            LuaManager.CreateSingleton();
-            //UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
-            //UI_Loading.instance.ShowProgress(() =>
-            //{
-            //    GameObject.Destroy(UI_Loading.instance.gameObject);
-            //});
+
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Home");
+
+            UI_Loading.instance.ShowProgress(() =>
+            {
+                LuaManager.CreateSingleton();
+                GameObject.Destroy(UI_Loading.instance.gameObject);
+            });
         }
     }
 

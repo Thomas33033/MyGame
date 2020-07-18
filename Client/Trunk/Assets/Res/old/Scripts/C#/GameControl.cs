@@ -50,6 +50,9 @@ public class GameControl : MonoBehaviour {
 	public Platform platform;
 
 	public bool gameStart = false;
+
+
+	public static FightCenter fightCenter;
 	void Awake()
     {
         gameControl = this;
@@ -76,8 +79,7 @@ public class GameControl : MonoBehaviour {
 
         SpawnManager.Instance.OnInit(this.defaultPath);
 
-
-    }
+	}
 
     // Use this for initialization
     void Start ()
@@ -112,7 +114,7 @@ public class GameControl : MonoBehaviour {
 		platform.GenerateNode(0);
         platform.SetWalkable(true);
 
-        FightScene fightScene = new FightScene();
+       
         FightData fightdata = new FightData();
 
         fightdata.enemyBattleData = new FightPlayerData();
@@ -156,13 +158,11 @@ public class GameControl : MonoBehaviour {
 		fightdata.battleFieldData.row = platform.row;
 		fightdata.battleFieldData.column = platform.column;
 
-		FightSceneRender sceneRender = new FightSceneRender();
-		fightScene.InitFight(FightType.ConmmFight, fightdata);
 
-		sceneRender.InitFight(platform, fightScene);
-		sceneRender.SetServerTime(fightScene.compBehaviour.GetTime());
+        fightCenter = new FightCenter();
+		fightCenter.OnInit(fightdata, platform);
 
-	}
+    }
 	
 
     public void RefreshResource()
@@ -188,15 +188,12 @@ public class GameControl : MonoBehaviour {
 	// Update is called once per frame
     float deltalTime = 0;
 	void Update () {
+
         this.deltalTime = Time.deltaTime;
-
         SpawnManager.Instance.OnUpdate(this.deltalTime);
-
-
-        FightSceneRender.Instance.Update();
-        FightScene.Instance.Update();
 		ObjectPoolManager.Instance.OnUpdate();
 
+		fightCenter.Update();
 	}
 	
 	void WaveStartSpawned(int waveID){
