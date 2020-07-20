@@ -110,6 +110,7 @@ namespace Fight
 
         public override void PauseFight()
         {
+            Debug.LogError("PauseFight");
             composite.isFight = false;
         }
 

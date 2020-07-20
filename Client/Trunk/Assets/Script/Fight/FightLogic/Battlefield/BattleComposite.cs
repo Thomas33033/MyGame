@@ -184,8 +184,7 @@ namespace Fight
             role.isPlayer = isPlayer;
             role.npcId = roleData.npcId;
             role.OnInitPosition(nodeId,roleData.CostNodes, roleData.NodeSize);
- 
-            
+
 
             listAllRoles.Add(role);
             battleField.AddRole(role, nodeId);
@@ -333,12 +332,13 @@ namespace Fight
                     }
                 }
 
-                GameOver(winner);
+                //GameOver(winner);
             }
         }
 
         private void GameOver(int winner)
         {
+            Debug.LogError("GameOver");
             isFight = false;
             listReport.Add(new FightReportGameOver(Time, winner, GetPlayerRoleHpLeft()));
 

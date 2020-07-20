@@ -461,7 +461,7 @@ public class BuildManager : MonoBehaviour {
 		heroData.HP = npcData.config.HP;
 		heroData.MP = npcData.attrConfig.MaxAngler;
 		heroData.CurMp = 0;
-        heroData.CurHp = npcData.config.HP;
+        heroData.CurHp = 1;
 		heroData.Level = npcData.config.Level;
 
         heroData.MaxAnger = npcData.attrConfig.MaxAngler;

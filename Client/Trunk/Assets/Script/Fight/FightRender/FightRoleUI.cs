@@ -29,6 +29,7 @@ public class FightRoleUI : MonoBehaviour
 
     public void ShowHp(int hp)
     {
+        Debug.LogError(hp + " " + hpMax);
         if (hp < hpMax)
         {
             gameObject.SetActive(true);
