@@ -114,32 +114,32 @@ public class GameControl : MonoBehaviour {
 		platform.GenerateNode(0);
         platform.SetWalkable(true);
 
-       
+        List<SceneEntity> lstScentEntities = StaticData.LoadList<SceneEntity>("FightScene");
+        List<FightRoleData> fightRole = new List<FightRoleData>();
+        for (int i = 0; i < lstScentEntities.Count; i++)
+        {
+            NpcData npcData = new NpcData();
+            npcData.InitData(lstScentEntities[i].npcId, (ETeamType)lstScentEntities[i].teamId);
+            FightRoleData roleData = BuildManager.CreateNpc(npcData);
+            roleData.CurHp = lstScentEntities[i].curHp;
+            roleData.CurMp = lstScentEntities[i].curMp;
+            roleData.NodeId = lstScentEntities[i].npcPos;
+            roleData.CostNodes = lstScentEntities[i].nodeCost;
+            fightRole.Add(roleData);
+        }
+
+
         FightData fightdata = new FightData();
 
         fightdata.enemyBattleData = new FightPlayerData();
 		var userData = new FightPlayerInfo();
 		userData.userID = 1001;
+		userData.teamId = 2;
 		userData.nickName = "»¶Ï²Ô©¼Ò";
 		userData.userIcon = "Icon_1";
 		fightdata.enemyBattleData.userData = userData;
 		fightdata.enemyBattleData.heroData = new FightRoleData[] { };
 		fightdata.enemyBattleData.teamSkills = new FightSkillData[] { };
-
-
-		List<SceneEntity> lstScentEntities = StaticData.LoadList<SceneEntity>("FightScene");
-		List<FightRoleData> fightRole = new List<FightRoleData>();
-		for (int i = 0; i < lstScentEntities.Count; i++)
-		{
-			NpcData npcData = new NpcData();
-			npcData.InitData((uint)lstScentEntities[i].npcId, (ETeamType)lstScentEntities[i].teamId);
-			FightRoleData roleData = BuildManager.CreateNpc(npcData);
-			roleData.CurHp = lstScentEntities[i].curHp;
-			roleData.CurMp = lstScentEntities[i].curMp;
-			roleData.NodeId = lstScentEntities[i].npcPos;
-			roleData.CostNodes = lstScentEntities[i].nodeCost;
-			fightRole.Add(roleData);
-		}
 
 		gameStart = true;
 
@@ -149,7 +149,8 @@ public class GameControl : MonoBehaviour {
         userData.userID = 1002;
         userData.nickName = "»¶Ï²Ô©¼Ò_2";
         userData.userIcon = "Icon_2";
-        fightdata.selfBattleData.userData = userData;
+		userData.teamId = 1;
+		fightdata.selfBattleData.userData = userData;
         fightdata.selfBattleData.heroData = fightRole.ToArray();
         fightdata.selfBattleData.teamSkills = new FightSkillData[] { };
 
@@ -159,8 +160,8 @@ public class GameControl : MonoBehaviour {
 		fightdata.battleFieldData.column = platform.column;
 
 
-        fightCenter = new FightCenter();
-		fightCenter.OnInit(fightdata, platform);
+        GameControl.fightCenter = new FightCenter();
+		GameControl.fightCenter.OnInit(fightdata, platform);
 
     }
 	

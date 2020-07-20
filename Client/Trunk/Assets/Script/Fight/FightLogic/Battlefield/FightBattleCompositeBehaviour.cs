@@ -37,21 +37,20 @@ namespace Fight
 
         private void InitPlayer(FightType fightType, FightPlayerData fightPlayerData, BattleField battleField)
         {
-            FightTeam fightTeam = new FightTeam(fightPlayerData.userData.userID, fightType, fightPlayerData.teamSkills);
+            FightTeam fightTeam = new FightTeam(fightPlayerData.userData.teamId, fightType, fightPlayerData.teamSkills);
             fightTeam.isPlayer = true;
             composite.AddFightTeam(fightTeam, battleField.id);
 
             for (int i = 0; i < fightPlayerData.heroData.Length; i++)
             {
                 int p = fightPlayerData.heroData[i].NodeId;
-
                 composite.AddRoleOnBattleField(fightTeam.id, battleField.id, fightPlayerData.heroData[i], p, true);
             }
         }
 
         private void InitEnemy(FightType fightType, FightPlayerData fightPlayerData, BattleField battleField)
         {
-            FightTeam fightTeam = new FightTeam(fightPlayerData.userData.userID, fightType, fightPlayerData.teamSkills);
+            FightTeam fightTeam = new FightTeam(fightPlayerData.userData.teamId, fightType, fightPlayerData.teamSkills);
 
             composite.AddFightTeam(fightTeam, battleField.id);
 
@@ -59,7 +58,7 @@ namespace Fight
             {
                 int p = fightPlayerData.heroData[i].NodeId;
                 
-                composite.AddRoleOnBattleField(fightTeam.id, battleField.id, fightPlayerData.heroData[i], p, false);
+                composite.AddRoleOnBattleField(fightTeam.teamId, battleField.id, fightPlayerData.heroData[i], p, false);
             }
         }
 

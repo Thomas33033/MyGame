@@ -130,12 +130,10 @@ namespace Fight
 
         public virtual void Init()
         {
-
             TriggerEffect(TriggerType.Init);
             UpdateAttribute();
             this.hp = Mathf.CeilToInt(hpMax * _hpInit);
             this.mp = _mpInit;
-            Debug.LogError(this.hp);
         }
 
         public void AttackDataDodge(Role attacker)

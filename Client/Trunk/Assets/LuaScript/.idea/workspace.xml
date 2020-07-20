@@ -1,42 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="52295b75-3299-4fb7-87fc-cefc32841763" name="Default Changelist" comment="">
+    <list default="true" id="82a4d877-2b16-4476-a57d-8650877448ee" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Common/GameEnum.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Common/ItemRender.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Excel/U_UI界面表.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/U_UI界面表.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Excel/build_lua_cfg.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/build_lua_cfg.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Excel/contents.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/contents.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Excel/excel2Lua/convertor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Main/UIMain.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../BundleRes/UI/Main/UIMain.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Editor/AutoCreateScript/AutoCreateUIScriptEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Editor/AutoCreateScript/AutoCreateUIScriptEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Editor/Custom/CustomSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Editor/Custom/CustomSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Lua.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3rd/Common/Event.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Common/Event.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3rd/DebugPrint/debugPrint.lua" beforeDir="false" afterPath="$PROJECT_DIR$/3rd/DebugPrint/debugPrint.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/ListView.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Common/ListView.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/LuaTools.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Common/LuaTools.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/UIBase.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Common/UIBase.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/Utility.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Common/Utility.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Config.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Logic/GlobalConfig.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logic/Logic_Config.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Logic/Logic_Config.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Main.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Managers/CtrlManager.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Managers/CtrlManager.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Managers/UI/UI.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Managers/UI/UI.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Managers/UI/UIImport.lua" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Managers/space3d.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Managers/space3d.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Space/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Space/.idea/Space.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LuaScript.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Space/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Space/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Space/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Space/Home/Home.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Space/Home/Home.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/Mail/View/UIMailItemRender.lua" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Mail/View/UIMailItemRender.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/Main/View/Base/UIMainView.lua" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Main/View/Base/UIMainView.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/Main/View/UIMain.lua" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Main/View/UIMain.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Res/old/Scripts/C#/BuildManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Scripts/C#/BuildManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Scenes1/Home.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Scenes1/Home.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Script/Common/LoadTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Common/LoadTools.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/Componet/MoveComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/Componet/MoveComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/role/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/role/Role.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Script/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Main.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThirdParty/AssetBundle/AssetAsyncLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/AssetBundle/AssetAsyncLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThirdParty/AssetBundle/AssetBundleManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/AssetBundle/AssetBundleManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThirdParty/AssetBundle/Common.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/AssetBundle/Common.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThirdParty/AssetBundle/SceneAsyncLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/AssetBundle/SceneAsyncLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Manager/LuaManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Manager/LuaManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/UI/LuaUIComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/UI/LuaUIComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/UI/UI_Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/UI/UI_Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/Editor/SGDefaultControls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/Editor/SGDefaultControls.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopHorizontalScrollRect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopHorizontalScrollRect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopScrollRect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopScrollRect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopVerticalScrollRect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopVerticalScrollRect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/LoadToolsWrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/LoadToolsWrap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/LuaBinder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/LuaBinder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/UnityEngine_GameObjectWrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/UnityEngine_GameObjectWrap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/UnityEngine_UI_LoopScrollRectWrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/UnityEngine_UI_LoopScrollRectWrap.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DatabaseView">
-    <option name="SHOW_INTERMEDIATE" value="true" />
-    <option name="GROUP_DATA_SOURCES" value="true" />
-    <option name="GROUP_SCHEMA" value="true" />
-    <option name="GROUP_CONTENTS" value="false" />
-    <option name="SORT_POSITIONED" value="false" />
-    <option name="SHOW_EMPTY_GROUPS" value="false" />
-    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-    <option name="HIDDEN_KINDS">
-      <set />
-    </option>
-    <expand />
-    <select />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
   </component>
-  <component name="ProjectId" id="1X4Nz2BpLV34nwU3I6X5s4cqvYe" />
+  <component name="ProjectId" id="1evo5A3Bv0bGKjpCi1UzzFNyIpo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -44,6 +70,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -55,21 +82,11 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\Managers" />
       <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\Common" />
-      <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\Managers\UI" />
-      <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\Logic" />
-      <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\Logic\UI\Bag" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\Space" />
-      <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\Logic\Common" />
-      <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\Logic" />
-      <recent name="D:\UnityWorkspace\MyGame\Client\Trunk\Assets\LuaScript\Logic\Managers" />
+      <recent name="F:\BaiduNetdiskDownload\Game\MyGame\Client\Trunk\Assets\LuaScript\3rd" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -89,37 +106,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="52295b75-3299-4fb7-87fc-cefc32841763" name="Default Changelist" comment="" />
-      <created>1580301665928</created>
+      <changelist id="82a4d877-2b16-4476-a57d-8650877448ee" name="Default Changelist" comment="" />
+      <created>1595211241112</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1580301665928</updated>
-      <workItem from="1580301667042" duration="413000" />
-      <workItem from="1580302162315" duration="3003000" />
-      <workItem from="1580361144452" duration="11167000" />
-      <workItem from="1580460195745" duration="11454000" />
-      <workItem from="1580531217284" duration="9219000" />
-      <workItem from="1580704595561" duration="4000" />
-      <workItem from="1580980248812" duration="492000" />
-      <workItem from="1581062588524" duration="9000" />
-      <workItem from="1587818735644" duration="606000" />
-      <workItem from="1587824967469" duration="6000" />
-      <workItem from="1587912923572" duration="2000" />
-      <workItem from="1587913094207" duration="600000" />
-      <workItem from="1588605185477" duration="5000" />
-      <workItem from="1588605711727" duration="2000" />
-      <workItem from="1588692814241" duration="2000" />
-      <workItem from="1589003190463" duration="32000" />
-      <workItem from="1592643128187" duration="1418000" />
-      <workItem from="1592654962367" duration="331000" />
-      <workItem from="1592738863043" duration="3000" />
-      <workItem from="1592754675978" duration="4000" />
-      <workItem from="1593166014411" duration="14000" />
-      <workItem from="1593242535588" duration="573000" />
-      <workItem from="1593244200081" duration="7000" />
-      <workItem from="1594457418471" duration="4414000" />
-      <workItem from="1594606001998" duration="34610000" />
-      <workItem from="1595056414344" duration="3154000" />
+      <updated>1595211241112</updated>
+      <workItem from="1595211242563" duration="23718000" />
     </task>
     <servers />
   </component>
@@ -127,29 +119,22 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2275" y="42" key="CommitChangelistDialog2" timestamp="1594641155869">
+    <state x="2510" y="303" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595217527224">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2275" y="42" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594641155869" />
-    <state x="2610" y="218" key="FileChooserDialogImpl" timestamp="1594866635048">
+    <state x="2510" y="303" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1595217527224" />
+    <state x="2253" y="42" key="CommitChangelistDialog2" timestamp="1595215879876">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2610" y="218" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594866635048" />
-    <state x="690" y="218" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589003222012" />
-    <state x="2472" y="301" key="com.intellij.ide.util.TipDialog" timestamp="1594606011685">
+    <state x="2253" y="42" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1595215879876" />
+    <state x="2464" y="179" width="831" height="682" key="find.popup" timestamp="1595230293671">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2472" y="301" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594606011685" />
-    <state x="574" y="193" width="831" height="682" key="find.popup" timestamp="1595057763249">
+    <state x="2464" y="179" width="831" height="682" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1595230293671" />
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1595243564143">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="574" y="193" width="831" height="682" key="find.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1595057763249" />
-    <state x="2494" y="193" width="831" height="682" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594691845993" />
-    <state x="574" y="193" width="771" height="654" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1592643198003" />
-    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1595057765487">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1595057765487" />
-    <state x="2459" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594691615457" />
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1595243564143" />
+    <state x="2459" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1595237821231" />
   </component>
 </project>

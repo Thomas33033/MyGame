@@ -29,7 +29,6 @@ public static class CustomSettings
         //typeof(UnityEngine.QualitySettings),
         typeof(UnityEngine.GL),
         typeof(UnityEngine.Graphics),
-        typeof(LuaUIComponent),
     };
 
     //附加导出委托类型(在导出委托时, customTypeList 中牵扯的委托类型都会导出， 无需写在这里)
@@ -136,12 +135,14 @@ public static class CustomSettings
         _GT(typeof(LayerMask)),
         _GT(typeof(Utils)),
         _GT(typeof(UIManager)),
-        _GT(typeof(UITools)),
+        _GT(typeof(LuaTools)),
         _GT(typeof(LoadTools)),
         _GT(typeof(LuaUIComponent)),
+        _GT(typeof(LuaSpaceComponent)),
 
         //uGUI;
         _GT(typeof(RectTransform)),
+        _GT(typeof(CanvasGroup)),
         _GT(typeof(UnityEngine.UI.Button)),
         _GT(typeof(UnityEngine.UI.Selectable)),
         _GT(typeof(UnityEngine.EventSystems.UIBehaviour)),

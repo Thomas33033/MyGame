@@ -47,7 +47,6 @@ public sealed class LuaManager : MonoSingleton<LuaManager>
 
     void StartMain()
     {
-        Debug.LogError("---------------");
         lua.DoFile("Main.lua");
 
         LuaFunction main = lua.GetFunction("Main.Awake");

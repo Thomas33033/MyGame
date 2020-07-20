@@ -94,12 +94,12 @@ namespace UnityEngine.UI
             // Setup UI components.
 
             LoopHorizontalScrollRect scrollRect = root.AddComponent<LoopHorizontalScrollRect>();
-            scrollRect.content = contentRT;
+            //scrollRect.content = contentRT;
             scrollRect.viewport = null;
             scrollRect.horizontalScrollbar = null;
             scrollRect.verticalScrollbar = null;
-            scrollRect.horizontal = true;
-            scrollRect.vertical = false;
+            //scrollRect.horizontal = true;
+            //scrollRect.vertical = false;
             scrollRect.horizontalScrollbarVisibility = LoopScrollRect.ScrollbarVisibility.Permanent;
             scrollRect.verticalScrollbarVisibility = LoopScrollRect.ScrollbarVisibility.Permanent;
             scrollRect.horizontalScrollbarSpacing = 0;
@@ -133,17 +133,17 @@ namespace UnityEngine.UI
 
             // Setup UI components.
 
-            LoopVerticalScrollRect scrollRect = root.AddComponent<LoopVerticalScrollRect>();
-            scrollRect.content = contentRT;
-            scrollRect.viewport = null;
-            scrollRect.horizontalScrollbar = null;
-            scrollRect.verticalScrollbar = null;
-            scrollRect.horizontal = false;
-            scrollRect.vertical = true;
-            scrollRect.horizontalScrollbarVisibility = LoopScrollRect.ScrollbarVisibility.Permanent;
-            scrollRect.verticalScrollbarVisibility = LoopScrollRect.ScrollbarVisibility.Permanent;
-            scrollRect.horizontalScrollbarSpacing = 0;
-            scrollRect.verticalScrollbarSpacing = 0;
+            //LoopVerticalScrollRect scrollRect = root.AddComponent<LoopVerticalScrollRect>();
+            //scrollRect.content = contentRT;
+            //scrollRect.viewport = null;
+            //scrollRect.horizontalScrollbar = null;
+            //scrollRect.verticalScrollbar = null;
+            //scrollRect.horizontal = false;
+            //scrollRect.vertical = true;
+            //scrollRect.horizontalScrollbarVisibility = LoopScrollRect.ScrollbarVisibility.Permanent;
+            //scrollRect.verticalScrollbarVisibility = LoopScrollRect.ScrollbarVisibility.Permanent;
+            //scrollRect.horizontalScrollbarSpacing = 0;
+            //scrollRect.verticalScrollbarSpacing = 0;
 
             root.AddComponent<RectMask2D>();
 

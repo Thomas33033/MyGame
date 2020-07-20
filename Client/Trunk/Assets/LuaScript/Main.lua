@@ -1,19 +1,21 @@
 --主入口函数。从这里开始lua逻辑
 require "3rd/Class/class"
-require "3rd/DebugPrint/debugPrint"
+
 require "Common/LuaTools"
 require "Common/LogicTools"
-
+require "Common/GameEnum"
 require "Managers/LuaNetManager"
 require "Managers/UIManager"
 require "Managers/CtrlManager"
 require "Managers/space3d"
 
+require "Common/Utility"
+
 Quaternion = UnityEngine.Quaternion;
 GameObject = UnityEngine.GameObject;
 PlayerPrefs = UnityEngine.PlayerPrefs;
 
-require "UI/Main/View/UIMain"
+require "Space/Home/Home"
 
 Main = {}
 function Main.Awake()
@@ -23,13 +25,13 @@ function Main.Awake()
 	--LuaNetManager.RegisterListener()
 	--注册逻辑控制器
 	CtrlManager.RegisterListener();
+
 	Main.Start()
 end
 
 function Main.Start()
-	--UIMain.Create()
 	--切换场景
-	--Home.Create()
+	Home.Create()
 end
 
 --timeDetail:以秒为单位

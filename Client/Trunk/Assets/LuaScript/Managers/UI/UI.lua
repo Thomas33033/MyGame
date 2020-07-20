@@ -1,8 +1,9 @@
-require("Managers/UI/UIImport")
 require "Common/SysTimer"
 require "Common/UIHelper"
 require "Common/UIBase"
 require "Common/ListView"
+require "Common/Event"
+
 
 --负责界面创建、销毁、界面层级管理
 --未实现
@@ -53,12 +54,15 @@ function UI.LoadUI(uiTable)
     uiTable.gameObject = obj
     uiTable.transform = obj.transform
     UI.FindUIComponent(uiTable,uiTable.transform)
+
+    obj:AddComponent(typeof(LuaUIComponent))
     uiTable.luaUI = obj:GetComponent("LuaUIComponent")
-    if uiTable.luaUI == nil then
-        uiTable.luaUI = obj:AddComponent(typeof(LuaUIComponent))
-    end
+
     uiTable.luaUI:SetData(uiTable)
     uiTable.uiId = GetIndex()
+
+    uiTable.layer = 1
+
     table.insert(uiTableBox[uiTable.layer],uiTable)
     uiTable:Awake()
 end
@@ -68,7 +72,7 @@ function UI.StartUI(uiTable)
     if uiTable ~= nil then
         uiTable:Start()
         Event.Call(EventType.LoadUI,uiTable.name)
-        GameData.guide:Run("OpenUI_"..uiTable.name)--
+        --GameData.guide:Run("OpenUI_"..uiTable.name)--
     end
 end
 
@@ -189,31 +193,6 @@ function UI.CreateRenderList(tf,render)
 end
 
 
-function UI.CreateRenderTable()
-    local Render = {}
-    Render.__index = Render
-
-    Render.Awake = function(self)
-    end
-
-    Render.Init = function(self,tf)
-        self.transform = tf
-        self.name = tf.name
-        self:Awake()
-        UI.FindRenderUI(self,self.transform)
-        local dc = self.transform.gameObject:AddComponent("DestroyCallbackComponent")
-        dc:SetCall(function ()
-            UI.ClearUITable(self)
-        end)
-    end
-
-    Render.SetUICompent = function(self,child)
-
-    end
-
-    return Render
-end
-
 function UI.DropGold(p1,p2)
     LuaTools.DropItem("Orderart","DropItemGold",layerBox[1],p1,p2,0.5,1)
 end
@@ -251,7 +230,7 @@ end
 --objLoadingLabel:SetActive(false)
 
 function UI.SetLoading(v,level)
-    if Slua.IsNull(objLoading) == false then
+    if IsNil(objLoading) == false then
         objLoading:SetActive(v)
         objLoadingBg:SetActive(level > 1)
         objLoadingLabel:SetActive(level > 2)

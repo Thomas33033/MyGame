@@ -28,7 +28,7 @@ public class LuaUIComponent : MonoBehaviour
 
     void Start()
     {
-        _luaTable.Call("StartUI", this._luaTable);
+        LuaManager.Instance.CallFunction("UI.StartUI", this._luaTable);
     }
 
     private void Update()

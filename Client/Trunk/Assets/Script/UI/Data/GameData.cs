@@ -56,9 +56,9 @@ public class NpcData
     public CfgNpcAttrData attrConfig;
     public ETeamType teamId;
 
-    public void InitData(uint configId, ETeamType teamId)
+    public void InitData(int configId, ETeamType teamId)
     {
-        this.config = ConfigManager.Instance.GetData<CfgNpcData>((int)configId);
+        this.config = ConfigManager.Instance.GetData<CfgNpcData>(configId);
         this.attrConfig = ConfigManager.Instance.GetData<CfgNpcAttrData>(this.config.AttrId+this.config.Level);
         costRes = new ResItem(this.config.BuildCost);
         this.teamId = teamId;

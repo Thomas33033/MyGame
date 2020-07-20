@@ -43,9 +43,6 @@ public class UnityEngine_UI_LoopScrollRectWrap
 		L.RegVar("itemTypeEnd", get_itemTypeEnd, set_itemTypeEnd);
 		L.RegVar("m_ViewBounds", get_m_ViewBounds, set_m_ViewBounds);
 		L.RegVar("m_Dragging", get_m_Dragging, set_m_Dragging);
-		L.RegVar("content", get_content, set_content);
-		L.RegVar("horizontal", get_horizontal, set_horizontal);
-		L.RegVar("vertical", get_vertical, set_vertical);
 		L.RegVar("movementType", get_movementType, set_movementType);
 		L.RegVar("elasticity", get_elasticity, set_elasticity);
 		L.RegVar("inertia", get_inertia, set_inertia);
@@ -708,63 +705,6 @@ public class UnityEngine_UI_LoopScrollRectWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index m_Dragging on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_content(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			UnityEngine.UI.LoopScrollRect obj = (UnityEngine.UI.LoopScrollRect)o;
-			UnityEngine.RectTransform ret = obj.content;
-			ToLua.PushSealed(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index content on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_horizontal(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			UnityEngine.UI.LoopScrollRect obj = (UnityEngine.UI.LoopScrollRect)o;
-			bool ret = obj.horizontal;
-			LuaDLL.lua_pushboolean(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index horizontal on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int get_vertical(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			UnityEngine.UI.LoopScrollRect obj = (UnityEngine.UI.LoopScrollRect)o;
-			bool ret = obj.vertical;
-			LuaDLL.lua_pushboolean(L, ret);
-			return 1;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index vertical on a nil value");
 		}
 	}
 
@@ -1449,63 +1389,6 @@ public class UnityEngine_UI_LoopScrollRectWrap
 		catch(Exception e)
 		{
 			return LuaDLL.toluaL_exception(L, e, o, "attempt to index m_Dragging on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_content(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			UnityEngine.UI.LoopScrollRect obj = (UnityEngine.UI.LoopScrollRect)o;
-			UnityEngine.RectTransform arg0 = (UnityEngine.RectTransform)ToLua.CheckObject(L, 2, typeof(UnityEngine.RectTransform));
-			obj.content = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index content on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_horizontal(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			UnityEngine.UI.LoopScrollRect obj = (UnityEngine.UI.LoopScrollRect)o;
-			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
-			obj.horizontal = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index horizontal on a nil value");
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int set_vertical(IntPtr L)
-	{
-		object o = null;
-
-		try
-		{
-			o = ToLua.ToObject(L, 1);
-			UnityEngine.UI.LoopScrollRect obj = (UnityEngine.UI.LoopScrollRect)o;
-			bool arg0 = LuaDLL.luaL_checkboolean(L, 2);
-			obj.vertical = arg0;
-			return 0;
-		}
-		catch(Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e, o, "attempt to index vertical on a nil value");
 		}
 	}
 

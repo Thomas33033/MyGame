@@ -1,9 +1,4 @@
 ﻿using Cherry.AssetBundlePacker;
-using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -91,16 +86,26 @@ public class LoadTools
     }
 
     //加载场景资源
-    static public void LoadAssetBundleScene(string name, int type, System.Action cb, System.Action action)
+    static public void LoadAssetBundleScene(string name, int type, System.Action callBack)
     {
-        //AppBoot.instance.LoadAssetBundleScene(name, , cb, dependencies);
-        AssetsManager.LoadSceneAsync(name, type == 0 ? LoadSceneMode.Single : LoadSceneMode.Additive, action);
+        AssetsManager.LoadSceneAsync(name, type == 0 ? LoadSceneMode.Single : LoadSceneMode.Additive, callBack);
     }
 
     //卸载场景资源
     static public void UnloadSceneAsync(string name)
     {
         SceneManager.UnloadSceneAsync(name);
+    }
+
+
+    static public void ClearAssetBundle()
+    { 
+
+    }
+
+    static public void ClearSceneCache()
+    { 
+    
     }
 }
 

@@ -1,7 +1,25 @@
+local JSON = require "3rd/json"
 
+function ToJsonString(v)
+	return JSON:encode(v)
+end
 
---打印字符串--
-require("Logic/debugPrint")
+function ToJsonTable(v)
+	return JSON:decode(v)
+end
+
+--输出错误日志--
+function error(...)
+	local str = "";
+	local data = {...}
+	local num = #data;
+	for i=1,num do
+		str = str .. data[i] .. " ";
+	end
+
+	str = str.."\n" .. debug.traceback();
+	LuaInterface.Debugger.LogError(str);
+end
 
 
 --连接两个数组
@@ -129,58 +147,14 @@ function OpenShareImgMenu(imgPath)
 	end));
 end
 
-function OpenShareMenu()
-	RequestShareShortUrl(GetShareUrl(), function(shorUrl, result)
-		-- body
-		local text = "来吧，让我们互相伤害吧，这个夏天，一起怦怦";
-		local imageUrl = "http://download.bh.ztgame.com.cn/bigboom/bigboom.png";
-		local title = "怦怦英雄 来吧互相伤害吧";
-		local titleUrl = shorUrl
-		local site = "怦怦英雄";
-		local siteUrl = shorUrl
-		local url = shorUrl
-		local comment = "横版投掷类游戏，你可以用炮弹伤害、击飞对手，还能挖坑让对手出不来，你会巧妙的把对手推下海么？这个夏天，一起怦怦！";
-		local musicUrl = "";
-		local sinaText = "怦怦英雄 来吧互相伤害吧";
-		local sinaImageUrl = "http://download.bh.ztgame.com.cn/bigboom/bigboom.png";
-		ShareSDKManager.Instance:OpenShareMenu(text, imageUrl, title, titleUrl, site, siteUrl, url, comment, musicUrl, sinaText, sinaImageUrl, System.Action_object(
-			function(obj)
-				GyNotify:SendNotification(CLIENT_NOTIFI_ID.SHARE_SUCCESS, nil);
-		end));
-	end)
-end
-
-function GetShareUrl()
-	--"http://ppyx.ztgame.com/";
-	--118.194.49.5
-	if GMToolsProxy.changeShareUrl then
-		return string.format("http://118.194.49.5/ShareUrl?UID=%s&t=%s", Player.user_id or 0, os.time()) 
-	end
-    return string.format("http://shareppyx.playnb.net/ShareUrl?UID=%s&t=%s", Player.user_id or 0, os.time())
-end
-
---上新浪平台请求短链接  callback(shorUrl, result)
-function RequestShareShortUrl(longUrl, callback)
-  	StartCoroutine(
-	  	function()
-	        local www = UnityEngine.WWW("http://api.t.sina.com.cn/short_url/shorten.json?source=1896739018&url_long="..longUrl)
-	        Yield(www)
-	        if string.len(www.text) > 0 then
-	            local shortUrl = Utils.ParseShortUrlFromJson(www.text)
-	            if shortUrl ~= nil and shortUrl ~= "" then
-	                callback(shortUrl, true)
-	            else
-	                callback(longUrl, false)
-	            end
-	        else
-	            callback(longUrl, false)
-	        end
-	    end
-    )
-end
-
 
 function trim(str)
 	return (string.gsub(str,"^%s*(.-)%s*$","%1"))
 end
 
+function GetOrAddComponent(obj,comp)
+
+
+	uiTable.luaUI = obj:AddComponent(comp)
+
+end

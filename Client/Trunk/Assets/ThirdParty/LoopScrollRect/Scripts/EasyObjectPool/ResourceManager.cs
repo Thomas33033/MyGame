@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-
+using UnityEditor;
 
 namespace SG
 {
@@ -192,13 +192,13 @@ namespace SG
 
         public void DetelePool(GameObject poolPrefab)
         {
-            if (poolPrefab == null) return;
-            var poolName = poolPrefab.name;
-            if (poolDict.ContainsKey(poolName))
-            {
-                poolDict[poolName].OnDestroy();
-                poolDict.Remove(poolName);
-            }
+            //if (poolPrefab == null) return;
+            //var poolName = poolPrefab.name;
+            //if (poolDict.ContainsKey(poolName))
+            //{
+            //    poolDict[poolName].OnDestroy();
+            //    poolDict.Remove(poolName);
+            //}
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Fight
         public string nickName;
         public string userIcon;
         public int camp;
+        public int teamId;
     }
 
     public class FightSkillData

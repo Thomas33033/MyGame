@@ -21,14 +21,14 @@ public class AutoCreateUIScriptEditor : EditorWindow
 
     static private List<Type> listUICompent = new List<Type>() {
         typeof(Toggle),
-        typeof(Button), 
-        typeof(Text), 
+        typeof(Button),
+        typeof(Text),
         typeof(InputField),
         typeof(ScrollRect),
         typeof(Slider),
         typeof(Image),
         typeof(InputField),
-        typeof(Slider), 
+        typeof(Slider),
         typeof(Image),
         typeof(InputField),
         typeof(LoopVerticalScrollRect),
@@ -59,6 +59,12 @@ public class AutoCreateUIScriptEditor : EditorWindow
     public static void CreateSceneScriptLua1()
     {
         CreateSceneScrip();
+    }
+
+    [MenuItem("Assets/自动生成/生成配置依赖")]
+    public static void CreateLocalCfgScript()
+    {
+        CreateLuaAllList("");
     }
 
     public static void CreateSceneScrip()
@@ -124,13 +130,13 @@ public class AutoCreateUIScriptEditor : EditorWindow
                 System.Text.StringBuilder sBuilder = new System.Text.StringBuilder();
 
                 sBuilder.AppendLine(SceneName + " = {}");
-                sBuilder.AppendLine(string.Format("local UITable = require \"Space/{0}/Base/{1}\"", SceneName, SceneNameView));
+                sBuilder.AppendLine(string.Format("local SpaceTable = require \"Space/{0}/Base/{1}\"", SceneName, SceneNameView));
                 sBuilder.AppendLine();
 
                 sBuilder.AppendLine(string.Format("function {0}.Create()", SceneName));
 
                 sBuilder.AppendLine("\tlocal map = {}");
-                sBuilder.AppendLine("\tsetmetatable(map, { __index = UITable})");
+                sBuilder.AppendLine("\tsetmetatable(map, { __index = SpaceTable})");
                 sBuilder.AppendLine("\tmap: Create()");
                 sBuilder.AppendLine("\tSpace3D.LoadSpace(map)");
                 sBuilder.AppendLine("\treturn map");
@@ -158,7 +164,7 @@ public class AutoCreateUIScriptEditor : EditorWindow
                 sBuilder.AppendLine("end");
 
                 sBuilder.AppendLine();
-                sBuilder.AppendLine("function UITable:OnClose()");
+                sBuilder.AppendLine("function SpaceTable:OnClose()");
                 sBuilder.AppendLine();
                 sBuilder.AppendLine("end");
 
@@ -171,8 +177,7 @@ public class AutoCreateUIScriptEditor : EditorWindow
         Debug.Log("生成完毕");
     }
 
-
-
+    
     public static void CreateItemScript()
     {
         GameObject obj = Selection.activeGameObject;
@@ -208,30 +213,42 @@ public class AutoCreateUIScriptEditor : EditorWindow
             System.Text.StringBuilder sBuilder = new System.Text.StringBuilder();
 
             sBuilder.AppendLine("local " + UINameView + " = {}");
-            sBuilder.AppendLine("local Render = UI.CreateRenderTable()");
+            sBuilder.AppendLine("local Render = require \"Common/ItemRender\"");
             sBuilder.AppendLine("");
             sBuilder.AppendLine(string.Format("function {0}.Create(tf)", UINameView));
             sBuilder.AppendLine("\tlocal t = { }");
             sBuilder.AppendLine("\tsetmetatable(t, Render)");
-            sBuilder.AppendLine("\tt: Init(tf)");
+            sBuilder.AppendLine("\tt:Init(tf)");
             sBuilder.AppendLine("\treturn t");
             sBuilder.AppendLine("end");
 
             sBuilder.AppendLine("");
             sBuilder.AppendLine("function Render:Awake()");
+            sBuilder.AppendLine("");
             sBuilder.AppendLine("end");
 
             sBuilder.AppendLine("");
             CreateUIScripte(dic, sBuilder, "Render");
 
+
+            sBuilder.AppendLine("");
+            sBuilder.AppendLine("function Render:SetData(data)");
+            sBuilder.AppendLine("");
+            sBuilder.AppendLine("end");
+
+            sBuilder.AppendLine("");
             sBuilder.AppendLine("function Render:ButtonClickHandler(btn)");
+            sBuilder.AppendLine("");
             sBuilder.AppendLine("end");
 
             sBuilder.AppendLine("");
             sBuilder.AppendLine("function Render:SetVisible(bVisible)");
             sBuilder.AppendLine("\tself.transform.gameObject:SetActive(bVisible)");
             sBuilder.AppendLine("end");
-            
+
+            sBuilder.AppendLine("");
+            sBuilder.AppendLine(string.Format("return {0}", UINameView));
+
             sw.Write(sBuilder);
             sw.Close();
             fs.Close();
@@ -300,8 +317,8 @@ public class AutoCreateUIScriptEditor : EditorWindow
                     sBuilder.AppendLine("");
 
                     sBuilder.AppendLine(string.Format("function {0}: Create()", UINameView));
-                    sBuilder.AppendLine(string.Format("\tself.name = {0}", UIName));
-                    sBuilder.AppendLine(string.Format("\tself.path = {0}", moduleName));
+                    sBuilder.AppendLine(string.Format("\tself.name = \"{0}\"", UIName));
+                    sBuilder.AppendLine(string.Format("\tself.path = \"{0}\"", moduleName));
                     sBuilder.AppendLine("end");
 
                     CreateUIScripte(dic, sBuilder, UINameView);
@@ -411,7 +428,6 @@ public class AutoCreateUIScriptEditor : EditorWindow
 
                 AssetDatabase.Refresh();
 
-                CreateLuaAllList("");
                 Debug.Log("自动生成UI脚本完成Lua完成");
             }
         }
@@ -584,6 +600,8 @@ public class AutoCreateUIScriptEditor : EditorWindow
             sw.Write(sBuilder);
             sw.Close();
             fs.Close();
+
+            Debug.LogError("生成完毕");
         }
 
         AssetDatabase.Refresh();

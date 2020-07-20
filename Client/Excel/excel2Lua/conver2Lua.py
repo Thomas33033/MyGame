@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-import sys
+import importlib,sys
 import xlrd
 import pdb
 import types
-
-reload(sys)
-sys.setdefaultencoding('utf-8')
+importlib.reload(sys)
 
 inputDir = ""
 
@@ -14,8 +12,8 @@ def open_excel(file):
     try:
         data = xlrd.open_workbook(filename=file, encoding_override="utf-8")
         return data
-    except Exception, e:
-        print str(e)
+    except Exception as e:
+        print(str(e)) 
 
 
 # 解析目录文件
@@ -32,6 +30,11 @@ def open_contents(file, outputDir, isClient):
         luaName = row[3]
         type = row[4]
         startCol = converToInt(row[5])
+
+
+        # 输出lua代码
+        if (converToInt(row[6]) != 2):
+            continue
 
         tableData = open_excel(input)
 
@@ -83,19 +86,20 @@ def open_contents(file, outputDir, isClient):
 def convert_array_table(fileName, luaName, table, allNeedFiledArr, outputDir, keyIndex=0, index=4):
     nrows = table.nrows  # 行数
     colnames = table.row_values(1)
-    file = open(outputDir + fileName+".lua", "wb")
-    file.write(luaName + " = " + luaName + " or {}\r\n")
+    file = open(outputDir + fileName+".lua", "w", encoding='utf-8')
+    file.write(luaName + " = "  + " {}\n")
+    file.write("local table = "+ fileName + "\n")
     typeList = table.row_values(2)
     for rownum in range(index, nrows):
         row = table.row_values(rownum)
         if row and row[keyIndex] != "":
-            file.write(luaName+"[")
+            file.write("table[")
             file.write(convertToString(row[keyIndex]))
             file.write("]")
             file.write("=")
             parse_line(file, colnames, row, allNeedFiledArr, typeList)
             file.write("}")
-            file.write("\r\n")
+            file.write("\n")
     file.close()
 
 # @param fileName:输出文件名称
@@ -112,19 +116,21 @@ def convert_array_table(fileName, luaName, table, allNeedFiledArr, outputDir, ke
 def convert_simple_table(fileName, luaName, table, allNeedFiledArr, outputDir, keyIndex=0, index=4):
     nrows = table.nrows  # 行数
     colnames = table.row_values(1)
-    file = open(outputDir + fileName+".lua", "wb")
-    file.write(luaName + " = " + luaName + " or {}\r\n")
+    file = open(outputDir + fileName+".lua", "w", encoding='utf-8')
+    file.write(luaName + " = "  + " {}\n")
+    file.write("local table = "+ fileName + "\n")
+
     typeList = table.row_values(2)
     for rownum in range(index, nrows):
         row = table.row_values(rownum)
         if row and row[keyIndex] != "":
-            file.write(luaName+"[\"")
+            file.write("table[\"")
             file.write(convertToString(row[keyIndex]))
             file.write("\"]")
             file.write("=")
             parse_line(file, colnames, row, allNeedFiledArr, typeList)
             file.write("}")
-            file.write("\r\n")
+            file.write("\n")
     file.close()
 
 
@@ -137,8 +143,8 @@ def convert_simple_table(fileName, luaName, table, allNeedFiledArr, outputDir, k
 def convert_complex_table(fileName, luaName, table, allNeedFiledArr, outputDir, keyIndex=0, index=4):
     nrows = table.nrows  # 行数
     colnames = table.row_values(1)
-    list = []
-    file = open(outputDir + fileName+".lua", "wb")
+
+    file = open(outputDir + fileName+".lua", "w", encoding='utf-8')
     file.write(luaName + " = " + luaName + " or {}\r\n")
     hasLast = False
     typeList = table.row_values(2)
@@ -234,7 +240,7 @@ def parse_line(file, col, row, allNeedFiledArr, typeList):
                         file.write(value)
 
             if i < len(col)-1:
-                file.write(",")
+                file.write(", ")
 
 
 def convertToString(value):

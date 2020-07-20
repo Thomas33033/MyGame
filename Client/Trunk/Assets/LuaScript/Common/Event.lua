@@ -43,5 +43,6 @@ end
 
 
 EventType = {
+    LoadUI = "LoadUI",
     TimeCountOver = "TimeCountOver",
 }

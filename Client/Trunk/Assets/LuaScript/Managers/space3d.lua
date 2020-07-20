@@ -16,26 +16,25 @@ Space3D.lastName = ""
 local function DoLoadSpace(uiTable)
 	local loadSceneMode = uiTable.loadSceneMode  or 0
 
-	if StaticData.ELoadSceneMode.Single == loadSceneMode then
+	if ELoadSceneMode.Single == loadSceneMode then
 		UI.RemoveAll()
 		Space3D.RemoveAll()
-	elseif StaticData.ELoadSceneMode.Additive == loadSceneMode then
+	elseif ELoadSceneMode.Additive == loadSceneMode then
 
 	end
 
-
 	Space3D.lastName = Space3D.curName
 	Space3D.curName = uiTable.sceneName or uiTable.name
-	-- Space3D.curSceneName = "SC_"..uiTable.name
 
-	LoadGameScene("SC_"..uiTable.name,loadSceneMode,function ()
+	LoadGameScene(uiTable.name,loadSceneMode,function ()
 		local obj =  UnityEngine.GameObject.Find(uiTable.name)
 
 		if obj ~= nil then
 			uiTable.gameObject = obj
 			uiTable.transform = obj.transform
-			UI.FindUICompent(uiTable,uiTable.transform)
-			uiTable.luaUI = obj:AddComponent(LuaSpaceComponent)
+			UI.FindUIComponent(uiTable,uiTable.transform)
+			obj:AddComponent(typeof(LuaSpaceComponent))
+			uiTable.luaUI = obj:GetComponent("LuaSpaceComponent")
 			uiTable.luaUI:SetData(uiTable)
 		end
 
@@ -45,7 +44,7 @@ local function DoLoadSpace(uiTable)
 
 		Space3D.SetSpaceUIEnabled(uiTable)
 
-		if StaticData.ELoadSceneMode.Additive == loadSceneMode then
+		if ELoadSceneMode.Additive == loadSceneMode then
 			local lastTable = Space3D.GetSpaceTable(Space3D.lastName)
 			if lastTable ~= nil then
 				UIHelper.SetActive(lastTable.transform,false)
@@ -54,7 +53,7 @@ local function DoLoadSpace(uiTable)
 				end
 			end
 		end
-	end,0)
+	end)
 end
 
 function Space3D.LoadSpace(uiTable)
@@ -71,7 +70,7 @@ end
 
 local function DoDestroySpace3D(uiTable)
 	local sname = uiTable.sceneName or uiTable.name
-	UnloadGameScene("SC_"..sname)
+	UnloadGameScene(sname)
 	uiTable:OnClose()
 	if uiTable.gameObject ~= nil then
 		UnityEngine.GameObject.Destroy(uiTable.gameObject)
@@ -181,7 +180,7 @@ function Space3D.UIHide(v)
 	for i,table in ipairs(arrObj) do
 		local canvasGroup = table.gameObject:GetComponent("CanvasGroup")
 		if canvasGroup == nil then
-			canvasGroup = table.gameObject:AddComponent("UnityEngine.CanvasGroup")
+			canvasGroup = table.gameObject:AddComponent(typeof("UnityEngine.CanvasGroup"))
 		end
 
 		if v then
@@ -207,9 +206,9 @@ function Space3D.SetSpaceUIEnabled(table)
 		return
 	end
 
-	local canvasGroup = table.gameObject:GetComponent("CanvasGroup")
+	local canvasGroup = table.gameObject:GetComponent("UnityEngine.CanvasGroup")
 	if canvasGroup == nil then
-		canvasGroup = table.gameObject:AddComponent("UnityEngine.CanvasGroup")
+		canvasGroup = table.gameObject:AddComponent(typeof("UnityEngine.CanvasGroup"))
 	end
 	canvasGroup.blocksRaycasts = enabledSpaceUI
 end
@@ -220,14 +219,13 @@ function LoadAtlasSprite(path,name)
 	return sprite
 end
 
-function LoadGameScene(name,type,cb,dependencies)
-	print(">> LoadGameScene",name)
+function LoadGameScene(name,type,cb)
 	UI.SetLoading(true,1)
 	UI.RemoveAll()
 	LoadTools.LoadAssetBundleScene(name,type,function()
 		UI.SetLoading(false,1)
 		cb()
-	end,1)
+	end)
 end
 
 function UnloadGameScene(name)
@@ -247,5 +245,5 @@ function DoRelogin(cb)
 
 	LoadGameScene("SC_Empty",0,function ()
 		LoadTools.LoadScene("SC_LoadResources",0,cb)
-	end,0)
+	end)
 end

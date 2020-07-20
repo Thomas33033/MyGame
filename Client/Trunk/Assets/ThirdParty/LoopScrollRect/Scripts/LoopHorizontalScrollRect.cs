@@ -7,6 +7,7 @@ namespace UnityEngine.UI
     [DisallowMultipleComponent]
     public class LoopHorizontalScrollRect : LoopScrollRect
     {
+
         protected override float GetSize(RectTransform item)
         {
             float size = contentSpacing;
@@ -35,6 +36,11 @@ namespace UnityEngine.UI
         {
             base.Awake();
             directionSign = 1;
+            this.content = this.transform.Find("content").GetComponent<RectTransform>();
+            this.prefabSource.prefabGameobj = this.content.GetChild(0).gameObject;
+            this.prefabSource.prefabGameobj.SetActive(false);
+            this.horizontal = false;
+            this.vertical = true;
 
             GridLayoutGroup layout = content.GetComponent<GridLayoutGroup>();
             if (layout != null && layout.constraint != GridLayoutGroup.Constraint.FixedRowCount)

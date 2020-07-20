@@ -43,14 +43,15 @@ namespace SG
             while (this.availableObjStack.Count > 0)
             {
                 PoolObject obj = this.availableObjStack.Pop();
-                if (obj != null)
+                if (obj != null && obj.gameObject != null)
                 {
                     GameObject.Destroy(obj.gameObject);
                 }
             }
             availableObjStack.Clear();
             availableObjStack = null;
-            GameObject.Destroy(rootObj);
+            if(rootObj != null)
+                GameObject.Destroy(rootObj);
             rootObj = null;
 
         }
@@ -81,7 +82,6 @@ namespace SG
             po.poolName = poolName;
             AddObjectToPool(po);
 
-            //populate the pool
             populatePool(Mathf.Max(initialCount, 1));
         }
 

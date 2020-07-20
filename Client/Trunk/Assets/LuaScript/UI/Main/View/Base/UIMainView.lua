@@ -15,10 +15,10 @@ function UIMainView:SetUIComponent(child)
 		self.btn_pause = child:GetComponent("Button")
 	elseif child.name == "btn_spawn" then 
 		self.btn_spawn = child:GetComponent("Button")
-	elseif child.name == "FriendSlotContainer" then 
-		self.FriendSlotContainer = child:GetComponent("Image")
-	elseif child.name == "EnemySlotContainer" then 
-		self.EnemySlotContainer = child:GetComponent("Image")
+	elseif child.name == "friendSlotContainer" then 
+		self.friendSlotContainer = child:GetComponent("LoopHorizontalScrollRect")
+	elseif child.name == "enemySlotContainer" then 
+		self.enemySlotContainer = child:GetComponent("LoopVerticalScrollRect")
 	end
 end
 

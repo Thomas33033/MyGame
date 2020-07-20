@@ -1,9 +1,10 @@
 Home = {}
-local UITable = require "Space/Home/Base/HomeView"
+local SpaceTable = require "Space/Home/Base/HomeView"
+require "UI/Main/View/UIMain"
 
 function Home.Create()
 	local map = {}
-	setmetatable(map, { __index = UITable})
+	setmetatable(map, { __index = SpaceTable})
 	map: Create()
 	Space3D.LoadSpace(map)
 	return map
@@ -15,6 +16,7 @@ end
 
 function SpaceTable:Start()
 	self:StartInit()
+	UIMain.Create()
 end
 
 function SpaceTable:SetData(v)
@@ -25,6 +27,6 @@ function SpaceTable:ButtonClickHandler(btn)
 
 end
 
-function UITable:OnClose()
+function SpaceTable:OnClose()
 
 end

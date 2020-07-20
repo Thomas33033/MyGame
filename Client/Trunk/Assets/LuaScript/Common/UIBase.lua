@@ -55,11 +55,6 @@ function UIBase:LoadSprite(name)
 	return self["tAeBmCp"..tempIndex]
 end
 
---加载对象，增加计数器便于资源释放
-function UIBase:LoadGameObject(name,node)
-	return LoadTools.LoadGameObject(self.path,name,node)
-end
-
 --添加时间监听
 function UIBase:AddListener(type,callback)
 	if self.dicEvent == nil then
@@ -76,3 +71,14 @@ function UIBase:AddListener(type,callback)
 
 	Event.Add(type,self._eventCallback)
 end
+
+--加载对象，增加计数器便于资源释放
+function UIBase:LoadGameObject(name,node)
+	return LoadTools.LoadGameObject(self.path,name,node)
+end
+
+--加载对象，增加计数器便于资源释放
+function UIBase:LoadSprite(atlasName,iconName)
+	LoadTools.LoadSprite(atlasName, iconName);
+end
+

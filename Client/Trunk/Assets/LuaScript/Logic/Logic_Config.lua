@@ -2,6 +2,10 @@
 
 
 ------------------------本地配置数据表------------------------;
+require "Configs/cfg_item";
+require "Configs/cfg_npc";
+require "Configs/cfg_npc_attr";
+require "Configs/cfg_ui";
 ------------------------本地配置数据表------------------------;
 
 
@@ -13,5 +17,5 @@ require "UI/Main/Controller/MainCtrl";
 
 -----------------------管理模块控制器--------------------------------
 ModelCtrlArray = {}
-ModelCtrlArray[0] = MailCtrl.OnCreate()
-ModelCtrlArray[1] = MailCtrl.OnCreate()
+ModelCtrlArray[0] = MailCtrl
+ModelCtrlArray[1] = MainCtrl

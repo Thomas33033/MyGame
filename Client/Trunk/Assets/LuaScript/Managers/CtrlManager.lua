@@ -14,7 +14,7 @@ local this = CtrlManager
 function CtrlManager.RegisterListener()
     for k, v in pairs(ModelCtrlArray) do
         if v ~= nil then
-            LuaTools.TableInsert(this.ctrlList,v)
+            table.insert(this.ctrlList,v)
         end
     end
 end

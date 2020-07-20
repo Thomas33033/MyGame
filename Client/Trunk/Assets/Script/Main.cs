@@ -26,10 +26,10 @@ public class Main : MonoBehaviour {
         //actionSequence.AddAction(new UpdateResStep(RefreshProgress));
         //actionSequence.finishedOverEvent = OnEnterGame;
         //actionSequence.Start(this.gameObject);
-
+        
         OnEnterGame();
-
-
+        
+        
         Debug.LogError( Fix64.FromRaw(300));
     }
 
@@ -62,15 +62,15 @@ public class Main : MonoBehaviour {
         if (m_isReady)
         {
             m_isReady = false;
+            LuaManager.CreateSingleton();
+            
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("Home");
 
-
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Home");
-
-            UI_Loading.instance.ShowProgress(() =>
-            {
-                LuaManager.CreateSingleton();
-                GameObject.Destroy(UI_Loading.instance.gameObject);
-            });
+            //UI_Loading.instance.ShowProgress(() =>
+            //{
+            //    
+            //    GameObject.Destroy(UI_Loading.instance.gameObject);
+            //});
         }
     }
 

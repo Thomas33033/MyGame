@@ -67,7 +67,6 @@ namespace Fight {
             }
             else
             {
-                Debug.Log("移动结束：");
                 this.Owner.isMoving = false;
                 this.waypoints.Clear();
                 this.nextNode = null;

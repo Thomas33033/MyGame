@@ -1,7 +1,7 @@
-LuaTools = {}
-LuaTools.COLOR_RED = "#ff0000"
-LuaTools.COLOR_GREEN = "#31E243"
-LuaTools.COLOR_WHITE = "#ffffff"
+Tools = {}
+Tools.COLOR_RED = "#ff0000"
+Tools.COLOR_GREEN = "#31E243"
+Tools.COLOR_WHITE = "#ffffff"
 
 ITEM_NAME_COLOR = {}
 ITEM_NAME_COLOR[1] = "#C8C8C8"
@@ -43,7 +43,7 @@ Vector2.down = Vector2.New(0, -1)
 Vector2.zero = Vector2.New(0, 0)
 
 
-function LuaTools.TableDelete(array, value) 
+function Tools.TableDelete(array, value)
 	if array == nil then
 		return
 	end
@@ -55,15 +55,8 @@ function LuaTools.TableDelete(array, value)
 	end
 end 
 
-function LuaTools.TableInsert(array, value) 
-	if array == nil then
-		return	
-	end
-	table.insert(array,value)
-end 
 
-
-function LuaTools.IsNullOrEmpty(str)
+function Tools.IsNullOrEmpty(str)
 	if str == nil or str == "" then
 		return true;
 	else
@@ -71,7 +64,7 @@ function LuaTools.IsNullOrEmpty(str)
 	end
 end
 
-function LuaTools.GetMapLength(map)
+function Tools.GetMapLength(map)
 	local count = 0
 	for v,k in pairs(map)  do
 		count = count + 1
@@ -80,7 +73,7 @@ function LuaTools.GetMapLength(map)
 end
 
 --秒转化为时间描述 年、月、日、时、分
-function LuaTools.SecondTimeToSingleTimeStr(seconds)
+function Tools.SecondTimeToSingleTimeStr(seconds)
 	local str = ""
 	if seconds < 60 then
 		str = seconds .."秒"
@@ -93,13 +86,13 @@ function LuaTools.SecondTimeToSingleTimeStr(seconds)
 end
 
 --格式:2019.12.19
-function LuaTools.TimeToEnString(milliseconds)
+function Tools.TimeToEnString(milliseconds)
 	return os.date("%Y.%m.%d",milliseconds)
 end
 
 
 --基于锚点对齐UI
-function LuaTools.AnchorTo(targetRectTrans, targetAnchor,sourceRectTrans, sourceAnchor,offset)
+function Tools.AnchorTo(targetRectTrans, targetAnchor,sourceRectTrans, sourceAnchor,offset)
 	local target = targetRectTrans
 	local source = sourceRectTrans
 	if target == nil or source == nil then
@@ -109,7 +102,7 @@ function LuaTools.AnchorTo(targetRectTrans, targetAnchor,sourceRectTrans, source
 	Utils.AnchorTo(targetRectTrans, targetAnchor,sourceRectTrans, sourceAnchor,offset)
 end
 
-function LuaTools.SetGray(imageObj,showGray)
+function Tools.SetGray(imageObj,showGray)
 	if grayMaterial==nil then
 		grayMaterial = LuaUIManager:LoadMaterial("Shaders/GrayMaterial")
 	end
@@ -121,7 +114,7 @@ function LuaTools.SetGray(imageObj,showGray)
 end
 
 --字符颜色处理
-function LuaTools.ChangeStringColor(str,color)
+function Tools.ChangeStringColor(str,color)
 	local content = ""
 	if str ~=nil and color ~=nil then
 	content =  "<color="..color..">"..str.."</color>"
@@ -130,7 +123,7 @@ function LuaTools.ChangeStringColor(str,color)
 end
 
 
-function LuaTools.GetJobId(job)
+function Tools.GetJobId(job)
 	return "10"..job.."01"
 end
 

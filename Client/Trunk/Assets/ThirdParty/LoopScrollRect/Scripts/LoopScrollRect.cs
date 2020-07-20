@@ -23,7 +23,7 @@ namespace UnityEngine.UI
         private Vector2 _lastPostion = Vector2.zero;
 
         //==========LoopScrollRect==========
-        [Tooltip("Prefab Source")]
+     
         public XLoopScrollPrefabSource prefabSource;
 
         [Tooltip("Total count, negative means INFINITE mode")]
@@ -140,19 +140,14 @@ namespace UnityEngine.UI
         [Serializable]
         public class ScrollRectEvent : UnityEvent<Vector2> { }
 
-        [SerializeField]
-        private RectTransform m_Content;
-        public RectTransform content { get { return m_Content; } set { m_Content = value; } }
 
-        [SerializeField]
-        private bool m_Horizontal = true;
-        public bool horizontal { get { return m_Horizontal; } set { m_Horizontal = value; } }
+        protected RectTransform content;
 
-        [SerializeField]
-        private bool m_Vertical = true;
-        public bool vertical { get { return m_Vertical; } set { m_Vertical = value; } }
+        protected bool horizontal;
 
-        [SerializeField]
+        protected bool vertical;
+
+
         private MovementType m_MovementType = MovementType.Elastic;
         public MovementType movementType { get { return m_MovementType; } set { m_MovementType = value; } }
 
@@ -357,9 +352,9 @@ namespace UnityEngine.UI
             itemTypeEnd = reverseDirection ? offset : totalCount - offset;
             itemTypeStart = itemTypeEnd;
 
-            for (int i = m_Content.childCount - 1; i >= 0; i--)
+            for (int i = content.childCount - 1; i >= 0; i--)
             {
-                ReturnObjectAndSendMessage(m_Content.GetChild(i));
+                ReturnObjectAndSendMessage(content.GetChild(i));
             }
 
             float sizeToFill = 0, sizeFilled = 0;
@@ -375,7 +370,7 @@ namespace UnityEngine.UI
                 sizeFilled += size;
             }
 
-            Vector2 pos = m_Content.anchoredPosition;
+            Vector2 pos = content.anchoredPosition;
             float dist = Mathf.Max(0, sizeFilled - sizeToFill);
             if (reverseDirection)
                 dist = -dist;
@@ -383,7 +378,7 @@ namespace UnityEngine.UI
                 pos.y = dist;
             else if (directionSign == 1)
                 pos.x = dist;
-            m_Content.anchoredPosition = pos;
+            content.anchoredPosition = pos;
         }
 
         public void RefillCells(int offset = 0)
@@ -398,9 +393,9 @@ namespace UnityEngine.UI
             itemTypeEnd = itemTypeStart;
 
             // Don't `Canvas.ForceUpdateCanvases();` here, or it will new/delete cells to change itemTypeStart/End
-            for (int i = m_Content.childCount - 1; i >= 0; i--)
+            for (int i = content.childCount - 1; i >= 0; i--)
             {
-                ReturnObjectAndSendMessage(m_Content.GetChild(i));
+                ReturnObjectAndSendMessage(content.GetChild(i));
             }
 
             float sizeToFill = 0, sizeFilled = 0;
@@ -417,12 +412,12 @@ namespace UnityEngine.UI
                 sizeFilled += size;
             }
 
-            Vector2 pos = m_Content.anchoredPosition;
+            Vector2 pos = content.anchoredPosition;
             if (directionSign == -1)
                 pos.y = 0;
             else if (directionSign == 1)
                 pos.x = 0;
-            m_Content.anchoredPosition = pos;
+            content.anchoredPosition = pos;
         }
 
         protected float NewItemAtStart()
@@ -636,7 +631,7 @@ namespace UnityEngine.UI
 
         public override bool IsActive()
         {
-            return base.IsActive() && m_Content != null;
+            return base.IsActive() && content != null;
         }
 
         private void EnsureLayoutHasRebuilt()
@@ -674,10 +669,10 @@ namespace UnityEngine.UI
                 delta.y = 0;
             }
 
-            Vector2 position = m_Content.anchoredPosition;
+            Vector2 position = content.anchoredPosition;
             position += delta * m_ScrollSensitivity;
             if (m_MovementType == MovementType.Clamped)
-                position += CalculateOffset(position - m_Content.anchoredPosition);
+                position += CalculateOffset(position - content.anchoredPosition);
 
             SetContentAnchoredPosition(position);
             UpdateBounds();
@@ -703,7 +698,7 @@ namespace UnityEngine.UI
 
             m_PointerStartLocalCursor = Vector2.zero;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(viewRect, eventData.position, eventData.pressEventCamera, out m_PointerStartLocalCursor);
-            m_ContentStartPosition = m_Content.anchoredPosition;
+            m_ContentStartPosition = content.anchoredPosition;
             m_Dragging = true;
         }
 
@@ -744,7 +739,7 @@ namespace UnityEngine.UI
             Vector2 position = m_ContentStartPosition + pointerDelta;
 
             // Offset to get content into place in the view.
-            Vector2 offset = CalculateOffset(position - m_Content.anchoredPosition);
+            Vector2 offset = CalculateOffset(position - content.anchoredPosition);
             position += offset;
             if (m_MovementType == MovementType.Elastic)
             {
@@ -774,14 +769,14 @@ namespace UnityEngine.UI
             _scrolledTime = inertiaMaxTime;
                 return;
             }
-            if (!m_Horizontal)
-                position.x = m_Content.anchoredPosition.x;
-            if (!m_Vertical)
-                position.y = m_Content.anchoredPosition.y;
+            if (!horizontal)
+                position.x = content.anchoredPosition.x;
+            if (!vertical)
+                position.y = content.anchoredPosition.y;
 
-            if (position != m_Content.anchoredPosition)
+            if (position != content.anchoredPosition)
             {
-                m_Content.anchoredPosition = position;
+                content.anchoredPosition = position;
                 UpdateBounds();
             }
             _scrolledTime += Time.unscaledDeltaTime;
@@ -791,7 +786,7 @@ namespace UnityEngine.UI
 
         protected virtual void LateUpdate()
         {
-            if (!m_Content)
+            if (!content)
                 return;
 
             EnsureLayoutHasRebuilt();
@@ -801,14 +796,14 @@ namespace UnityEngine.UI
             Vector2 offset = CalculateOffset(Vector2.zero);
             if (!m_Dragging && (offset != Vector2.zero || m_Velocity != Vector2.zero))
             {
-                Vector2 position = m_Content.anchoredPosition;
+                Vector2 position = content.anchoredPosition;
                 for (int axis = 0; axis < 2; axis++)
                 {
                     // Apply spring physics if movement is elastic and content has an offset from the view.
                     if (m_MovementType == MovementType.Elastic && offset[axis] != 0)
                     {
                         float speed = m_Velocity[axis];
-                        position[axis] = Mathf.SmoothDamp(m_Content.anchoredPosition[axis], m_Content.anchoredPosition[axis] + offset[axis], ref speed, m_Elasticity, Mathf.Infinity, deltaTime);
+                        position[axis] = Mathf.SmoothDamp(content.anchoredPosition[axis], content.anchoredPosition[axis] + offset[axis], ref speed, m_Elasticity, Mathf.Infinity, deltaTime);
                         m_Velocity[axis] = speed;
                     }
                     // Else move content according to velocity with deceleration applied.
@@ -830,7 +825,7 @@ namespace UnityEngine.UI
                 {
                     if (m_MovementType == MovementType.Clamped)
                     {
-                        offset = CalculateOffset(position - m_Content.anchoredPosition);
+                        offset = CalculateOffset(position - content.anchoredPosition);
                         position += offset;
                     }
 
@@ -840,13 +835,13 @@ namespace UnityEngine.UI
 
             if (m_Dragging && m_Inertia)
             {
-                Vector3 newVelocity = (m_Content.anchoredPosition - m_PrevPosition) / deltaTime;
+                Vector3 newVelocity = (content.anchoredPosition - m_PrevPosition) / deltaTime;
                 m_Velocity = Vector3.Lerp(m_Velocity, newVelocity, deltaTime * 10);
             }
 
             if (m_ViewBounds != m_PrevViewBounds 
                 || m_ContentBounds != m_PrevContentBounds 
-                || m_Content.anchoredPosition != m_PrevPosition
+                || content.anchoredPosition != m_PrevPosition
                 || m_PrevTotalCount != this.totalCount
                 )
             {
@@ -858,10 +853,10 @@ namespace UnityEngine.UI
 
         private void UpdatePrevData()
         {
-            if (m_Content == null)
+            if (content == null)
                 m_PrevPosition = Vector2.zero;
             else
-                m_PrevPosition = m_Content.anchoredPosition;
+                m_PrevPosition = content.anchoredPosition;
             m_PrevViewBounds = m_ViewBounds;
             m_PrevContentBounds = m_ContentBounds;
             m_PrevTotalCount = totalCount;
@@ -979,7 +974,7 @@ namespace UnityEngine.UI
             UpdateBounds();
 
             //==========LoopScrollRect==========
-            Vector3 localPosition = m_Content.localPosition;
+            Vector3 localPosition = content.localPosition;
             float newLocalPosition = localPosition[axis];
             if (axis == 0)
             {
@@ -1002,7 +997,7 @@ namespace UnityEngine.UI
             if (Mathf.Abs(localPosition[axis] - newLocalPosition) > 0.01f)
             {
                 localPosition[axis] = newLocalPosition;
-                m_Content.localPosition = localPosition;
+                content.localPosition = localPosition;
                 m_Velocity[axis] = 0;
                 UpdateBounds();
             }
@@ -1158,7 +1153,7 @@ namespace UnityEngine.UI
             m_ViewBounds = new Bounds(viewRect.rect.center, viewRect.rect.size);
             m_ContentBounds = GetBounds();
 
-            if (m_Content == null)
+            if (content == null)
                 return;
             // ============LoopScrollRect============
             // Don't do this in Rebuild
@@ -1181,12 +1176,12 @@ namespace UnityEngine.UI
             Vector3 excess = m_ViewBounds.size - contentSize;
             if (excess.x > 0)
             {
-                contentPos.x -= excess.x * (m_Content.pivot.x - 0.5f);
+                contentPos.x -= excess.x * (content.pivot.x - 0.5f);
                 contentSize.x = m_ViewBounds.size.x;
             }
             if (excess.y > 0)
             {
-                contentPos.y -= excess.y * (m_Content.pivot.y - 0.5f);
+                contentPos.y -= excess.y * (content.pivot.y - 0.5f);
                 contentSize.y = m_ViewBounds.size.y;
             }
 
@@ -1197,14 +1192,14 @@ namespace UnityEngine.UI
         private readonly Vector3[] m_Corners = new Vector3[4];
         private Bounds GetBounds()
         {
-            if (m_Content == null)
+            if (content == null)
                 return new Bounds();
 
             var vMin = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
             var vMax = new Vector3(float.MinValue, float.MinValue, float.MinValue);
 
             var toLocal = viewRect.worldToLocalMatrix;
-            m_Content.GetWorldCorners(m_Corners);
+            content.GetWorldCorners(m_Corners);
             for (int j = 0; j < 4; j++)
             {
                 Vector3 v = toLocal.MultiplyPoint3x4(m_Corners[j]);
@@ -1226,7 +1221,7 @@ namespace UnityEngine.UI
             Vector2 min = m_ContentBounds.min;
             Vector2 max = m_ContentBounds.max;
 
-            if (m_Horizontal)
+            if (horizontal)
             {
                 min.x += delta.x;
                 max.x += delta.x;
@@ -1236,7 +1231,7 @@ namespace UnityEngine.UI
                     offset.x = m_ViewBounds.max.x - max.x;
             }
 
-            if (m_Vertical)
+            if (vertical)
             {
                 min.y += delta.y;
                 max.y += delta.y;

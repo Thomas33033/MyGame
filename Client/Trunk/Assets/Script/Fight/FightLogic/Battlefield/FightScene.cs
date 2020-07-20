@@ -66,7 +66,7 @@ namespace Fight
             List<SceneEntity> lstRoleData = new List<SceneEntity>();
             for (int i = 0; i < roles.Count; i++)
             {
-                if (roles[i].teamId != 1)
+                if (roles[i].teamId == 1)
                 {
                     SceneEntity entity = new SceneEntity();
                     entity.npcId = roles[i].npcId;

@@ -11,7 +11,7 @@ end
 function Render:Awake()
 end
 
-function Render:StartInit()
+function Render:Start()
 end
 
 function Render:SetUIComponent(child)

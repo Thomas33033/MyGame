@@ -12,9 +12,10 @@ public static class LuaBinder
 		LuaProfilerWrap.Register(L);
 		UtilsWrap.Register(L);
 		UIManagerWrap.Register(L);
-		UIToolsWrap.Register(L);
+		LuaToolsWrap.Register(L);
 		LoadToolsWrap.Register(L);
 		LuaUIComponentWrap.Register(L);
+		LuaSpaceComponentWrap.Register(L);
 		Singleton_UIManagerWrap.Register(L);
 		L.BeginModule("LuaInterface");
 		LuaInterface_LuaInjectionStationWrap.Register(L);
@@ -67,6 +68,7 @@ public static class LuaBinder
 		UnityEngine_SpriteWrap.Register(L);
 		UnityEngine_PlayerPrefsWrap.Register(L);
 		UnityEngine_RectTransformWrap.Register(L);
+		UnityEngine_CanvasGroupWrap.Register(L);
 		UnityEngine_AudioBehaviourWrap.Register(L);
 		L.BeginModule("SceneManagement");
 		UnityEngine_SceneManagement_SceneWrap.Register(L);

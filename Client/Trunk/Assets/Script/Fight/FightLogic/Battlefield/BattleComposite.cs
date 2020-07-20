@@ -37,7 +37,7 @@ namespace Fight
 
         public HashSet<string> symbols;
 
-        public const float TimeMax = 90f;
+        public const float TimeMax = 9000f;
 
 #if UNITY_EDITOR
         public bool isTest;
@@ -160,7 +160,7 @@ namespace Fight
 
         public bool AddRoleOnBattleField(int teamId, int battlefieldId, FightRoleData roleData, int nodeId, bool isPlayer)
         {
-
+            Debug.LogError("teamId:" + teamId);
             BattleField battleField = dicBattleField[battlefieldId];
             Role role = null;
             if (roleData.npcType == (int)RoleType.BuildTower)
