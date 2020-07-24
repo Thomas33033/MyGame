@@ -31,6 +31,7 @@ namespace Fight {
 
         public  void FindTarget()
         {
+            target = null;
             List<Role> listEnemy = Owner.battleField.GetEnemy(Owner.teamId);
 
             if (listEnemy.Count > 0)
