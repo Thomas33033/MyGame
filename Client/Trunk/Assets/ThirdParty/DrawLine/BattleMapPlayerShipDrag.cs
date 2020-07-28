@@ -29,7 +29,8 @@ public class BattleMapPlayerShipDrag : MonoBehaviour
 
     void Start()
     {
-        mask = 1 << LayerMask.NameToLayer("MapIsland");
+        mask = 1 << LayerMask.NameToLayer("Terrain") | 1 << LayerMask.NameToLayer("Default");
+
 
         touch.transform.position = Vector3.one * int.MaxValue;
         //shipMove.reachedNetxPoint+=ReachedNetxPoint;
@@ -169,13 +170,13 @@ public class BattleMapPlayerShipDrag : MonoBehaviour
 
 	void On_DragStart(Gesture gesture)
 	{
-        Debug.LogError("---Gesture--");
         if (gesture.pickedObject != null && gesture.fingerIndex == 0)
 		{
 			Vector3 position = GetTouchToWorldPoint(gesture.position);
 
 			if (gesture.pickedObject == gameObject)
 			{
+                Debug.LogError("On_DragStart self");
                 RaycastHit2D hit2D = Physics2D.Raycast(transform.position, position - transform.position, (position - transform.position).magnitude, mask.value, 0);
 				if (hit2D.collider != null && hit2D.collider.tag == "Island")
 				{
@@ -200,7 +201,7 @@ public class BattleMapPlayerShipDrag : MonoBehaviour
 				}
 				//if (!hitIsland)
 				{
-					position = touch.transform.position;// gesture.GetTouchToWorldPoint(gesture.position);
+					position = touch.transform.position; 
 					//LineAddPoint(position);
 					previousPosition = position;
 				}
@@ -230,11 +231,11 @@ public class BattleMapPlayerShipDrag : MonoBehaviour
     {
         //hitIsland = true;
         RaycastHit2D[] hit2D = Physics2D.LinecastAll(p1, p2, mask.value, 0);
-	
+        
         for (int i = 0; i < hit2D.Length; ++i)
-		{
+        {
             if (hit2D[i].collider.tag == "Island")
-			{
+            {
                 if (Vector3.Distance(hit2D[i].point, p1) <= minDis)
                 {
                     return;
@@ -245,9 +246,6 @@ public class BattleMapPlayerShipDrag : MonoBehaviour
                     p2 = (Vector3)hit2D[i].point + (p1 - p2).normalized * minDis;
                     touch.transform.position = p2 + Vector3.back * p2.z;
                 }
-
-                //LineAddPoint((Vector3)hit2D.point+(p1-p2).normalized*minDis);
-
                 return;
             }
         }
@@ -258,16 +256,15 @@ public class BattleMapPlayerShipDrag : MonoBehaviour
 
     void LineAddPoint(Vector3 point)
     {
-        Debug.LogError("LineAddPoint:"+ point.ToString());
         if (path.Count==0)
         {
             previousPosition = transform.position;
             path.Add(previousPosition);
             customLine.AddPoint(previousPosition);
         }
-        if (path.Count==1)
+        if (path.Count == 1)
         {
-            if (Vector3.Distance(path[0], point)>minDragDis)
+            if (Vector3.Distance(path[0], point) > minDragDis)
             {
                 point = point - point.z * Vector3.forward;
                 previousPosition = point;

@@ -105,9 +105,7 @@ public class BattleMapShipDragLine : MonoBehaviour
         if (points.Count > 2)
         {
             Vector3 nor = (points[points.Count - 1] - points[points.Count - 2]);
-
             nor = GetPerpendicular(nor).normalized;
-   
             Vector3 p1 = points[points.Count - 2] - nor * width;
             Vector3 p2 = points[points.Count - 2] + nor * width;
             Vector3 p3 = points[points.Count - 1] + nor * width;
@@ -115,25 +113,25 @@ public class BattleMapShipDragLine : MonoBehaviour
 
             fd.p[fd.p.Length - 1] = p1;
             fd.p[fd.p.Length - 2] = p2;
-            //lineData[lineData.Count-1].p4=p1;
-            //lineData[lineData.Count-1].p3=p2;
+
             BattleMapInputData tt = new BattleMapInputData(p1, p2, p3, p4);
-            //lineData.Add(tt);
             BattleMapFaceData temp = PointToFace(tt);
             temp.uv[0].x = temp.uv[1].x = (faceNum % uvScale) * uvRade;
             temp.uv[2].x = temp.uv[3].x = (faceNum % uvScale + 1) * uvRade;
+
             fd = BattleMapFaceData.Join(fd, temp);
 
         }
         else if (points.Count > 1)
         {
             Vector3 nor = (points[points.Count - 1] - points[points.Count - 2]).normalized;
-            Vector3 p1 = points[points.Count - 2] - GetPerpendicular(nor) * width;
-            Vector3 p2 = points[points.Count - 2] + GetPerpendicular(nor) * width;
-            Vector3 p3 = points[points.Count - 1] + GetPerpendicular(nor) * width;
-            Vector3 p4 = points[points.Count - 1] - GetPerpendicular(nor) * width;
+            nor = GetPerpendicular(nor).normalized;
+            Vector3 p1 = points[points.Count - 2] - nor * width;
+            Vector3 p2 = points[points.Count - 2] + nor * width;
+            Vector3 p3 = points[points.Count - 1] + nor * width;
+            Vector3 p4 = points[points.Count - 1] - nor * width;
+
             BattleMapInputData tt = new BattleMapInputData(p1, p2, p3, p4);
-            // lineData.Add(tt);
             fd = PointToFace(tt);
             fd.uv[0].x = fd.uv[1].x = (faceNum % uvScale) * uvRade;
             fd.uv[2].x = fd.uv[3].x = (faceNum % uvScale + 1) * uvRade;
