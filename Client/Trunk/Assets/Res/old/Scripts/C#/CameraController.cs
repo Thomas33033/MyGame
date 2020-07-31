@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class CameraController : MonoSingleton<CameraController>
@@ -129,13 +130,23 @@ public class CameraController : MonoSingleton<CameraController>
         //Õ∏ ”…„œÒª˙
         //Vector3[] corners = GetCorners(distance);
         Vector3[] corners = FindLowerCorners();
-        float width = Vector3.Distance(corners[0], corners[1]);
-        float height = Vector3.Distance(corners[0], corners[2]);
+
+        float width = Mathf.Abs(corners[1].x - corners[2].x);
+
+        float height = Mathf.Abs(corners[0].z - corners[1].z);
+
+        Vector3 center = Vector3.zero;
+        center.x = (corners[1].x + corners[2].x) / 2;
+        center.z = (corners[0].z + corners[1].z) / 2;
+
+        float cameraZDis = Mathf.Abs(center.z - this.transform.position.z);
+
         pos.x = Mathf.Clamp(pos.x, _min.x + width / 2, _max.x - width / 2);
-        pos.z = Mathf.Clamp(pos.z, _min.z + height / 2, _max.z - height / 2);
+        pos.z = Mathf.Clamp(pos.z, _min.z + height / 2 - cameraZDis, _max.z - height / 2 - cameraZDis);
 
         transform.position = pos;
     }
+
 
     public void OnDrag(Gesture gesture)
     {
@@ -195,10 +206,10 @@ public class CameraController : MonoSingleton<CameraController>
     }
 
 
-    
+
     //Vector3[] GetCorners(float distance)
     //{
-        
+
     //    Transform tx = mainCamera.transform;
 
     //    float halfFOV = (mainCamera.fieldOfView * 0.5f) * Mathf.Deg2Rad;
@@ -228,5 +239,44 @@ public class CameraController : MonoSingleton<CameraController>
     //    corners[3] += tx.forward * distance;
 
     //    return corners;
+    //}
+
+    //public bool ConstrainToBounds(Vector3 targePos, bool immediate, float overstep = 0)
+    //{
+    //    Vector3 offset = Vector3.zero;
+
+    //    if (targePos.x < minPox.x - overstep)
+    //    {
+    //        offset.x = targePos.x - minPox.x + overstep;
+    //    }
+    //    if (targePos.x > maxPox.x + overstep)
+    //    {
+    //        offset.x = targePos.x - maxPox.x - overstep;
+    //    }
+
+    //    if (targePos.z < minPox.z - overstep)
+    //    {
+    //        offset.z = targePos.z - minPox.z + overstep;
+    //    }
+    //    if (targePos.z > maxPox.z + overstep)
+    //    {
+    //        offset.z = targePos.z - maxPox.z - overstep;
+    //    }
+
+    //    if (offset.sqrMagnitude > 0f)
+    //    {
+    //        targePos -= offset;
+    //        if (immediate)
+    //        {
+    //            this.transform.position = targePos;
+    //        }
+    //        else
+    //        {
+    //            targetPosition = targePos;
+    //        }
+    //        return true;
+    //    }
+
+    //    return false;
     //}
 }
