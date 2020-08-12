@@ -1,4 +1,5 @@
 ﻿using Fight;
+using Google.Protobuf.WellKnownTypes;
 using LuaInterface;
 using System.Collections.Generic;
 using UnityEngine;
@@ -128,7 +129,7 @@ public class FightSceneRender
         FightRoleRender roleRender = new FightRoleRender();
         roleRender.SetHpMax(report.hp);
         roleRender.SetMpMax(report.mp);
-        roleRender.LoadNpc(report.assetName, battleFieldRender.GetWorldPosition(report.nodeId));
+        roleRender.LoadNpc(report.assetName, (RoleType)report.roleType, battleFieldRender.GetWorldPosition(report.nodeId));
         dicFightRole[report.roleId] = roleRender;
         
         string asset = "";

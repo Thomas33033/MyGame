@@ -66,7 +66,7 @@ public class FightRoleRender : RoleRender
         }
     }
 
-    public void LoadNpc(string npcAsset,Vector3 position)
+    public void LoadNpc(string npcAsset, RoleType roleType,Vector3 position)
     {
 
         var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(ResPathHelper.UI_NPC_PATH + npcAsset + ".prefab");
@@ -74,6 +74,11 @@ public class FightRoleRender : RoleRender
         gameObject = npcPoolObj.itemObj;
         transform = gameObject.transform;
         this.transform.position = position;
+
+        if (roleType == RoleType.Buildings)
+        {
+            gameObject.layer = LayerManager.layerBuilding;
+        }
 
         animator = this.gameObject.GetComponent<Animator>();
         //animator.runtimeAnimatorController = LoadTools.LoadRoleAnimator("RoleNpc", npcAsset);

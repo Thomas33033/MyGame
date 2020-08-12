@@ -1,31 +1,73 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
 public class CameraController : MonoSingleton<CameraController>
 {
-    public Transform dragTarget;
+    [HideInInspector]
     public Camera mainCamera;
-    public BoxCollider Bounds;
 
+    public Transform followTarget;
 
-    private Vector3 _min, _max;
+    public GameObject TouchTarget;
 
-    public bool EnableMove = false;//是否需要移动
+    public BoxCollider boxCollider;
 
-    private bool beginDrag = false;
-    private Vector3 LastPosition = Vector3.zero;
+    public float momentumAmount = 35f;
 
     bool mPressed = false;
 
+    bool mDragStarted = false;
+
+    public Vector2 scale = new Vector2(0.02f, 0);
+
+    public Vector2 overstepDis;
+
+    bool smoothDragStart;
+
+    bool beginDrag;
+
+    float smoothTime = 0.04f;
+
+    Vector3 velocity = Vector3.zero;
+
+    private bool isMoving = false;
+
+    private LayerMask dragMask;
+
+    public bool dragEnable = true;
+
+    public bool followEnable = true;
+
+    //----------------new start-------------------
+    public float distance;
+    public float x;
+    public float y;
+
+    private float lastDistance, lastX, lastY;
+
+    public float orbitDamping = 4.0f;
+    private Vector3 targetPosition;
+
+    public Vector3 minPox;
+    public Vector3 maxPox;
+
     private Vector3 lastPos;
     private Vector3 dragPos;
+    
+    public Vector3 lastFollowPos = new Vector3(-1, 0, 0);
 
-    private LayerMask canDragMask;
+    private Vector3 _min, _max;
 
-    public float distance;
+    private Vector3 b1, b2, b3, b4;
 
-    public Vector3[] corners = new Vector3[5];
+    protected Vector3 mMomentum = Vector3.zero;
+
+
+    //----------------new end-------------------
+
+    private Vector3[] corners = new Vector3[5];
 
     private List<Vector2> ScreenCornerPosList = new List<Vector2> {
             Vector2.zero
@@ -36,45 +78,31 @@ public class CameraController : MonoSingleton<CameraController>
     };
 
 
-    private void Awake()
+
+    public void Awake()
     {
+        dragMask = 1 << LayerMask.NameToLayer("Terrain");
+        mainCamera = GetComponent<Camera>();
 
-    }
-
-    public void Start()
-    {
-        canDragMask = 1 << LayerMask.NameToLayer("Terrain");
-
-        _min = Bounds.bounds.min;//包围盒
-        _max = Bounds.bounds.max;
         EasyTouch.AddCamera(mainCamera);
-        distance = Vector3.Distance(this.mainCamera.transform.position, this.dragTarget.position);
+
+        var angles = transform.eulerAngles;
+        x = angles.y;
+        y = angles.x;
+
+        _min = boxCollider.bounds.min;//包围盒
+        _max = boxCollider.bounds.max;
+
+        b1 = new Vector3(_min.x, _min.y, _max.z);
+        b2 = _max;
+        b3 = new Vector3(_max.x, _min.y, _min.z);
+        b4 = _min;
     }
 
 
-    private void OnDrawGizmos()
+    public void OnEnable()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(_min, _max);
-
-        Gizmos.DrawLine(corners[0], corners[1]);
-        Gizmos.DrawLine(corners[0], corners[3]);
-        Gizmos.DrawLine(corners[3], corners[2]);
-        Gizmos.DrawLine(corners[2], corners[1]);
-
-        Gizmos.DrawLine(this.mainCamera.transform.position, corners[4]);
-        
-    }
-
-    private void OnDestroy()
-    {
-        EasyTouch.RemoveCamera(mainCamera);
-        LastPosition = transform.position;
-    }
-
-
-    private void OnEnable()
-    {
+        lastFollowPos = new Vector3(-1, 0, 0);
         EasyTouch.On_Drag += OnDrag;
         EasyTouch.On_DragStart += OnDragStart;
         EasyTouch.On_DragEnd += OnDragEnd;
@@ -87,50 +115,153 @@ public class CameraController : MonoSingleton<CameraController>
         EasyTouch.On_DragEnd -= OnDragEnd;
     }
 
-
-    private void OnTouchStart(Gesture gesture)
+    private void OnDestroy()
     {
-        Debug.LogError("OnTouchStart");
+        EasyTouch.On_Drag -= OnDrag;
+        EasyTouch.On_DragStart -= OnDragStart;
+        EasyTouch.On_DragEnd -= OnDragEnd;
+        EasyTouch.RemoveCamera(mainCamera);
     }
 
-    private void OnTouchDown(Gesture gesture)
+
+    void Update()
     {
-        Debug.LogError("OnTouchDown");
+#if UNITY_EDITOR
+        _min = boxCollider.bounds.min;//包围盒
+        _max = boxCollider.bounds.max;
+#endif
+
+        if (!mPressed && dragEnable && !beginDrag)
+        {
+            if (this.isMoving)
+            {
+                //transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+                //if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+                //{
+                //    transform.position = targetPosition;
+                //    isMoving = false;
+                //}
+            }
+            else
+            {
+                if (followEnable)
+                {
+                    if (lastFollowPos != followTarget.position || lastDistance != distance || lastY != y || lastX != x)
+                    {
+                        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(y, x, 0), Time.deltaTime * orbitDamping);
+                        Vector3 pos = transform.rotation * new Vector3(0, 0, -distance) + followTarget.position;
+                        ConstrainToBounds(pos, true, overstepDis);
+                        lastFollowPos = followTarget.position;
+                        lastDistance = distance;
+                        lastY = y;
+                        lastX = x;
+                    }
+                }
+
+                if (mMomentum.magnitude > 0.01f)
+                {
+                    transform.position += (Vector3)SpringDampen(ref mMomentum, 9f, Time.deltaTime);
+                    if (!ConstrainToBounds(transform.position, true, Vector2.zero))
+                    {
+                    }
+                    return;
+                }
+
+            }
+        }
+        else
+        {
+            SpringDampen(ref mMomentum, 9f, Time.unscaledDeltaTime);
+        }
+    }
+
+    Vector3 SpringDampen(ref Vector3 velocity, float strength, float deltaTime)
+    {
+        if (deltaTime > 1f) deltaTime = 1f;
+        float dampeningFactor = 1f - strength * 0.001f;
+        int ms = Mathf.RoundToInt(deltaTime * 1000f);
+        float totalDampening = Mathf.Pow(dampeningFactor, ms);
+        Vector3 vTotal = velocity * ((totalDampening - 1f) / Mathf.Log(dampeningFactor));
+        velocity = velocity * totalDampening;
+        return vTotal * 0.06f;
     }
 
     public void OnDragStart(Gesture gesture)
     {
-        if (gesture.fingerIndex == 0 && !EnableMove)
+        if (!dragEnable || isMoving) return;
+        if ((gesture.pickedObject == TouchTarget) && gesture.fingerIndex == 0)
         {
             mPressed = beginDrag = true;
             lastPos = GetWorldPosition(gesture.position);
             lastPos.y = 0;
         }
+    }
+    public void OnDrag(Gesture gesture)
+    {
+        if (isMoving) return;
+        if (dragEnable && beginDrag)
+        {
+            Drag(gesture.position);
 
+        }
     }
 
     public void OnDragEnd(Gesture gesture)
     {
-        if (beginDrag)
+        if (isMoving) return;
+        if (dragEnable && beginDrag)
         {
-            mPressed = false;
-            //ConstrainToBounds(false);
             beginDrag = false;
+            mPressed = false;
+
+            dragPos = GetWorldPosition(gesture.position);
+            dragPos.y = 0;
+            Vector3 offset = lastPos - dragPos;
+            mMomentum +=  offset * 2;
+
+            mMomentum.x = Mathf.Clamp(mMomentum.x, -1, 1);
+            mMomentum.z = Mathf.Clamp(mMomentum.z, -1, 1);
+            ConstrainToBounds(transform.position, false, Vector2.zero);
         }
     }
 
-    private void ConstrainToBounds(Vector3 pos)
+    public void Drag(Vector2 postion)
     {
-        //正交摄像机 
-        //var cameraHalfWidth = mainCamera.orthographicSize * ((float)Screen.width / Screen.height);
-        ////保证不会移除包围盒
-        //pos.x = Mathf.Clamp(pos.x, _min.x + cameraHalfWidth, _max.x - cameraHalfWidth);
-        //pos.z = Mathf.Clamp(pos.z, _min.z + mainCamera.orthographicSize, _max.z - mainCamera.orthographicSize);
+        if (smoothDragStart && !mDragStarted)
+        {
+            mDragStarted = true;
+            return;
+        }
+        dragPos = GetWorldPosition(postion);
+        dragPos.y = 0;
+        Vector3 offset = lastPos - dragPos;
 
-        //透视摄像机
-        //Vector3[] corners = GetCorners(distance);
+        Vector3 pos = transform.position + offset;
+
+        if (ConstrainToBounds(pos, true, overstepDis))
+        {
+            mMomentum = Vector2.zero;
+        }
+
+    }
+
+
+    Vector3 GetWorldPosition(Vector3 mousePosition)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo, 100f, dragMask))
+        {
+            return hitInfo.point;
+        }
+        return Vector3.zero;
+    }
+
+
+    private float _minX, _maxX, _minZ, _maxZ;
+    private bool ConstrainToBounds(Vector3 targePos, bool immediate, Vector2 overstep)
+    {
         Vector3[] corners = FindLowerCorners();
-
         float width = Mathf.Abs(corners[1].x - corners[2].x);
 
         float height = Mathf.Abs(corners[0].z - corners[1].z);
@@ -141,142 +272,102 @@ public class CameraController : MonoSingleton<CameraController>
 
         float cameraZDis = Mathf.Abs(center.z - this.transform.position.z);
 
-        pos.x = Mathf.Clamp(pos.x, _min.x + width / 2, _max.x - width / 2);
-        pos.z = Mathf.Clamp(pos.z, _min.z + height / 2 - cameraZDis, _max.z - height / 2 - cameraZDis);
+        _minX = _min.x + width / 2;
+        _maxX = _max.x - width / 2;
+        _minZ = _min.z + height / 2 - cameraZDis;
+        _maxZ = _max.z - height / 2 - cameraZDis;
 
-        transform.position = pos;
-    }
+        Vector3 offset = Vector3.zero;
 
-
-    public void OnDrag(Gesture gesture)
-    {
-        if (beginDrag && gesture.fingerIndex == 0)
+        if (targePos.x < _minX - overstep.x)
         {
-            dragPos = GetWorldPosition(gesture.position);
-            dragPos.y = 0;
-            ConstrainToBounds(mainCamera.transform.position + lastPos - dragPos);
+            offset.x = targePos.x - _minX + overstep.x;
         }
-    }
-
-    /// <summary>
-    /// 检查是否点击到cbue
-    /// </summary>
-    /// <returns></returns>
-    Vector3 GetWorldPosition(Vector3 mousePosition)
-    {
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, 100f, canDragMask))
+        else if (targePos.x > _maxX + overstep.x)
         {
-            return hitInfo.point;
+            offset.x = targePos.x - _maxX - overstep.x;
         }
-        return Vector3.zero;
+
+        if (targePos.z < _minZ - overstep.y)
+        {
+            offset.z = targePos.z - _minZ + overstep.y;
+        }
+        else if (targePos.z > _maxZ + overstep.y)
+        {
+            offset.z = targePos.z - _maxZ - overstep.y;
+        }
+
+        if (offset.sqrMagnitude > 0f)
+        {
+            targePos -= offset;
+            if (immediate)
+            {
+                this.transform.position = targePos;
+            }
+            else
+            {
+                transform.DOMove(transform.position - offset, 0.5f);
+                mMomentum = Vector2.zero;
+            }
+            return true;
+        }
+        else
+        {
+            this.transform.position = targePos;
+        }
+
+        return false;
     }
 
-    
 
     Vector3[] FindLowerCorners()
     {
         for (int k = 0; k < ScreenCornerPosList.Count; k++)
         {
             Ray ray = mainCamera.ScreenPointToRay(ScreenCornerPosList[k]);
-            var hits = Physics.RaycastAll(ray, 1000, canDragMask);
+            var hits = Physics.RaycastAll(ray, 1000, dragMask);
             if (hits == null || hits.Length <= 0)
             {
                 continue;
             }
             for (var i = 0; i < hits.Length; ++i)
             {
-                if (hits[i].transform.gameObject == this.dragTarget.gameObject)
+                if (hits[i].transform.gameObject == this.TouchTarget.gameObject)
                 {
                     corners[k] = hits[i].point;
                     break;
                 }
             }
-
         }
 
-
-
-        //viewWidth = Vector3.Distance(corners[0], corners[1]);
-        //viewHeight = Vector3.Distance(corners[0], corners[2]);
-        // for debugging
-   
         return corners;
     }
 
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(_min, _max);
 
-    //Vector3[] GetCorners(float distance)
-    //{
 
-    //    Transform tx = mainCamera.transform;
+        Gizmos.DrawLine(b1, b2);
+        Gizmos.DrawLine(b2, b3);
+        Gizmos.DrawLine(b3, b4);
+        Gizmos.DrawLine(b4, b1);
 
-    //    float halfFOV = (mainCamera.fieldOfView * 0.5f) * Mathf.Deg2Rad;
-    //    float aspect = mainCamera.aspect;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(corners[0], corners[1]);
+        Gizmos.DrawLine(corners[0], corners[3]);
+        Gizmos.DrawLine(corners[3], corners[2]);
+        Gizmos.DrawLine(corners[2], corners[1]);
 
-    //    float height = distance * Mathf.Tan(halfFOV);
-    //    float width = height * aspect;
 
-    //    // UpperLeft
-    //    corners[0] = tx.position - (tx.right * width);
-    //    corners[0] += tx.up * height;
-    //    corners[0] += tx.forward * distance;
 
-    //    // UpperRight
-    //    corners[1] = tx.position + (tx.right * width);
-    //    corners[1] += tx.up * height;
-    //    corners[1] += tx.forward * distance;
-
-    //    // LowerLeft
-    //    corners[2] = tx.position - (tx.right * width);
-    //    corners[2] -= tx.up * height;
-    //    corners[2] += tx.forward * distance;
-
-    //    // LowerRight
-    //    corners[3] = tx.position + (tx.right * width);
-    //    corners[3] -= tx.up * height;
-    //    corners[3] += tx.forward * distance;
-
-    //    return corners;
-    //}
-
-    //public bool ConstrainToBounds(Vector3 targePos, bool immediate, float overstep = 0)
-    //{
-    //    Vector3 offset = Vector3.zero;
-
-    //    if (targePos.x < minPox.x - overstep)
-    //    {
-    //        offset.x = targePos.x - minPox.x + overstep;
-    //    }
-    //    if (targePos.x > maxPox.x + overstep)
-    //    {
-    //        offset.x = targePos.x - maxPox.x - overstep;
-    //    }
-
-    //    if (targePos.z < minPox.z - overstep)
-    //    {
-    //        offset.z = targePos.z - minPox.z + overstep;
-    //    }
-    //    if (targePos.z > maxPox.z + overstep)
-    //    {
-    //        offset.z = targePos.z - maxPox.z - overstep;
-    //    }
-
-    //    if (offset.sqrMagnitude > 0f)
-    //    {
-    //        targePos -= offset;
-    //        if (immediate)
-    //        {
-    //            this.transform.position = targePos;
-    //        }
-    //        else
-    //        {
-    //            targetPosition = targePos;
-    //        }
-    //        return true;
-    //    }
-
-    //    return false;
-    //}
+    }
 }
+
+
+
+
+
+

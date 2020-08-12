@@ -14,6 +14,7 @@ public class LayerManager : MonoBehaviour {
 
 	public int layerTerrain;
 
+	public static int layerBuilding;
 
 	public static LayerManager layerManager;
 
@@ -25,7 +26,8 @@ public class LayerManager : MonoBehaviour {
         //layerTower = LayerMask.NameToLayer("layerTower");
         layerPlatform = LayerMask.NameToLayer("layerPlatform");
 		layerTerrain = LayerMask.NameToLayer("Terrain");
-        //layerOverlay = LayerMask.NameToLayer("layerOverlay");
+		layerBuilding = LayerMask.NameToLayer("Building");
+		//layerOverlay = LayerMask.NameToLayer("layerOverlay");
 	}
 
     public LayerMask GetMask(int layer)

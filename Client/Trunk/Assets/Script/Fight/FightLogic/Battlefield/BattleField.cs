@@ -90,7 +90,11 @@ namespace Fight
             return new List<Role>(listRoles);
         }
 
-       
+        public bool CanBuild(int position)
+        {
+            return dicNodeGraph[position].walkable;
+        }
+
         internal void AddRole(Role v, int position)
         {
             if (dicNodeGraph[position].walkable == true)

@@ -31,6 +31,7 @@ public class Main : MonoBehaviour {
         
         
         Debug.LogError( Fix64.FromRaw(300));
+        m_Velocity = 100;
     }
 
 
@@ -54,6 +55,7 @@ public class Main : MonoBehaviour {
         m_isReady = true;
     }
 
+    float m_Velocity;
     // Update is called once per frame
     void Update () {
 
@@ -63,14 +65,14 @@ public class Main : MonoBehaviour {
         {
             m_isReady = false;
             LuaManager.CreateSingleton();
-            
-            //UnityEngine.SceneManagement.SceneManager.LoadScene("Home");
 
-            //UI_Loading.instance.ShowProgress(() =>
-            //{
-            //    
-            //    GameObject.Destroy(UI_Loading.instance.gameObject);
-            //});
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Home");
+
+            UI_Loading.instance.ShowProgress(() =>
+            {
+
+                GameObject.Destroy(UI_Loading.instance.gameObject);
+            });
         }
     }
 

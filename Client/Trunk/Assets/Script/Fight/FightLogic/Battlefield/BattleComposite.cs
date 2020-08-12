@@ -162,6 +162,12 @@ namespace Fight
         {
             Debug.LogError("teamId:" + teamId);
             BattleField battleField = dicBattleField[battlefieldId];
+
+            if (!battleField.CanBuild(nodeId))
+            {
+                return false;
+            }
+
             Role role = null;
             if (roleData.npcType == (int)RoleType.BuildTower)
             {
@@ -189,7 +195,16 @@ namespace Fight
             listAllRoles.Add(role);
             battleField.AddRole(role, nodeId);
             role.PrepareFight();
-            
+
+            if (role == null)
+            {
+                Debug.LogError("role == null");
+            }
+
+            if (role.GetBattlefield() == null)
+            {
+                Debug.LogError("role.GetBattlefield() = null");
+            }
 
             FightReportRoleAdd report = new FightReportRoleAdd(0, role.teamId, role.id,
                    (int)role.type, role.id, role.GetBattlefield().id,

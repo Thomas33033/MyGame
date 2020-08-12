@@ -38,7 +38,11 @@ namespace UnityEngine.UI
             base.Awake();
             directionSign = -1;
             this.content = this.transform.Find("content").GetComponent<RectTransform>();
-            this.prefabSource.prefabGameobj = content.GetChild(0).gameObject;
+            if (this.prefabSource.prefabGameobj == null)
+            {
+                this.prefabSource.prefabGameobj = content.GetChild(0).gameObject;
+            }
+            
             this.prefabSource.prefabGameobj.SetActive(false);
             this.horizontal = false;
             this.vertical = true;

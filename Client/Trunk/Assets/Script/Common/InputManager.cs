@@ -14,9 +14,16 @@ public class InputManager : MonoBehaviour
     private FightRoleData fightBuildData;
     List<int> costNodeIDs;
 
+    private bool bStartTouch = false;
+
     void Awake()
     {
         Instance = this;
+    }
+
+    private void Update()
+    {
+        SelectObj();
     }
 
     public void DragNDropTower(ModelPoolObj poolObj, ResItem costRes, FightRoleData fightBuildData)
@@ -26,11 +33,14 @@ public class InputManager : MonoBehaviour
         dragTower = poolObj.itemObj;
 
         this.fightBuildData = fightBuildData;
+        
         StartCoroutine(this.DragNDropRoutine());
     }
 
     public IEnumerator DragNDropRoutine()
     {
+        CameraController.Instance.dragEnable = false;
+
         Collider collider = this.dragTower.GetOrAddComponent<Collider>();
 
         if (collider != null)
@@ -38,13 +48,14 @@ public class InputManager : MonoBehaviour
             collider.enabled = false;
         }
        
-
         bool buildEnable = false;
 
         Vector3 lastPos = Vector3.zero;
 
         this.costNodeIDs = new List<int>();
 
+        bool bStartTouch = false;
+        bool bStartCreate = false;
         while (true)
         {
             //检测建筑是否可以创建
@@ -86,15 +97,43 @@ public class InputManager : MonoBehaviour
             else
             {
                 this.dragTower.transform.position = currentBuildInfo.position;
+               
             }
 
+            //点击
             if (Input.GetMouseButtonDown(0))
             {
-                if (flag)
-                    DragNDropBuilt();
-                else
+                bStartTouch = true;
+                
+                if (fightBuildData.npcType != (int)RoleType.Buildings)
+                {
+                    if (flag)
+                        DragNDropBuilt(true);
+                    else
+                        DragNDropCancel();
+                    break;
+                }
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                bStartTouch = false;
+            }
+
+            if (bStartTouch == true)
+            {
+                if (fightBuildData.NodeSize == (int)RoleType.Buildings)
+                {
+                    bStartCreate = true;
+                    DragNDropBuilt(false);
+                }
+            }
+            else
+            {
+                if (bStartCreate == true)
+                {
                     DragNDropCancel();
-                break;
+                    break;
+                }
             }
 
             //right-click, cancel
@@ -106,10 +145,11 @@ public class InputManager : MonoBehaviour
 
             yield return null;
         }
+
+        CameraController.Instance.dragEnable = true;
     }
 
-
-    void DragNDropBuilt()
+    void DragNDropBuilt(bool isDragCreat)
     {
         if (GameControl.HaveSufficientResource(costRes))
         {
@@ -123,7 +163,12 @@ public class InputManager : MonoBehaviour
             this.fightBuildData.CostNodes = costNodeIDs.ToArray();
             Node node = BuildManager.GetBuildPosition();
             this.fightBuildData.NodeId = node.Id;
-            this.poolObj.ReturnToPool();
+
+            if(!isDragCreat)
+            {
+                this.poolObj.ReturnToPool();
+            }
+            
 
             if (GameControl.fightCenter == null)
             {
@@ -145,5 +190,21 @@ public class InputManager : MonoBehaviour
     {
         this.poolObj.ReturnToPool();
         BuildManager.ClearBuildPoint();
+    }
+
+
+    //选中对象
+    private void SelectObj()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            LayerMask mask = 1 << LayerManager.layerBuilding;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
+            {
+                Debug.LogError(hit.transform.gameObject);
+            }
+        }
     }
 }
