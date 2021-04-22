@@ -1,0 +1,12 @@
+info face="tz_buff001-export" size=32 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1
+common lineHeight=38 base=26 scaleW=64 scaleH=128 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="tz_buff001-export.png"
+chars count=6
+char id=38378 x=0 y=78 width=35 height=38 xoffset=1 yoffset=0 xadvance=36 page=0 chnl=0 letter="闪"
+char id=36991 x=0 y=39 width=38 height=38 xoffset=0 yoffset=0 xadvance=39 page=0 chnl=0 letter="避"
+char id=26029 x=0 y=0 width=38 height=38 xoffset=0 yoffset=0 xadvance=39 page=0 chnl=0 letter="断"
+char id=65281 x=36 y=78 width=14 height=34 xoffset=12 yoffset=2 xadvance=15 page=0 chnl=0 letter="！"
+char id=32 x=0 y=0 width=0 height=0 xoffset=0 yoffset=0 xadvance=26 page=0 chnl=0 letter=" "
+char id=9 x=0 y=0 width=0 height=0 xoffset=0 yoffset=0 xadvance=208 page=0 chnl=0 letter="	"
+
+kernings count=0

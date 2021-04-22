@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 75df38c8fce8a3e4393bc9ee1fe0ed77
+timeCreated: 1497863942
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: FZCuYuan-M03S
+  fontNames:
+  - FZZhengHeiS-M-GB
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: single/shares/fzzzhjt
+  assetBundleVariant: gatecen

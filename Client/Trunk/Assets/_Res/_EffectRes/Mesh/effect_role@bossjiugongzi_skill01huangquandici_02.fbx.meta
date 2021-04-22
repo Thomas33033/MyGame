@@ -1,0 +1,139 @@
+fileFormatVersion: 2
+guid: 61b20afcccf55e645ae06ce83fe6b545
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: anim_1.13
+    100002: bz_glow (2)
+    100004: ci
+    100006: ci (1)
+    100008: dici
+    100010: dici (1)
+    100012: dilie
+    100014: dilie (1)
+    100016: effect_mesh@wanyaoling_mianpian01 (1)
+    100018: //RootNode
+    100020: lizi
+    100022: lizi (1)
+    100024: qb_01 (4)
+    100026: qb_01 (5)
+    100028: smoke (1)
+    100030: smoke (2)
+    100032: stone (2)
+    100034: vfx_1.13
+    400000: anim_1.13
+    400002: bz_glow (2)
+    400004: ci
+    400006: ci (1)
+    400008: dici
+    400010: dici (1)
+    400012: dilie
+    400014: dilie (1)
+    400016: effect_mesh@wanyaoling_mianpian01 (1)
+    400018: //RootNode
+    400020: lizi
+    400022: lizi (1)
+    400024: qb_01 (4)
+    400026: qb_01 (5)
+    400028: smoke (1)
+    400030: smoke (2)
+    400032: stone (2)
+    400034: vfx_1.13
+    2100000: effect_texture@bossjiugongzi_noise01
+    2100002: effect_texture@bossjiugongzi_glow01
+    2100004: effect_texture@bossjiugongzi_noise01_1
+    2300000: dici
+    2300002: dici (1)
+    2300004: effect_mesh@wanyaoling_mianpian01 (1)
+    3300000: dici
+    3300002: dici (1)
+    3300004: effect_mesh@wanyaoling_mianpian01 (1)
+    4300000: dici
+    4300002: effect_mesh@wanyaoling_mianpian01 (1)
+    4300004: dici (1)
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
