@@ -1,4 +1,20 @@
 {
-	"10001":{"id":10001,"Type":2,"Resources":"","ResourcesSound":"","effectIds":[10001.0],"EndTime":1500,"MagicEffect":"","MagicEffectSound":"","SkillAct":""},
-	"10002":{"id":10002,"Type":2,"Resources":"","ResourcesSound":"","effectIds":[10002.0],"EndTime":1500,"MagicEffect":"","MagicEffectSound":"","SkillAct":""}
+	"40010":{"id":40010,"Type":2,"Resources":"","ResourcesSound":"","effectIds":[400101,400102],"EndTime":1500,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":"普攻"},
+	"40011":{"id":40011,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400111],"EndTime":1500,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40012":{"id":40012,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400121],"EndTime":0,"MagicEffect":"hero_xinggongmen_skill_2","MagicEffectSound":"","SkillAct":"","desc":"掌心雷"},
+	"40013":{"id":40013,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400131],"EndTime":0,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40020":{"id":40020,"Type":2,"Resources":"","ResourcesSound":"","effectIds":[400201],"EndTime":0,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40021":{"id":40021,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400211],"EndTime":0,"MagicEffect":"hero_jingangmen_skill_1","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40022":{"id":40022,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400221],"EndTime":0,"MagicEffect":"hero_jingangmen_skill_2","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40023":{"id":40023,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400231],"EndTime":0,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40030":{"id":40030,"Type":2,"Resources":"","ResourcesSound":"","effectIds":[400301],"EndTime":0,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40031":{"id":40031,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400311],"EndTime":0,"MagicEffect":"hero_jqingyunmen_skill_1","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40032":{"id":40032,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400321],"EndTime":0,"MagicEffect":"hero_jqingyunmen_skill_2","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40033":{"id":40033,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400331],"EndTime":0,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":""},
+	"10011":{"id":10011,"Type":2,"Resources":"","ResourcesSound":"","effectIds":[10002],"EndTime":1500,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":""},
+	"10012":{"id":10012,"Type":2,"Resources":"","ResourcesSound":"","effectIds":[10002.0],"EndTime":1500,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40040":{"id":40040,"Type":2,"Resources":"","ResourcesSound":"","effectIds":[400401],"EndTime":0,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40041":{"id":40041,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400411],"EndTime":0,"MagicEffect":"hero_penglaimen_skill_1","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40042":{"id":40042,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400421],"EndTime":0,"MagicEffect":"hero_penglaimen_skill_2","MagicEffectSound":"","SkillAct":"","desc":""},
+	"40043":{"id":40043,"Type":0,"Resources":"","ResourcesSound":"","effectIds":[400431],"EndTime":0,"MagicEffect":"","MagicEffectSound":"","SkillAct":"","desc":""}
 }

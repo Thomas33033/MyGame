@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class OverlayManager : MonoBehaviour {
 
-	static private GUITexture[] overlays=new GUITexture[3];
-	static private GUITexture[] overlaysB=new GUITexture[3];
+	static private Image[] overlays=new Image[3];
+	static private Image[] overlaysB=new Image[3];
 	static private bool[] inUseFlags=new bool[3];
 	
 	static public OverlayManager overlayManager;
@@ -37,8 +38,7 @@ public class OverlayManager : MonoBehaviour {
 	void Update () {
 	
 	}
-	
-	
+
 	static public void Init(){
 		
 		Camera cam=Camera.main;
@@ -49,8 +49,8 @@ public class OverlayManager : MonoBehaviour {
 		overlayManager=obj.AddComponent<OverlayManager>();
 		
 		int poolSize=3;
-		overlays=new GUITexture[poolSize];
-		overlaysB=new GUITexture[poolSize];
+		overlays=new Image[poolSize];
+		overlaysB=new Image[poolSize];
 		inUseFlags=new bool[poolSize];
 		
 		if(overlayManager!=null){
@@ -60,18 +60,18 @@ public class OverlayManager : MonoBehaviour {
 				obj.transform.parent=overlayManager.transform;
 				obj.transform.localScale=new Vector3(0, 0, 1);
 				
-				overlays[i]=obj.AddComponent<GUITexture>();
-				overlays[i].texture=(Texture)Resources.Load("GreenBar");
-				overlays[i].pixelInset=new Rect(0, 0, 0, 0);
+				overlays[i]=obj.AddComponent<Image>();
+				overlays[i].sprite=(Sprite)Resources.Load("GreenBar");
+				//overlays[i].pixelInset=new Rect(0, 0, 0, 0);
 				
 				obj=new GameObject();
 				obj.name="overlayB";
 				obj.transform.parent=overlayManager.transform;
 				obj.transform.localScale=new Vector3(0, 0, 1);
 				
-				overlaysB[i]=obj.AddComponent<GUITexture>();
-				overlaysB[i].texture=(Texture)Resources.Load("GreyBar");
-				overlaysB[i].pixelInset=new Rect(0, 0, 0, 0);
+				overlaysB[i]=obj.AddComponent<Image>();
+				//overlaysB[i].texture=(Texture)Resources.Load("GreyBar");
+				//overlaysB[i].pixelInset=new Rect(0, 0, 0, 0);
 				
 				inUseFlags[i]=false;
 			}

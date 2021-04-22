@@ -62,7 +62,7 @@ public class AudioManager : MonoBehaviour {
 			StartCoroutine(MusicRoutine());
 		}
 		
-		audioObject=new AudioObject[20];
+		audioObject=new AudioObject[5];
 		for(int i=0; i<audioObject.Length; i++){
 			GameObject obj=new GameObject();
 			obj.name="AudioSource";

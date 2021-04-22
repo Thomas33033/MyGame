@@ -15,6 +15,7 @@ public class FightSCAttackHit : FightAttackRender
                 transform.SetParent(listTargets[0].transform);
             }
         }
+       
 
         if (lifeTime <= 0)
         {

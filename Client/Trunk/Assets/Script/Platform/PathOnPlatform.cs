@@ -34,7 +34,7 @@ public class PathOnPlatform
         nextNeighbouringWP = next;
     }
 
-    public void InitNode(NodeRender[] nodeGraph)
+    public void InitNode(Node[,] nodeGraph)
     {
         Vector3 prevPoint;
         if (prevNeighbouringWP.platform != null)

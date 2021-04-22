@@ -51,19 +51,9 @@ namespace Fight
 
         #endregion Move
 
-        public override void Attack()
-        {
-            TriggerEffect(TriggerType.AttackBefore);
-
-            skillComp.CastSkill(2);
-
-            TriggerEffect(TriggerType.AttackAfter);
-            buffComp.TriggerBuff(TriggerType.AttackAfter);
-        }
-
         protected override bool CastSkill()
         {
-            return skillComp.CastSkill(0);
+            return skillComp.CastSkill(SkillAttackType.Active);
         }
 
     }

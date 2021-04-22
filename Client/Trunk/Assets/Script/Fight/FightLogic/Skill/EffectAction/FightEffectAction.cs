@@ -1,4 +1,4 @@
-﻿using Boo.Lang;
+﻿using System.Collections.Generic;
 
 namespace Fight
 {
@@ -207,8 +207,8 @@ namespace Fight
             //    case (int)FightEffectActionType.AttackBouns:
             //        return new FightEffectActionAttackBouns(actionInfo, effectData);
 
-            //    case (int)FightEffectActionType.AttackCrit:
-            //        return new FightEffectActionAttackCrit(actionInfo, effectData);
+                case (int)FightEffectActionType.AttackCrit:
+                    return new FightEffectActionAttackCrit(actionInfo, effectData);
 
                 case (int)FightEffectActionType.FindTarget:
                     return new FightEffectActionFindTarget(actionInfo, effectData);
@@ -231,8 +231,8 @@ namespace Fight
             //    case (int)FightEffectActionType.Probability:
             //        return new FightEffectActionProbability(actionInfo, effectData);
 
-            //    case (int)FightEffectActionType.ToStep:
-            //        return new FightEffectActionToStep(actionInfo, effectData);
+                case (int)FightEffectActionType.ToStep:
+                    return new FightEffectActionToStep(actionInfo, effectData);
 
             //    case (int)FightEffectActionType.BuffAdd:
             //        return new FightEffectActionBuffAdd(actionInfo, effectData);
@@ -252,8 +252,8 @@ namespace Fight
             //    case (int)FightEffectActionType.AreaAttack:
             //        return new FightEffectActionAreaAttack(actionInfo, effectData);
 
-            //    case (int)FightEffectActionType.TimeWait:
-            //        return new FightEffectActionTimeWait(actionInfo, effectData);
+                case (int)FightEffectActionType.TimeWait:
+                    return new FightEffectActionTimeWait(actionInfo, effectData);
 
             //    case (int)FightEffectActionType.FilterTargetHpSort:
             //        return new FightEffectActionFilterTargetHpSort(actionInfo, effectData);

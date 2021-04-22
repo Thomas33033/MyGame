@@ -106,6 +106,10 @@ public class CameraController : MonoSingleton<CameraController>
         EasyTouch.On_Drag += OnDrag;
         EasyTouch.On_DragStart += OnDragStart;
         EasyTouch.On_DragEnd += OnDragEnd;
+
+        //EasyTouch.On += OnDragEnd;
+        EasyTouch.On_PinchIn -= OnPinchIn;
+        EasyTouch.On_PinchOut -= OnPinchOut;
     }
 
     private void OnDisable()
@@ -113,6 +117,9 @@ public class CameraController : MonoSingleton<CameraController>
         EasyTouch.On_Drag -= OnDrag;
         EasyTouch.On_DragStart -= OnDragStart;
         EasyTouch.On_DragEnd -= OnDragEnd;
+
+        EasyTouch.On_PinchIn -= OnPinchIn;
+        EasyTouch.On_PinchOut -= OnPinchOut;
     }
 
     private void OnDestroy()
@@ -120,8 +127,12 @@ public class CameraController : MonoSingleton<CameraController>
         EasyTouch.On_Drag -= OnDrag;
         EasyTouch.On_DragStart -= OnDragStart;
         EasyTouch.On_DragEnd -= OnDragEnd;
+        EasyTouch.On_PinchIn -= OnPinchIn;
+        EasyTouch.On_PinchOut -= OnPinchOut;
         EasyTouch.RemoveCamera(mainCamera);
     }
+
+
 
 
     void Update()
@@ -172,6 +183,14 @@ public class CameraController : MonoSingleton<CameraController>
         else
         {
             SpringDampen(ref mMomentum, 9f, Time.unscaledDeltaTime);
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)//这个是鼠标滚轮响应函数 
+        {
+            //滚轮响应一次就让scale自增或自减，注意，滚轮函数是有返回值的， 
+            //返回是float型的！这个由滚轮向前（正数）还是向后（负数）滚决定 
+            float value = this.mainCamera.fieldOfView - Input.GetAxis("Mouse ScrollWheel")*10;
+            this.mainCamera.fieldOfView = Mathf.Clamp(value, 20, 60);
         }
     }
 
@@ -244,7 +263,19 @@ public class CameraController : MonoSingleton<CameraController>
         }
 
     }
+    public void OnPinchIn(Gesture gesture)
+    {
+        float num = (0.1f * gesture.deltaPinch);
+        float value = this.mainCamera.fieldOfView + num;
+        this.mainCamera.fieldOfView = Mathf.Clamp(value, 20, 60);
+    }
 
+    public void OnPinchOut(Gesture gesture)
+    {
+        float num = (0.1f * gesture.deltaPinch);
+        float value = this.mainCamera.fieldOfView - num;
+        this.mainCamera.fieldOfView = Mathf.Clamp(value, 20, 60);
+    }
 
     Vector3 GetWorldPosition(Vector3 mousePosition)
     {

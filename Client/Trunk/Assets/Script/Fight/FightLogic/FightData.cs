@@ -16,7 +16,7 @@ namespace Fight
     public class BattleFieldData
     {
         //战场寻路数据
-        public Node[] nodeGraph;
+        public Node[,] nodeGraph;
         public int row;
         public int column;
     }

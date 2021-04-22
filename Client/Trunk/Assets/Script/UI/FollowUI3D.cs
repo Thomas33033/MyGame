@@ -19,7 +19,7 @@ public class FollowUI3D : MonoBehaviour
     private Vector3 mousePos;
     private Vector2 screenPos;
 
-
+    private Vector3 lastPos;
     private Camera uiCamera;
     void Start () {
         this.rectTransform = this.GetComponent<RectTransform>();
@@ -38,9 +38,17 @@ public class FollowUI3D : MonoBehaviour
         //}
         //rectTransform.LookAt(Camera.main.transform, new Vector3(1,0,0));
 
+
         //3D血条
-        rectTransform.position = target.transform.position;
-        rectTransform.rotation = Camera.main.transform.rotation;
+       
+        //rectTransform.rotation = Camera.main.transform.rotation;
+       // if (lastPos != target.transform.position)
+       // {
+            rectTransform.position = target.transform.position;
+            rectTransform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward,
+                   Camera.main.transform.rotation * Vector3.up);
+       // }
+       
     }
 
 

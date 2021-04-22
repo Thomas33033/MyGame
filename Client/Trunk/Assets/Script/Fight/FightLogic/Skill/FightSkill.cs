@@ -3,6 +3,22 @@
 namespace Fight
 {
 
+    public enum SkillAttackType
+    {
+        /// <summary>
+        /// 主动技能
+        /// </summary>
+        Active = 0,
+        /// <summary>
+        /// 被动技能
+        /// </summary>
+        Passive = 1,
+        /// <summary>
+        /// 普攻
+        /// </summary>
+        Normal = 2,
+    }
+
     /// <summary>
     /// 战斗技能，实例化单个技能
     /// </summary>

@@ -59,7 +59,7 @@ public class NpcData
     public void InitData(int configId, ETeamType teamId)
     {
         this.config = ConfigManager.Instance.GetData<CfgNpcData>(configId);
-        this.attrConfig = ConfigManager.Instance.GetData<CfgNpcAttrData>(this.config.AttrId+this.config.Level);
+        this.attrConfig = ConfigManager.Instance.GetData<CfgNpcAttrData>(this.config.AttrId + this.config.Level - 1);
         costRes = new ResItem(this.config.BuildCost);
         this.teamId = teamId;
     }

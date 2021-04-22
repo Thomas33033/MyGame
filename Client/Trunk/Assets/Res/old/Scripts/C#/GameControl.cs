@@ -25,7 +25,6 @@ public class GameControl : MonoBehaviour {
 
 	static public EGameState gameState=EGameState.Idle;
 	
-	//public int playerResource=100;
 	public int playerLife=10;
 	
 	public float sellTowerRefundRatio=0.5f;
@@ -86,29 +85,9 @@ public class GameControl : MonoBehaviour {
     {
        // defaultPath.InitPath();
 
-        totalWaveCount =SpawnManager.Instance.waves.Length;
+        totalWaveCount = SpawnManager.Instance.waves.Length;
 
-		Camera mainCam=Camera.main;
-		Transform mainCamT=mainCam.transform;
-		
-		GameObject overlayCamObj=new GameObject();
-		overlayCamObj.name="OverlayCamera";
-		
-		LayerMask layer=1<<LayerManager.LayerOverlay();
-		mainCam.cullingMask=mainCam.cullingMask&~layer;
-		
-		Camera overlayCam=overlayCamObj.AddComponent<Camera>();
-		
-		overlayCam.clearFlags=CameraClearFlags.Depth;
-		overlayCam.depth=mainCam.depth + 1;
-		overlayCam.cullingMask=layer;
-		overlayCam.fieldOfView=mainCam.fieldOfView;
-		
-		overlayCamObj.transform.parent=mainCamT;
-		overlayCamObj.transform.rotation=mainCamT.rotation;
-		overlayCamObj.transform.localPosition=Vector3.zero;
-		
-		Time.timeScale=1;
+		Time.timeScale = 1;
 
 		//-------------------------------------------------------------------
 		platform.GenerateNode(0);
@@ -116,17 +95,17 @@ public class GameControl : MonoBehaviour {
 
         List<SceneEntity> lstScentEntities = StaticData.LoadList<SceneEntity>("FightScene");
         List<FightRoleData> fightRole = new List<FightRoleData>();
-        for (int i = 0; i < lstScentEntities.Count; i++)
-        {
-            NpcData npcData = new NpcData();
-            npcData.InitData(lstScentEntities[i].npcId, (ETeamType)lstScentEntities[i].teamId);
-            FightRoleData roleData = BuildManager.CreateNpc(npcData);
-            roleData.CurHp = lstScentEntities[i].curHp;
-            roleData.CurMp = lstScentEntities[i].curMp;
-            roleData.NodeId = lstScentEntities[i].npcPos;
-            roleData.CostNodes = lstScentEntities[i].nodeCost;
-            fightRole.Add(roleData);
-        }
+        //for (int i = 0; i < lstScentEntities.Count; i++)
+        //{
+        //    NpcData npcData = new NpcData();
+        //    npcData.InitData(lstScentEntities[i].npcId, (ETeamType)lstScentEntities[i].teamId);
+        //    FightRoleData roleData = BuildManager.CreateNpc(npcData);
+        //    roleData.CurHp = lstScentEntities[i].curHp;
+        //    roleData.CurMp = lstScentEntities[i].curMp;
+        //    roleData.NodeId = lstScentEntities[i].npcPos;
+        //    roleData.CostNodes = lstScentEntities[i].nodeCost;
+        //    fightRole.Add(roleData);
+        //}
 
 
         FightData fightdata = new FightData();
@@ -158,7 +137,6 @@ public class GameControl : MonoBehaviour {
         fightdata.battleFieldData.nodeGraph = platform.GetNodeGraph();
 		fightdata.battleFieldData.row = platform.row;
 		fightdata.battleFieldData.column = platform.column;
-
 
         GameControl.fightCenter = new FightCenter();
 		GameControl.fightCenter.OnInit(fightdata, platform);
@@ -192,10 +170,10 @@ public class GameControl : MonoBehaviour {
 
         this.deltalTime = Time.deltaTime;
         SpawnManager.Instance.OnUpdate(this.deltalTime);
-		ObjectPoolManager.Instance.OnUpdate();
+        ObjectPoolManager.Instance.OnUpdate();
 
-		fightCenter.Update();
-	}
+        fightCenter.Update();
+    }
 	
 	void WaveStartSpawned(int waveID){
 		currentWave+=1;

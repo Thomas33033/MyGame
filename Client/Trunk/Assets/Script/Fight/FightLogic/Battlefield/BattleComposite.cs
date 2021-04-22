@@ -160,7 +160,6 @@ namespace Fight
 
         public bool AddRoleOnBattleField(int teamId, int battlefieldId, FightRoleData roleData, int nodeId, bool isPlayer)
         {
-            Debug.LogError("teamId:" + teamId);
             BattleField battleField = dicBattleField[battlefieldId];
 
             if (!battleField.CanBuild(nodeId))
@@ -180,6 +179,10 @@ namespace Fight
             else if (roleData.npcType == (int)RoleType.Fighter)
             {
                 role = new FightRole(teamId, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
+            }
+            else if (roleData.npcType == (int)RoleType.MainPlayer)
+            {
+                role = new MainPlayer(teamId, GetRoleAttr(roleData), roleData.CurHp, roleData.CurMp, roleData.SkillData, roleData.Tag);
             }
             else
             {
@@ -301,7 +304,7 @@ namespace Fight
 
                 if (fightRole.hp < fightRole.hpMax)
                 {
-                    Debug.LogError(fightRole.hp+" " + fightRole.mp);
+                    fightRole.hp = fightRole.hpMax;
                     listReport.Add(new FightReportRoleHpMp(0, fightRole.teamId, fightRole.id, fightRole.hp, fightRole.mp));
                 }
             }

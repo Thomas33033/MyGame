@@ -2,57 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82a4d877-2b16-4476-a57d-8650877448ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Common/GameEnum.lua" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Common/ItemRender.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Excel/U_UI界面表.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/U_UI界面表.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Excel/N_NPC.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/N_NPC.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Excel/S_技能.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/S_技能.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Excel/U_UI界面表1.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Excel/build_json_cfg.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/build_json_cfg.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../Excel/build_lua_cfg.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/build_lua_cfg.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Excel/contents.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/contents.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Excel/excel2Lua/convertor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Excel/configs/json/SkillData.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/configs/json/SkillData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Excel/configs/json/cfg_npc.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Excel/configs/json/cfg_npc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/Config/FightEffects.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BundleRes/Config/FightEffects.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BundleRes/Config/FightScene.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BundleRes/Config/FightScene.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../BundleRes/UI/Main/UIMain.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../BundleRes/UI/Main/UIMain.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Editor/AutoCreateScript/AutoCreateUIScriptEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Editor/AutoCreateScript/AutoCreateUIScriptEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Editor/Custom/CustomSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Editor/Custom/CustomSettings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Lua.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3rd/Common/Event.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Common/Event.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3rd/DebugPrint/debugPrint.lua" beforeDir="false" afterPath="$PROJECT_DIR$/3rd/DebugPrint/debugPrint.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/ListView.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Common/ListView.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/LuaTools.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Common/LuaTools.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/UIBase.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Common/UIBase.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/Utility.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Common/Utility.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logic/Config.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Logic/GlobalConfig.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logic/Logic_Config.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Logic/Logic_Config.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Main.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Managers/CtrlManager.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Managers/CtrlManager.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Managers/UI/UI.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Managers/UI/UI.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Managers/UI/UIImport.lua" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Managers/space3d.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Managers/space3d.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Space/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Space/.idea/Space.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LuaScript.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Space/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Space/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Space/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Space/Home/Home.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Space/Home/Home.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/Mail/View/UIMailItemRender.lua" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Mail/View/UIMailItemRender.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/Main/View/Base/UIMainView.lua" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Main/View/Base/UIMainView.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configs/cfg_npc.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/cfg_npc.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configs/cfg_npc_attr.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/cfg_npc_attr.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Configs/cfg_ui.lua" beforeDir="false" afterPath="$PROJECT_DIR$/Configs/cfg_ui.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/Main/View/UIMain.lua" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Main/View/UIMain.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Res/old/Scripts/C#/BuildManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Scripts/C#/BuildManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Res/old/Resources/IndicatorSquare.mat" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Resources/IndicatorSquare.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Res/old/Resources/grass.mat" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Resources/grass.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Res/old/Scripts/C#/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Scripts/C#/AudioManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Res/old/Scripts/C#/CustomButtoniOS.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Scripts/C#/CustomButtoniOS.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Res/old/Scripts/C#/OverlayManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Scripts/C#/OverlayManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Res/old/Standard Assets/Particles/Sources/Shaders/Particle Alpha Blend (Queue +100).shader" beforeDir="false" afterPath="$PROJECT_DIR$/../Res/old/Standard Assets/Particles/Sources/Shaders/Particle Alpha Blend (Queue +100).shader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Scenes1/Home.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Scenes1/Home.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/Common/LoadTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Common/LoadTools.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Scenes1/Launch.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../Scenes1/Launch.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Common/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Common/InputManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightCommon/NodeRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightCommon/NodeRender.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightCommon/configData/FightSkillInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightCommon/configData/FightSkillInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/Battlefield/BattleComposite.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/Battlefield/BattleComposite.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/Componet/MoveComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/Componet/MoveComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/Componet/SkillComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/Componet/SkillComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/FightEnum.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/FightEnum.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/Skill/EffectAction/FightEffectAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/Skill/EffectAction/FightEffectAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/Skill/FightEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/Skill/FightEffect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/Skill/FightEffectBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/Skill/FightEffectBox.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/Skill/FightSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/Skill/FightSkill.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/role/FightRole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/role/FightRole.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Script/Fight/FightLogic/role/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightLogic/role/Role.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Main.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/Manager/LuaManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Manager/LuaManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/UI/LuaUIComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/UI/LuaUIComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Script/UI/UI_Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/UI/UI_Main.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/Editor/SGDefaultControls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/Editor/SGDefaultControls.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopHorizontalScrollRect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopHorizontalScrollRect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopScrollRect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopScrollRect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopVerticalScrollRect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ThirdParty/LoopScrollRect/Scripts/LoopVerticalScrollRect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/LoadToolsWrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/LoadToolsWrap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/LuaBinder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/LuaBinder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/UnityEngine_GameObjectWrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/UnityEngine_GameObjectWrap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/UnityEngine_UI_LoopScrollRectWrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/UnityEngine_UI_LoopScrollRectWrap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightRender/BattleField/FightSceneRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightRender/BattleField/FightSceneRender.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightRender/FightRoleRender.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightRender/FightRoleRender.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Fight/FightRender/FightRoleUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Fight/FightRender/FightRoleUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Platform/NodeGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Platform/NodeGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Script/Platform/Platform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Script/Platform/Platform.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ToLua/Source/Generate/UnityEngine_ParticleSystemWrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../ToLua/Source/Generate/UnityEngine_ParticleSystemWrap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/EditorSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1595211241112</updated>
       <workItem from="1595211242563" duration="23718000" />
+      <workItem from="1616139863237" duration="6243000" />
     </task>
     <servers />
   </component>

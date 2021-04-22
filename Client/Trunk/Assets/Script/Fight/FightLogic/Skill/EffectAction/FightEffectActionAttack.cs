@@ -15,6 +15,12 @@ namespace Fight
 
         public float timeSpeed => GetValue(1, 0) / 1000f;
 
+        public override void Update(float nowTime)
+        {
+
+        }
+
+
         public override bool Execute(FightEffect fightEffect, FightAttackDataBase something)
         {
             float now = fightEffect.role.Time;
@@ -23,21 +29,38 @@ namespace Fight
 
             DamageSourceType damageSourceType = fightEffect.box.damageSourceType;
 
-            for (int i = 0; i < fightEffect.listTargets.Count; i++)
+            if (fightEffect.listTargets.Count > 0)
             {
-                if (fightEffect.listTargets[i].state != BattleState.Fight)
-                    continue;
-
-                float time = now + timeDelay;
-                if (timeSpeed > 0)
+                for (int i = 0; i < fightEffect.listTargets.Count; i++)
                 {
-                    int d = (int)Vector3.Distance(fightEffect.listTargets[i].node.pos, fightEffect.role.node.pos);
-                    time += timeSpeed * d;
-                }
-                FightAttackData fightAttackData = new FightAttackData(fightEffect.role, fightEffect.listTargets[i], fightEffect.level, time, damageId, damageSourceType, fightEffect.box);
+                    if (fightEffect.listTargets[i].state != BattleState.Fight)
+                        continue;
 
-                fightEffect.AddAttackData(fightAttackData);
+                    float time = now + timeDelay;
+                    if (timeSpeed > 0)
+                    {
+                        int d = (int)Vector3.Distance(fightEffect.listTargets[i].node.pos, fightEffect.role.node.pos);
+                        time += timeSpeed * d;
+                    }
+                    FightAttackData fightAttackData = new FightAttackData(fightEffect.role, fightEffect.listTargets[i], fightEffect.level, time, damageId, damageSourceType, fightEffect.box);
+
+                    fightEffect.AddAttackData(fightAttackData);
+                }
             }
+            else
+            {
+                float time = now + timeDelay;
+                time += timeSpeed * fightEffect.role.range+1;
+
+                fightEffect.box.attacker.AddReport(new FightReportRoleAttack(now,
+                    fightEffect.role.teamId, fightEffect.role.id,
+                    -1,
+                    damageId,
+                    time,
+                    0,0, false));
+            }
+
+            
 
             return true;
         }

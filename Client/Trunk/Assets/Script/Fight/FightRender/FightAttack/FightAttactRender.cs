@@ -24,8 +24,8 @@ public class FightAttackRender : MonoBehaviour
     protected float timeScale;
 
     protected bool isActive;
-
-    public List<Animator> listSkeleton;
+    protected bool hasHit = true;
+    //public List<Animator> listSkeleton;
 
     protected EffectPoolObj poolObj;
 
@@ -56,6 +56,11 @@ public class FightAttackRender : MonoBehaviour
             {
                 objContent.SetActive(false);
             }
+        }
+
+        if (objHit != null)
+        {
+            objHit.SetActive(false);
         }
     }
 
@@ -110,17 +115,13 @@ public class FightAttackRender : MonoBehaviour
 
     protected virtual void Die()
     {
-        if (objHit != null)
-        {
-
-            if (objHit != null)
-            {
-                tObjHit = GameObject.Instantiate(objHit);
-                tObjHit.transform.Reset();
-                tObjHit.transform.position = this.transform.position;
-                tObjHit.SetActive(true);
-            }
-
+        if (objHit != null && hasHit && listTargets.Count > 0)
+        { 
+            tObjHit = GameObject.Instantiate(objHit);
+            tObjHit.transform.Reset();
+            tObjHit.transform.position = this.transform.position;
+            tObjHit.SetActive(true);
+            
             if (listTargets.Count > 0)
             {
                 transform.position = listTargets[0].transform.position;

@@ -1,13 +1,16 @@
 ﻿using FightCommom;
 using System.Collections.Generic;
-using UnityEngine;
 
+/**
+ * 客户端发送方向给服务器，同时客户端模型
+ * 
+**/
 namespace Fight {
     public class MoveComponent : BaseComponent
     {
         private List<Node> waypoints = new List<Node>();
 
-        public float lastMoveTime;
+        public float moveEndTime;
 
         private int pathIndex;
 
@@ -18,19 +21,29 @@ namespace Fight {
            
         }
 
+        public void MoveByDir(Node node)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            this.waypoints.Clear();
+            this.waypoints.Add(node);
+            this.SetWayPoints(this.waypoints);
+        }
+
         public void SetWayPoints(List<Node> waypoints)
         {
             this.waypoints = waypoints;
-            this.lastMoveTime = 0;
-            this.pathIndex = 0;
-            this.nextNode = waypoints[pathIndex];
-
-            if (this.Owner.node == nextNode)
+            this.moveEndTime = 0;
+            this.pathIndex = -1;
+            this.nextNode = this.waypoints[0];
+            if (this.Owner.node == nextNode && waypoints.Count > 1)
             {
-                this.pathIndex = 1;
-                this.nextNode = waypoints[pathIndex];
+                this.pathIndex = 0;
+                this.nextNode = this.waypoints[1];
             }
-
             this.Owner.isMoving = true;
         }
 
@@ -41,9 +54,15 @@ namespace Fight {
 
             if (pathIndex < this.waypoints.Count)
             {
-                if (nowTime > lastMoveTime)
+                if (nowTime > moveEndTime)
                 {
                     this.Owner.isMoving = true;
+
+                    pathIndex++;
+                    if (pathIndex < this.waypoints.Count)
+                    {
+                        this.nextNode = this.waypoints[pathIndex];
+                    }
 
                     if (this.Owner.battleField.CheckMove(nextNode))
                     {
@@ -51,13 +70,7 @@ namespace Fight {
                         {
                             this.Owner.RoleMove(nextNode);
                         }
-
-                        pathIndex++;
-                        if (pathIndex < this.waypoints.Count)
-                        {
-                            this.nextNode = this.waypoints[pathIndex];
-                        }
-                        lastMoveTime = nowTime + this.Owner.moveSpeed;
+                        moveEndTime = nowTime + this.Owner.moveSpeed;
                     }
                     else
                     {
@@ -70,13 +83,26 @@ namespace Fight {
                 this.Owner.isMoving = false;
                 this.waypoints.Clear();
                 this.nextNode = null;
+                DebugMgr.Log("------this.nextNode = null-----");
             }
+
         }
+
 
         public void StopMove()
         {
             this.Owner.isMoving = false;
             this.waypoints.Clear();
+
+            //停止移动
+            if (this.moveEndTime - this.Owner.Time > this.Owner.moveSpeed / 2)
+            {
+                this.Owner.StopMove(this.nextNode);
+            }
+            else
+            {
+                this.Owner.StopMove(this.Owner.node);
+            }
             this.nextNode = null;
         }
     }

@@ -37,7 +37,8 @@ namespace Fight
                 }
 
                 FightEffectInfo fightEffectInfo = StaticData.dicEffectInfo[effectIds[i]];
-                FightSkillEffectData fightSkillEffectData = StaticData.dicSkillEffectData.ContainsKey(effectIds[i]) ? StaticData.dicSkillEffectData[effectIds[i]] : null;
+                FightSkillEffectData fightSkillEffectData = StaticData.dicSkillEffectData.ContainsKey(effectIds[i])
+                    ? StaticData.dicSkillEffectData[effectIds[i]] : null;
 
                 listEffect.Add(new FightEffect(this, fightEffectInfo, fightSkillEffectData, level));
             }

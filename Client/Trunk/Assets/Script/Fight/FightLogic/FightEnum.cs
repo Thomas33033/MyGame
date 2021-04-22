@@ -73,10 +73,13 @@ namespace Fight
         BuildTower = 2,
         //普通建筑
         Buildings = 3,
+        //英雄
+        MainPlayer = 4,
         //召唤物
         Summon = 10,
         //队伍
         Team = 20
+
     }
 
     //角色状态类型

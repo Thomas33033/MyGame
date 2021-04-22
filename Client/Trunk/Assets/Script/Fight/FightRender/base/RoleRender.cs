@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Fight;
 using FightCommom;
 
-public class RoleRender :Entity
+public class RoleRender : Entity
 {
     public string teamId;
 
@@ -31,6 +31,11 @@ public class RoleRender :Entity
     public Transform transform;
 
     public Transform hitTrans;
+
+    //每次攻击前，储存当前技能释放的起始位置
+    public Vector3 fromPoint;
+
+    public RoleType roleType;
 
     public RoleRender()  {
         dicEffectObjects = new Dictionary<int, EffectPoolObj>();
@@ -159,7 +164,7 @@ public class RoleRender :Entity
         });
     }
 
-    public virtual void SkillCast(FightSkillInfo skillInfo, List<RoleRender> listTargets)
+    public virtual void SkillCast(FightSkillInfo skillInfo, List<RoleRender> listTargets, float dieTime)
     {
         if (string.IsNullOrEmpty(skillInfo.MagicEffect) == true)
             return;
@@ -174,7 +179,7 @@ public class RoleRender :Entity
                 FightAttackRender fightSCAttack = obj.GetComponent<FightAttackRender>();
                 if (fightSCAttack != null)
                 {
-                    fightSCAttack.SetData(poolObj, this, listTargets);
+                    fightSCAttack.SetData(poolObj, this, listTargets, dieTime);
                 }
             }
         });

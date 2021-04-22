@@ -7,9 +7,10 @@ using FightCommom;
 public class BuildManager : MonoBehaviour {
 
    
-    static private float _gridSize=0;
-	public float gridSize=2;
+    static private float gridSize = 1;
+
 	public Transform[] platforms;
+
 	private Platform[] buildPlatforms;
 	
 	public bool AutoAdjstTextureToGrid=true;
@@ -35,43 +36,25 @@ public class BuildManager : MonoBehaviour {
 
 		towerCount=0;
 		
-		gridSize=Mathf.Clamp(gridSize, 0.5f, 3.0f);
-		_gridSize=gridSize;
         InitPlatform();
-
-       // UIManager.Instance.ShowUI<UI_Main>("Main/UIMain");
 	}
 	
 
-	// Use this for initialization
 	void InitPlatform() {
 
 		buildPlatforms=new Platform[platforms.Length];
 		
 		int i=0;
+
 		foreach(Transform basePlane in platforms){
-			//if the platform object havent got a platform componet on it, assign it
+
 			Platform platform=basePlane.gameObject.GetComponent<Platform>();
 			
-			if(platform==null){
-				platform=basePlane.gameObject.AddComponent<Platform>();
-				platform.buildableType=new _TowerType[6];
-				
-				//by default, all tower type is builidable
-				platform.buildableType[0]=_TowerType.TurretTower;
-				platform.buildableType[1]=_TowerType.AOETower;
-				platform.buildableType[2]=_TowerType.DirectionalAOETower;
-				platform.buildableType[3]=_TowerType.SupportTower;
-				platform.buildableType[4]=_TowerType.ResourceTower;
-				platform.buildableType[5]=_TowerType.Mine;
-			}
-			
 			buildPlatforms[i]=platform;
-			
-			//make sure the plane is perfectly horizontal, rotation around the y-axis is presreved
+			SetDefaultBuildableType(platform, basePlane);
+
 			basePlane.eulerAngles=new Vector3(0, basePlane.rotation.eulerAngles.y, 0);
 			
-			//adjusting the scale
 			float scaleX=Mathf.Floor(basePlane.localScale.x*10/gridSize)*gridSize*0.1f;
 			float scaleZ=Mathf.Floor(basePlane.localScale.z*10/gridSize)*gridSize*0.1f;
 			
@@ -91,14 +74,29 @@ public class BuildManager : MonoBehaviour {
 				mat.mainTextureScale=new Vector2(x, z);
 			}
 			
-			//get the platform component, if any
-			//Platform p=basePlane.gameObject.GetComponent<Platform>();
-			//buildPlatforms[i]=new BuildPlatform(basePlane, p);
 			i++;
 		}
 
 	}
-	
+
+
+	private void SetDefaultBuildableType(Platform platform, Transform basePlane)
+	{
+        if (platform == null)
+        {
+            platform = basePlane.gameObject.AddComponent<Platform>();
+            platform.buildableType = new _TowerType[6];
+
+            //by default, all tower type is builidable
+            platform.buildableType[0] = _TowerType.TurretTower;
+            platform.buildableType[1] = _TowerType.AOETower;
+            platform.buildableType[2] = _TowerType.DirectionalAOETower;
+            platform.buildableType[3] = _TowerType.SupportTower;
+            platform.buildableType[4] = _TowerType.ResourceTower;
+            platform.buildableType[5] = _TowerType.Mine;
+        }
+    }
+
 	private static GameObject indicator;
 	private static GameObject indicator2;
 	
@@ -125,83 +123,84 @@ public class BuildManager : MonoBehaviour {
 	}
 	
 	static public void ClearBuildPoint(){
-        if(currentBuildInfo != null)
-            currentBuildInfo.platform.ResetDefaultRes();
-        currentBuildInfo =null;
 		ClearIndicator();
-       
-
     }
 	
 	static public void ClearIndicator(){
 		if(indicator!=null) indicator.active=false;
 	}
 	
-	//called to set indicator to a particular node, set the color as well
-	//not iOS performance friendly
 	static public void SetIndicator(Vector3 pointer){
 		
-		LayerMask mask=1<<LayerManager.LayerPlatform();
+		LayerMask mask= 1 << LayerManager.LayerPlatform();
 		Ray ray = Camera.main.ScreenPointToRay(pointer);
 		RaycastHit hit;
-		if(Physics.Raycast(ray, out hit, Mathf.Infinity, mask)){
-			
-			for(int i=0; i<Instance.buildPlatforms.Length; i++){
-				
-				Transform basePlane=Instance.buildPlatforms[i].thisT;
-				if(hit.transform==basePlane){
-					
+		if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
+		{
+
+			for (int i = 0; i < Instance.buildPlatforms.Length; i++)
+			{
+
+				Transform basePlane = Instance.buildPlatforms[i].thisT;
+				if (hit.transform == basePlane)
+				{
+
 					//calculating the build center point base on the input position
-					
+
 					//check if the row count is odd or even number
-					float remainderX=basePlane.localScale.x*10/_gridSize%2;
-					float remainderZ=basePlane.localScale.z*10/_gridSize%2;
-					
+					float remainderX = basePlane.localScale.x * 10 / gridSize % 2;
+					float remainderZ = basePlane.localScale.z * 10 / gridSize % 2;
+
 					//get the rotation offset of the plane
-					Quaternion rot=Quaternion.LookRotation(hit.point-basePlane.position);
-					
+					Quaternion rot = Quaternion.LookRotation(hit.point - basePlane.position);
+
 					//get the x and z distance from the centre of the plane in the baseplane orientation
 					//from this point on all x and z will be in reference to the basePlane orientation
-					float dist=Vector3.Distance(hit.point, basePlane.position);
-					float distX=Mathf.Sin((rot.eulerAngles.y-basePlane.rotation.eulerAngles.y)*Mathf.Deg2Rad)*dist;
-					float distZ=Mathf.Cos((rot.eulerAngles.y-basePlane.rotation.eulerAngles.y)*Mathf.Deg2Rad)*dist;
-					
+					float dist = Vector3.Distance(hit.point, basePlane.position);
+					float distX = Mathf.Sin((rot.eulerAngles.y - basePlane.rotation.eulerAngles.y) * Mathf.Deg2Rad) * dist;
+					float distZ = Mathf.Cos((rot.eulerAngles.y - basePlane.rotation.eulerAngles.y) * Mathf.Deg2Rad) * dist;
+
 					//get the sign (1/-1) of the x and y direction
-					float signX=distX/Mathf.Abs(distX);
-					float signZ=distZ/Mathf.Abs(distZ);
-					
+					float signX = distX / Mathf.Abs(distX);
+					float signZ = distZ / Mathf.Abs(distZ);
+
 					//calculate the tile number selected in z and z direction
-					float numX=Mathf.Round((distX+(remainderX-1)*(signX*_gridSize/2))/_gridSize);
-					float numZ=Mathf.Round((distZ+(remainderZ-1)*(signZ*_gridSize/2))/_gridSize);
-					
+					float numX = Mathf.Round((distX + (remainderX - 1) * (signX * gridSize / 2)) / gridSize);
+					float numZ = Mathf.Round((distZ + (remainderZ - 1) * (signZ * gridSize / 2)) / gridSize);
+
 					//calculate offset in x-axis, 
-					float offsetX=-(remainderX-1)*signX*_gridSize/2;
-					float offsetZ=-(remainderZ-1)*signZ*_gridSize/2;
-					
+					float offsetX = -(remainderX - 1) * signX * gridSize / 2;
+					float offsetZ = -(remainderZ - 1) * signZ * gridSize / 2;
+
 					//get the pos and apply the offset
-					Vector3 p=basePlane.TransformDirection(new Vector3(numX, 0, numZ)*_gridSize);
-					p+=basePlane.TransformDirection(new Vector3(offsetX, 0, offsetZ));
-					
+					Vector3 p = basePlane.TransformDirection(new Vector3(numX, 0, numZ) * gridSize);
+					p += basePlane.TransformDirection(new Vector3(offsetX, 0, offsetZ));
+
 					//set the position;
-					Vector3 pos=p+basePlane.position;
-					
-					
-					indicator2.active=true;
-		
-					indicator2.transform.position=pos;
-					indicator2.transform.rotation=basePlane.rotation;
-					
-					Collider[] cols=Physics.OverlapSphere(pos, _gridSize/2*0.9f, ~mask);
-					if(cols.Length>0){
+					Vector3 pos = p + basePlane.position;
+
+
+					indicator2.active = true;
+
+					indicator2.transform.position = pos;
+					indicator2.transform.rotation = basePlane.rotation;
+
+					Collider[] cols = Physics.OverlapSphere(pos, gridSize / 2 * 0.9f, ~mask);
+					if (cols.Length > 0)
+					{
 						indicator2.GetComponent<Renderer>().material.SetColor("_TintColor", Color.red);
 					}
-					else{
+					else
+					{
 						indicator2.GetComponent<Renderer>().material.SetColor("_TintColor", Color.green);
 					}
 				}
 			}
 		}
-		else indicator2.active=false;
+		else {
+			indicator2.active = false;
+		}
+		
 	}
 
 	
@@ -215,53 +214,53 @@ public class BuildManager : MonoBehaviour {
 		RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
         {
-
             for (int i = 0; i < Instance.buildPlatforms.Length; i++)
             {
-
-                Transform basePlane = Instance.buildPlatforms[i].thisT;
-                if (hit.transform == basePlane)
+				Platform basePlane = Instance.buildPlatforms[i];
+                if (hit.transform == basePlane.transform)
                 {
+					//float remainderX = basePlane.localScale.x * 10 / gridSize % 2;
+					//float remainderZ = basePlane.localScale.z * 10 / gridSize % 2;
 
-                    float remainderX = basePlane.localScale.x * 10 / _gridSize % 2;
-                    float remainderZ = basePlane.localScale.z * 10 / _gridSize % 2;
+					//Quaternion rot = Quaternion.LookRotation(hit.point - basePlane.position);
 
-                    Quaternion rot = Quaternion.LookRotation(hit.point - basePlane.position);
+					//float dist = Vector3.Distance(hit.point, basePlane.position);
+					//float distX = Mathf.Sin((rot.eulerAngles.y - basePlane.rotation.eulerAngles.y) * Mathf.Deg2Rad) * dist;
+					//float distZ = Mathf.Cos((rot.eulerAngles.y - basePlane.rotation.eulerAngles.y) * Mathf.Deg2Rad) * dist;
 
-                    float dist = Vector3.Distance(hit.point, basePlane.position);
-                    float distX = Mathf.Sin((rot.eulerAngles.y - basePlane.rotation.eulerAngles.y) * Mathf.Deg2Rad) * dist;
-                    float distZ = Mathf.Cos((rot.eulerAngles.y - basePlane.rotation.eulerAngles.y) * Mathf.Deg2Rad) * dist;
+					//float signX = distX / Mathf.Abs(distX);
+					//float signZ = distZ / Mathf.Abs(distZ);
 
-                    float signX = distX / Mathf.Abs(distX);
-                    float signZ = distZ / Mathf.Abs(distZ);
+					//float numX = Mathf.Round((distX + (remainderX - 1) * (signX * gridSize / 2)) / gridSize);
+					//float numZ = Mathf.Round((distZ + (remainderZ - 1) * (signZ * gridSize / 2)) / gridSize);
 
-                    float numX = Mathf.Round((distX + (remainderX - 1) * (signX * _gridSize / 2)) / _gridSize);
-                    float numZ = Mathf.Round((distZ + (remainderZ - 1) * (signZ * _gridSize / 2)) / _gridSize);
+					//float offsetX = -(remainderX - 1) * signX * gridSize / 2;
+					//float offsetZ = -(remainderZ - 1) * signZ * gridSize / 2;
 
-                    float offsetX = -(remainderX - 1) * signX * _gridSize / 2;
-                    float offsetZ = -(remainderZ - 1) * signZ * _gridSize / 2;
+					//Vector3 p = basePlane.TransformDirection(new Vector3(numX, 0, numZ) * gridSize);
+					//p += basePlane.TransformDirection(new Vector3(offsetX, 0, offsetZ));
 
-                    Vector3 p = basePlane.TransformDirection(new Vector3(numX, 0, numZ) * _gridSize);
-                    p += basePlane.TransformDirection(new Vector3(offsetX, 0, offsetZ));
+					//Vector3 pos = p + basePlane.position;
 
-                    Vector3 pos = p + basePlane.position;
-
-                    buildableInfo.position = pos;
-                    buildableInfo.platform = Instance.buildPlatforms[i];
+					//buildableInfo.position = 
+					Node node = basePlane.PositionToNode(hit.point);
+					buildableInfo.position = node.GetWorldPosition();
+					buildableInfo.platform = basePlane;
 
                     //创建建筑需要的格子是否包含阻挡
                     if (Instance.buildPlatforms[i].IsWalkable())
                     {
-                        if (Instance.buildPlatforms[i].CheckForBlock(pos, costGrid, nodeSize))
+                        if (Instance.buildPlatforms[i].CheckForBlock(node, costGrid, nodeSize))
                         {
                             currentBuildInfo = buildableInfo;
                             Debug.LogError(" has block !!!!!!!! ");
                             return false;
                         }
                     }
-					var ignorMask = ~(mask | 1 << LayerManager.LayerTerrain());
 
-					Collider[] cols = Physics.OverlapSphere(pos, _gridSize / 2 * 0.9f, ignorMask);
+					var ignorMask = LayerManager.GetBlockMask(); //~(mask | 1 << LayerManager.LayerTerrain());
+
+					Collider[] cols = Physics.OverlapSphere(node.GetWorldPosition(), gridSize / 2 * 0.9f, ignorMask);
                     if (cols.Length > 0)
                     {
                         currentBuildInfo = buildableInfo;
@@ -291,58 +290,9 @@ public class BuildManager : MonoBehaviour {
 		return true;
 	}
 	
-	public static bool CheckBuildPoint(Vector3 pointer, List<int> costGrid, int specialID,int nodeSize){
-
-        if (!CheckBuildPoint(pointer, costGrid, nodeSize))
-        {
-            return false;
-        } 
-		
-		if(specialID>0)
-        {
-			if(currentBuildInfo.specialBuildableID!=null && currentBuildInfo.specialBuildableID.Length>0)
-            {
-				foreach(int specialBuildableID in currentBuildInfo.specialBuildableID)
-                {
-					if(specialBuildableID==specialID)
-                    {
-						return true;
-					}
-				}
-			}
-            return false;
-		}
-		else
-        {
-            //if(currentBuildInfo.specialBuildableID!=null && currentBuildInfo.specialBuildableID.Length>0)
-            //         {
-            //	return false;
-            //}
-
-            //foreach(_TowerType buildabletype in currentBuildInfo.buildableType)
-            //         {
-            //	if(type==buildabletype)
-            //             {
-            //		return true;
-            //	}
-            //}
-            return true;
-		}
-		
-		//currentBuildInfo.buildable=false;
-		//return false;
-	}
-	
 
     public static bool BuildTowerDragNDrop(NpcData _data)
     {
-
-  //      if (_data.TowerType == _TowerType.ResourceTower && GameControl.gameState == EGameState.Idle)
-  //      {
-		//	GameMessage.DisplayMessage("Cant Build Tower before spawn start");
-		//	return false; 
-		//}
-
         if (GameControl.HaveSufficientResource(_data.costRes))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -369,7 +319,7 @@ public class BuildManager : MonoBehaviour {
         return currentBuildInfo.platform.GetPostion();
     }
 
-	public static void DragNDropBuilt(FightRoleData buildData, List<int> costNodeIDs)
+	public static void DragNDropBuilt(FightRoleData buildData, List<IntVector2> costNodeIDs)
     {
 		if(currentBuildInfo.platform!=null)
         {
@@ -381,39 +331,6 @@ public class BuildManager : MonoBehaviour {
 	}
 
 
-	private int currentSampleID=-1;
-		
-    static public void ShowSampleTower(int ID)
-    {
-		//Instance._ShowSampleTower(ID);
-	}
-	//public void _ShowSampleTower(int ID)
- //   {
-	//	if(currentSampleID==ID || currentBuildInfo==null) return;
-		
-	//	if(currentSampleID>0){
-	//		ClearSampleTower();
-	//	}
-	//	currentSampleID=ID;
-	//	sampleTower[ID].Trans.position=currentBuildInfo.position;
-	//	sampleTower[ID].ModelObj.SetActive(true);
-	//	GameControl.ShowIndicator(sampleTower[ID]);
-	//}
-	
-	//static public void ClearSampleTower()
- //   {
-	//	Instance._ClearSampleTower();
-	//}
-	//public void _ClearSampleTower()
- //   {
-	//	if(currentSampleID<0) return;
-		
-	//	sampleTower[currentSampleID].ModelObj.SetActive(false);
-	//	GameControl.ClearIndicator();
-	//	currentSampleID=-1;
-	//}
-	
-	
 	static public BuildableInfo GetBuildInfo()
     {
 		return currentBuildInfo;
@@ -422,7 +339,7 @@ public class BuildManager : MonoBehaviour {
 	
 	static public float GetGridSize()
     {
-		return _gridSize;
+		return gridSize;
 	}
 	
 	Vector3 poss;

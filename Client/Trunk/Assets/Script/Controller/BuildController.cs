@@ -241,11 +241,12 @@ public class BuildController : MonoBehaviour {
                     //check if the platform is walkable, if so, check if building on the point wont block all possible path
                     if (buildManager.buildPlatforms[i].IsWalkable())
                     {
+                        Debug.LogError("此处代码需要");
                         //return true is the platform is not block
-                        if (buildManager.buildPlatforms[i].CheckForBlock(pos, costGrid, nodeSize))
-                        {
-                            return false;
-                        }
+                        //if (buildManager.buildPlatforms[i].CheckForBlock(pos, costGrid, nodeSize))
+                        //{
+                        //    return false;
+                        //}
                     }
 
                     buildableInfo.buildableType = buildManager.buildPlatforms[i].buildableType;
@@ -302,7 +303,7 @@ public class BuildController : MonoBehaviour {
         return false;
     }
 
-    public static void DragNDropBuilt(FightRoleData heroData, List<int> costNodeIDs)
+    public static void DragNDropBuilt(FightRoleData heroData, List<IntVector2> costNodeIDs)
     {
         if (currentBuildInfo.platform != null)
         {
@@ -423,16 +424,13 @@ public class BuildableInfo
 
     public int[] specialBuildableID;
 
-    //cant build
     public void BuildSpotInto() { }
 
-    //can build anything
     public void BuildSpotInto(Vector3 pos)
     {
         position = pos;
     }
 
-    //can build with restriction to certain tower type
     public void BuildSpotInto(Vector3 pos, _TowerType[] bT)
     {
         position = pos;

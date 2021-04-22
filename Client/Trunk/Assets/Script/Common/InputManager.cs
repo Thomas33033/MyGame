@@ -59,7 +59,7 @@ public class InputManager : MonoBehaviour
         while (true)
         {
             //检测建筑是否可以创建
-            bool flag = BuildManager.CheckBuildPoint(Input.mousePosition, costNodeIDs, 0, this.fightBuildData.NodeSize);
+            bool flag = BuildManager.CheckBuildPoint(Input.mousePosition, costNodeIDs, this.fightBuildData.NodeSize);
 
             BuildableInfo currentBuildInfo = BuildManager.GetBuildInfo();
 
@@ -161,10 +161,11 @@ public class InputManager : MonoBehaviour
             this.dragTower.GetOrAddComponent<BoxCollider>().enabled = true;
 
             this.fightBuildData.CostNodes = costNodeIDs.ToArray();
+
             Node node = BuildManager.GetBuildPosition();
             this.fightBuildData.NodeId = node.Id;
 
-            if(!isDragCreat)
+         //   if(!isDragCreat)
             {
                 this.poolObj.ReturnToPool();
             }

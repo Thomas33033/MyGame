@@ -181,7 +181,18 @@ namespace Fight
             }
         }
 
-        public virtual void Attack() { }
+        /// <summary>
+        /// 普攻
+        /// </summary>
+        public virtual void Attack() 
+        {
+            TriggerEffect(TriggerType.AttackBefore);
+
+            skillComp.CastSkill(SkillAttackType.Normal);
+
+            TriggerEffect(TriggerType.AttackAfter);
+            buffComp.TriggerBuff(TriggerType.AttackAfter);
+        }
 
         protected virtual void Idle(float nowTime) { }
 
@@ -305,6 +316,12 @@ namespace Fight
             return distance <= range + target.nodeSize-1;
         }
 
+        public void StopMove(Node grid)
+        {
+            AddReport(new FightReportRoleMove(Time, teamId, id, battleField.id, 0, grid.Id));
+        }
+
+
         public void RoleMove(Node grid)
         {
             battleField.RoleMove(this, grid);
@@ -336,7 +353,8 @@ namespace Fight
         public void AddAttackData(FightAttackData fightAttackData)
         {
             if (fightAttackData.fightEffectBox != null)
-                fightAttackData.fightEffectBox.Trigger(TriggerType.AttackDataAttackerHitBefore, fightAttackData, 1);
+                fightAttackData.fightEffectBox.Trigger(TriggerType.AttackDataAttackerHitBefore,
+                    fightAttackData, 1);
             TriggerEffect(TriggerType.AttackDataAttackerHitBefore, fightAttackData);
 
             fightAttackData.Hit();
@@ -568,7 +586,18 @@ namespace Fight
 
         public virtual void SkillAdd(int skillId, int level)
         {
-            skillComp.SkillAdd(skillId, level);
+            if (StaticData.dicSkillInfo.ContainsKey(skillId) == false)
+            {
+                return;
+            }
+            FightSkillInfo skillInfo = StaticData.dicSkillInfo[skillId];
+
+            if (skillInfo.Type != 0 && skillInfo.Type != 1 && skillInfo.Type != 2)
+                return;
+
+            FightSkill fightSkill = new FightSkill(this, skillInfo, level);
+
+            skillComp.listSkills.Add(fightSkill);
         }
 
         public void GetReport(ref List<FightReport> listReport)

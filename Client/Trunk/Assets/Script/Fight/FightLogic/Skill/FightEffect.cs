@@ -8,42 +8,42 @@ namespace Fight
     public enum TriggerType
     {
         None = 0,
-        AttackBefore = 1,
-        AttackAfter = 2,
-        AttackDataAttackerHitBefore = 3,
-        AttackDataExecuted = 4,
-        Time = 6,
-        Skill = 10,
-        AttackDataTargetHurtBefore = 20,
-        AttackDataTargetDamageBefore = 21,
-        AttackDataTargetHurtAfter = 22,
-        AttackDataAttackerDamageBefore = 23,
-        Buff = 30,
-        BuffStack = 31,
-        AttackDataAttackerHit = 40,
-        AttackDataTargetHit = 41,
-        Kill = 50,
-        PrepareFight = 60,
-        Init = 61,
-        AttackDataTargetCureBefore = 70,
-        AttackDataAttackerCureHit = 71,
-        AttackDataTargetCureHit = 72,
-        AttackDataAttackerCureBefore = 73,
-        AuraAdd = 80,
-        AuraRemove = 81,
-        AuraEnter = 82,
-        AuraExit = 83,
-        AuraHas = 84,
-        AuraNone = 85,
-        AuraCreate = 86,
-        AuraEnd = 87,
+        AttackBefore = 1,  //角色普攻前
+        AttackAfter = 2,   //角色普攻后
+        AttackDataAttackerHitBefore = 3,  //伤害命中前
+        AttackDataExecuted = 4,   //伤害命中
+        Time = 6,  //按时间触发
+        Skill = 10,  //技能释放后
+        AttackDataTargetHurtBefore = 20,  //角色受到伤害前
+        AttackDataTargetDamageBefore = 21,  //角色受到Damage伤害计算前
+        AttackDataTargetHurtAfter = 22,  //角色受到伤害后
+        AttackDataAttackerDamageBefore = 23, //角色伤害计算之前
+        Buff = 30,  //buff执行之后
+        BuffStack = 31, //buff叠满之后
+        AttackDataAttackerHit = 40, //角色伤害命中之后
+        AttackDataTargetHit = 41,   //角色收到伤害命中之后
+        Kill = 50,   //角色击杀后
+        PrepareFight = 60,  //准备战斗
+        Init = 61,   //角色初始化
+        AttackDataTargetCureBefore = 70, //角色受到伤害治疗之前
+        AttackDataAttackerCureHit = 71,  //角色Damage治疗命中后
+        AttackDataTargetCureHit = 72,    //角色受到Damage治疗命中后
+        AttackDataAttackerCureBefore = 73, //角色伤害治疗计算之前
+        AuraAdd = 80,  //光环添加角色时
+        AuraRemove = 81,  //光环移除角色时
+        AuraEnter = 82,   //角色受到光环时
+        AuraExit = 83,  //角色离开光环时
+        AuraHas = 84,   //角色有光环时
+        AuraNone = 85,  //光环没有角色时
+        AuraCreate = 86, //角色开启光环时
+        AuraEnd = 87,   //角色关闭光环时
         Die = 90,    //角色死亡
         Dying = 91,  //角色即将死亡
 
         ShieldCreated = 100,
-        TargetChange = 110,
-        MpMax = 120,
-        OutControl = 130,
+        TargetChange = 110,  //目标切换
+        MpMax = 120,         //怒气满时
+        OutControl = 130,  //失去控制
     }
 
     public class FightEffect

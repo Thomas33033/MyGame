@@ -19,22 +19,6 @@ namespace Fight
             type = RoleType.Fighter;
         }
 
-        public override void SkillAdd(int skillId, int level)
-        {
-            if (StaticData.dicSkillInfo.ContainsKey(skillId) == false)
-            {
-                return;
-            }
-            FightSkillInfo skillInfo = StaticData.dicSkillInfo[skillId];
-
-            if (skillInfo.Type != 0 && skillInfo.Type != 1 && skillInfo.Type != 2)
-                return;
-
-            FightSkill fightSkill = new FightSkill(this, skillInfo, level);
-
-            skillComp.listSkills.Add(fightSkill);
-        }
-
         public override void Update(float nowTime)
         {
             base.Update(nowTime);
@@ -84,26 +68,17 @@ namespace Fight
 
                     for (int k = 0; k < paths.Count; k++)
                     {
-                         FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(paths[k].Id, ENodeColor.CanBuild);
+                         FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(paths[k].gridPos, ENodeType.CanBuild);
                     }
                     break;
                 }
             }
         }
 
-        public override void Attack()
-        {
-            TriggerEffect(TriggerType.AttackBefore);
-
-            skillComp.CastSkill(2);
-
-            TriggerEffect(TriggerType.AttackAfter);
-            buffComp.TriggerBuff(TriggerType.AttackAfter);
-        }
-
+        //释放主动技能
         protected override bool CastSkill()
         {
-            return skillComp.CastSkill(0);
+            return skillComp.CastSkill(SkillAttackType.Active);
         }
 
         protected void MoveRandom(float nowTime)

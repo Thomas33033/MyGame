@@ -24,7 +24,7 @@ namespace Fight
         public virtual int dodge => attribute.dodge;
         public virtual int hit => attribute.hit;
         public virtual int range => attribute.range;
-        public virtual float moveSpeed => 50f / attribute.moveSpeed;
+        public virtual float moveSpeed => 100/attribute.moveSpeed;
         public virtual int physicsAttack => attribute.physicsAttack;
         public virtual int magicAttack => attribute.magicAttack;
         public virtual int magicDefense => attribute.magicDefense;

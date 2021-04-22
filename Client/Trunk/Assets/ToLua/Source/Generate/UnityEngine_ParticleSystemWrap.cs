@@ -520,7 +520,7 @@ public class UnityEngine_ParticleSystemWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			UnityEngine.ParticleSystem obj = (UnityEngine.ParticleSystem)ToLua.CheckObject(L, 1, typeof(UnityEngine.ParticleSystem));
-			obj.ClearJob();
+			//obj.ClearJob();
 			return 0;
 		}
 		catch (Exception e)

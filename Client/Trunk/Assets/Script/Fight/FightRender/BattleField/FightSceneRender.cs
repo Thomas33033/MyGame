@@ -43,7 +43,8 @@ public class FightSceneRender
 
     public float GetTime()
     {
-        return serverTime + Time.time - _reciveServerTime;
+        //return serverTime + Time.time - _reciveServerTime;
+        return Time.time;
     }
 
 
@@ -125,13 +126,18 @@ public class FightSceneRender
     private void DoReport_RoleCreate(FightReport v)
     {
         FightReportRoleAdd report = v as FightReportRoleAdd;
-
         FightRoleRender roleRender = new FightRoleRender();
         roleRender.SetHpMax(report.hp);
         roleRender.SetMpMax(report.mp);
         roleRender.LoadNpc(report.assetName, (RoleType)report.roleType, battleFieldRender.GetWorldPosition(report.nodeId));
         dicFightRole[report.roleId] = roleRender;
+
+        if (report.roleType == 4)
+        {
+           // CameraController.Instance.followTarget = roleRender.gameObject.transform;
+        }
         
+
         string asset = "";
         for (int i = 0; i < report.skills.Length; i++)
         {
@@ -168,13 +174,21 @@ public class FightSceneRender
         if (dicFightRole.ContainsKey(report.roleId))
         {
             Vector3 pos = battleFieldRender.GetWorldPosition(report.posId);
-            dicFightRole[report.roleId].Move(pos, report.endTime - report.time);
+            if (report.endTime <= 0)
+            {
+                dicFightRole[report.roleId].StopMove(pos);
+            }
+            else
+            {
+                dicFightRole[report.roleId].Move(pos, report.endTime - report.time);
+            }
+            
             //this.battleFieldRender.platform.SetNodeWalkState(report.posId,false);
         }
                 
     }
 
-
+    //普攻
     private void DoReport_RoleAttack(FightReport v)
     {
         FightReportRoleAttack report = v as FightReportRoleAttack;
@@ -183,12 +197,14 @@ public class FightSceneRender
         {
             return;
         }
-
+    
         if (dicFightRole.ContainsKey(report.roleId))
         {
-          
+            FightRoleRender role;
+            dicFightRole.TryGetValue(report.targetId, out role);
+
             dicFightRole[report.roleId].AttackShow(fightDamageInfo, report.time, 
-                report.timeExecute, report.isHit, dicFightRole[report.targetId]);
+                report.timeExecute, report.isHit, role);
         }
     }
 
@@ -224,7 +240,7 @@ public class FightSceneRender
         dicFightRole[report.roleId].SetMp(report.mp);
     }
 
-    //播放施法效果
+    //播放施法效果,投放技能
     private void DoReport_RoleCastSkill(FightReport v)
     {
         FightReportRoleCastSkill report = v as FightReportRoleCastSkill;
@@ -238,7 +254,7 @@ public class FightSceneRender
         {
             listTargets.Add(dicFightRole[report.targetIds[i]]);
         }
-        dicFightRole[report.roleId].SkillCast(fightSkillInfo, listTargets);
+        dicFightRole[report.roleId].SkillCast(fightSkillInfo, listTargets, GetTime()+1000);
         dicFightRole[report.roleId].SetMp(report.mp);
     }
 

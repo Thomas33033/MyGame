@@ -10,20 +10,23 @@ namespace FightCommom
     {
         public int Id;
         public Vector3 pos;
+        public IntVector2 gridPos;
+        public Vector3 worldPos;
         public Node[] neighbourNode;
         public float[] neighbourCost;
         public Node parent;
 
         private bool _walkable;
 
+        private int weight;
+
+        public ENodeType state = ENodeType.Empty;
+
         public bool walkable {
             get { return _walkable; }
-            set {
-                _walkable = value;
-                if(FightSceneRender.Instance != null && FightSceneRender.Instance.battleFieldRender != null)
-                    FightSceneRender.Instance.battleFieldRender.platform.SetNodeWalkState(Id, _walkable);
-            }
+            set {_walkable = value; }
         }
+
         public float tempScoreG = 0;
         public float scoreG;
         public float scoreH;
@@ -43,9 +46,9 @@ namespace FightCommom
         public Node(Vector3 position, int id)
         {
             pos = position;
+            this.gridPos = new IntVector2((int)pos.x,(int)pos.z);
             Id = id;
             this._walkable = true;
-
         }
 
         public void SetNeighbour(List<Node> arrNeighbour, List<float> arrCost)
@@ -88,11 +91,36 @@ namespace FightCommom
             scoreF = scoreG + scoreH;
         }
 
+        public void SetWeight(int i)
+        {
+            weight = i;
+        }
+
+        public int GetWeight()
+        {
+            return weight;
+        }
 
         public float Distance(Node node)
         {
             float distance = Vector3.Distance(this.pos, node.pos);
             return distance;
+        }
+
+        public Vector3 GetWorldPosition()
+        {
+            return worldPos;
+        }
+
+
+        public void SetNodeState(ENodeType state)
+        {
+            this.state = state;
+        }
+
+        public Vector2 getFlowFieldVector()
+        {
+            return Vector2.zero;
         }
     }
 

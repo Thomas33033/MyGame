@@ -22,33 +22,36 @@ public class PathFinder {
 		return pathFinder.pathSmoothing;
 	}
 	
-	static public Node GetNearestNode(Vector3 point, Node[] graph){
+	static public Node GetNearestNode(Vector3 point, Node[,] graph){
 		float dist=Mathf.Infinity;
 		float currentNearest=Mathf.Infinity;
 		Node nearestNode=null;
-		foreach(Node node in graph){
-			if(node.walkable){
-				dist=Vector3.Distance(point, node.pos);
-				if(dist<currentNearest){
-					currentNearest=dist;
-					nearestNode=node;
-				}
-			}
-		}
-		return nearestNode;
+        foreach (Node node in graph)
+        {
+            if (node.walkable)
+            {
+                dist = Vector3.Distance(point, node.pos);
+                if (dist < currentNearest)
+                {
+                    currentNearest = dist;
+                    nearestNode = node;
+                }
+            }
+        }
+        return nearestNode;
 	}
 	
 	
 
-	static public List<Node> GetPath(Node startN, Node endN, Node[] graph, bool urgent = false){
+	static public List<Node> GetPath(Node startN, Node endN, Node[,] graph, bool urgent = false){
 		return GetPath(startN, endN, null, graph, urgent);
 	}
 	
-	static public List<Node> GetPath(Node startN, Node endN, Node blockN, Node[] graph, bool urgent){
+	static public List<Node> GetPath(Node startN, Node endN, Node blockN, Node[,] graph, bool urgent){
 			return Search(startN, endN, blockN, graph);
 	}
 	
-	static private List<Node> Search(Node startN, Node endN, Node blockN, Node[] graph){
+	static private List<Node> Search(Node startN, Node endN, Node blockN, Node[,] graph){
         if (pathFinder == null)
         {
             pathFinder = new PathFinder();
@@ -56,7 +59,7 @@ public class PathFinder {
 		return pathFinder._Search(startN, endN, blockN, graph);
 	}
 	
-	List<Node> _Search(Node startN, Node endN, Node blockN, Node[] graph){
+	List<Node> _Search(Node startN, Node endN, Node blockN, Node[,] graph){
 		
 		if(blockN!=null)
         {
@@ -172,7 +175,7 @@ public class PathFinder {
 	}
 	
 	
-	static public List<Node> ForceSearch(Node startN, Node endN, Node blockN, Node[] graph){
+	static public List<Node> ForceSearch(Node startN, Node endN, Node blockN, Node[,] graph){
 		
 		if(blockN!=null){
 			blockN.walkable=false;
@@ -342,10 +345,14 @@ public class PathFinder {
 		return p;
 	}
 	
-	static public void ResetGraph(Node[] nodeGraph){
-		foreach(Node node in nodeGraph){
-			node.listState=_ListState.Unassigned;
-			node.parent=null;
+	static public void ResetGraph(Node[,] nodeGraph){
+		for (int i = 0; i < nodeGraph.GetLength(0); i++)
+		{
+			for (int j = 0; j < nodeGraph.GetLength(1); j++)
+			{
+				nodeGraph[i,j].listState = _ListState.Unassigned;
+				nodeGraph[i, j].parent = null;
+			}
 		}
 	}
 	

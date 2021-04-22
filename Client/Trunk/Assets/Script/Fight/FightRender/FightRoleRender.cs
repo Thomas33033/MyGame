@@ -17,7 +17,6 @@ public class FightRoleRender : RoleRender
 
     private ModelPoolObj npcPoolObj;
 
-
     public FightRoleRender() 
     {
         delayCalls = new List<DelayCall>();
@@ -68,36 +67,46 @@ public class FightRoleRender : RoleRender
 
     public void LoadNpc(string npcAsset, RoleType roleType,Vector3 position)
     {
-
+        this.roleType = roleType;
         var pool = ObjectPoolManager.Instance.CreatePool<ModelPoolObj>(ResPathHelper.UI_NPC_PATH + npcAsset + ".prefab");
         npcPoolObj = pool.GetObject();
         gameObject = npcPoolObj.itemObj;
         transform = gameObject.transform;
         this.transform.position = position;
 
+        animator = this.gameObject.GetComponent<Animator>();
+        if (animator == null)
+        {
+            Transform body = this.gameObject.transform.Find("body");
+            if (body != null)
+            {
+                animator = body.GetComponent<Animator>();
+            }
+        }
+
         if (roleType == RoleType.Buildings)
         {
             gameObject.layer = LayerManager.layerBuilding;
         }
+        else
+        {
+            string uiHeadPath = string.Format("{0}/{1}.prefab", ResPathHelper.UI_WINDOW_PATH, "HUD/UI_Head");
+            ModelPoolObj modelPoolObj = ObjectPoolManager.Instance.GetPoolObj<ModelPoolObj>(uiHeadPath);
+            ui = modelPoolObj.itemObj.GetComponent<FightRoleUI>();
+            ui.transform.parent = GameObject.Find("UIRootHp").transform;
+            ui.transform.localPosition = new Vector3(0, 1, 0);
+            ui.GetComponent<FollowUI3D>().target = transform.Find("head").transform;
+            ui.SetData(this.hpMax, this.mpMax);
+        }
 
-        animator = this.gameObject.GetComponent<Animator>();
+        
         //animator.runtimeAnimatorController = LoadTools.LoadRoleAnimator("RoleNpc", npcAsset);
-
-        string uiHeadPath = string.Format("{0}/{1}.prefab", ResPathHelper.UI_WINDOW_PATH, "HUD/UI_Head");
-        ModelPoolObj modelPoolObj = ObjectPoolManager.Instance.GetPoolObj<ModelPoolObj>(uiHeadPath);
-        ui = modelPoolObj.itemObj.GetComponent<FightRoleUI>();
-        ui.transform.parent = GameObject.Find("UIRootHp").transform;
-        ui.transform.localPosition = new Vector3(0, 1, 0);
-        ui.GetComponent<FollowUI3D>().target = transform.Find("head").transform;
-        ui.SetData(this.hpMax,this.mpMax);
-
 
         this.hitTrans = transform.Find("hit");
         if (this.hitTrans == null)
         {
             this.hitTrans = this.transform;
         }
-
 
         if (animator != null)
         {
@@ -108,7 +117,7 @@ public class FightRoleRender : RoleRender
     public void Jump(Vector3 v, float time)
     {
         Quaternion wantedRot = Quaternion.LookRotation(v - this.transform.position);
-        transform.rotation = wantedRot;
+        //transform.rotation = wantedRot;
 
         transform.DOKill(true);
 
@@ -132,12 +141,8 @@ public class FightRoleRender : RoleRender
 
     public void Move(Vector3 v, float time)
     {
-
-        //transform.localScale = new Vector3(v.x > transform.localPosition.x ? 1 : -1, 1, 1);
-
         Quaternion wantedRot = Quaternion.LookRotation(v - this.transform.position);
         transform.rotation = wantedRot;
-        //transform.DOLookAt(v - this.transform.position, 0.1f);
 
         transform.DOKill(!animator.GetBool("move"));
 
@@ -148,6 +153,18 @@ public class FightRoleRender : RoleRender
         animator.SetBool("move", true);
     }
 
+    public void StopMove(Vector3 v)
+    {
+        //如果当前位置，比目标位置大10则强制瞬移到目标点
+        transform.DOKill();
+        animator.SetBool("move", false);
+        float distance = Vector3.Distance(v, this.transform.position);
+        if (distance > 5)
+        {
+            this.transform.position = v;
+        }
+}
+
     public override void Die()
     {
         base.Die();
@@ -155,6 +172,7 @@ public class FightRoleRender : RoleRender
         PlayAnimator("Death");
         isDie = true;
         SkillCastBreak();
+        
         this.AddSchedule(2f, this.DoDestroy);
        
         ui.gameObject.SetActive(false);
@@ -311,6 +329,7 @@ public class FightRoleRender : RoleRender
             //        FightAttackRender fightSCAttack = obj.GetComponent<FightAttackRender>();
             //        if (fightSCAttack != null)
             //        {
+            //            UpdateSkillEffectFromPoint(skillInfo.id);
             //            fightSCAttack.SetData(poolObj, this, listTargets);
             //        }
             //    }
@@ -341,7 +360,7 @@ public class FightRoleRender : RoleRender
     private bool isSkillCasting;
     //private bool isHightShowwing;
 
-    public override void SkillCast(FightSkillInfo skillInfo, List<RoleRender> listTargets)
+    public override void SkillCast(FightSkillInfo skillInfo, List<RoleRender> listTargets, float dieTime)
     {
         if (string.IsNullOrEmpty(skillInfo.MagicEffectSound) == false)
         {
@@ -349,6 +368,8 @@ public class FightRoleRender : RoleRender
         }
 
         isSkillCasting = true;
+
+        ShowSkill(skillInfo, listTargets);
 
         if (string.IsNullOrEmpty(skillInfo.MagicEffect) == false)
         {
@@ -367,23 +388,22 @@ public class FightRoleRender : RoleRender
                 FightAttackRender fightSCAttack = obj.GetComponent<FightAttackRender>();
                 if (fightSCAttack != null)
                 {
-                    fightSCAttack.SetData(poolObj, this, listTargets);
+                    
+                    UpdateSkillEffectFromPoint(skillInfo.id);
+                    fightSCAttack.SetData(poolObj, this, listTargets, dieTime);
                 }
+            }
+            else
+            {
+                Debug.LogError("Not find res " + assetName);
             }
 
         }
 
-        if (skillInfo.Type == 0)
-        {
-            ShowSkill0(skillInfo, listTargets);
-        }
-        else if (skillInfo.Type == 2)
-        {
-            ShowSkill2(skillInfo, listTargets);
-        }
+        
     }
 
-    private void ShowSkill0(FightSkillInfo skillInfo, List<RoleRender> listTargets)
+    private void ShowSkill(FightSkillInfo skillInfo, List<RoleRender> listTargets)
     {
         transform.DOKill(true);
 
@@ -392,18 +412,16 @@ public class FightRoleRender : RoleRender
             Quaternion wantedRot = Quaternion.LookRotation(listTargets[0].transform.position - this.transform.position);
             transform.rotation = wantedRot;
         }
- 
 
-        if (isPlayer)
+        int skillIndex = skillInfo.id % 10;
+        if (skillIndex == 0)
         {
-            //isHightShowwing = true;
-            //Fight3D.instance.OpenSkillCamera(Time.time + 1f);
-            //ChangeLayer(transform, LayerMask.NameToLayer("FightRoleHight"));
-            //Invoke("ResetHightShowwing", 1f);
-            //int d = skeletonAnimator.transform.localScale.x > 0 ? 1 : -1;
-            //skeletonAnimator.transform.DOScale(new Vector3(d * 1.5f, 1.5f, 1.5f), 0.2f);
+            PlayAnimator("attack");
         }
-        PlayAnimator("castSkill");
+        else
+        {
+            PlayAnimator("skill_"+ skillIndex);
+        }
     }
 
     private void ResetHightShowwing()
@@ -412,32 +430,6 @@ public class FightRoleRender : RoleRender
        
     }
 
-    private void ShowSkill2(FightSkillInfo skillInfo, List<RoleRender> listTargets)
-    {
-        if (listTargets.Count <= 0)
-            return;
-        
-        RoleRender target = listTargets[0];
-        
-        transform.DOKill(true);
-        Quaternion wantedRot = Quaternion.LookRotation(target.transform.position - this.transform.position);
-        transform.rotation = wantedRot;
-    
-        Vector3 vt3 = target.transform.position - transform.position;
-        
-        int d = 0;
-        if (vt3.z > 0.5f)
-        {
-            d = 1;
-        }
-        else if (vt3.z < -0.5f)
-        {
-            d = -1;
-        }
-
-        animator.SetInteger("direction", d);
-        PlayAnimator("attack");
-    }
 
     public override void PlayAnimator(string v)
     {
@@ -486,6 +478,7 @@ public class FightRoleRender : RoleRender
             FightAttackRender fightSCAttack = obj.GetComponent<FightAttackRender>();
             if (fightSCAttack != null)
             {
+                UpdateSkillEffectFromPoint(0);
                 fightSCAttack.SetData(poolObj, this, new List<RoleRender>() { target }, timeExecute);
             }
         }
@@ -497,4 +490,21 @@ public class FightRoleRender : RoleRender
         base.BuffAdd(info);
     }
 
+    /// <summary>
+    /// 刷新技能特效起始位置
+    /// </summary>
+    /// <param name="skillId"></param>
+    private void UpdateSkillEffectFromPoint(int skillId)
+    {
+        Transform trans = transform.Find("skill_" + skillId%10 + "_point");
+        if (trans != null)
+        {
+            this.fromPoint = trans.position;
+        }
+        else
+        {
+            this.fromPoint = this.transform.position;
+        }
+        
+    }
 }

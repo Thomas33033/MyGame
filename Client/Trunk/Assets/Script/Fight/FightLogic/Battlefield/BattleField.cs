@@ -30,7 +30,7 @@ namespace Fight
 
         public List<FightAttackData> listAttacks;
 
-        public Node[] nodeGraph;
+        public Node[,] nodeGraph;
 
         public Dictionary<int, Node> dicNodeGraph;
 
@@ -50,8 +50,12 @@ namespace Fight
             this.row = battleFieldData.row;
             this.column = battleFieldData.column;
 
-            for (int i = 0; i < this.nodeGraph.Length; i++) {
-                dicNodeGraph.Add(nodeGraph[i].Id, nodeGraph[i]);
+            for (int i = 0; i < this.nodeGraph.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.nodeGraph.GetLength(0); j++)
+                {
+                    dicNodeGraph.Add(nodeGraph[i, j].Id, nodeGraph[i, j]);
+                }
             }
         }
 
@@ -417,8 +421,6 @@ namespace Fight
 
         internal List<Node> GetAround(Node node, int _range, int targetSize)
         {
-            
-           
             templist.Clear();
             int tx = (int) node.pos.x;
             int ty = (int) node.pos.z;
@@ -446,7 +448,7 @@ namespace Fight
                         if (dicNodeGraph[id].walkable)
                         {
                             templist.Add(dicNodeGraph[id]);
-                            FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(id, ENodeColor.CanBuild);
+                            FightSceneRender.Instance.battleFieldRender.platform.SetNodeState(id, ENodeType.CanBuild);
                         }
                     }
                 }
@@ -483,6 +485,16 @@ namespace Fight
             //        neighborCells.Add(hex);
             //    }
             //}
+        }
+
+
+        public Node GetNodeById(int nodeId)
+        {
+            if (dicNodeGraph.ContainsKey(nodeId))
+            {
+                return dicNodeGraph[nodeId];
+            }
+            return null;
         }
     }
 }

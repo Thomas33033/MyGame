@@ -8,8 +8,24 @@ public class FightSCAttackHitDirection : FightSCAttackHit
     {
         base.SetData(poolObj, attacker, listTargets, dieTime, timeScale);
 
-        float angle = attacker.transform.position.x < listTargets[0].transform.position.x ? 0 : 180f;
+        if (listTargets.Count > 0)
+        {
+            //float angle = attacker.transform.position.x < listTargets[0].transform.position.x ? 0 : 180f;
+            //this.transform.localEulerAngles = new UnityEngine.Vector3(0, angle, 0);
+            this.transform.LookAt(listTargets[0].transform);
+        }
+        else
+        {
+           
+            transform.position = this.attacker.transform.forward * 5
+                + this.attacker.transform.position;
+            Debug.LogError(transform.position);
+            //transform.rotation = this.attacker.transform.rotation;
+            
+        }
 
-        this.transform.localEulerAngles = new UnityEngine.Vector3(0, angle, 0);
+       
+
+        
     }
 }

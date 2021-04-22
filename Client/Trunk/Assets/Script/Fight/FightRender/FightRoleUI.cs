@@ -24,7 +24,7 @@ public class FightRoleUI : MonoBehaviour
         this.hpMax = hpMax;
         this.mpMax = mpMax;
 
-        gameObject.SetActive(false);
+      //  gameObject.SetActive(false);
     }
 
     public void ShowHp(int hp)
@@ -48,17 +48,17 @@ public class FightRoleUI : MonoBehaviour
 
     private float hpDuration = 1;
     private float hpStartTimes = 0;
-    private float speed = 1;
+    private float speed = 1; 
     private float startValue;
     private float endValue;
     private float rate = 0;
     void Update()
     {
-        if (rate <= 1)
-        {
-            hpStartTimes += Time.deltaTime * speed;
-            imgMp.fillAmount = endValue + (rate) * (hpStartTimes - endValue);
-        }
-        rate = 1 - hpStartTimes / hpDuration;
+        //if (rate <= 1)
+        //{
+        //    hpStartTimes += Time.deltaTime * speed;
+        //    imgMp.fillAmount = endValue + (rate) * (hpStartTimes - endValue);
+        //}
+        //rate = 1 - hpStartTimes / hpDuration;
     }
 }

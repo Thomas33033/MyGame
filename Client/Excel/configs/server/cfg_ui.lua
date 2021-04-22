@@ -1,5 +1,5 @@
 cfg_ui =  {}
 local table = cfg_ui
-table["UI_Loading"]={id = UI_Loading, SoundId = 0, }
-table["UI_Main"]={id = UI_Main, SoundId = 0, }
-table["UI_Menu"]={id = UI_Menu, SoundId = 0, }
+table["1"]={id = 1, SoundId = 0, }
+table["2"]={id = 2, SoundId = 0, }
+table["3"]={id = 3, SoundId = 0, }

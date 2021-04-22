@@ -105,10 +105,10 @@ public class SkillEditor : EditorWindow
 
     private int SortListEffectInfos(FightEffectInfo x, FightEffectInfo y)
     {
-        if (string.IsNullOrEmpty(_newId) == false)
-        {
-            return _newId.CompareTo(x.id).CompareTo(_newId.CompareTo(y.id));
-        }
+        //if (string.IsNullOrEmpty(_newId) == false)
+        //{
+        //    return _newId.CompareTo(x.id).CompareTo(_newId.CompareTo(y.id));
+        //}
 
         return x.id.CompareTo(y.id);
     }
@@ -263,6 +263,12 @@ public class SkillEditor : EditorWindow
         if (GUILayout.Button("新建", GUILayout.MaxWidth(120)))
         {
             _newId = _newId.Trim();
+
+            if (string.IsNullOrEmpty(_newId))
+            {
+                Debug.LogError("ID不能为空！");
+                return;
+            }
 
             if (!string.IsNullOrEmpty(_newId))
             {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Experimental.PlayerLoop;
+//using UnityEngine.Experimental.PlayerLoop;
 
 namespace Fight
 {
@@ -125,15 +125,15 @@ namespace Fight
         }
 
         /// <summary>
-        /// 0主动 1被动 2普攻 3火炮
+        /// 0主动 1被动 2普攻
         /// </summary>
         /// <param name="skillType"></param>
         /// <returns></returns>
-        public bool CastSkill(int skillType)
+        public bool CastSkill(SkillAttackType skillType)
         {
             for (int i = 0; i < listSkills.Count; i++)
             {
-                if (listSkills[i].type == skillType)
+                if (listSkills[i].type == (int)skillType)
                 {
                     if (DoSkill(listSkills[i]) == false)
                         continue;
@@ -146,6 +146,14 @@ namespace Fight
             }
 
             return false;
+        }
+
+        public void CastSkill(int index)
+        {
+            if (listSkills.Count > index)
+            {
+                DoSkill(listSkills[index]);
+            }
         }
 
         public void CastSkill(int skillId, int level)
@@ -304,7 +312,7 @@ namespace Fight
 
             int[] targetIds = skillCasting.fightEffectBox.GetEffectTargetIds();
 
-            if (skillCasting.info.Type == 0 || skillCasting.info.Type == 3)
+            if (skillCasting.info.Type == 0)
             {
                 Owner.mp = 0;
                 Owner.autoUseSkillOnce = false;
@@ -314,9 +322,10 @@ namespace Fight
             {
                 Owner.AddMp(12);
             }
-
-            Owner.AddReport(new FightReportRoleCastSkill(Owner.Time, Owner.teamId, Owner.id, 
-                skillCasting.skillId, targetIds, Owner.mp, Owner.attackCd));
+            
+            Owner.AddReport(new FightReportRoleCastSkill(Owner.Time, 
+                Owner.teamId, Owner.id, skillCasting.skillId, 
+                targetIds, Owner.mp, Owner.attackCd));
 
             if (skillCasting.isChannelling)
             {

@@ -1,11 +1,16 @@
 ﻿namespace Fight
 {
+    /// <summary>
+    /// 战斗技能配置
+    /// </summary>
     public class FightSkillInfo : IStaticData
     {
         public int id;
 
         /// <summary>
-        /// 0 普通攻击 1 物理伤害 2法术伤害 3加血 4加蓝
+        /// 0 主动攻击 
+        /// 1 被动攻击 
+        /// 2 普攻
         /// </summary>
         public int Type;
 

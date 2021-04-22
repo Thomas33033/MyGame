@@ -8,7 +8,7 @@ public class FightSCAttackDirection : FightAttackRender
     {
         base.SetData(poolObj, attacker, listTargets, dieTime, timeScale);
 
-        //transform.SetParent(transform.parent.parent);
-        //transform.localPosition = new Vector3();
+       transform.position = attacker.fromPoint;
+       transform.rotation = attacker.transform.rotation;
     }
 }

@@ -41,6 +41,11 @@ function UITable:OnInitMineNpc()
 	table.insert(lstRoleIds,{npcId=2002, teamId=1})
 	table.insert(lstRoleIds,{npcId=1005, teamId=1})
 
+	table.insert(lstRoleIds,{npcId=4001, teamId=1})
+	table.insert(lstRoleIds,{npcId=4002, teamId=1})
+	table.insert(lstRoleIds,{npcId=4003, teamId=1})
+	table.insert(lstRoleIds,{npcId=4004, teamId=1})
+
 	self.myRoleList = ListView.New()
 	self.myRoleList:init(roleItemRender,self.friendSlotContainer,lstRoleIds)
 end

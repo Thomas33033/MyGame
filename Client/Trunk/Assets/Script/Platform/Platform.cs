@@ -10,6 +10,7 @@ public class Platform : MonoBehaviour {
     public _TowerType[] buildableType = new _TowerType[1];
     //表现
     public bool GizmoShowNodes = true;
+
     public bool GizmoShowPath = true;
 
     public int gridSize;
@@ -20,78 +21,98 @@ public class Platform : MonoBehaviour {
 
     public int ID;
 
-
-
     private bool walkable;
 
-    private Node[] nodeGraphLogic;
+    public IntVector2 platformSize;
 
-    private NodeRender[] nodeGraph;
+    public Node[,] nodeGraph;
+    public Dictionary<int,Node> nodeMap;
 
-    private Dictionary<int, NodeRender> nodeGraphMap;
+    private bool graphGenerated=false;
 
-	private bool graphGenerated=false;
 
-	public bool IsNodeGenerated()
+    public CreateGridMesh meshGrid;
+
+    public GameObject cube;
+
+    private bool updateGride = true;
+
+    public bool IsNodeGenerated()
     {
 		return graphGenerated;
 	}
 
-	private List<PathOnPlatform> pathObjects=new List<PathOnPlatform>();
+	private List<PathOnPlatform> pathObjects = new List<PathOnPlatform>();
 
 	private Node nearestNode;   //距离建筑最近的格子
     
-
     [HideInInspector] public GameObject thisObj;
-	[HideInInspector] public Transform thisT;
 
-   
+	[HideInInspector] public Transform thisT;
 
     private List<PathSection> queue = new List<PathSection>();
 
-    public void SetNodeState(int id, ENodeColor color)
+    public void SetNodeState(int id, ENodeType type)
     {
-        this.nodeGraphMap[id].SetViewColorState(color);
+        this.nodeMap[id].SetNodeState(type);
     }
 
-    public void SetNodeWalkState(int id, bool walkable)
+    public void SetNodeState(IntVector2 pos, ENodeType type)
     {
-        this.nodeGraphMap[id].walkable_new = walkable;
-        this.nodeGraphMap[id].DefaultColor();
+        this.nodeGraph[pos.x, pos.y].SetNodeState(type);
     }
 
-    public void RefreshColor(int id)
+    public void SetNodeState(int x,int y, ENodeType type)
     {
-        this.nodeGraphMap[id].DefaultColor();
+        this.nodeGraph[x,y].SetNodeState(type);
+    }
+
+    public Node[,] GetNodeGraph()
+    {
+        return nodeGraph;
+    }
+
+    public Node GetNodeRender(int x, int y)
+    {
+        if (x < this.column && y < this.row)
+        {
+            return this.nodeGraph[x,y];
+        }
+        return null;
     }
 
 
+    public void SetNodeWalkState(Node node, bool walkable)
+    {
+        node.walkable = walkable;
+    }
+        
     void Awake()
     {
-        nodeGraphMap = new Dictionary<int, NodeRender>();
-
         ID = Entity.GetUniqueId();
 
-        thisObj =gameObject;
+        thisObj = gameObject;
 
-		thisT=transform;
-		
-		//thisObj.layer=LayerManager.LayerPlatform();
-    
+		thisT = transform;
 	}
 	
 	public void GenerateNode(float heightOffset)
     {
-        nodeGraphLogic = NodeGenerator.GenerateNode(this, heightOffset);
-        nodeGraph = nodeGraphMap.Values.ToArray<NodeRender>();
+        NodeGenerator.GenerateNode(this, heightOffset);
+        nodeMap = new Dictionary<int, Node>();
+        platformSize = new IntVector2(column, row);
+
+        for (int i = 0; i < this.nodeGraph.GetLength(0); i++)
+        {
+            for (int j = 0; j < this.nodeGraph.GetLength(0); j++)
+            {
+                nodeMap.Add(nodeGraph[i, j].Id, nodeGraph[i, j]);
+            }
+        }
+
         graphGenerated =true;
 	}
 
-
-    public void SetNodeRender(Node node,Vector3 worldPos)
-    {
-        nodeGraphMap.Add(node.Id, new NodeRender(node, worldPos));
-    }
 
 	public void SearchForNewPath(PathSection PS){
 		queue.Add(PS);
@@ -135,15 +156,18 @@ public class Platform : MonoBehaviour {
 	}
 
 
-    public bool CheckForBlock(Vector3 pos, List<int> costGrid, int nodeSize)
+    public bool CheckForBlock(Node node, List<int> costGrid, int nodeSize)
     {
-		float gridSize=BuildManager.GetGridSize();
-		bool blocked=false;
-		
-		nearestNode=PathFinder.GetNearestNode(pos, nodeGraph);
-        
+		float gridSize = BuildManager.GetGridSize();
+
+		bool blocked = false;
+
+        nearestNode = node;
+
+        Vector3 pos = node.GetWorldPosition();
+
         //如果建筑需要的格子包含阻挡，则返回false
-        if (RefreshBulidGrid(nearestNode.Id, costGrid, nodeSize))
+        if (CheckBulidGrid(nearestNode, costGrid, nodeSize))
         {
             return true;
         }
@@ -193,7 +217,7 @@ public class Platform : MonoBehaviour {
     }
 
 
-	public void Build(Vector3 point, FightRoleData buildData, List<int> costNodeIDs)
+	public void Build(Vector3 point, FightRoleData buildData, List<IntVector2> costNodeIDs)
     {
         if (walkable)
         {
@@ -203,8 +227,7 @@ public class Platform : MonoBehaviour {
 				nearestNode.walkable=false;
                 for (int i = 0; i < costNodeIDs.Count; i++)
                 {
-                    nodeGraphMap[costNodeIDs[i]].walkable = false;
-                    nodeGraphMap[costNodeIDs[i]].DefaultColor();
+                    nodeGraph[costNodeIDs[i].x, costNodeIDs[i].y].walkable = false;
                 }
 
                 buildData.PlatformId = this.ID;
@@ -253,32 +276,22 @@ public class Platform : MonoBehaviour {
 		return walkable;
 	}
 
-     
     public Vector3 GetWorldPosition(int nodeId)
     {
-        return this.nodeGraphMap[nodeId].pos;
+        return this.nodeMap[nodeId].GetWorldPosition();
     }
 
-
-    public Node[] GetNodeGraph(){
-		return nodeGraphLogic;
-	}
+    public Vector3 GetWorldPosition(IntVector2 pos)
+    {
+        return this.nodeGraph[pos.x,pos.y].GetWorldPosition();
+    }
 
     private bool InitViewObj = false;
-	void Update()
-    {
 
-        if (InitViewObj == false && nodeGraph != null && nodeGraph.Length > 0)
-        {
-            foreach (Node node in nodeGraph)
-            {
-                if(nodeGraphMap[node.Id].viewObj == null)
-                {
-                    nodeGraphMap[node.Id].CreateViewObj();
-                }
-            }
-            InitViewObj = true;
-        }
+    public LayerMask ignorMask;
+
+    void Update()
+    {
 
         if (GizmoShowPath){
 			foreach(PathOnPlatform pathObj in pathObjects)
@@ -304,49 +317,74 @@ public class Platform : MonoBehaviour {
 				}
 			}
 		}
-		
-	}
+    }
 
-    public void CheckColumn(ref bool hasBlock, List<int> list, int _rowIndex, int _columnIndex)
+
+    private float fNodeDiameter = 1;
+    private float fDistanceBetweenNodes = 0.5f;
+
+    public void OnDrawGizmos()
     {
-        int id = _rowIndex * this.column + _columnIndex;
-        
-        if (_columnIndex < 0 || _columnIndex >= this.column)
+        //Gizmos.DrawWireCube(transform.position, new Vector3(vGridWorldSize.x, 1, vGridWorldSize.y));
+        if (nodeGraph != null)//If the grid is not empty
         {
-            hasBlock = true;
+            fNodeDiameter = (int)BuildManager.GetGridSize();
+            for (int i = 0; i < nodeGraph.GetLength(0); i++)
+            {
+                for (int j = 0; j < nodeGraph.GetLength(1); j++)
+                {
+                    Gizmos.color = nodeGraph[i, j].walkable ? Color.red * 0.5f : Color.yellow;
+                    Gizmos.DrawCube(nodeGraph[i, j].GetWorldPosition(), new Vector3(1, 0, 1) * (fNodeDiameter - fDistanceBetweenNodes));//Draw the node at the position of the node.
+                    // Gizmos.DrawLine(n.GetWorldPosition(), n.GetWorldPosition() + new Vector3(n.getFlowFieldVector().x, 0, n.getFlowFieldVector().y).normalized * 2);
+                    // Gizmos.color = Color.black;
+                }
+            }
         }
-        else if (_rowIndex < 0 || _rowIndex >= this.row)
+    }
+
+
+    public bool CheckGridIsValid(int x, int y)
+    {
+        if (x < 0 || x >= this.column)
+        {
+            return false;
+        }
+        else if (y < 0 || y >= this.row)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public bool CheckGridIsValid(IntVector2 pos)
+    {
+        return CheckGridIsValid(pos.x, pos.y);
+    }
+    
+    public void Check(ref bool hasBlock, List<int> list, int x, int y)
+    {
+        if (CheckGridIsValid(x,y))
         {
             hasBlock = true;
         }
         else
         {
-            if (id >= 0 && id < nodeGraph.Length)
+            if (!nodeGraph[x,y].walkable)
             {
-                if (!nodeGraph[id].walkable)
-                {
-                    hasBlock = true;
-                }
-                list.Add(id);
+                hasBlock = true;
             }
+            list.Add(nodeGraph[x, y].Id);
         }
     }
 
-    public void ResetDefaultRes()
+    public bool CheckBulidGrid(Node node, List<int> costGrid,int nodeSize)
     {
-        foreach(var v in nodeGraphMap)
-        {
-            v.Value.DefaultColor();
-        }
-    }
-
-    public bool RefreshBulidGrid(int index, List<int> costGrid,int nodeSize)
-    {
-        ResetDefaultRes();
         costGrid.Clear();
-        List<int> list = new List<int>();
-        int c_row = index / this.column;
-        int c_column = index % this.column;
+
+        int startX = node.gridPos.x;
+
+        int startY = node.gridPos.y;
+
         bool hasBlock = false;
 
         int range = nodeSize / 2;
@@ -355,23 +393,40 @@ public class Platform : MonoBehaviour {
         {
             for (int y = -range; y <= range; y++)
             {
-                CheckColumn(ref hasBlock, list, c_row + x, c_column + y);
-            }
-        }
-
-
-        for (int i = 0; i < list.Count; i++)
-        {
-            if (list[i] >= 0 && list[i] < nodeGraph.Length)
-            {
-                nodeGraphMap[nodeGraph[list[i]].Id].SetViewColorState(
-                    hasBlock == true ? ENodeColor.CantBuild : ENodeColor.CanBuild);
-                costGrid.Add(list[i]);
+                if (NodeGenerator.IsValid(startX + x, startY + y, platformSize, this.nodeGraph))
+                {
+                    costGrid.Add(nodeGraph[startX + x, startY + y].Id);
+                }
+                else
+                {
+                    hasBlock = true;
+                }
+                
             }
         }
 
         return hasBlock;
     }
 
+    public void GridStateChange()
+    {
+        this.updateGride = true;
+    }
+
+    public Node PositionToNode(Vector3 position)
+    {
+        Vector3 pos = NodeGenerator.thisT.InverseTransformPoint(position);
+        int x = Mathf.FloorToInt(pos.x / this.gridSize);
+        int y = Mathf.FloorToInt(pos.z / this.gridSize);
+        if (x < this.column && y < this.row)
+        {
+            return nodeGraph[x, y];
+        }
+        else
+        {
+            return nodeGraph[0, 0];
+        }
+       
+    }
 }
 

@@ -19,6 +19,7 @@
         {
             _time = fightEffect.role.Time;
             fightEffect.isChannelling = true;
+            DebugMgr.Log("-------FightEffectActionChannelling--------");
             //fightEffect.needUpdating = true;
             _fightEffect = fightEffect;
             return true;

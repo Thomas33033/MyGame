@@ -1,4 +1,20 @@
 {
 	"10001":{"id":10001,"type":1,"Resources":"Zidan","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
-	"10002":{"id":10002,"type":1,"Resources":"Zidan","bouns":[1000,2000],"damage":[50.0],"damageBase":300}
+	"10002":{"id":10002,"type":1,"Resources":"Zidan","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400101":{"id":400101,"type":1,"Resources":"hero_xinggongmen_pugong","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400111":{"id":400111,"type":1,"Resources":"hero_xinggongmen_skill_1","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400121":{"id":400121,"type":1,"Resources":"","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400131":{"id":400131,"type":1,"Resources":"","bouns":[1000,2001],"damage":[50.0],"damageBase":300},
+	"400201":{"id":400201,"type":1,"Resources":"hero_jingangmen_pugong","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400211":{"id":400211,"type":1,"Resources":"","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400221":{"id":400221,"type":1,"Resources":"","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400231":{"id":400231,"type":1,"Resources":"","bouns":[1000,2001],"damage":[50.0],"damageBase":300},
+	"400301":{"id":400301,"type":1,"Resources":"hero_jqingyunmen_pugong","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400311":{"id":400311,"type":1,"Resources":"","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400321":{"id":400321,"type":1,"Resources":"","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400331":{"id":400331,"type":1,"Resources":"","bouns":[1000,2001],"damage":[50.0],"damageBase":300},
+	"400401":{"id":400401,"type":1,"Resources":"hero_penglaimen_pugong","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400412":{"id":400412,"type":1,"Resources":"","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400421":{"id":400421,"type":1,"Resources":"","bouns":[1000,2000],"damage":[50.0],"damageBase":300},
+	"400431":{"id":400431,"type":1,"Resources":"","bouns":[1000,2001],"damage":[50.0],"damageBase":300}
 }

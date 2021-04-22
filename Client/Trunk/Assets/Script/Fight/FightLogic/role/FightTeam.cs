@@ -22,24 +22,5 @@ namespace Fight
         {
             //base.Update(nowTime);)
         }
-
-        public override void SkillAdd(int skillId, int level)
-        {
-            if (StaticData.dicSkillInfo.ContainsKey(skillId) == false)
-            {
-                return;
-            }
-            FightSkillInfo skillInfo = StaticData.dicSkillInfo[skillId];
-            if (fightType == 0)
-            {
-                if (skillInfo.Type != 0 && skillInfo.Type != 1 && skillInfo.Type != 2)
-                {
-                    return;
-                }
-            }
-
-            FightSkill fightSkill = new FightSkill(this, skillInfo, level);
-            skillComp.listSkills.Add(fightSkill);
-        }
     }
 }
